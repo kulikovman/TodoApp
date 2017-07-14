@@ -13,6 +13,7 @@ import ru.kulikovman.todoapp.models.Task;
 
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
+    public static OnItemClickListener mListener;
     private List<Task> mTasks;
 
     public static class TaskHolder extends RecyclerView.ViewHolder {
@@ -20,9 +21,18 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
 
         private Task mTask;
 
-        public TaskHolder(View v) {
-            super(v);
-            mTaskTitle = (TextView) v.findViewById(R.id.item_task_title);
+        public TaskHolder(View view) {
+            super(view);
+            mTaskTitle = (TextView) view.findViewById(R.id.item_task_title);
+
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (TaskAdapter.mListener != null) {
+                        TaskAdapter.mListener.onItemClick(v, getLayoutPosition());
+                    }
+                }
+            });
         }
 
         public void bindTask(Task task) {
@@ -50,5 +60,17 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
     @Override
     public int getItemCount() {
         return mTasks.size();
+    }
+
+    public void setTasks(List<Task> tasks) {
+        mTasks = tasks;
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(View itemView, int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mListener = listener;
     }
 }

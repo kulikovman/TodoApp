@@ -9,7 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.AdapterView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,9 +18,9 @@ import java.util.List;
 import ru.kulikovman.todoapp.database.TodoBaseHelper;
 import ru.kulikovman.todoapp.models.Task;
 
-public class TodoListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class TodoListActivity extends AppCompatActivity {
     private RecyclerView mTodoRecyclerView;
-    private RecyclerView.Adapter mTaskAdapter;
+    private TaskAdapter mTaskAdapter;
 
     TodoBaseHelper mTodoBaseHelper;
 
@@ -40,6 +40,17 @@ public class TodoListActivity extends AppCompatActivity implements AdapterView.O
         //mTaskAdapter = new TaskAdapter(mTodoBaseHelper.getTaskList());
         mTaskAdapter = new TaskAdapter(getTestTasks());
         mTodoRecyclerView.setAdapter(mTaskAdapter);
+
+        mTaskAdapter.setOnItemClickListener(new TaskAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View itemView, int position) {
+                /*Intent intent = new Intent(getParent(), TaskActivity.class);
+                startActivity(intent);*/
+
+                Toast.makeText(TodoListActivity.this, "Что-то получается...", Toast.LENGTH_SHORT)
+                        .show();
+            }
+        });
     }
 
     @Override
@@ -84,8 +95,4 @@ public class TodoListActivity extends AppCompatActivity implements AdapterView.O
         return testTasks;
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        view.setSelected(true);
-    }
 }
