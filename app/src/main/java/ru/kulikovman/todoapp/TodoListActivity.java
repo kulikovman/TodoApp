@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import ru.kulikovman.todoapp.database.TodoBaseHelper;
@@ -36,7 +37,8 @@ public class TodoListActivity extends AppCompatActivity implements AdapterView.O
         mTodoRecyclerView.setHasFixedSize(true);
         mTodoRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mTaskAdapter = new TaskAdapter(mTodoBaseHelper.getTaskList());
+        //mTaskAdapter = new TaskAdapter(mTodoBaseHelper.getTaskList());
+        mTaskAdapter = new TaskAdapter(getTestTasks());
         mTodoRecyclerView.setAdapter(mTaskAdapter);
     }
 
@@ -67,14 +69,17 @@ public class TodoListActivity extends AppCompatActivity implements AdapterView.O
         startActivity(intent);
     }
 
-    public List<Task> getTasks() {
+    public List<Task> getTestTasks() {
         List<Task> testTasks = new ArrayList<>();
 
-        testTasks.add(new Task("Gjbdsf sdfgsdf dfgsdf dfg"));
-        testTasks.add(new Task("Swvfe ert dv erhtr nt"));
-        testTasks.add(new Task("L vrgviebvkjbdk ekbrihewoivn sdvjnkdsbfv vksjbvik kjsdv"));
-        testTasks.add(new Task("Ufnh kwjoihfvsbn kjsbdiuvh"));
-        testTasks.add(new Task("Ekjnkuh kjbfeuvbxkdj kjbdfiubvd kjdfilvub kdjblfvbxd kjfdbvldxl"));
+        testTasks.add(new Task("Тестовый таск", new Date(), 0, "Желтый", "Ежедневно"));
+        testTasks.add(new Task("Еще один", new Date(), 2, "Зеленый", "Каждую неделю"));
+        testTasks.add(new Task("И еще один", new Date(), 4, "Желтый", "Без повтора"));
+        testTasks.add(new Task("Просто так", new Date(), 3, "Синий", "Каждую неделю"));
+        testTasks.add(new Task("Парам-пам-пам", new Date(), 1, "Фиолетовый", "Без повтора"));
+        testTasks.add(new Task("Декоданс древнегреческий", new Date(), 3, "Красный", "Без повтора"));
+        testTasks.add(new Task("Свинтус полноводный", new Date(), 3, "Желтый", "Через год"));
+        testTasks.add(new Task("Лисья норка", new Date(), 1, "Оранжевый", "Без повтора"));
 
         return testTasks;
     }

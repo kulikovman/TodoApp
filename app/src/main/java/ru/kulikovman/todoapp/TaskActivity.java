@@ -9,7 +9,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import ru.kulikovman.todoapp.database.TodoBaseHelper;
 import ru.kulikovman.todoapp.dialogs.ColorFragment;
@@ -63,6 +67,12 @@ public class TaskActivity extends AppCompatActivity {
         TextView taskPriority = (TextView) view.findViewById(R.id.priority_field);
         TextView taskColor = (TextView) view.findViewById(R.id.color_field);
         TextView taskRepeat = (TextView) view.findViewById(R.id.repeat_field);
+
+        /*DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
+        try {
+            Date date = dateFormat.parse(taskDate.getText().toString());
+        } catch (Exception ignored) {
+        }*/
 
         Task task = new Task("Тестовый таск", new Date(), 2, "Желтый", "Ежедневно");
 
