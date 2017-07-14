@@ -25,7 +25,6 @@ public class TodoBaseHelper extends SQLiteOpenHelper {
                 TaskTable.Cols.PRIORITY + ", " +
                 TaskTable.Cols.COLOR + ", " +
                 TaskTable.Cols.REPEAT + ", " +
-                TaskTable.Cols.REMINDER + ", " +
                 TaskTable.Cols.DONE + ")"
         );
     }

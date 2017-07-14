@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
             android:layout_marginTop="15dp"
-            android:onClick="taskSetting"
+            android:onClick="taskOptions"
             android:orientation="horizontal">
 
             <ImageButton
@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
             android:layout_marginTop="15dp"
-            android:onClick="taskSetting"
+            android:onClick="taskOptions"
             android:orientation="horizontal">
 
             <ImageButton
@@ -112,7 +112,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
             android:layout_marginTop="15dp"
-            android:onClick="taskSetting"
+            android:onClick="taskOptions"
             android:orientation="horizontal">
 
             <ImageButton
@@ -156,7 +156,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
             android:layout_marginTop="15dp"
-            android:onClick="taskSetting"
+            android:onClick="taskOptions"
             android:orientation="horizontal">
 
             <ImageButton

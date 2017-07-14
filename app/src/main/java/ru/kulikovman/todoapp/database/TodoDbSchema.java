@@ -12,7 +12,6 @@ public class TodoDbSchema {
             public static final String PRIORITY = "priority";
             public static final String COLOR = "color";
             public static final String REPEAT = "repeat";
-            public static final String REMINDER = "reminder";
             public static final String DONE = "done";
         }
     }
