@@ -14,21 +14,20 @@ import ru.kulikovman.todoapp.models.Task;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
     private List<Task> mTasks;
-    public boolean[] mSelects;
 
     public static class TaskHolder extends RecyclerView.ViewHolder {
-        public TextView mTaskTitle;
+        private TextView mTaskTitle;
+
+        private Task mTask;
 
         public TaskHolder(View v) {
             super(v);
             mTaskTitle = (TextView) v.findViewById(R.id.item_task_title);
+        }
 
-            v.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int i = getLayoutPosition();
-                }
-            });
+        public void bindTask(Task task) {
+            mTask = task;
+            mTaskTitle.setText(mTask.getTitle());
         }
     }
 
@@ -44,7 +43,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
 
     @Override
     public void onBindViewHolder(TaskHolder holder, int position) {
-        holder.mTaskTitle.setText(mTasks.get(position).getTitle());
+        Task task = mTasks.get(position);
+        holder.bindTask(task);
     }
 
     @Override
