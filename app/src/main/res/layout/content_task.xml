@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="ru.kulikovman.todoapp.TaskActivity"
+    tools:showIn="@layout/activity_task">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="15dp" />
+
+        <LinearLayout
+            android:id="@+id/date_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
+            android:onClick="taskSetting"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btn_date"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="30dp"
+                android:layout_marginStart="30dp"
+                android:background="@color/transparent"
+                app:srcCompat="@drawable/ic_event_24dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/date_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Дата выполнения"
+                    android:textColor="@color/optionTitleColor"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/date_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Не установлена"
+                    android:textColor="@color/optionTextColor"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/priority_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
+            android:onClick="taskSetting"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btn_priority"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="30dp"
+                android:layout_marginStart="30dp"
+                android:background="@color/transparent"
+                app:srcCompat="@drawable/ic_low_priority_24dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/priority_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Приоритет"
+                    android:textColor="@color/optionTitleColor"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/priority_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Обычный"
+                    android:textColor="@color/optionTextColor"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/color_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
+            android:onClick="taskSetting"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btn_color"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="30dp"
+                android:layout_marginStart="30dp"
+                android:background="@color/transparent"
+                app:srcCompat="@drawable/ic_palette_24dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/color_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Цвет"
+                    android:textColor="@color/optionTitleColor"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/color_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Не выбран"
+                    android:textColor="@color/optionTextColor"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/repeat_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
+            android:onClick="taskSetting"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btn_repeat"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="30dp"
+                android:layout_marginStart="30dp"
+                android:background="@color/transparent"
+                app:srcCompat="@drawable/ic_replay_24dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/repeat_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Повторение"
+                    android:textColor="@color/optionTitleColor"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/repeat_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Без повтора"
+                    android:textColor="@color/optionTextColor"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="15dp" />
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>
