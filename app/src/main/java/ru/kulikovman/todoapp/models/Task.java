@@ -9,10 +9,10 @@ public class Task {
     private Date mDate;
     private int mPriority;
     private String mColor;
-    private Date mRepeat;
+    private String mRepeat;
     private boolean mDone;
 
-    public Task(UUID id, String title, Date date, int priority, String color, Date repeat, boolean done) {
+    public Task(UUID id, String title, Date date, int priority, String color, String repeat, boolean done) {
         mId = id;
         mTitle = title;
         mDate = date;
@@ -22,7 +22,7 @@ public class Task {
         mDone = done;
     }
 
-    public Task(String title, Date date, int priority, String color, Date repeat) {
+    public Task(String title, Date date, int priority, String color, String repeat) {
         mId = UUID.randomUUID();
         mTitle = title;
         mDate = date;
@@ -81,11 +81,11 @@ public class Task {
         mColor = color;
     }
 
-    public Date getRepeat() {
+    public String getRepeat() {
         return mRepeat;
     }
 
-    public void setRepeat(Date repeat) {
+    public void setRepeat(String repeat) {
         mRepeat = repeat;
     }
 

@@ -25,7 +25,7 @@
             app:titleEnabled="false">
 
             <EditText
-                android:id="@+id/taskDescription"
+                android:id="@+id/task_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30dp"
@@ -59,6 +59,7 @@
         android:layout_margin="@dimen/fab_margin"
         app:layout_anchor="@id/app_bar"
         app:fabSize="normal"
+        android:onClick="addTask"
         app:backgroundTint="@color/green"
         app:layout_anchorGravity="bottom|end"
         app:srcCompat="@drawable/ic_send_white_24dp"/>

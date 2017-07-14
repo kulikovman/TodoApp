@@ -12,7 +12,7 @@
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/btn_task"
+            android:id="@+id/item_task_btn"
             android:layout_width="10dp"
             android:layout_height="10dp"
             android:layout_gravity="center_vertical"
@@ -21,7 +21,7 @@
             android:background="@color/blue" />
 
         <TextView
-            android:id="@+id/task_title"
+            android:id="@+id/item_task_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="2dp"

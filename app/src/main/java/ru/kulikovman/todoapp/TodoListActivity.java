@@ -1,10 +1,7 @@
 package ru.kulikovman.todoapp;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,7 +18,7 @@ import ru.kulikovman.todoapp.database.TodoBaseHelper;
 import ru.kulikovman.todoapp.models.Task;
 
 public class TodoListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
-    private RecyclerView mTodoListRecyclerView;
+    private RecyclerView mTodoRecyclerView;
     private RecyclerView.Adapter mTaskAdapter;
 
     TodoBaseHelper mTodoBaseHelper;
@@ -35,12 +32,12 @@ public class TodoListActivity extends AppCompatActivity implements AdapterView.O
 
         mTodoBaseHelper = new TodoBaseHelper(this);
 
-        mTodoListRecyclerView = (RecyclerView) findViewById(R.id.todo_list_recycler_view);
-        mTodoListRecyclerView.setHasFixedSize(true);
-        mTodoListRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mTodoRecyclerView = (RecyclerView) findViewById(R.id.todo_recycler_view);
+        mTodoRecyclerView.setHasFixedSize(true);
+        mTodoRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mTaskAdapter = new TaskAdapter(getTasks());
-        mTodoListRecyclerView.setAdapter(mTaskAdapter);
+        mTaskAdapter = new TaskAdapter(mTodoBaseHelper.getTaskList());
+        mTodoRecyclerView.setAdapter(mTaskAdapter);
     }
 
     @Override

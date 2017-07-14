@@ -21,7 +21,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
 
         public TaskHolder(View v) {
             super(v);
-            mTaskTitle = (TextView) v.findViewById(R.id.task_title);
+            mTaskTitle = (TextView) v.findViewById(R.id.item_task_title);
 
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
