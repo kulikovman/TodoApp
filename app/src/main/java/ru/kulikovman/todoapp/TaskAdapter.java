@@ -18,7 +18,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
 
     public static class TaskHolder extends RecyclerView.ViewHolder {
         private TextView mTaskTitle;
-
         private Task mTask;
 
         public TaskHolder(View view) {
@@ -29,7 +28,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
                 @Override
                 public void onClick(View v) {
                     if (TaskAdapter.mListener != null) {
-                        TaskAdapter.mListener.onItemClick(v, getLayoutPosition());
+                        TaskAdapter.mListener.onItemClick(v, getLayoutPosition(), mTask);
                     }
                 }
             });
@@ -67,7 +66,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
     }
 
     public interface OnItemClickListener {
-        void onItemClick(View itemView, int position);
+        void onItemClick(View itemView, int position, Task task);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
