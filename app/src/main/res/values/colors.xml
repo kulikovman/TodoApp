@@ -16,6 +16,7 @@
     // Базовые цвета
     <color name="transparent">#00ffffff</color>
     <color name="white">#ffffff</color>
+    <color name="gray_1">#acacac</color>
     <color name="black">#000000</color>
     <color name="red">#ff5e5e</color>
     <color name="orange">#ffa65e</color>

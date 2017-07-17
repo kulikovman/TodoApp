@@ -4,12 +4,10 @@ package ru.kulikovman.todoapp.database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.CursorWrapper;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,8 +16,8 @@ import ru.kulikovman.todoapp.models.Task;
 
 
 public class TodoBaseHelper extends SQLiteOpenHelper {
-    private static final int VERSION = 1;
-    private static final String DATABASE_NAME = "todoAppBase.db";
+    private static final int VERSION = 2;
+    private static final String DATABASE_NAME = "todoBase.db";
 
     public TodoBaseHelper(Context context) {
         super(context, DATABASE_NAME, null, VERSION);
