@@ -1,11 +1,13 @@
 package ru.kulikovman.todoapp;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -37,8 +39,8 @@ public class TodoListActivity extends AppCompatActivity {
         mTodoRecyclerView.setHasFixedSize(true);
         mTodoRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        //mTaskAdapter = new TaskAdapter(mTodoBaseHelper.getTaskList());
-        mTaskAdapter = new TaskAdapter(getTestTasks());
+        mTaskAdapter = new TaskAdapter(mTodoBaseHelper.getTaskList());
+        //mTaskAdapter = new TaskAdapter(getTestTasks());
         mTodoRecyclerView.setAdapter(mTaskAdapter);
 
         mTaskAdapter.setOnItemClickListener(new TaskAdapter.OnItemClickListener() {
@@ -47,12 +49,15 @@ public class TodoListActivity extends AppCompatActivity {
                 /*Intent intent = new Intent(getParent(), TaskActivity.class);
                 startActivity(intent);*/
 
-                String taskTatle = task.getTitle();
+                itemView.setBackgroundColor(Color.LTGRAY);
 
-                Toast.makeText(TodoListActivity.this, taskTatle, Toast.LENGTH_SHORT)
+                String taskTitle = task.getTitle();
+
+                Toast.makeText(TodoListActivity.this, taskTitle, Toast.LENGTH_SHORT)
                         .show();
             }
         });
+        Log.d("myLog", "Программа запущена");
     }
 
     @Override
@@ -85,7 +90,7 @@ public class TodoListActivity extends AppCompatActivity {
     public List<Task> getTestTasks() {
         List<Task> testTasks = new ArrayList<>();
 
-        testTasks.add(new Task("Тестовый таск", new Date(), 0, "Желтый", "Ежедневно"));
+        /*testTasks.add(new Task("Тестовый таск", new Date(), 0, "Желтый", "Ежедневно"));
         testTasks.add(new Task("Еще один", new Date(), 2, "Зеленый", "Каждую неделю"));
         testTasks.add(new Task("И еще один", new Date(), 4, "Желтый", "Без повтора"));
         testTasks.add(new Task("Просто так", new Date(), 3, "Синий", "Каждую неделю"));
@@ -100,7 +105,7 @@ public class TodoListActivity extends AppCompatActivity {
         testTasks.add(new Task("Парам-пам-пам", new Date(), 1, "Фиолетовый", "Без повтора"));
         testTasks.add(new Task("Декоданс древнегреческий", new Date(), 3, "Красный", "Без повтора"));
         testTasks.add(new Task("Свинтус полноводный", new Date(), 3, "Желтый", "Через год"));
-        testTasks.add(new Task("Лисья норка", new Date(), 1, "Оранжевый", "Без повтора"));
+        testTasks.add(new Task("Лисья норка", new Date(), 1, "Оранжевый", "Без повтора"));*/
 
         return testTasks;
     }

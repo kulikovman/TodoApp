@@ -20,8 +20,8 @@ public class TodoCursorWrapper extends CursorWrapper {
     public Task getTask() {
         String uuidString = getString(getColumnIndex(TaskTable.Cols.UUID));
         String title = getString(getColumnIndex(TaskTable.Cols.TITLE));
-        long date = getLong(getColumnIndex(TaskTable.Cols.DATE));
-        int priority = getInt(getColumnIndex(TaskTable.Cols.PRIORITY));
+        String date = getString(getColumnIndex(TaskTable.Cols.DATE));
+        String priority = getString(getColumnIndex(TaskTable.Cols.PRIORITY));
         String color = getString(getColumnIndex(TaskTable.Cols.COLOR));
         String repeat = getString(getColumnIndex(TaskTable.Cols.REPEAT));
         int done = getInt(getColumnIndex(TaskTable.Cols.DONE));
@@ -29,7 +29,7 @@ public class TodoCursorWrapper extends CursorWrapper {
         Task task = new Task(UUID.fromString(uuidString));
         task.setTitle(title);
         task.setColor(color);
-        task.setDate(new Date(date));
+        task.setDate(date);
         task.setPriority(priority);
         task.setRepeat(repeat);
         task.setDone(done != 0);

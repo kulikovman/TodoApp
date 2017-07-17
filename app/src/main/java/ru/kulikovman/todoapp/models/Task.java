@@ -1,18 +1,17 @@
 package ru.kulikovman.todoapp.models;
 
-import java.util.Date;
 import java.util.UUID;
 
 public class Task {
     private UUID mId;
     private String mTitle;
-    private Date mDate;
-    private int mPriority;
+    private String mDate;
+    private String mPriority;
     private String mColor;
     private String mRepeat;
     private boolean mDone;
 
-    public Task(UUID id, String title, Date date, int priority, String color, String repeat, boolean done) {
+    public Task(UUID id, String title, String date, String priority, String color, String repeat, boolean done) {
         mId = id;
         mTitle = title;
         mDate = date;
@@ -22,7 +21,7 @@ public class Task {
         mDone = done;
     }
 
-    public Task(String title, Date date, int priority, String color, String repeat) {
+    public Task(String title, String date, String priority, String color, String repeat) {
         mId = UUID.randomUUID();
         mTitle = title;
         mDate = date;
@@ -57,19 +56,19 @@ public class Task {
         mTitle = title;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return mDate;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         mDate = date;
     }
 
-    public int getPriority() {
+    public String getPriority() {
         return mPriority;
     }
 
-    public void setPriority(int priority) {
+    public void setPriority(String priority) {
         mPriority = priority;
     }
 

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -14,6 +15,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.UUID;
 
 import ru.kulikovman.todoapp.database.TodoBaseHelper;
 import ru.kulikovman.todoapp.dialogs.ColorFragment;
@@ -35,6 +37,8 @@ public class TaskActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mTodoBaseHelper = new TodoBaseHelper(this);
+
+        Log.d("myLog", "Добавление задачи");
     }
 
     public void taskOptions(View view) {
@@ -62,20 +66,48 @@ public class TaskActivity extends AppCompatActivity {
     }
 
     public void addTask(View view) {
-        EditText taskTitle = (EditText) view.findViewById(R.id.task_title);
-        TextView taskDate = (TextView) view.findViewById(R.id.date_field);
-        TextView taskPriority = (TextView) view.findViewById(R.id.priority_field);
-        TextView taskColor = (TextView) view.findViewById(R.id.color_field);
-        TextView taskRepeat = (TextView) view.findViewById(R.id.repeat_field);
+        EditText taskTitle = (EditText) findViewById(R.id.task_title);
+        TextView taskDate = (TextView) findViewById(R.id.date_field);
+        TextView taskPriority = (TextView) findViewById(R.id.priority_field);
+        TextView taskColor = (TextView) findViewById(R.id.color_field);
+        TextView taskRepeat = (TextView) findViewById(R.id.repeat_field);
 
-        /*DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
-        try {
-            Date date = dateFormat.parse(taskDate.getText().toString());
-        } catch (Exception ignored) {
-        }*/
+        String title = taskTitle.getText().toString();
 
-        Task task = new Task("Тестовый таск", new Date(), 2, "Желтый", "Ежедневно");
+        String date = taskDate.getText().toString();
+        if (!date.equals("Не установлена")) {
+            DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
+            try {
+                date = String.valueOf(dateFormat.parse(date).getTime());
+            } catch (ParseException ignored) {
+            }
+        }
 
+        String priority = taskPriority.getText().toString();
+        switch (priority) {
+            case "Чрезвычайный":
+                priority = "0";
+                break;
+            case "Высокий":
+                priority = "1";
+                break;
+            case "Обычный":
+                priority = "2";
+                break;
+            case "Низкий":
+                priority = "3";
+                break;
+            case "Самый низкий":
+                priority = "4";
+                break;
+        }
+
+        String color = taskColor.getText().toString();
+
+        String repeat = taskRepeat.getText().toString();
+
+        Task task = new Task(title, date, priority, color, repeat);
+        //Task testTask = new Task("Проверка сохранения задачи", "25 май 2018", "1", "Желтый", "Ежедневно");
         mTodoBaseHelper.addTask(task);
 
         Intent intent = new Intent(this, TodoListActivity.class);

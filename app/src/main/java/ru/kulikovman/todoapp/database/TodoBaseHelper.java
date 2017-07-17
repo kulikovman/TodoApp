@@ -4,6 +4,7 @@ package ru.kulikovman.todoapp.database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.CursorWrapper;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -48,7 +49,7 @@ public class TodoBaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(TaskTable.Cols.UUID, task.getId().toString());
         values.put(TaskTable.Cols.TITLE, task.getTitle());
-        values.put(TaskTable.Cols.DATE, task.getDate().getTime());
+        values.put(TaskTable.Cols.DATE, task.getDate());
         values.put(TaskTable.Cols.PRIORITY, task.getPriority());
         values.put(TaskTable.Cols.COLOR, task.getColor());
         values.put(TaskTable.Cols.REPEAT, task.getRepeat());
@@ -75,8 +76,8 @@ public class TodoBaseHelper extends SQLiteOpenHelper {
         while (cursor.moveToNext()) {
             String uuid = cursor.getString(cursor.getColumnIndex(TaskTable.Cols.UUID));
             String title = cursor.getString(cursor.getColumnIndex(TaskTable.Cols.TITLE));
-            long date = cursor.getLong(cursor.getColumnIndex(TaskTable.Cols.DATE));
-            int priority = cursor.getInt(cursor.getColumnIndex(TaskTable.Cols.PRIORITY));
+            String date = cursor.getString(cursor.getColumnIndex(TaskTable.Cols.DATE));
+            String priority = cursor.getString(cursor.getColumnIndex(TaskTable.Cols.PRIORITY));
             String color = cursor.getString(cursor.getColumnIndex(TaskTable.Cols.COLOR));
             String repeat = cursor.getString(cursor.getColumnIndex(TaskTable.Cols.REPEAT));
             int done = cursor.getInt(cursor.getColumnIndex(TaskTable.Cols.DONE));
@@ -84,7 +85,7 @@ public class TodoBaseHelper extends SQLiteOpenHelper {
             Task task = new Task(UUID.fromString(uuid));
             task.setTitle(title);
             task.setColor(color);
-            task.setDate(new Date(date));
+            task.setDate(date);
             task.setPriority(priority);
             task.setRepeat(repeat);
             task.setDone(done != 0);
@@ -95,5 +96,47 @@ public class TodoBaseHelper extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return taskList;
+    }
+
+    public Task getTask(UUID id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TaskTable.NAME,
+                null, // null - выбирает все столбцы
+                TaskTable.Cols.UUID + " = ?", // Ищем совпадение по столбцу
+                new String[]{id.toString()}, // Что именно ищем
+                null, // groupBy
+                null, // having
+                null // orderBy
+        );
+
+        try {
+            if (cursor.getCount() == 0) {
+                return null;
+            }
+
+            cursor.moveToFirst();
+
+            String uuid = cursor.getString(cursor.getColumnIndex(TaskTable.Cols.UUID));
+            String title = cursor.getString(cursor.getColumnIndex(TaskTable.Cols.TITLE));
+            String date = cursor.getString(cursor.getColumnIndex(TaskTable.Cols.DATE));
+            String priority = cursor.getString(cursor.getColumnIndex(TaskTable.Cols.PRIORITY));
+            String color = cursor.getString(cursor.getColumnIndex(TaskTable.Cols.COLOR));
+            String repeat = cursor.getString(cursor.getColumnIndex(TaskTable.Cols.REPEAT));
+            int done = cursor.getInt(cursor.getColumnIndex(TaskTable.Cols.DONE));
+
+            Task task = new Task(UUID.fromString(uuid));
+            task.setTitle(title);
+            task.setColor(color);
+            task.setDate(date);
+            task.setPriority(priority);
+            task.setRepeat(repeat);
+            task.setDone(done != 0);
+
+            return task;
+        } finally {
+            cursor.close();
+            db.close();
+        }
     }
 }

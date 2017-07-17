@@ -82,7 +82,7 @@ public class TaskLab {
         ContentValues values = new ContentValues();
         values.put(TaskTable.Cols.UUID, task.getId().toString());
         values.put(TaskTable.Cols.TITLE, task.getTitle());
-        values.put(TaskTable.Cols.DATE, task.getDate().getTime());
+        values.put(TaskTable.Cols.DATE, task.getDate());
         values.put(TaskTable.Cols.PRIORITY, task.getPriority());
         values.put(TaskTable.Cols.COLOR, task.getColor());
         values.put(TaskTable.Cols.REPEAT, task.getRepeat());
