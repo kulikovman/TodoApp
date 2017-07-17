@@ -66,7 +66,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
             // Устанавливаем дату
             long dateLong = Long.parseLong(taskDate);
             Date date = new Date(dateLong);
-            DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
+            DateFormat dateFormat = new SimpleDateFormat("dd MMMM", Locale.getDefault());
             taskDate = dateFormat.format(date);
 
             mTaskDate.setText(taskDate);
