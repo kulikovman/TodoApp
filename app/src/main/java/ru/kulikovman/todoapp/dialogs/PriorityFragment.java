@@ -14,11 +14,11 @@ public class PriorityFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        String priorityList[] = {"Чрезвычайный", "Высокий", "Обычный", "Низкий", "Самый низкий"};
+        final String priority[] = {"Чрезвычайный", "Высокий", "Обычный", "Низкий", "Самый низкий"};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Приоритет")
-                .setItems(priorityList, new DialogInterface.OnClickListener() {
+        builder.setTitle(R.string.priority_title)
+                .setItems(priority, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         Log.d("myLog", String.valueOf(which));
 
@@ -26,19 +26,19 @@ public class PriorityFragment extends DialogFragment {
 
                         switch (which) {
                             case 0:
-                                priorityField.setText("Чрезвычайный");
+                                priorityField.setText(priority[0]);
                                 break;
                             case 1:
-                                priorityField.setText("Высокий");
+                                priorityField.setText(priority[1]);
                                 break;
                             case 2:
-                                priorityField.setText("Обычный");
+                                priorityField.setText(priority[2]);
                                 break;
                             case 3:
-                                priorityField.setText("Низкий");
+                                priorityField.setText(priority[3]);
                                 break;
                             case 4:
-                                priorityField.setText("Самый низкий");
+                                priorityField.setText(priority[4]);
                                 break;
                         }
                     }

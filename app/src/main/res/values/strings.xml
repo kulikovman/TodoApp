@@ -12,6 +12,7 @@
 
     <string name="date_not_set">Не установлена</string>
 
+    <string name="priority_title">Приоритет</string>
     <string name="priority_0">Чрезвычайный</string>
     <string name="priority_1">Высокий</string>
     <string name="priority_2">Обычный</string>
