@@ -2,6 +2,7 @@ package ru.kulikovman.todoapp;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,10 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import ru.kulikovman.todoapp.database.TodoBaseHelper;
@@ -26,6 +24,7 @@ public class TodoListActivity extends AppCompatActivity {
 
     private TodoBaseHelper mTodoBaseHelper;
     private List<Task> mTasks;
+    private View mItemView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,14 +46,28 @@ public class TodoListActivity extends AppCompatActivity {
         mTaskAdapter.setOnItemClickListener(new TaskAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View itemView, int position, Task task) {
+                if (mItemView == null) {
+                    itemView.setBackgroundColor(Color.LTGRAY);
+                    mItemView = itemView;
+                } else {
+                    if (mItemView != itemView) {
+                        mItemView.setBackgroundColor(Color.TRANSPARENT);
+                        itemView.setBackgroundColor(Color.LTGRAY);
+                        mItemView = itemView;
+                    } else {
+                        int itemColor = ((ColorDrawable) itemView.getBackground()).getColor();
+
+                        if (itemColor == Color.TRANSPARENT) {
+                            itemView.setBackgroundColor(Color.LTGRAY);
+                        } else {
+                            itemView.setBackgroundColor(Color.TRANSPARENT);
+                        }
+                    }
+                }
 
 
-                itemView.setBackgroundColor(Color.LTGRAY);
 
-                String taskTitle = task.getTitle();
 
-                Toast.makeText(TodoListActivity.this, taskTitle, Toast.LENGTH_SHORT)
-                        .show();
             }
         });
         Log.d("myLog", "Программа запущена");
