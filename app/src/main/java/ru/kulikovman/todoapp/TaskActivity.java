@@ -75,6 +75,7 @@ public class TaskActivity extends AppCompatActivity {
         // Получаем заголовок
         String title = taskTitle.getText().toString();
 
+        // Если заголовок есть, то делаем все остальное
         if (!title.equals("")) {
             // Получаем дату
             String date = taskDate.getText().toString();
@@ -83,7 +84,6 @@ public class TaskActivity extends AppCompatActivity {
                 date = String.valueOf(dateFormat.parse(date).getTime());
             } catch (ParseException ignored) {
             }
-
 
             // Получаем приоритет
             String priority = taskPriority.getText().toString();
