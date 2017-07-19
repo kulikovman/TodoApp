@@ -22,7 +22,7 @@ public class DateFragment extends DialogFragment {
         final String date[] = {"Сегодня", "Завтра", "Выбрать дату", "Без даты"};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(R.string.date_title)
+        builder.setTitle(R.string.date_dialog_title)
                 .setItems(date, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         Log.d("myLog", String.valueOf(which));

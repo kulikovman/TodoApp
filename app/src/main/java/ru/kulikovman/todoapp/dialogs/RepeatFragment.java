@@ -17,7 +17,7 @@ public class RepeatFragment extends DialogFragment {
         final String priority[] = {"Ежедневно", "Каждую неделю", "Раз в месяц", "Через год", "Не повторять"};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(R.string.repeat_title)
+        builder.setTitle(R.string.repeat_dialog_title)
                 .setItems(priority, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         Log.d("myLog", String.valueOf(which));

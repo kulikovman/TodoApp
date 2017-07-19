@@ -10,34 +10,34 @@
     <string name="task_color">Цвет</string>
     <string name="task_repeat">Повторение</string>
 
-    <string name="date_title">Дата выполнения</string>
+    <string name="date_dialog_title">Дата выполнения</string>
     <string name="date_not_set">Не установлена</string>
 
-    <string name="priority_title">Приоритет</string>
+    <string name="priority_dialog_title">Приоритет</string>
     <string name="priority_0">Чрезвычайный</string>
     <string name="priority_1">Высокий</string>
     <string name="priority_2">Обычный</string>
     <string name="priority_3">Низкий</string>
     <string name="priority_4">Самый низкий</string>
 
+    <string name="color_dialog_title">Цвет группы</string>
     <string name="color_not_set">Не выбран</string>
     <string name="color_red">Красный</string>
     <string name="color_orange">Оранжевый</string>
     <string name="color_yellow">Желтый</string>
     <string name="color_green">Зеленый</string>
-    <string name="color_blue">Голубой</string>
+    <string name="color_blue">Синий</string>
     <string name="color_violet">Фиолетовый</string>
     <string name="color_pink">Розовый</string>
     <string name="color_transparent">Без цвета</string>
 
-    <string name="repeat_title">Повторение</string>
+    <string name="repeat_dialog_title">Повторение</string>
     <string name="repeat_without">Без повтора</string>
     <string name="repeat_daily">Ежедневно</string>
     <string name="repeat_every_week">Каждую неделю</string>
     <string name="repeat_once_a_month">Раз в месяц</string>
     <string name="repeat_in_a_year">Через год</string>
     <string name="repeat_do_not">Не повторять</string>
-
 
 
 </resources>
