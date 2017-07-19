@@ -14,11 +14,11 @@ public class RepeatFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final String priority[] = {"Ежедневно", "Каждую неделю", "Раз в месяц", "Через год", "Не повторять"};
+        final String repeat[] = {"Ежедневно", "Каждую неделю", "Раз в месяц", "Через год", "Не повторять"};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(R.string.repeat_dialog_title)
-                .setItems(priority, new DialogInterface.OnClickListener() {
+                .setItems(repeat, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         Log.d("myLog", String.valueOf(which));
 
@@ -28,23 +28,23 @@ public class RepeatFragment extends DialogFragment {
                         String date = dateField.getText().toString();
 
                         if (date.equals("Не установлена")) {
-                            repeatField.setText("Без повтора");
+                            repeatField.setText(R.string.repeat_without);
                         } else {
                             switch (which) {
                                 case 0:
-                                    repeatField.setText(priority[0]);
+                                    repeatField.setText(R.string.repeat_daily);
                                     break;
                                 case 1:
-                                    repeatField.setText(priority[1]);
+                                    repeatField.setText(R.string.repeat_every_week);
                                     break;
                                 case 2:
-                                    repeatField.setText(priority[2]);
+                                    repeatField.setText(R.string.repeat_once_a_month);
                                     break;
                                 case 3:
-                                    repeatField.setText(priority[3]);
+                                    repeatField.setText(R.string.repeat_in_a_year);
                                     break;
                                 case 4:
-                                    repeatField.setText(priority[4]);
+                                    repeatField.setText(R.string.repeat_do_not);
                                     break;
                             }
                         }
