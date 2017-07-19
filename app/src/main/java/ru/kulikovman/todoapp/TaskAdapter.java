@@ -76,19 +76,19 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
             // Устанавливаем приоритет
             switch (taskPriority) {
                 case "0":
-                    mTaskPriority.setText("Чрезвычайный");
+                    mTaskPriority.setText(R.string.priority_0);
                     break;
                 case "1":
-                    mTaskPriority.setText("Высокий");
+                    mTaskPriority.setText(R.string.priority_1);
                     break;
                 case "2":
-                    mTaskPriority.setText("Обычный");
+                    mTaskPriority.setText(R.string.priority_2);
                     break;
                 case "3":
-                    mTaskPriority.setText("Низкий");
+                    mTaskPriority.setText(R.string.priority_3);
                     break;
                 case "4":
-                    mTaskPriority.setText("Самый низкий");
+                    mTaskPriority.setText(R.string.priority_4);
                     break;
             }
 
