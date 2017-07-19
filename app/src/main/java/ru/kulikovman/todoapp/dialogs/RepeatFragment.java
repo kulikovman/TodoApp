@@ -23,23 +23,30 @@ public class RepeatFragment extends DialogFragment {
                         Log.d("myLog", String.valueOf(which));
 
                         TextView repeatField = (TextView) getActivity().findViewById(R.id.repeat_field);
+                        TextView dateField = (TextView) getActivity().findViewById(R.id.date_field);
 
-                        switch (which) {
-                            case 0:
-                                repeatField.setText(priority[0]);
-                                break;
-                            case 1:
-                                repeatField.setText(priority[1]);
-                                break;
-                            case 2:
-                                repeatField.setText(priority[2]);
-                                break;
-                            case 3:
-                                repeatField.setText(priority[3]);
-                                break;
-                            case 4:
-                                repeatField.setText(priority[4]);
-                                break;
+                        String date = dateField.getText().toString();
+
+                        if (date.equals("Не установлена")) {
+                            repeatField.setText("Без повтора");
+                        } else {
+                            switch (which) {
+                                case 0:
+                                    repeatField.setText(priority[0]);
+                                    break;
+                                case 1:
+                                    repeatField.setText(priority[1]);
+                                    break;
+                                case 2:
+                                    repeatField.setText(priority[2]);
+                                    break;
+                                case 3:
+                                    repeatField.setText(priority[3]);
+                                    break;
+                                case 4:
+                                    repeatField.setText(priority[4]);
+                                    break;
+                            }
                         }
                     }
                 });
