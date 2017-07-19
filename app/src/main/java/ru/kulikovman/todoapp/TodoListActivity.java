@@ -26,6 +26,7 @@ public class TodoListActivity extends AppCompatActivity implements TaskAdapter.O
 
     private View mItemView;
     private Task mTask;
+    private int mPosition;
 
     private FloatingActionButton mDeleteButton;
 
@@ -79,7 +80,7 @@ public class TodoListActivity extends AppCompatActivity implements TaskAdapter.O
 
     public void fabDeleteTask(View view) {
         mDbHelper.deleteTask(mTask);
-        mItemView.setBackgroundColor(Color.TRANSPARENT);
+
 
         updateUI();
     }
@@ -91,8 +92,10 @@ public class TodoListActivity extends AppCompatActivity implements TaskAdapter.O
             mAdapter = new TaskAdapter(tasks);
             mRecyclerView.setAdapter(mAdapter);
         } else {
+            mItemView.setBackgroundColor(Color.TRANSPARENT);
             mAdapter.setTasks(tasks);
-            mAdapter.notifyDataSetChanged();
+            mAdapter.notifyItemRemoved(mPosition);
+            mDeleteButton.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -122,5 +125,6 @@ public class TodoListActivity extends AppCompatActivity implements TaskAdapter.O
         }
 
         mTask = task;
+        mPosition = position;
     }
 }
