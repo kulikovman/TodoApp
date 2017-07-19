@@ -64,12 +64,14 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
             mTaskTitle.setText(taskTitle);
 
             // Устанавливаем дату
-            long dateLong = Long.parseLong(taskDate);
-            Date date = new Date(dateLong);
-            DateFormat dateFormat = new SimpleDateFormat("dd MMMM", Locale.getDefault());
-            taskDate = dateFormat.format(date);
+            if (!taskDate.equals("Не установлена")) {
+                long dateLong = Long.parseLong(taskDate);
+                Date date = new Date(dateLong);
+                DateFormat dateFormat = new SimpleDateFormat("dd MMMM", Locale.getDefault());
+                taskDate = dateFormat.format(date);
 
-            mTaskDate.setText(taskDate);
+                mTaskDate.setText(taskDate);
+            }
 
             // Устанавливаем приоритет
             switch (taskPriority) {

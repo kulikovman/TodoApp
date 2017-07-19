@@ -78,13 +78,12 @@ public class TaskActivity extends AppCompatActivity {
         if (!title.equals("")) {
             // Получаем дату
             String date = taskDate.getText().toString();
-            if (!date.equals("Не установлена")) {
-                DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
-                try {
-                    date = String.valueOf(dateFormat.parse(date).getTime());
-                } catch (ParseException ignored) {
-                }
+            DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
+            try {
+                date = String.valueOf(dateFormat.parse(date).getTime());
+            } catch (ParseException ignored) {
             }
+
 
             // Получаем приоритет
             String priority = taskPriority.getText().toString();
