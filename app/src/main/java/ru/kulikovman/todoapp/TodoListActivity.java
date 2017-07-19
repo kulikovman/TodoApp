@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,13 +19,15 @@ import java.util.List;
 import ru.kulikovman.todoapp.database.TodoBaseHelper;
 import ru.kulikovman.todoapp.models.Task;
 
-public class TodoListActivity extends AppCompatActivity {
-    private RecyclerView mTodoRecyclerView;
-    private TaskAdapter mTaskAdapter;
+public class TodoListActivity extends AppCompatActivity implements TaskAdapter.OnItemClickListener {
+    private RecyclerView mRecyclerView;
+    private TaskAdapter mAdapter;
+    private TodoBaseHelper mDbHelper;
 
-    private TodoBaseHelper mTodoBaseHelper;
-    private List<Task> mTasks;
     private View mItemView;
+    private Task mTask;
+
+    private FloatingActionButton mDeleteButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,43 +36,17 @@ public class TodoListActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mTodoBaseHelper = new TodoBaseHelper(this);
-        mTasks = mTodoBaseHelper.getTaskList();
+        mDeleteButton = (FloatingActionButton) findViewById(R.id.fab_delete_task);
 
-        mTodoRecyclerView = (RecyclerView) findViewById(R.id.todo_recycler_view);
-        mTodoRecyclerView.setHasFixedSize(true);
-        mTodoRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mDbHelper = new TodoBaseHelper(this);
 
-        mTaskAdapter = new TaskAdapter(mTasks);
-        mTodoRecyclerView.setAdapter(mTaskAdapter);
+        mRecyclerView = (RecyclerView) findViewById(R.id.todo_recycler_view);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mTaskAdapter.setOnItemClickListener(new TaskAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View itemView, int position, Task task) {
-                if (mItemView == null) {
-                    itemView.setBackgroundColor(Color.LTGRAY);
-                    mItemView = itemView;
-                } else {
-                    if (mItemView != itemView) {
-                        mItemView.setBackgroundColor(Color.TRANSPARENT);
-                        itemView.setBackgroundColor(Color.LTGRAY);
-                        mItemView = itemView;
-                    } else {
-                        int itemColor = ((ColorDrawable) itemView.getBackground()).getColor();
+        updateUI();
 
-                        if (itemColor == Color.TRANSPARENT) {
-                            itemView.setBackgroundColor(Color.LTGRAY);
-                        } else {
-                            itemView.setBackgroundColor(Color.TRANSPARENT);
-                        }
-                    }
-                }
-
-
-
-
-            }
-        });
+        mAdapter.setOnItemClickListener(this);
         Log.d("myLog", "Программа запущена");
     }
 
@@ -100,6 +77,50 @@ public class TodoListActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void fabDeleteTask(View view) {
+        mDbHelper.deleteTask(mTask);
+        mItemView.setBackgroundColor(Color.TRANSPARENT);
 
+        updateUI();
+    }
 
+    private void updateUI() {
+        List<Task> tasks = mDbHelper.getTaskList();
+
+        if (mAdapter == null) {
+            mAdapter = new TaskAdapter(tasks);
+            mRecyclerView.setAdapter(mAdapter);
+        } else {
+            mAdapter.setTasks(tasks);
+            mAdapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void onItemClick(View itemView, int position, Task task) {
+        if (mItemView == null) {
+            itemView.setBackgroundColor(Color.LTGRAY);
+            mItemView = itemView;
+            mDeleteButton.setVisibility(View.VISIBLE);
+        } else {
+            if (mItemView != itemView) {
+                mItemView.setBackgroundColor(Color.TRANSPARENT);
+                itemView.setBackgroundColor(Color.LTGRAY);
+                mDeleteButton.setVisibility(View.VISIBLE);
+                mItemView = itemView;
+            } else {
+                int itemColor = ((ColorDrawable) itemView.getBackground()).getColor();
+
+                if (itemColor == Color.TRANSPARENT) {
+                    itemView.setBackgroundColor(Color.LTGRAY);
+                    mDeleteButton.setVisibility(View.VISIBLE);
+                } else {
+                    itemView.setBackgroundColor(Color.TRANSPARENT);
+                    mDeleteButton.setVisibility(View.INVISIBLE);
+                }
+            }
+        }
+
+        mTask = task;
+    }
 }
