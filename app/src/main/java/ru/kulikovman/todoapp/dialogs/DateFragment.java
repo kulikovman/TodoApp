@@ -19,11 +19,11 @@ import ru.kulikovman.todoapp.R;
 public class DateFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        String priorityList[] = {"Сегодня", "Завтра", "Выбрать дату", "Без даты"};
+        final String date[] = {"Сегодня", "Завтра", "Выбрать дату", "Без даты"};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Дата выполнения")
-                .setItems(priorityList, new DialogInterface.OnClickListener() {
+        builder.setTitle(R.string.date_title)
+                .setItems(date, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         Log.d("myLog", String.valueOf(which));
 
@@ -47,7 +47,7 @@ public class DateFragment extends DialogFragment {
                                 datePickerFragment.show(getFragmentManager(), "datePicker");
                                 break;
                             case 3:
-                                dateField.setText("Не установлена");
+                                dateField.setText(R.string.date_not_set);
                                 break;
                         }
                     }
