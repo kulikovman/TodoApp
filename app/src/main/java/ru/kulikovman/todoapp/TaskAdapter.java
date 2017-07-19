@@ -93,7 +93,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
             }
 
             // Устанавливаем повтор
-            mTaskRepeat.setText(taskRepeat);
+            if (!taskRepeat.equals("Без повтора")) {
+                mTaskRepeat.setText(taskRepeat);
+            }
 
             // Устанавливаем цвет
             switch (taskColor) {
@@ -119,7 +121,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
                     mTaskColor.setBackgroundResource(R.color.pink);
                     break;
                 case "Без цвета":
-                    mTaskColor.setBackgroundResource(R.color.transparent);
+                    mTaskColor.setBackgroundResource(R.color.gray_1);
                     break;
             }
         }
