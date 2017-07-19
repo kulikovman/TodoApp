@@ -16,8 +16,8 @@ import ru.kulikovman.todoapp.models.Task;
 
 
 public class TodoBaseHelper extends SQLiteOpenHelper {
-    private static final int VERSION = 2;
-    private static final String DATABASE_NAME = "todoBase.db";
+    private static final int VERSION = 1;
+    private static final String DATABASE_NAME = "todoAppBase.db";
 
     public TodoBaseHelper(Context context) {
         super(context, DATABASE_NAME, null, VERSION);
