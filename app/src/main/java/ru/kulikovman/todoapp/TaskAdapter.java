@@ -11,7 +11,9 @@ import android.widget.TextView;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -67,8 +69,22 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
             if (!taskDate.equals("Не установлена")) {
                 long dateLong = Long.parseLong(taskDate);
                 Date date = new Date(dateLong);
-                DateFormat dateFormat = new SimpleDateFormat("dd MMMM", Locale.getDefault());
-                taskDate = dateFormat.format(date);
+
+                Calendar targetDate = new GregorianCalendar();
+                targetDate.setTime(date);
+                int targetYear = targetDate.get(Calendar.YEAR);
+
+                Calendar currentDate = Calendar.getInstance();
+                int currentYear = currentDate.get(Calendar.YEAR);
+
+                DateFormat dateFormatShort = new SimpleDateFormat("dd MMMM", Locale.getDefault());
+                DateFormat dateFormatLong = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
+
+                if (targetYear == currentYear) {
+                    taskDate = dateFormatShort.format(date);
+                } else {
+                    taskDate = dateFormatLong.format(date);
+                }
 
                 mTaskDate.setText(taskDate);
             }
