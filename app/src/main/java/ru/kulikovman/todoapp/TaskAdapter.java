@@ -81,9 +81,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
                 case "1":
                     mTaskPriority.setText(R.string.priority_1);
                     break;
-                case "2":
-                    mTaskPriority.setText(R.string.priority_2);
-                    break;
                 case "3":
                     mTaskPriority.setText(R.string.priority_3);
                     break;
