@@ -26,19 +26,19 @@ public class PriorityFragment extends DialogFragment {
 
                         switch (which) {
                             case 0:
-                                priorityField.setText(priority[0]);
+                                priorityField.setText(R.string.priority_0);
                                 break;
                             case 1:
-                                priorityField.setText(priority[1]);
+                                priorityField.setText(R.string.priority_1);
                                 break;
                             case 2:
-                                priorityField.setText(priority[2]);
+                                priorityField.setText(R.string.priority_2);
                                 break;
                             case 3:
-                                priorityField.setText(priority[3]);
+                                priorityField.setText(R.string.priority_3);
                                 break;
                             case 4:
-                                priorityField.setText(priority[4]);
+                                priorityField.setText(R.string.priority_4);
                                 break;
                         }
                     }
