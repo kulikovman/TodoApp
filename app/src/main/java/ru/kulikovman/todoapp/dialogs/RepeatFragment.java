@@ -14,11 +14,11 @@ public class RepeatFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        String priorityList[] = {"Ежедневно", "Каждую неделю", "Раз в месяц", "Через год", "Не повторять"};
+        final String priority[] = {"Ежедневно", "Каждую неделю", "Раз в месяц", "Через год", "Не повторять"};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Повторение")
-                .setItems(priorityList, new DialogInterface.OnClickListener() {
+        builder.setTitle(R.string.repeat_title)
+                .setItems(priority, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         Log.d("myLog", String.valueOf(which));
 
@@ -26,19 +26,19 @@ public class RepeatFragment extends DialogFragment {
 
                         switch (which) {
                             case 0:
-                                repeatField.setText("Ежедневно");
+                                repeatField.setText(priority[0]);
                                 break;
                             case 1:
-                                repeatField.setText("Каждую неделю");
+                                repeatField.setText(priority[1]);
                                 break;
                             case 2:
-                                repeatField.setText("Раз в месяц");
+                                repeatField.setText(priority[2]);
                                 break;
                             case 3:
-                                repeatField.setText("Через год");
+                                repeatField.setText(priority[3]);
                                 break;
                             case 4:
-                                repeatField.setText("Без повтора");
+                                repeatField.setText(priority[4]);
                                 break;
                         }
                     }

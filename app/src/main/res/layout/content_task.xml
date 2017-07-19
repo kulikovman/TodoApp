@@ -47,7 +47,7 @@
                     android:id="@+id/date_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Дата выполнения"
+                    android:text="@string/task_date"
                     android:textColor="@color/optionTitleColor"
                     android:textSize="16sp" />
 
@@ -55,7 +55,7 @@
                     android:id="@+id/date_field"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Не установлена"
+                    android:text="@string/date_not_set"
                     android:textColor="@color/optionTextColor"
                     android:textSize="14sp" />
 
@@ -91,7 +91,7 @@
                     android:id="@+id/priority_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Приоритет"
+                    android:text="@string/task_priority"
                     android:textColor="@color/optionTitleColor"
                     android:textSize="16sp" />
 
@@ -99,7 +99,7 @@
                     android:id="@+id/priority_field"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Обычный"
+                    android:text="@string/priority_2"
                     android:textColor="@color/optionTextColor"
                     android:textSize="14sp" />
 
@@ -135,7 +135,7 @@
                     android:id="@+id/color_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Цвет"
+                    android:text="@string/task_color"
                     android:textColor="@color/optionTitleColor"
                     android:textSize="16sp" />
 
@@ -143,7 +143,7 @@
                     android:id="@+id/color_field"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Не выбран"
+                    android:text="@string/color_not_set"
                     android:textColor="@color/optionTextColor"
                     android:textSize="14sp" />
 
@@ -179,7 +179,7 @@
                     android:id="@+id/repeat_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Повторение"
+                    android:text="@string/task_repeat"
                     android:textColor="@color/optionTitleColor"
                     android:textSize="16sp" />
 
@@ -187,7 +187,7 @@
                     android:id="@+id/repeat_field"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Без повтора"
+                    android:text="@string/repeat_without"
                     android:textColor="@color/optionTextColor"
                     android:textSize="14sp" />
 

@@ -72,45 +72,53 @@ public class TaskActivity extends AppCompatActivity {
         TextView taskColor = (TextView) findViewById(R.id.color_field);
         TextView taskRepeat = (TextView) findViewById(R.id.repeat_field);
 
+        // Получаем заголовок
         String title = taskTitle.getText().toString();
 
-        String date = taskDate.getText().toString();
-        if (!date.equals("Не установлена")) {
-            DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
-            try {
-                date = String.valueOf(dateFormat.parse(date).getTime());
-            } catch (ParseException ignored) {
+        if (!title.equals("")) {
+            // Получаем дату
+            String date = taskDate.getText().toString();
+            if (!date.equals("Не установлена")) {
+                DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
+                try {
+                    date = String.valueOf(dateFormat.parse(date).getTime());
+                } catch (ParseException ignored) {
+                }
             }
+
+            // Получаем приоритет
+            String priority = taskPriority.getText().toString();
+            switch (priority) {
+                case "Чрезвычайный":
+                    priority = "0";
+                    break;
+                case "Высокий":
+                    priority = "1";
+                    break;
+                case "Обычный":
+                    priority = "2";
+                    break;
+                case "Низкий":
+                    priority = "3";
+                    break;
+                case "Самый низкий":
+                    priority = "4";
+                    break;
+            }
+
+            // Получаем цвет
+            String color = taskColor.getText().toString();
+
+            // Получаем повтор
+            String repeat = taskRepeat.getText().toString();
+
+            // Сохраняем задачу в базу
+            Task task = new Task(title, date, priority, color, repeat);
+            mTodoBaseHelper.addTask(task);
+
+            // Возвращаемся в список задач
+            Intent intent = new Intent(this, TodoListActivity.class);
+            startActivity(intent);
         }
-
-        String priority = taskPriority.getText().toString();
-        switch (priority) {
-            case "Чрезвычайный":
-                priority = "0";
-                break;
-            case "Высокий":
-                priority = "1";
-                break;
-            case "Обычный":
-                priority = "2";
-                break;
-            case "Низкий":
-                priority = "3";
-                break;
-            case "Самый низкий":
-                priority = "4";
-                break;
-        }
-
-        String color = taskColor.getText().toString();
-
-        String repeat = taskRepeat.getText().toString();
-
-        Task task = new Task(title, date, priority, color, repeat);
-        //Task testTask = new Task("Проверка сохранения задачи", "25 май 2018", "1", "Желтый", "Ежедневно");
-        mTodoBaseHelper.addTask(task);
-
-        Intent intent = new Intent(this, TodoListActivity.class);
-        startActivity(intent);
     }
 }

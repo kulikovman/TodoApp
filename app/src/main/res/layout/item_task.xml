@@ -32,7 +32,6 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginBottom="2dp"
                 android:paddingEnd="12dp"
-                android:text="Просто текст"
                 android:textColor="@color/gray_1"
                 android:textSize="12sp"/>
 
