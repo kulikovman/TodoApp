@@ -28,7 +28,7 @@ public class TodoListActivity extends AppCompatActivity implements TaskAdapter.O
     private Task mTask;
     private int mPosition;
 
-    private FloatingActionButton mDeleteButton;
+    private FloatingActionButton mDeleteButton, mEditButton, mDoneButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +38,8 @@ public class TodoListActivity extends AppCompatActivity implements TaskAdapter.O
         setSupportActionBar(toolbar);
 
         mDeleteButton = (FloatingActionButton) findViewById(R.id.fab_delete_task);
+        mEditButton = (FloatingActionButton) findViewById(R.id.fab_edit_task);
+        mDoneButton = (FloatingActionButton) findViewById(R.id.fab_done_task);
 
         mDbHelper = new TodoBaseHelper(this);
 
@@ -80,8 +82,6 @@ public class TodoListActivity extends AppCompatActivity implements TaskAdapter.O
 
     public void fabDeleteTask(View view) {
         mDbHelper.deleteTask(mTask);
-
-
         updateUI();
     }
 
@@ -95,7 +95,7 @@ public class TodoListActivity extends AppCompatActivity implements TaskAdapter.O
             mItemView.setBackgroundColor(Color.TRANSPARENT);
             mAdapter.setTasks(tasks);
             mAdapter.notifyItemRemoved(mPosition);
-            mDeleteButton.setVisibility(View.INVISIBLE);
+            hideActionButton();
         }
     }
 
@@ -104,27 +104,39 @@ public class TodoListActivity extends AppCompatActivity implements TaskAdapter.O
         if (mItemView == null) {
             itemView.setBackgroundColor(Color.LTGRAY);
             mItemView = itemView;
-            mDeleteButton.setVisibility(View.VISIBLE);
+            showActionButton();
         } else {
             if (mItemView != itemView) {
                 mItemView.setBackgroundColor(Color.TRANSPARENT);
                 itemView.setBackgroundColor(Color.LTGRAY);
-                mDeleteButton.setVisibility(View.VISIBLE);
                 mItemView = itemView;
+                showActionButton();
             } else {
                 int itemColor = ((ColorDrawable) itemView.getBackground()).getColor();
 
                 if (itemColor == Color.TRANSPARENT) {
                     itemView.setBackgroundColor(Color.LTGRAY);
-                    mDeleteButton.setVisibility(View.VISIBLE);
+                    showActionButton();
                 } else {
                     itemView.setBackgroundColor(Color.TRANSPARENT);
-                    mDeleteButton.setVisibility(View.INVISIBLE);
+                    hideActionButton();
                 }
             }
         }
 
         mTask = task;
         mPosition = position;
+    }
+
+    private void hideActionButton() {
+        mDeleteButton.setVisibility(View.INVISIBLE);
+        mEditButton.setVisibility(View.INVISIBLE);
+        mDoneButton.setVisibility(View.INVISIBLE);
+    }
+
+    private void showActionButton() {
+        mDeleteButton.setVisibility(View.VISIBLE);
+        mEditButton.setVisibility(View.VISIBLE);
+        mDoneButton.setVisibility(View.VISIBLE);
     }
 }
