@@ -75,16 +75,6 @@ public class TodoListActivity extends AppCompatActivity implements TaskAdapter.O
         return super.onOptionsItemSelected(item);
     }
 
-    public void fabAddTask(View view) {
-        Intent intent = new Intent(this, TaskActivity.class);
-        startActivity(intent);
-    }
-
-    public void fabDeleteTask(View view) {
-        mDbHelper.deleteTask(mTask);
-        updateUI();
-    }
-
     private void updateUI() {
         List<Task> tasks = mDbHelper.getTaskList();
 
@@ -127,6 +117,27 @@ public class TodoListActivity extends AppCompatActivity implements TaskAdapter.O
         mTask = task;
         mPosition = position;
     }
+
+    public void fabDoneTask(View view) {
+    }
+
+    public void fabEditTask(View view) {
+    }
+
+    public void fabDeleteTask(View view) {
+        mDbHelper.deleteTask(mTask);
+        updateUI();
+    }
+
+    public void fabAddTask(View view) {
+        Intent intent = new Intent(this, TaskActivity.class);
+        startActivity(intent);
+    }
+
+
+
+
+
 
     private void hideActionButton() {
         mDeleteButton.setVisibility(View.INVISIBLE);
