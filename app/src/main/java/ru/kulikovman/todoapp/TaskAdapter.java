@@ -50,6 +50,13 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
         public void bindTask(Task task) {
             mTask = task;
 
+            // Обнуляем все текстовые поля
+            // При переиспользовании айтемов могут сохраниться старые значения
+            mTaskTitle.setText(null);
+            mTaskDate.setText(null);
+            mTaskPriority.setText(null);
+            mTaskRepeat.setText(null);
+
             // Получаем значения полей
             String taskTitle = mTask.getTitle();
             String taskDate = mTask.getDate();
@@ -62,8 +69,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
                     taskPriority + " | " +
                     taskColor);
 
+
             // Устанавливаем заголовок
             mTaskTitle.setText(taskTitle);
+
 
             // Устанавливаем дату
             if (!taskDate.equals("Не установлена")) {
@@ -89,6 +98,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
                 mTaskDate.setText(taskDate);
             }
 
+
             // Устанавливаем приоритет
             switch (taskPriority) {
                 case "0":
@@ -97,9 +107,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
                 case "1":
                     mTaskPriority.setText(R.string.priority_1);
                     break;
-                /*case "2":
+                case "2":
                     mTaskPriority.setText(R.string.priority_2);
-                    break;*/
+                    break;
                 case "3":
                     mTaskPriority.setText(R.string.priority_3);
                     break;
@@ -108,13 +118,18 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
                     break;
             }
 
+
             // Устанавливаем повтор
             if (!taskRepeat.equals("Без повтора")) {
                 mTaskRepeat.setText(taskRepeat);
             }
 
+
             // Устанавливаем цвет
             switch (taskColor) {
+                case "Не выбран":
+                    mTaskColor.setBackgroundResource(R.color.gray_2);
+                    break;
                 case "Красный":
                     mTaskColor.setBackgroundResource(R.color.red);
                     break;
@@ -135,9 +150,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
                     break;
                 case "Розовый":
                     mTaskColor.setBackgroundResource(R.color.pink);
-                    break;
-                case "Без цвета":
-                    mTaskColor.setBackgroundResource(R.color.gray_1);
                     break;
             }
         }
