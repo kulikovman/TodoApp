@@ -70,7 +70,14 @@ public class TodoBaseHelper extends SQLiteOpenHelper {
         List<Task> taskList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(TaskTable.NAME, null, null, null, null, null, null);
+        Cursor cursor = db.query(TaskTable.NAME,
+                null,
+                null, //TaskTable.Cols.DONE + " = ?",
+                null, //new String[]{"1"},
+                null,
+                null,
+                null
+        );
 
         while (cursor.moveToNext()) {
             String uuid = cursor.getString(cursor.getColumnIndex(TaskTable.Cols.UUID));
@@ -101,12 +108,12 @@ public class TodoBaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(TaskTable.NAME,
-                null, // null - выбирает все столбцы
-                TaskTable.Cols.UUID + " = ?", // Ищем совпадение по столбцу
-                new String[]{id.toString()}, // Что именно ищем
-                null, // groupBy
-                null, // having
-                null // orderBy
+                null, // columns - Список полей, которые мы хотим получить
+                TaskTable.Cols.UUID + " = ?", // selection - Строка условия WHERE
+                new String[]{id.toString()}, // selectionArgs - Массив аргументов для selection
+                null, // groupBy - Группировка
+                null, // having - Использование условий для агрегатных функций
+                null // orderBy - Сортировка
         );
 
         try {

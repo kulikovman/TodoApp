@@ -23,6 +23,7 @@ public class TodoListActivity extends AppCompatActivity implements TaskAdapter.O
     private RecyclerView mRecyclerView;
     private TaskAdapter mAdapter;
     private TodoBaseHelper mDbHelper;
+    private List<Task> mTasks;
 
     private View mItemView;
     private Task mTask;
@@ -51,6 +52,13 @@ public class TodoListActivity extends AppCompatActivity implements TaskAdapter.O
 
         mAdapter.setOnItemClickListener(this);
         Log.d("myLog", "Программа запущена");
+
+        mTasks = mDbHelper.getTaskList();
+
+        for (Task task : mTasks) {
+            String done = String.valueOf(task.isDone());
+            Log.d("myLog", done);
+        }
     }
 
     @Override
@@ -73,20 +81,6 @@ public class TodoListActivity extends AppCompatActivity implements TaskAdapter.O
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    private void updateUI() {
-        List<Task> tasks = mDbHelper.getTaskList();
-
-        if (mAdapter == null) {
-            mAdapter = new TaskAdapter(tasks);
-            mRecyclerView.setAdapter(mAdapter);
-        } else {
-            mItemView.setBackgroundColor(Color.TRANSPARENT);
-            mAdapter.setTasks(tasks);
-            mAdapter.notifyItemRemoved(mPosition);
-            hideActionButton();
-        }
     }
 
     @Override
@@ -119,6 +113,9 @@ public class TodoListActivity extends AppCompatActivity implements TaskAdapter.O
     }
 
     public void fabDoneTask(View view) {
+        mTask.setDone(true);
+        mDbHelper.updateTask(mTask);
+
     }
 
     public void fabEditTask(View view) {
@@ -134,6 +131,19 @@ public class TodoListActivity extends AppCompatActivity implements TaskAdapter.O
         startActivity(intent);
     }
 
+    private void updateUI() {
+        List<Task> tasks = mDbHelper.getTaskList();
+
+        if (mAdapter == null) {
+            mAdapter = new TaskAdapter(tasks);
+            mRecyclerView.setAdapter(mAdapter);
+        } else {
+            mItemView.setBackgroundColor(Color.TRANSPARENT);
+            mAdapter.setTasks(tasks);
+            mAdapter.notifyItemRemoved(mPosition);
+            hideActionButton();
+        }
+    }
 
 
 
