@@ -88,21 +88,15 @@ public class TodoBaseHelper extends SQLiteOpenHelper {
             String repeat = cursor.getString(cursor.getColumnIndex(TaskTable.Cols.REPEAT));
             int done = cursor.getInt(cursor.getColumnIndex(TaskTable.Cols.DONE));
 
-            Task task = new Task(UUID.fromString(uuid));
-            task.setTitle(title);
-            task.setColor(color);
-            task.setDate(date);
-            task.setPriority(priority);
-            task.setRepeat(repeat);
-            task.setDone(done != 0);
-
-            taskList.add(task);
+            taskList.add(new Task(UUID.fromString(uuid),
+                    title, date, priority, color, repeat, done != 0));
         }
 
         cursor.close();
         db.close();
         return taskList;
     }
+
 
     public Task getTask(UUID id) {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -131,13 +125,8 @@ public class TodoBaseHelper extends SQLiteOpenHelper {
             String repeat = cursor.getString(cursor.getColumnIndex(TaskTable.Cols.REPEAT));
             int done = cursor.getInt(cursor.getColumnIndex(TaskTable.Cols.DONE));
 
-            Task task = new Task(UUID.fromString(uuid));
-            task.setTitle(title);
-            task.setColor(color);
-            task.setDate(date);
-            task.setPriority(priority);
-            task.setRepeat(repeat);
-            task.setDone(done != 0);
+            Task task = new Task(UUID.fromString(uuid),
+                    title, date, priority, color, repeat, done != 0);
 
             return task;
         } finally {
