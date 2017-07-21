@@ -43,17 +43,18 @@ public class TodoBaseHelper extends SQLiteOpenHelper {
 
     public void addTask(Task task) {
         SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(TaskTable.Cols.UUID, task.getId().toString());
-        values.put(TaskTable.Cols.TITLE, task.getTitle());
-        values.put(TaskTable.Cols.DATE, task.getDate());
-        values.put(TaskTable.Cols.PRIORITY, task.getPriority());
-        values.put(TaskTable.Cols.COLOR, task.getColor());
-        values.put(TaskTable.Cols.REPEAT, task.getRepeat());
-        values.put(TaskTable.Cols.DONE, task.isDone() ? 1 : 0);
+        ContentValues values = getContentValues(task);
 
         db.insertWithOnConflict(TaskTable.NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+        db.close();
+    }
+
+    public void updateTask(Task task) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = getContentValues(task);
+        String uuid = task.getId().toString();
+
+        db.update(TaskTable.NAME, values, TaskTable.Cols.UUID + " = ?", new String[]{uuid});
         db.close();
     }
 
@@ -136,5 +137,18 @@ public class TodoBaseHelper extends SQLiteOpenHelper {
             cursor.close();
             db.close();
         }
+    }
+
+    private static ContentValues getContentValues(Task task) {
+        ContentValues values = new ContentValues();
+        values.put(TaskTable.Cols.UUID, task.getId().toString());
+        values.put(TaskTable.Cols.TITLE, task.getTitle());
+        values.put(TaskTable.Cols.DATE, task.getDate());
+        values.put(TaskTable.Cols.PRIORITY, task.getPriority());
+        values.put(TaskTable.Cols.COLOR, task.getColor());
+        values.put(TaskTable.Cols.REPEAT, task.getRepeat());
+        values.put(TaskTable.Cols.DONE, task.isDone() ? 1 : 0);
+
+        return values;
     }
 }
