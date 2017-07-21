@@ -64,10 +64,12 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
             String taskRepeat = mTask.getRepeat();
             String taskColor = mTask.getColor();
 
-            Log.d("myLog", taskTitle + " | " +
-                    taskDate + " | " +
-                    taskPriority + " | " +
-                    taskColor);
+            Log.d("myLog",
+                    taskTitle + " | " +
+                            taskDate + " | " +
+                            taskPriority + " | " +
+                            taskColor + " | " +
+                            mTask.isDone());
 
 
             // Устанавливаем заголовок
@@ -107,6 +109,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
                 case "1":
                     mTaskPriority.setText(R.string.priority_1);
                     break;
+                /*case "2":
+                    mTaskPriority.setText(R.string.priority_2);
+                    break;*/
                 case "3":
                     mTaskPriority.setText(R.string.priority_3);
                     break;

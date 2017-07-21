@@ -53,12 +53,11 @@ public class TodoListActivity extends AppCompatActivity implements TaskAdapter.O
         mAdapter.setOnItemClickListener(this);
         Log.d("myLog", "Программа запущена");
 
-        mTasks = mDbHelper.getTaskList();
+        /*mTasks = mDbHelper.getTaskList();
+        mTask = mTasks.get(mTasks.size() - 1);
+        mDbHelper.deleteTask(mTask);
 
-        for (Task task : mTasks) {
-            String done = String.valueOf(task.isDone());
-            Log.d("myLog", done);
-        }
+        Log.d("myLog", "Удалили последний таск... вроде...");*/
     }
 
     @Override
@@ -115,6 +114,7 @@ public class TodoListActivity extends AppCompatActivity implements TaskAdapter.O
     public void fabDoneTask(View view) {
         mTask.setDone(true);
         mDbHelper.updateTask(mTask);
+        updateUI();
 
     }
 

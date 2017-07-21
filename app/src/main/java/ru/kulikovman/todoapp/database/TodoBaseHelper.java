@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,7 @@ import ru.kulikovman.todoapp.models.Task;
 
 
 public class TodoBaseHelper extends SQLiteOpenHelper {
-    private static final int VERSION = 1;
+    private static final int VERSION = 2;
     private static final String DATABASE_NAME = "todoAppBase.db";
 
     public TodoBaseHelper(Context context) {
@@ -39,6 +40,7 @@ public class TodoBaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("drop table if exist " + TaskTable.NAME);
+        onCreate(db);
     }
 
     public void addTask(Task task) {
@@ -72,12 +74,14 @@ public class TodoBaseHelper extends SQLiteOpenHelper {
 
         Cursor cursor = db.query(TaskTable.NAME,
                 null,
-                null, //TaskTable.Cols.DONE + " = ?",
-                null, //new String[]{"1"},
+                TaskTable.Cols.DONE + " = ?",
+                new String[]{"0"},
                 null,
                 null,
                 null
         );
+
+        Log.d("myLog", "Записей в базе: " + String.valueOf(cursor.getCount()));
 
         while (cursor.moveToNext()) {
             String uuid = cursor.getString(cursor.getColumnIndex(TaskTable.Cols.UUID));
@@ -143,7 +147,8 @@ public class TodoBaseHelper extends SQLiteOpenHelper {
         values.put(TaskTable.Cols.PRIORITY, task.getPriority());
         values.put(TaskTable.Cols.COLOR, task.getColor());
         values.put(TaskTable.Cols.REPEAT, task.getRepeat());
-        values.put(TaskTable.Cols.DONE, task.isDone() ? 1 : 0);
+        //values.put(TaskTable.Cols.DONE, task.isDone() ? 1 : 0);
+        values.put(TaskTable.Cols.DONE, task.isDone() ? "1" : "0");
 
         return values;
     }
