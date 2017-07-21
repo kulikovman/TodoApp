@@ -14,7 +14,11 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.UUID;
 
 import ru.kulikovman.todoapp.database.TodoBaseHelper;
 import ru.kulikovman.todoapp.models.Task;
@@ -112,10 +116,47 @@ public class TodoListActivity extends AppCompatActivity implements TaskAdapter.O
     }
 
     public void fabDoneTask(View view) {
+        String taskRepeat = mTask.getRepeat();
+
+        if (!taskRepeat.equals("Без повтора")) {
+            Task task = new Task(mTask.getTitle(),
+                    mTask.getDate(), mTask.getPriority(), mTask.getColor(), mTask.getRepeat());
+
+            String taskDate = task.getDate();
+            long longDate = Long.parseLong(taskDate);
+
+            Date date = new Date(longDate);
+            Calendar calendar = new GregorianCalendar();
+            calendar.setTime(date);
+
+            switch (taskRepeat) {
+                case "Ежедневно":
+                    calendar.add(Calendar.DAY_OF_YEAR, 1);
+                    break;
+                case "Каждую неделю":
+                    calendar.add(Calendar.DAY_OF_YEAR, 7);
+                    break;
+                case "Раз в месяц":
+                    calendar.add(Calendar.MONTH, 1);
+                    break;
+                case "Через год":
+                    calendar.add(Calendar.YEAR, 1);
+                    break;
+            }
+
+            date = calendar.getTime();
+            longDate = date.getTime();
+            taskDate = String.valueOf(longDate);
+
+            task.setDate(taskDate);
+            mDbHelper.addTask(task);
+        }
+
         mTask.setDone(true);
         mDbHelper.updateTask(mTask);
-        updateUI();
+        mAdapter.notifyItemRemoved(mPosition);
 
+        updateUI();
     }
 
     public void fabEditTask(View view) {
@@ -123,6 +164,8 @@ public class TodoListActivity extends AppCompatActivity implements TaskAdapter.O
 
     public void fabDeleteTask(View view) {
         mDbHelper.deleteTask(mTask);
+        mAdapter.notifyItemRemoved(mPosition);
+
         updateUI();
     }
 
@@ -140,7 +183,6 @@ public class TodoListActivity extends AppCompatActivity implements TaskAdapter.O
         } else {
             mItemView.setBackgroundColor(Color.TRANSPARENT);
             mAdapter.setTasks(tasks);
-            mAdapter.notifyItemRemoved(mPosition);
             hideActionButton();
         }
     }
