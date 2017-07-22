@@ -18,7 +18,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.UUID;
 
 import ru.kulikovman.todoapp.database.TodoBaseHelper;
 import ru.kulikovman.todoapp.models.Task;
@@ -27,7 +26,6 @@ public class TodoListActivity extends AppCompatActivity implements TaskAdapter.O
     private RecyclerView mRecyclerView;
     private TaskAdapter mAdapter;
     private TodoBaseHelper mDbHelper;
-    private List<Task> mTasks;
 
     private View mItemView;
     private Task mTask;
@@ -56,12 +54,6 @@ public class TodoListActivity extends AppCompatActivity implements TaskAdapter.O
 
         mAdapter.setOnItemClickListener(this);
         Log.d("myLog", "Программа запущена");
-
-        /*mTasks = mDbHelper.getTaskList();
-        mTask = mTasks.get(mTasks.size() - 1);
-        mDbHelper.deleteTask(mTask);
-
-        Log.d("myLog", "Удалили последний таск... вроде...");*/
     }
 
     @Override
@@ -186,8 +178,6 @@ public class TodoListActivity extends AppCompatActivity implements TaskAdapter.O
             hideActionButton();
         }
     }
-
-
 
 
 
