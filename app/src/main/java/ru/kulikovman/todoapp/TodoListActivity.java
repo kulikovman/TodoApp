@@ -23,8 +23,6 @@ import ru.kulikovman.todoapp.database.TodoBaseHelper;
 import ru.kulikovman.todoapp.models.Task;
 
 public class TodoListActivity extends AppCompatActivity implements TaskAdapter.OnItemClickListener {
-    private static final String EXTRA_TASK_ID = "task_id";
-
     private RecyclerView mRecyclerView;
     private TaskAdapter mAdapter;
     private TodoBaseHelper mDbHelper;
@@ -155,7 +153,7 @@ public class TodoListActivity extends AppCompatActivity implements TaskAdapter.O
 
     public void fabEditTask(View view) {
         Intent intent = new Intent(this, TaskActivity.class);
-        intent.putExtra(EXTRA_TASK_ID, mTask.getId());
+        intent.putExtra("task_id", mTask.getId());
         startActivity(intent);
     }
 

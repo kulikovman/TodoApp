@@ -24,8 +24,6 @@ import ru.kulikovman.todoapp.dialogs.RepeatFragment;
 import ru.kulikovman.todoapp.models.Task;
 
 public class TaskActivity extends AppCompatActivity {
-    private static final String EXTRA_TASK_ID = "task_id";
-
     private TodoBaseHelper mDbHelper;
     private UUID mUUID;
     private Task mTask;
@@ -40,10 +38,11 @@ public class TaskActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mDbHelper = new TodoBaseHelper(this);
-        mUUID = (UUID) getIntent().getSerializableExtra(EXTRA_TASK_ID);
-        mTask = mDbHelper.getTask(mUUID);
+        mUUID = (UUID) getIntent().getSerializableExtra("task_id");
 
-        Log.d("myLog", "Добавление задачи");
+        if (mUUID != null) {
+            mTask = mDbHelper.getTask(mUUID);
+        }
     }
 
     public void taskOptions(View view) {

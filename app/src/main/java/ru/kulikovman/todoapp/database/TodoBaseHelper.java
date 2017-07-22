@@ -114,6 +114,8 @@ public class TodoBaseHelper extends SQLiteOpenHelper {
                 null // orderBy - Сортировка
         );
 
+        Log.d("myLog", "Записей в базе: " + String.valueOf(cursor.getCount()));
+
         try {
             if (cursor.getCount() == 0) {
                 return null;
@@ -147,7 +149,6 @@ public class TodoBaseHelper extends SQLiteOpenHelper {
         values.put(TaskTable.Cols.PRIORITY, task.getPriority());
         values.put(TaskTable.Cols.COLOR, task.getColor());
         values.put(TaskTable.Cols.REPEAT, task.getRepeat());
-        //values.put(TaskTable.Cols.DONE, task.isDone() ? 1 : 0);
         values.put(TaskTable.Cols.DONE, task.isDone() ? "1" : "0");
 
         return values;
