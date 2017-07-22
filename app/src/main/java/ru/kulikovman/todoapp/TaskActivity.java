@@ -13,7 +13,6 @@ import android.widget.TextView;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -25,7 +24,11 @@ import ru.kulikovman.todoapp.dialogs.RepeatFragment;
 import ru.kulikovman.todoapp.models.Task;
 
 public class TaskActivity extends AppCompatActivity {
-    TodoBaseHelper mTodoBaseHelper;
+    private static final String EXTRA_TASK_ID = "task_id";
+
+    private TodoBaseHelper mDbHelper;
+    private UUID mUUID;
+    private Task mTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +39,9 @@ public class TaskActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mTodoBaseHelper = new TodoBaseHelper(this);
+        mDbHelper = new TodoBaseHelper(this);
+        mUUID = (UUID) getIntent().getSerializableExtra(EXTRA_TASK_ID);
+        mTask = mDbHelper.getTask(mUUID);
 
         Log.d("myLog", "Добавление задачи");
     }
@@ -113,7 +118,7 @@ public class TaskActivity extends AppCompatActivity {
 
             // Сохраняем задачу в базу
             Task task = new Task(title, date, priority, color, repeat);
-            mTodoBaseHelper.addTask(task);
+            mDbHelper.addTask(task);
 
             // Возвращаемся в список задач
             Intent intent = new Intent(this, TodoListActivity.class);
