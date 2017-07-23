@@ -48,18 +48,16 @@ public class TaskActivity extends AppCompatActivity {
         mPriorityField = (TextView) findViewById(R.id.priority_field);
         mColorField = (TextView) findViewById(R.id.color_field);
         mRepeatField = (TextView) findViewById(R.id.repeat_field);
-        Log.d("myLog", "Активити успешно запущен");
 
         mDbHelper = new TodoBaseHelper(this);
         UUID uuid = (java.util.UUID) getIntent().getSerializableExtra("task_id");
 
         if (uuid != null) {
             mTask = mDbHelper.getTask(uuid);
-            Log.d("myLog", "Получили таск из базы");
-
             readTask();
-            Log.d("myLog", "Данные полей обновлены");
         }
+
+        Log.d("myLog", "Активити успешно запущен");
     }
 
     public void taskOptions(View view) {
@@ -90,6 +88,7 @@ public class TaskActivity extends AppCompatActivity {
         // Получаем заголовок
         mTitle = mTitleField.getText().toString();
 
+
         // Если заголовок есть, то делаем все остальное
         if (!mTitle.equals("")) {
             // Получаем дату
@@ -99,6 +98,7 @@ public class TaskActivity extends AppCompatActivity {
                 mDate = String.valueOf(dateFormat.parse(mDate).getTime());
             } catch (ParseException ignored) {
             }
+
 
             // Получаем приоритет
             mPriority = mPriorityField.getText().toString();
@@ -120,19 +120,20 @@ public class TaskActivity extends AppCompatActivity {
                     break;
             }
 
+
             // Получаем цвет
             mColor = mColorField.getText().toString();
+
 
             // Получаем повтор
             mRepeat = mRepeatField.getText().toString();
 
-            // Сохраняем задачу в базу
 
+            // Сохраняем задачу в базу
             if (mTask == null) {
                 mTask = new Task(mTitle, mDate, mPriority, mColor, mRepeat);
 
                 mDbHelper.addTask(mTask);
-                Log.d("myLog", "Добавили новый такс в базу");
             } else {
                 mTask.setTitle(mTitle);
                 mTask.setDate(mDate);
@@ -141,8 +142,8 @@ public class TaskActivity extends AppCompatActivity {
                 mTask.setRepeat(mRepeat);
 
                 mDbHelper.updateTask(mTask);
-                Log.d("myLog", "Обновили существующий в базе таск");
             }
+
 
             // Возвращаемся в список задач
             Intent intent = new Intent(this, TodoListActivity.class);
@@ -156,17 +157,10 @@ public class TaskActivity extends AppCompatActivity {
         mPriority = mTask.getPriority();
         mColor = mTask.getColor();
         mRepeat = mTask.getRepeat();
-        Log.d("myLog", "Получили поля задачи: " +
-                mTitle + " | " +
-                mDate + " | " +
-                mPriority + " | " +
-                mColor + " | " +
-                mRepeat);
 
 
         // Устанавливаем заголовок
         mTitleField.setText(mTitle);
-        Log.d("myLog", "Заголовок");
 
 
         // Устанавливаем дату
@@ -200,16 +194,13 @@ public class TaskActivity extends AppCompatActivity {
         }
 
         mPriorityField.setText(mPriority);
-        Log.d("myLog", "Приоритет");
 
 
         // Устанавливаем цвет
         mColorField.setText(mColor);
-        Log.d("myLog", "Цвет");
 
 
         // Устанавливаем повтор
         mRepeatField.setText(mRepeat);
-        Log.d("myLog", "Повтор");
     }
 }

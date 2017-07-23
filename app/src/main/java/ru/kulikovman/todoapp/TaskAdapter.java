@@ -64,13 +64,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
             String taskRepeat = mTask.getRepeat();
             String taskColor = mTask.getColor();
 
-            /*Log.d("myLog",
-                    taskTitle + " | " +
-                            taskDate + " | " +
-                            taskPriority + " | " +
-                            taskColor + " | " +
-                            mTask.isDone());*/
-
 
             // Устанавливаем заголовок
             mTaskTitle.setText(taskTitle);
