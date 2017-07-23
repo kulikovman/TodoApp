@@ -50,12 +50,13 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
         public void bindTask(Task task) {
             mTask = task;
 
+
             // Обнуляем все текстовые поля
-            // При переиспользовании айтемов могут сохраниться старые значения
             mTaskTitle.setText(null);
             mTaskDate.setText(null);
             mTaskPriority.setText(null);
             mTaskRepeat.setText(null);
+
 
             // Получаем значения полей
             String taskTitle = mTask.getTitle();
