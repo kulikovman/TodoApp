@@ -28,6 +28,7 @@ public class DateFragment extends DialogFragment {
                         Log.d("myLog", String.valueOf(which));
 
                         TextView dateField = (TextView) getActivity().findViewById(R.id.date_field);
+                        TextView repeatField = (TextView) getActivity().findViewById(R.id.repeat_field);
 
                         Calendar c = Calendar.getInstance();
                         DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
@@ -48,6 +49,7 @@ public class DateFragment extends DialogFragment {
                                 break;
                             case 3:
                                 dateField.setText(R.string.date_not_set);
+                                repeatField.setText(R.string.repeat_without);
                                 break;
                         }
                     }
