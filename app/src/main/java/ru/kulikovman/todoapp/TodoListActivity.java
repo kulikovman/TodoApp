@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -171,6 +172,7 @@ public class TodoListActivity extends AppCompatActivity implements TaskAdapter.O
 
     private void updateUI() {
         List<Task> tasks = mDbHelper.getTaskList();
+        Collections.sort(tasks, new TaskComparator());
 
         if (mAdapter == null) {
             mAdapter = new TaskAdapter(tasks);
@@ -181,8 +183,6 @@ public class TodoListActivity extends AppCompatActivity implements TaskAdapter.O
             hideActionButton();
         }
     }
-
-
 
     private void hideActionButton() {
         mDeleteButton.setVisibility(View.INVISIBLE);
