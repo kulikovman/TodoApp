@@ -13,6 +13,9 @@ import android.widget.TextView;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -25,8 +28,11 @@ import ru.kulikovman.todoapp.models.Task;
 
 public class TaskActivity extends AppCompatActivity {
     private TodoBaseHelper mDbHelper;
-    private UUID mUUID;
     private Task mTask;
+
+    private EditText mTitleField;
+    private TextView mDateField, mPriorityField, mColorField, mRepeatField;
+    private String mTitle, mDate, mPriority, mColor, mRepeat = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +43,22 @@ public class TaskActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mDbHelper = new TodoBaseHelper(this);
-        mUUID = (UUID) getIntent().getSerializableExtra("task_id");
+        mTitleField = (EditText) findViewById(R.id.task_title);
+        mDateField = (TextView) findViewById(R.id.date_field);
+        mPriorityField = (TextView) findViewById(R.id.priority_field);
+        mColorField = (TextView) findViewById(R.id.color_field);
+        mRepeatField = (TextView) findViewById(R.id.repeat_field);
+        Log.d("myLog", "Активити успешно запущен");
 
-        if (mUUID != null) {
-            mTask = mDbHelper.getTask(mUUID);
+        mDbHelper = new TodoBaseHelper(this);
+        UUID uuid = (java.util.UUID) getIntent().getSerializableExtra("task_id");
+
+        if (uuid != null) {
+            mTask = mDbHelper.getTask(uuid);
+            Log.d("myLog", "Получили таск из базы");
+
+            readTask();
+            Log.d("myLog", "Данные полей обновлены");
         }
     }
 
@@ -69,59 +86,130 @@ public class TaskActivity extends AppCompatActivity {
         }
     }
 
-    public void addTask(View view) {
-        EditText taskTitle = (EditText) findViewById(R.id.task_title);
-        TextView taskDate = (TextView) findViewById(R.id.date_field);
-        TextView taskPriority = (TextView) findViewById(R.id.priority_field);
-        TextView taskColor = (TextView) findViewById(R.id.color_field);
-        TextView taskRepeat = (TextView) findViewById(R.id.repeat_field);
-
+    public void fabAddTask(View view) {
         // Получаем заголовок
-        String title = taskTitle.getText().toString();
+        mTitle = mTitleField.getText().toString();
 
         // Если заголовок есть, то делаем все остальное
-        if (!title.equals("")) {
+        if (!mTitle.equals("")) {
             // Получаем дату
-            String date = taskDate.getText().toString();
+            mDate = mDateField.getText().toString();
             DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
             try {
-                date = String.valueOf(dateFormat.parse(date).getTime());
+                mDate = String.valueOf(dateFormat.parse(mDate).getTime());
             } catch (ParseException ignored) {
             }
 
             // Получаем приоритет
-            String priority = taskPriority.getText().toString();
-            switch (priority) {
+            mPriority = mPriorityField.getText().toString();
+            switch (mPriority) {
                 case "Чрезвычайный":
-                    priority = "0";
+                    mPriority = "0";
                     break;
                 case "Высокий":
-                    priority = "1";
+                    mPriority = "1";
                     break;
                 case "Обычный":
-                    priority = "2";
+                    mPriority = "2";
                     break;
                 case "Низкий":
-                    priority = "3";
+                    mPriority = "3";
                     break;
                 case "Самый низкий":
-                    priority = "4";
+                    mPriority = "4";
                     break;
             }
 
             // Получаем цвет
-            String color = taskColor.getText().toString();
+            mColor = mColorField.getText().toString();
 
             // Получаем повтор
-            String repeat = taskRepeat.getText().toString();
+            mRepeat = mRepeatField.getText().toString();
 
             // Сохраняем задачу в базу
-            Task task = new Task(title, date, priority, color, repeat);
-            mDbHelper.addTask(task);
+
+            if (mTask == null) {
+                mTask = new Task(mTitle, mDate, mPriority, mColor, mRepeat);
+
+                mDbHelper.addTask(mTask);
+                Log.d("myLog", "Добавили новый такс в базу");
+            } else {
+                mTask.setTitle(mTitle);
+                mTask.setDate(mDate);
+                mTask.setPriority(mPriority);
+                mTask.setColor(mColor);
+                mTask.setRepeat(mRepeat);
+
+                mDbHelper.updateTask(mTask);
+                Log.d("myLog", "Обновили существующий в базе таск");
+            }
 
             // Возвращаемся в список задач
             Intent intent = new Intent(this, TodoListActivity.class);
             startActivity(intent);
         }
+    }
+
+    private void readTask() {
+        mTitle = mTask.getTitle();
+        mDate = mTask.getDate();
+        mPriority = mTask.getPriority();
+        mColor = mTask.getColor();
+        mRepeat = mTask.getRepeat();
+        Log.d("myLog", "Получили поля задачи: " +
+                mTitle + " | " +
+                mDate + " | " +
+                mPriority + " | " +
+                mColor + " | " +
+                mRepeat);
+
+
+        // Устанавливаем заголовок
+        mTitleField.setText(mTitle);
+        Log.d("myLog", "Заголовок");
+
+
+        // Устанавливаем дату
+        if (!mDate.equals("Не установлена")) {
+            long dateLong = Long.parseLong(mDate);
+            Date date = new Date(dateLong);
+            DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
+            mDate = dateFormat.format(date);
+        }
+
+        mDateField.setText(mDate);
+
+
+        // Устанавливаем приоритет
+        switch (mPriority) {
+            case "0":
+                mPriority = "Чрезвычайный";
+                break;
+            case "1":
+                mPriority = "Высокий";
+                break;
+            case "2":
+                mPriority = "Обычный";
+                break;
+            case "3":
+                mPriority = "Низкий";
+                break;
+            case "4":
+                mPriority = "Самый низкий";
+                break;
+        }
+
+        mPriorityField.setText(mPriority);
+        Log.d("myLog", "Приоритет");
+
+
+        // Устанавливаем цвет
+        mColorField.setText(mColor);
+        Log.d("myLog", "Цвет");
+
+
+        // Устанавливаем повтор
+        mRepeatField.setText(mRepeat);
+        Log.d("myLog", "Повтор");
     }
 }
