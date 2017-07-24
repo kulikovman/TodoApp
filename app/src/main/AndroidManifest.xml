@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".MainActivity"
+            android:name=".TodoActivity"
             android:label="@string/title_activity_main"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
@@ -24,12 +24,12 @@
         <activity
             android:name=".TaskActivity"
             android:label="@string/title_activity_task"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".TodoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="ru.kulikovman.todoapp.MainActivity"/>
+                android:value="ru.kulikovman.todoapp.TodoActivity"/>
         </activity>
 
     </application>

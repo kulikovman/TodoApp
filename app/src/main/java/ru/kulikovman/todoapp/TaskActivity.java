@@ -144,7 +144,7 @@ public class TaskActivity extends AppCompatActivity {
 
 
             // Возвращаемся в список задач
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, TodoActivity.class);
             startActivity(intent);
         }
     }
