@@ -153,4 +153,19 @@ public class TodoBaseHelper extends SQLiteOpenHelper {
 
         return values;
     }
+
+    private TodoCursorWrapper queryTasks(String where, String[] args) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TaskTable.NAME,
+                null, // columns - Список полей, которые мы хотим получить
+                where,  // selection - Строка условия WHERE
+                args, // selectionArgs - Массив аргументов для selection
+                null, // groupBy - Группировка
+                null, // having - Использование условий для агрегатных функций
+                null // orderBy - Сортировка
+        );
+
+        return new TodoCursorWrapper(cursor);
+    }
 }
