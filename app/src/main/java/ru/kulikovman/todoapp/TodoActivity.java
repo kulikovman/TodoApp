@@ -86,7 +86,7 @@ public class TodoActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.todo, menu);
+        //getMenuInflater().inflate(R.menu.здесь_вписать_имя_меню, menu);
         return true;
     }
 
