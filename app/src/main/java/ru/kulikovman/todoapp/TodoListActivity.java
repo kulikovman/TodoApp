@@ -112,7 +112,7 @@ public class TodoListActivity extends AppCompatActivity implements TaskAdapter.O
     public void fabDoneTask(View view) {
         String taskRepeat = mTask.getRepeat();
 
-        if (!taskRepeat.equals("Без повтора")) {
+        if (!taskRepeat.equals("Без повтора") && !mTask.isDone()) {
             Task task = new Task(mTask.getTitle(),
                     mTask.getDate(), mTask.getPriority(), mTask.getColor(), mTask.getRepeat());
 
@@ -146,7 +146,7 @@ public class TodoListActivity extends AppCompatActivity implements TaskAdapter.O
             mDbHelper.addTask(task);
         }
 
-        mTask.setDone(true);
+        mTask.setDone(!mTask.isDone());
         mDbHelper.updateTask(mTask);
         mAdapter.notifyItemRemoved(mPosition);
 
