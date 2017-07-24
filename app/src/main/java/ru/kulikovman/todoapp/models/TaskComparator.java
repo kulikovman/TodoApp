@@ -1,4 +1,4 @@
-package ru.kulikovman.todoapp;
+package ru.kulikovman.todoapp.models;
 
 import java.util.Comparator;
 

@@ -22,6 +22,7 @@ import java.util.List;
 
 import ru.kulikovman.todoapp.database.TodoBaseHelper;
 import ru.kulikovman.todoapp.models.Task;
+import ru.kulikovman.todoapp.models.TaskComparator;
 
 public class TodoListActivity extends AppCompatActivity implements TaskAdapter.OnItemClickListener {
     private RecyclerView mRecyclerView;
@@ -180,6 +181,7 @@ public class TodoListActivity extends AppCompatActivity implements TaskAdapter.O
         } else {
             mItemView.setBackgroundColor(Color.TRANSPARENT);
             mAdapter.setTasks(tasks);
+            mAdapter.notifyDataSetChanged();
             hideActionButton();
         }
     }
