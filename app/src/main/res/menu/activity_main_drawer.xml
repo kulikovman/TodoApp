@@ -3,21 +3,26 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/nav_task_today"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Import"/>
+            android:title="Сегодня"/>
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_task_month"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery"/>
+            android:title="На месяц"/>
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_task_unfinished"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow"/>
+            android:title="Все задачи"/>
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/nav_task_without_date"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Tools"/>
+            android:title="Задачи без даты"/>
+
+        <item
+            android:id="@+id/nav_task_finished"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Завершенные"/>
     </group>
 
     <item android:title="Communicate">
