@@ -65,10 +65,28 @@ public class TodoBaseHelper extends SQLiteOpenHelper {
         mDb.close();
     }
 
-    public List<Task> getAllTasks() {
+    public List<Task> getUnfinishedTasks() {
         List<Task> tasks = new ArrayList<>();
 
         try (TodoCursorWrapper cursor = queryTasks(TaskTable.Cols.DONE + " = ?", new String[]{"0"})) {
+            Log.d("myLog", "Записей в базе: " + String.valueOf(cursor.getCount()));
+            cursor.moveToFirst();
+
+            while (!cursor.isAfterLast()) {
+                tasks.add(cursor.getTask());
+                cursor.moveToNext();
+            }
+        } finally {
+            mDb.close();
+        }
+
+        return tasks;
+    }
+
+    public List<Task> getFinishedTasks() {
+        List<Task> tasks = new ArrayList<>();
+
+        try (TodoCursorWrapper cursor = queryTasks(TaskTable.Cols.DONE + " = ?", new String[]{"1"})) {
             Log.d("myLog", "Записей в базе: " + String.valueOf(cursor.getCount()));
             cursor.moveToFirst();
 

@@ -172,7 +172,7 @@ public class TodoListActivity extends AppCompatActivity implements TaskAdapter.O
     }
 
     private void updateUI() {
-        List<Task> tasks = mDbHelper.getAllTasks();
+        List<Task> tasks = mDbHelper.getUnfinishedTasks();
         Collections.sort(tasks, new TaskComparator());
 
         if (mAdapter == null) {
