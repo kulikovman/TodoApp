@@ -13,9 +13,7 @@ import android.widget.TextView;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -53,7 +51,7 @@ public class TaskActivity extends AppCompatActivity {
         UUID uuid = (java.util.UUID) getIntent().getSerializableExtra("task_id");
 
         if (uuid != null) {
-            mTask = mDbHelper.getTask(uuid);
+            mTask = mDbHelper.getTaskByUUID(uuid);
             readTask();
         }
 
