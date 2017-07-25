@@ -38,6 +38,7 @@ public class TodoActivity extends AppCompatActivity
     private View mItemView;
     private Task mTask;
     private int mPosition;
+    private List<Task> mTasks;
 
     private FloatingActionButton mDeleteButton, mEditButton, mDoneButton;
 
@@ -161,12 +162,14 @@ public class TodoActivity extends AppCompatActivity
     }
 
     public void fabDoneTask(View view) {
-        String taskRepeat = mTask.getRepeat();
+        Task task = new Task(mTask.getTitle(),
+                mTask.getDate(), mTask.getPriority(), mTask.getColor(), mTask.getRepeat());
 
-        if (!taskRepeat.equals("Без повтора") && !mTask.isDone()) {
-            Task task = new Task(mTask.getTitle(),
-                    mTask.getDate(), mTask.getPriority(), mTask.getColor(), mTask.getRepeat());
+        mTask.setDone(!mTask.isDone());
+        mDbHelper.updateTask(mTask);
+        mAdapter.deleteItem(mPosition);
 
+        if (!task.getRepeat().equals("Без повтора") && !task.isDone()) {
             String taskDate = task.getDate();
             long longDate = Long.parseLong(taskDate);
 
@@ -174,7 +177,7 @@ public class TodoActivity extends AppCompatActivity
             Calendar calendar = new GregorianCalendar();
             calendar.setTime(date);
 
-            switch (taskRepeat) {
+            switch (task.getRepeat()) {
                 case "Ежедневно":
                     calendar.add(Calendar.DAY_OF_YEAR, 1);
                     break;
@@ -192,18 +195,25 @@ public class TodoActivity extends AppCompatActivity
             date = calendar.getTime();
             longDate = date.getTime();
             taskDate = String.valueOf(longDate);
-
             task.setDate(taskDate);
+
             mDbHelper.addTask(task);
+            mTasks.add(task);
+            Collections.sort(mTasks, new TaskComparator());
+
+            for (int i = 0; i < mTasks.size(); i++) {
+                String uuidFirst = mTasks.get(i).getId().toString();
+                String uuidSecond = task.getId().toString();
+
+                if (uuidFirst.equals(uuidSecond)) {
+                    mTasks.remove(i);
+                    mAdapter.addItem(i, task);
+                    break;
+                }
+            }
         }
 
-        mTask.setDone(!mTask.isDone());
-        mDbHelper.updateTask(mTask);
-        mAdapter.notifyItemRemoved(mPosition);
-
-        updateUI();
-
-        mAdapter.notifyDataSetChanged();
+        finishAction();
     }
 
     public void fabEditTask(View view) {
@@ -213,10 +223,10 @@ public class TodoActivity extends AppCompatActivity
     }
 
     public void fabDeleteTask(View view) {
+        mTasks.remove(mPosition);
         mDbHelper.deleteTask(mTask);
-        mAdapter.notifyItemRemoved(mPosition);
 
-        updateUI();
+        finishAction();
     }
 
     public void fabAddTask(View view) {
@@ -225,17 +235,22 @@ public class TodoActivity extends AppCompatActivity
     }
 
     private void updateUI() {
-        List<Task> tasks = mDbHelper.getUnfinishedTasks();
-        Collections.sort(tasks, new TaskComparator());
+        mTasks = mDbHelper.getUnfinishedTasks();
+        Collections.sort(mTasks, new TaskComparator());
 
         if (mAdapter == null) {
-            mAdapter = new TaskAdapter(tasks);
+            mAdapter = new TaskAdapter(mTasks);
             mRecyclerView.setAdapter(mAdapter);
         } else {
-            mItemView.setBackgroundColor(Color.TRANSPARENT);
-            mAdapter.setTasks(tasks);
-            hideActionButton();
+            mAdapter.setTasks(mTasks);
+            finishAction();
         }
+    }
+
+    private void finishAction() {
+        // Убираем выделение и скрываем кнопки действий
+        mItemView.setBackgroundColor(Color.TRANSPARENT);
+        hideActionButton();
     }
 
     private void hideActionButton() {

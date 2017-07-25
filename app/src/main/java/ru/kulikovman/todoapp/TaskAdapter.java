@@ -180,4 +180,16 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
     public void setOnItemClickListener(OnItemClickListener listener) {
         mListener = listener;
     }
+
+    //Здесь мы добавляем элемент в набор данных
+    public void addItem(int position, Task task){
+        mTasks.add(position, task);
+        super.notifyItemInserted(position);
+    }
+
+    //А здесь - удаляем
+    public void deleteItem(int position){
+        mTasks.remove(position);
+        super.notifyItemRemoved(position);
+    }
 }
