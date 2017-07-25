@@ -4,38 +4,35 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_task_today"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_event_24dp"
             android:title="Сегодня"/>
         <item
             android:id="@+id/nav_task_month"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_event_note_24dp"
             android:title="На месяц"/>
         <item
+            android:id="@+id/nav_task_without_date"
+            android:icon="@drawable/ic_event_busy_24dp"
+            android:title="Без даты"/>
+        <item
             android:id="@+id/nav_task_unfinished"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_inbox_24dp"
             android:title="Все задачи"/>
         <item
-            android:id="@+id/nav_task_without_date"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Задачи без даты"/>
-
-        <item
             android:id="@+id/nav_task_finished"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_done_24dp"
             android:title="Завершенные"/>
     </group>
 
-
-
-    <item android:title="">
+    <item android:title="Дополнительно">
         <menu>
             <item
                 android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Поставьте оценку!"/>
+                android:icon="@drawable/ic_star_24dp"
+                android:title="Поставить оценку"/>
             <item
                 android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@drawable/ic_info_24dp"
                 android:title="О приложении"/>
         </menu>
     </item>

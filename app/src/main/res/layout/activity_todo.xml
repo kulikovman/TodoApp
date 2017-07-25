@@ -21,7 +21,7 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:itemIconTint="@color/colorPickIcons"
-        app:itemTextColor="@color/colorPrimaryDark"
+        app:itemTextColor="@color/gray_6"
         app:headerLayout="@layout/nav_header_todo"
         app:menu="@menu/activity_todo_drawer"/>
 
