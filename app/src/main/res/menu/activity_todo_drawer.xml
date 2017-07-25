@@ -27,11 +27,11 @@
     <item android:title="Дополнительно">
         <menu>
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/nav_task_rate"
                 android:icon="@drawable/ic_star_24dp"
                 android:title="Поставить оценку"/>
             <item
-                android:id="@+id/nav_send"
+                android:id="@+id/nav_task_info"
                 android:icon="@drawable/ic_info_24dp"
                 android:title="О приложении"/>
         </menu>

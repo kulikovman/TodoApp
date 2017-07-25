@@ -108,18 +108,21 @@ public class TodoActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.nav_task_today) {
-            // Handle the camera action
-        } else if (id == R.id.nav_task_month) {
 
-        } else if (id == R.id.nav_task_unfinished) {
+        } else if (id == R.id.nav_task_month) {
 
         } else if (id == R.id.nav_task_without_date) {
 
+        } else if (id == R.id.nav_task_unfinished) {
+
         } else if (id == R.id.nav_task_finished) {
+
+        } else if (id == R.id.nav_task_rate) {
+
+        } else if (id == R.id.nav_task_info) {
 
         }
 
