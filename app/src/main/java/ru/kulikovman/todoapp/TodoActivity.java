@@ -223,8 +223,8 @@ public class TodoActivity extends AppCompatActivity
     }
 
     public void fabDeleteTask(View view) {
-        mTasks.remove(mPosition);
         mDbHelper.deleteTask(mTask);
+        mAdapter.deleteItem(mPosition);
 
         finishAction();
     }
