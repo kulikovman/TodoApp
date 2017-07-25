@@ -26,28 +26,28 @@ public class ColorFragment extends DialogFragment {
 
                         switch (which) {
                             case 0:
-                                colorField.setText(R.string.color_red);
+                                colorField.setText(R.string.color_1_red);
                                 break;
                             case 1:
-                                colorField.setText(R.string.color_orange);
+                                colorField.setText(R.string.color_2_orange);
                                 break;
                             case 2:
-                                colorField.setText(R.string.color_yellow);
+                                colorField.setText(R.string.color_3_yellow);
                                 break;
                             case 3:
-                                colorField.setText(R.string.color_green);
+                                colorField.setText(R.string.color_4_green);
                                 break;
                             case 4:
-                                colorField.setText(R.string.color_blue);
+                                colorField.setText(R.string.color_5_blue);
                                 break;
                             case 5:
-                                colorField.setText(R.string.color_violet);
+                                colorField.setText(R.string.color_6_violet);
                                 break;
                             case 6:
-                                colorField.setText(R.string.color_pink);
+                                colorField.setText(R.string.color_7_pink);
                                 break;
                             case 7:
-                                colorField.setText(R.string.color_not_set);
+                                colorField.setText(R.string.color_8_not_set);
                                 break;
                         }
                     }

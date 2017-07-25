@@ -120,28 +120,28 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
 
             // Устанавливаем цвет
             switch (taskColor) {
-                case "Не выбран":
+                case "8_not_set":
                     mTaskColor.setBackgroundResource(R.color.gray_2);
                     break;
-                case "Красный":
+                case "1_red":
                     mTaskColor.setBackgroundResource(R.color.red);
                     break;
-                case "Оранжевый":
+                case "2_orange":
                     mTaskColor.setBackgroundResource(R.color.orange);
                     break;
-                case "Желтый":
+                case "3_yellow":
                     mTaskColor.setBackgroundResource(R.color.yellow);
                     break;
-                case "Зеленый":
+                case "4_green":
                     mTaskColor.setBackgroundResource(R.color.green);
                     break;
-                case "Синий":
+                case "5_blue":
                     mTaskColor.setBackgroundResource(R.color.blue);
                     break;
-                case "Фиолетовый":
+                case "6_violet":
                     mTaskColor.setBackgroundResource(R.color.violet);
                     break;
-                case "Розовый":
+                case "7_pink":
                     mTaskColor.setBackgroundResource(R.color.pink);
                     break;
             }

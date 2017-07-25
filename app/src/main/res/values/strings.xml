@@ -21,15 +21,15 @@
     <string name="priority_4">Самый низкий</string>
 
     <string name="color_dialog_title">Цвет группы</string>
-    <string name="color_not_set">Не выбран</string>
-    <string name="color_red">Красный</string>
-    <string name="color_orange">Оранжевый</string>
-    <string name="color_yellow">Желтый</string>
-    <string name="color_green">Зеленый</string>
-    <string name="color_blue">Синий</string>
-    <string name="color_violet">Фиолетовый</string>
-    <string name="color_pink">Розовый</string>
     <string name="color_transparent">Без цвета</string>
+    <string name="color_1_red">Красный</string>
+    <string name="color_2_orange">Оранжевый</string>
+    <string name="color_3_yellow">Желтый</string>
+    <string name="color_4_green">Зеленый</string>
+    <string name="color_5_blue">Синий</string>
+    <string name="color_6_violet">Фиолетовый</string>
+    <string name="color_7_pink">Розовый</string>
+    <string name="color_8_not_set">Не выбран</string>
 
     <string name="repeat_dialog_title">Повторение</string>
     <string name="repeat_without">Без повтора</string>

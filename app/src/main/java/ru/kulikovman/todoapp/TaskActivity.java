@@ -121,6 +121,32 @@ public class TaskActivity extends AppCompatActivity {
 
             // Получаем цвет
             mColor = mColorField.getText().toString();
+            switch (mColor) {
+                case "Красный":
+                    mColor = "1_red";
+                    break;
+                case "Оранжевый":
+                    mColor = "2_orange";
+                    break;
+                case "Желтый":
+                    mColor = "3_yellow";
+                    break;
+                case "Зеленый":
+                    mColor = "4_green";
+                    break;
+                case "Синий":
+                    mColor = "5_blue";
+                    break;
+                case "Фиолетовый":
+                    mColor = "6_violet";
+                    break;
+                case "Розовый":
+                    mColor = "7_pink";
+                    break;
+                case "Не выбран":
+                    mColor = "8_not_set";
+                    break;
+            }
 
 
             // Получаем повтор

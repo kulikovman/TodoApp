@@ -243,6 +243,7 @@ public class TodoActivity extends AppCompatActivity
             mRecyclerView.setAdapter(mAdapter);
         } else {
             mAdapter.setTasks(mTasks);
+            mAdapter.notifyDataSetChanged();
             finishAction();
         }
     }
