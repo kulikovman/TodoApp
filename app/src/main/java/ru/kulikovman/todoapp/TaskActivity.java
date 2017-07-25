@@ -122,6 +122,9 @@ public class TaskActivity extends AppCompatActivity {
             // Получаем цвет
             mColor = mColorField.getText().toString();
             switch (mColor) {
+                case "Не выбран":
+                    mColor = "8_not_set";
+                    break;
                 case "Красный":
                     mColor = "1_red";
                     break;
@@ -142,9 +145,6 @@ public class TaskActivity extends AppCompatActivity {
                     break;
                 case "Розовый":
                     mColor = "7_pink";
-                    break;
-                case "Не выбран":
-                    mColor = "8_not_set";
                     break;
             }
 
@@ -221,6 +221,33 @@ public class TaskActivity extends AppCompatActivity {
 
 
         // Устанавливаем цвет
+        switch (mColor) {
+            case "8_not_set":
+                mColor = "Не выбран";
+                break;
+            case "1_red":
+                mColor = "Красный";
+                break;
+            case "2_orange":
+                mColor = "Оранжевый";
+                break;
+            case "3_yellow":
+                mColor = "Желтый";
+                break;
+            case "4_green":
+                mColor = "Зеленый";
+                break;
+            case "5_blue":
+                mColor = "Синий";
+                break;
+            case "6_violet":
+                mColor = "Фиолетовый";
+                break;
+            case "7_pink":
+                mColor = "Розовый";
+                break;
+        }
+
         mColorField.setText(mColor);
 
 
