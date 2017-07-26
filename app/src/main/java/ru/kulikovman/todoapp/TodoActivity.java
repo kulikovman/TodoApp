@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -31,6 +32,12 @@ import ru.kulikovman.todoapp.models.TaskComparator;
 public class TodoActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, TaskAdapter.OnItemClickListener {
 
+    public static final String LIST_TODAY = "today";
+    public static final String LIST_MONTH = "month";
+    public static final String LIST_WITHOUT_DATE = "without_date";
+    public static final String LIST_UNFINISHED = "unfinished";
+    public static final String LIST_FINISHED = "finished";
+
     private RecyclerView mRecyclerView;
     private TaskAdapter mAdapter;
     private TodoBaseHelper mDbHelper;
@@ -39,6 +46,7 @@ public class TodoActivity extends AppCompatActivity
     private Task mTask;
     private int mPosition;
     private List<Task> mTasks;
+    private String mTypeOfUploadedData = LIST_UNFINISHED;
 
     private FloatingActionButton mDeleteButton, mEditButton, mDoneButton;
 
@@ -118,9 +126,11 @@ public class TodoActivity extends AppCompatActivity
         } else if (id == R.id.nav_task_without_date) {
 
         } else if (id == R.id.nav_task_unfinished) {
-
+            mTypeOfUploadedData = LIST_UNFINISHED;
+            updateUI();
         } else if (id == R.id.nav_task_finished) {
-
+            mTypeOfUploadedData = LIST_FINISHED;
+            updateUI();
         } else if (id == R.id.nav_task_rate) {
 
         } else if (id == R.id.nav_task_info) {
@@ -159,6 +169,37 @@ public class TodoActivity extends AppCompatActivity
 
         mTask = task;
         mPosition = position;
+    }
+
+    private void updateUI() {
+        switch (mTypeOfUploadedData) {
+            case LIST_TODAY:
+                mTasks = mDbHelper.getUnfinishedTasks();
+                break;
+            case LIST_MONTH:
+                mTasks = mDbHelper.getUnfinishedTasks();
+                break;
+            case LIST_WITHOUT_DATE:
+                mTasks = mDbHelper.getUnfinishedTasks();
+                break;
+            case LIST_UNFINISHED:
+                mTasks = mDbHelper.getUnfinishedTasks();
+                break;
+            case LIST_FINISHED:
+                mTasks = mDbHelper.getFinishedTasks();
+                break;
+        }
+
+        Collections.sort(mTasks, new TaskComparator());
+
+        if (mAdapter == null) {
+            mAdapter = new TaskAdapter(mTasks);
+            mRecyclerView.setAdapter(mAdapter);
+        } else {
+            mAdapter.setTasks(mTasks);
+            mAdapter.notifyDataSetChanged();
+            finishAction();
+        }
     }
 
     public void fabDoneTask(View view) {
@@ -234,23 +275,12 @@ public class TodoActivity extends AppCompatActivity
         startActivity(intent);
     }
 
-    private void updateUI() {
-        mTasks = mDbHelper.getUnfinishedTasks();
-        Collections.sort(mTasks, new TaskComparator());
-
-        if (mAdapter == null) {
-            mAdapter = new TaskAdapter(mTasks);
-            mRecyclerView.setAdapter(mAdapter);
-        } else {
-            mAdapter.setTasks(mTasks);
-            mAdapter.notifyDataSetChanged();
-            finishAction();
-        }
-    }
-
     private void finishAction() {
         // Убираем выделение и скрываем кнопки действий
-        mItemView.setBackgroundColor(Color.TRANSPARENT);
+        if (mItemView != null) {
+            mItemView.setBackgroundColor(Color.TRANSPARENT);
+        }
+
         hideActionButton();
     }
 
@@ -264,5 +294,17 @@ public class TodoActivity extends AppCompatActivity
         mDeleteButton.setVisibility(View.VISIBLE);
         mEditButton.setVisibility(View.VISIBLE);
         mDoneButton.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("mTypeOfUploadedData", mTypeOfUploadedData);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        mTypeOfUploadedData = savedInstanceState.getString("mTypeOfUploadedData");
     }
 }
