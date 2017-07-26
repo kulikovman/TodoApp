@@ -1,10 +1,11 @@
 package ru.kulikovman.todoapp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -38,6 +39,10 @@ public class TodoActivity extends AppCompatActivity
     public static final String LIST_UNFINISHED = "unfinished";
     public static final String LIST_FINISHED = "finished";
 
+    public static final String APP_PREFERENCES = "todo_settings";
+    public static final String APP_PREFERENCES_TYPE_LIST = "type_list";
+    private SharedPreferences mSettings;
+
     private RecyclerView mRecyclerView;
     private TaskAdapter mAdapter;
     private TodoBaseHelper mDbHelper;
@@ -46,7 +51,7 @@ public class TodoActivity extends AppCompatActivity
     private Task mTask;
     private int mPosition;
     private List<Task> mTasks;
-    private String mTypeOfUploadedData = LIST_UNFINISHED;
+    private String mTypeList;
 
     private FloatingActionButton mDeleteButton, mEditButton, mDoneButton;
 
@@ -66,6 +71,11 @@ public class TodoActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        if (mSettings.contains(APP_PREFERENCES_TYPE_LIST)) {
+            mTypeList = mSettings.getString(APP_PREFERENCES_TYPE_LIST, LIST_UNFINISHED);
+        }
+
         mDeleteButton = (FloatingActionButton) findViewById(R.id.fab_delete_task);
         mEditButton = (FloatingActionButton) findViewById(R.id.fab_edit_task);
         mDoneButton = (FloatingActionButton) findViewById(R.id.fab_done_task);
@@ -79,7 +89,17 @@ public class TodoActivity extends AppCompatActivity
         updateUI();
 
         mAdapter.setOnItemClickListener(this);
-        Log.d("myLog", "Программа запущена");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        SharedPreferences.Editor editor = mSettings.edit();
+        editor.putString(APP_PREFERENCES_TYPE_LIST, mTypeList);
+        editor.apply();
+
+        Log.d("myLog", "Запущен onPause | mTypeList = " + mTypeList);
     }
 
     @Override
@@ -126,10 +146,10 @@ public class TodoActivity extends AppCompatActivity
         } else if (id == R.id.nav_task_without_date) {
 
         } else if (id == R.id.nav_task_unfinished) {
-            mTypeOfUploadedData = LIST_UNFINISHED;
+            mTypeList = LIST_UNFINISHED;
             updateUI();
         } else if (id == R.id.nav_task_finished) {
-            mTypeOfUploadedData = LIST_FINISHED;
+            mTypeList = LIST_FINISHED;
             updateUI();
         } else if (id == R.id.nav_task_rate) {
 
@@ -172,22 +192,26 @@ public class TodoActivity extends AppCompatActivity
     }
 
     private void updateUI() {
-        switch (mTypeOfUploadedData) {
-            case LIST_TODAY:
-                mTasks = mDbHelper.getUnfinishedTasks();
-                break;
-            case LIST_MONTH:
-                mTasks = mDbHelper.getUnfinishedTasks();
-                break;
-            case LIST_WITHOUT_DATE:
-                mTasks = mDbHelper.getUnfinishedTasks();
-                break;
-            case LIST_UNFINISHED:
-                mTasks = mDbHelper.getUnfinishedTasks();
-                break;
-            case LIST_FINISHED:
-                mTasks = mDbHelper.getFinishedTasks();
-                break;
+        if (mTypeList != null) {
+            switch (mTypeList) {
+                case LIST_TODAY:
+                    mTasks = mDbHelper.getUnfinishedTasks();
+                    break;
+                case LIST_MONTH:
+                    mTasks = mDbHelper.getUnfinishedTasks();
+                    break;
+                case LIST_WITHOUT_DATE:
+                    mTasks = mDbHelper.getUnfinishedTasks();
+                    break;
+                case LIST_UNFINISHED:
+                    mTasks = mDbHelper.getUnfinishedTasks();
+                    break;
+                case LIST_FINISHED:
+                    mTasks = mDbHelper.getFinishedTasks();
+                    break;
+            }
+        } else {
+            mTasks = mDbHelper.getUnfinishedTasks();
         }
 
         Collections.sort(mTasks, new TaskComparator());
@@ -294,17 +318,5 @@ public class TodoActivity extends AppCompatActivity
         mDeleteButton.setVisibility(View.VISIBLE);
         mEditButton.setVisibility(View.VISIBLE);
         mDoneButton.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putString("mTypeOfUploadedData", mTypeOfUploadedData);
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        mTypeOfUploadedData = savedInstanceState.getString("mTypeOfUploadedData");
     }
 }
