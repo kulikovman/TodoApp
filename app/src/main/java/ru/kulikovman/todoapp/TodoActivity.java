@@ -19,6 +19,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import java.util.Calendar;
 import java.util.Collections;
@@ -51,9 +52,11 @@ public class TodoActivity extends AppCompatActivity
     private Task mTask;
     private int mPosition;
     private List<Task> mTasks;
+    private int mNumberOfTasks;
     private String mTypeList;
 
     private FloatingActionButton mDeleteButton, mEditButton, mDoneButton;
+    private TextView mNumberOfTasksField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +64,14 @@ public class TodoActivity extends AppCompatActivity
         setContentView(R.layout.activity_todo);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        mDbHelper = new TodoBaseHelper(this);
+        mNumberOfTasks = mDbHelper.getNumberOfTasks();
+
+        mDeleteButton = (FloatingActionButton) findViewById(R.id.fab_delete_task);
+        mEditButton = (FloatingActionButton) findViewById(R.id.fab_edit_task);
+        mDoneButton = (FloatingActionButton) findViewById(R.id.fab_done_task);
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -71,16 +82,15 @@ public class TodoActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        // Находим поле в хедере для показа количества задач
+        View header = navigationView.getHeaderView(0);
+        mNumberOfTasksField = (TextView) header.findViewById(R.id.number_of_tasks);
+
+        // Получаем тип списка из Preferences
         mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         if (mSettings.contains(APP_PREFERENCES_TYPE_LIST)) {
             mTypeList = mSettings.getString(APP_PREFERENCES_TYPE_LIST, LIST_UNFINISHED);
         }
-
-        mDeleteButton = (FloatingActionButton) findViewById(R.id.fab_delete_task);
-        mEditButton = (FloatingActionButton) findViewById(R.id.fab_edit_task);
-        mDoneButton = (FloatingActionButton) findViewById(R.id.fab_done_task);
-
-        mDbHelper = new TodoBaseHelper(this);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.todo_recycler_view);
         mRecyclerView.setHasFixedSize(true);
@@ -89,6 +99,12 @@ public class TodoActivity extends AppCompatActivity
         updateUI();
 
         mAdapter.setOnItemClickListener(this);
+    }
+
+    private void setNumberOfTasks() {
+        mNumberOfTasks = mDbHelper.getNumberOfTasks();
+        String textNumberOfTasks = "Всего задач: " + mNumberOfTasks;
+        mNumberOfTasksField.setText(textNumberOfTasks);
     }
 
     @Override
@@ -151,10 +167,6 @@ public class TodoActivity extends AppCompatActivity
         } else if (id == R.id.nav_task_finished) {
             mTypeList = LIST_FINISHED;
             updateUI();
-        } else if (id == R.id.nav_task_rate) {
-
-        } else if (id == R.id.nav_task_info) {
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -224,6 +236,8 @@ public class TodoActivity extends AppCompatActivity
             mAdapter.notifyDataSetChanged();
             finishAction();
         }
+
+        setNumberOfTasks();
     }
 
     public void fabDoneTask(View view) {
@@ -279,6 +293,7 @@ public class TodoActivity extends AppCompatActivity
         }
 
         finishAction();
+        setNumberOfTasks();
     }
 
     public void fabEditTask(View view) {
@@ -292,6 +307,7 @@ public class TodoActivity extends AppCompatActivity
         mAdapter.deleteItem(mPosition);
 
         finishAction();
+        setNumberOfTasks();
     }
 
     public void fabAddTask(View view) {

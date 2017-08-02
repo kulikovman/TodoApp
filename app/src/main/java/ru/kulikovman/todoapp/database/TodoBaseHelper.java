@@ -65,6 +65,20 @@ public class TodoBaseHelper extends SQLiteOpenHelper {
         mDb.close();
     }
 
+    public int getNumberOfTasks() {
+        int taskCounter = 0;
+
+        try (TodoCursorWrapper cursor = queryTasks(TaskTable.Cols.DONE + " = ?", new String[]{"0"})) {
+            taskCounter = cursor.getCount();
+        } finally {
+            if (mDb != null) {
+                mDb.close();
+            }
+        }
+
+        return taskCounter;
+    }
+
     public List<Task> getUnfinishedTasks() {
         List<Task> tasks = new ArrayList<>();
 
