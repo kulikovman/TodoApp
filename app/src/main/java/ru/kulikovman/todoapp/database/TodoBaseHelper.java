@@ -83,7 +83,7 @@ public class TodoBaseHelper extends SQLiteOpenHelper {
         List<Task> tasks = new ArrayList<>();
 
         try (TodoCursorWrapper cursor = queryTasks(TaskTable.Cols.DONE + " = ?", new String[]{"0"})) {
-            Log.d("myLog", "Записей в базе: " + String.valueOf(cursor.getCount()));
+            Log.d("myLog", "Незавершенных задач: " + String.valueOf(cursor.getCount()));
             cursor.moveToFirst();
 
             while (!cursor.isAfterLast()) {
@@ -103,7 +103,27 @@ public class TodoBaseHelper extends SQLiteOpenHelper {
         List<Task> tasks = new ArrayList<>();
 
         try (TodoCursorWrapper cursor = queryTasks(TaskTable.Cols.DONE + " = ?", new String[]{"1"})) {
-            Log.d("myLog", "Записей в базе: " + String.valueOf(cursor.getCount()));
+            Log.d("myLog", "Завершенных задач: " + String.valueOf(cursor.getCount()));
+            cursor.moveToFirst();
+
+            while (!cursor.isAfterLast()) {
+                tasks.add(cursor.getTask());
+                cursor.moveToNext();
+            }
+        } finally {
+            if (mDb != null) {
+                mDb.close();
+            }
+        }
+
+        return tasks;
+    }
+
+    public List<Task> getWithoutDateTasks() {
+        List<Task> tasks = new ArrayList<>();
+
+        try (TodoCursorWrapper cursor = queryTasks(TaskTable.Cols.DATE + " = ?", new String[]{"Не установлена"})) {
+            Log.d("myLog", "Задач без даты: " + String.valueOf(cursor.getCount()));
             cursor.moveToFirst();
 
             while (!cursor.isAfterLast()) {

@@ -160,7 +160,8 @@ public class TodoActivity extends AppCompatActivity
         } else if (id == R.id.nav_task_month) {
 
         } else if (id == R.id.nav_task_without_date) {
-
+            mTypeList = LIST_WITHOUT_DATE;
+            updateUI();
         } else if (id == R.id.nav_task_unfinished) {
             mTypeList = LIST_UNFINISHED;
             updateUI();
@@ -213,7 +214,7 @@ public class TodoActivity extends AppCompatActivity
                     mTasks = mDbHelper.getUnfinishedTasks();
                     break;
                 case LIST_WITHOUT_DATE:
-                    mTasks = mDbHelper.getUnfinishedTasks();
+                    mTasks = mDbHelper.getWithoutDateTasks();
                     break;
                 case LIST_UNFINISHED:
                     mTasks = mDbHelper.getUnfinishedTasks();
