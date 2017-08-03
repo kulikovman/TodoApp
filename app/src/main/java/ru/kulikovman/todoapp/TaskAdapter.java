@@ -1,6 +1,8 @@
 package ru.kulikovman.todoapp;
 
 
+import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +24,7 @@ import ru.kulikovman.todoapp.models.Task;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
     public static OnItemClickListener mListener;
+    private static Context mContext;
     private List<Task> mTasks;
 
     public static class TaskHolder extends RecyclerView.ViewHolder {
@@ -52,6 +55,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
 
 
             // Обнуляем все текстовые поля
+            //int defaultColor = mContext.getResources().getColor(R.color.gray_7);
+
+
             mTaskTitle.setText(null);
             mTaskDate.setText(null);
             mTaskPriority.setText(null);
@@ -66,8 +72,15 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
             String taskColor = mTask.getColor();
 
 
-            // Устанавливаем заголовок
+            // Устанавливаем заголовок и его цвет
             mTaskTitle.setText(taskTitle);
+            int titleColor;
+            if (mTask.isDone()) {
+                titleColor = ContextCompat.getColor(mContext, R.color.gray_4);
+            } else {
+                titleColor = ContextCompat.getColor(mContext, R.color.gray_7);
+            }
+            mTaskTitle.setTextColor(titleColor);
 
 
             // Устанавливаем дату
@@ -148,8 +161,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
         }
     }
 
-    public TaskAdapter(List<Task> tasks) {
+    public TaskAdapter(Context context, List<Task> tasks) {
         mTasks = tasks;
+        mContext = context;
+
     }
 
     @Override
@@ -181,14 +196,14 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
         mListener = listener;
     }
 
-    //Здесь мы добавляем элемент в набор данных
-    public void addItem(int position, Task task){
+    // Здесь мы добавляем элемент в набор данных
+    public void addItem(int position, Task task) {
         mTasks.add(position, task);
         super.notifyItemInserted(position);
     }
 
-    //А здесь - удаляем
-    public void deleteItem(int position){
+    // А здесь - удаляем
+    public void deleteItem(int position) {
         mTasks.remove(position);
         super.notifyItemRemoved(position);
     }

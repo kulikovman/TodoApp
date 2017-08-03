@@ -229,7 +229,7 @@ public class TodoActivity extends AppCompatActivity
         Collections.sort(mTasks, new TaskComparator());
 
         if (mAdapter == null) {
-            mAdapter = new TaskAdapter(mTasks);
+            mAdapter = new TaskAdapter(this, mTasks);
             mRecyclerView.setAdapter(mAdapter);
         } else {
             mAdapter.setTasks(mTasks);

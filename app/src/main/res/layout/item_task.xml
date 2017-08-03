@@ -67,6 +67,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginBottom="2dp"
                 android:layout_marginEnd="20dp"
+                android:textColor="@color/gray_7"
                 android:text="Это пробный текст, для того чтобы протестировать мультилайн. Пока вроде все работает."
                 android:textSize="16sp"/>
 
