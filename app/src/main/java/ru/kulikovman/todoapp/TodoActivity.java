@@ -27,7 +27,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Objects;
 
 import ru.kulikovman.todoapp.database.TodoBaseHelper;
 import ru.kulikovman.todoapp.models.Task;
@@ -55,11 +54,10 @@ public class TodoActivity extends AppCompatActivity
     private int mPosition;
     private List<Task> mAllTasks;
     private List<Task> mTasks;
-    private int mTaskCounter;
     private String mTypeList;
 
     private FloatingActionButton mDeleteButton, mEditButton, mDoneButton;
-    private TextView mNumberOfTasksField;
+    private TextView mNumberOfTasks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,12 +68,10 @@ public class TodoActivity extends AppCompatActivity
 
         mDbHelper = new TodoBaseHelper(this);
         mAllTasks = mDbHelper.getAllTasks();
-        mTaskCounter = mDbHelper.getNumberOfTasks();
 
         mDeleteButton = (FloatingActionButton) findViewById(R.id.fab_delete_task);
         mEditButton = (FloatingActionButton) findViewById(R.id.fab_edit_task);
         mDoneButton = (FloatingActionButton) findViewById(R.id.fab_done_task);
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -88,7 +84,7 @@ public class TodoActivity extends AppCompatActivity
 
         // Находим поле в хедере для показа количества задач
         View header = navigationView.getHeaderView(0);
-        mNumberOfTasksField = (TextView) header.findViewById(R.id.number_of_tasks);
+        mNumberOfTasks = (TextView) header.findViewById(R.id.number_of_tasks);
 
         // Получаем тип списка из Preferences
         mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
@@ -100,16 +96,10 @@ public class TodoActivity extends AppCompatActivity
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        updateUI();
+        updateTaskList();
 
         mAdapter.setOnItemClickListener(this);
     }
-
-    /*private void setNumberOfTasks() {
-        mTaskCounter = mDbHelper.getNumberOfTasks();
-        String textNumberOfTasks = "Всего задач: " + mTaskCounter;
-        mNumberOfTasksField.setText(textNumberOfTasks);
-    }*/
 
     @Override
     protected void onPause() {
@@ -161,19 +151,19 @@ public class TodoActivity extends AppCompatActivity
 
         if (id == R.id.nav_task_today) {
             mTypeList = LIST_TODAY;
-            updateUI();
+            updateTaskList();
         } else if (id == R.id.nav_task_month) {
             mTypeList = LIST_MONTH;
-            updateUI();
+            updateTaskList();
         } else if (id == R.id.nav_task_without_date) {
             mTypeList = LIST_WITHOUT_DATE;
-            updateUI();
+            updateTaskList();
         } else if (id == R.id.nav_task_unfinished) {
             mTypeList = LIST_UNFINISHED;
-            updateUI();
+            updateTaskList();
         } else if (id == R.id.nav_task_finished) {
             mTypeList = LIST_FINISHED;
-            updateUI();
+            updateTaskList();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -210,7 +200,7 @@ public class TodoActivity extends AppCompatActivity
         mPosition = position;
     }
 
-    private void updateUI() {
+    private void updateTaskList() {
         if (mTypeList != null) {
             switch (mTypeList) {
                 case LIST_TODAY:
@@ -248,16 +238,16 @@ public class TodoActivity extends AppCompatActivity
     }
 
     private void setNumberOfTasks() {
-        mTaskCounter = 0;
+        int taskCounter = 0;
 
         for (Task task : mAllTasks) {
             if (!task.isDone()) {
-                mTaskCounter++;
+                taskCounter++;
             }
         }
 
-        String numberOfTasks = "Всего задач: " + mTaskCounter;
-        mNumberOfTasksField.setText(numberOfTasks);
+        String numberOfTasks = "Всего задач: " + taskCounter;
+        mNumberOfTasks.setText(numberOfTasks);
     }
 
     private List<Task> createTodayTaskList() {
@@ -380,6 +370,8 @@ public class TodoActivity extends AppCompatActivity
             }
         }
 
+        mAllTasks = mDbHelper.getAllTasks();
+
         finishAction();
         setNumberOfTasks();
     }
@@ -393,6 +385,8 @@ public class TodoActivity extends AppCompatActivity
     public void fabDeleteTask(View view) {
         mDbHelper.deleteTask(mTask);
         mAdapter.deleteItem(mPosition);
+
+        mAllTasks = mDbHelper.getAllTasks();
 
         finishAction();
         setNumberOfTasks();
@@ -408,7 +402,6 @@ public class TodoActivity extends AppCompatActivity
         if (mItemView != null) {
             mItemView.setBackgroundColor(Color.TRANSPARENT);
         }
-
         hideActionButton();
     }
 
