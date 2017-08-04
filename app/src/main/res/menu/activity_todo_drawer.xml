@@ -3,6 +3,10 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_task_unfinished"
+            android:icon="@drawable/ic_inbox_24dp"
+            android:title="Все задачи"/>
+        <item
             android:id="@+id/nav_task_today"
             android:icon="@drawable/ic_event_24dp"
             android:title="Сегодня"/>
@@ -14,10 +18,6 @@
             android:id="@+id/nav_task_without_date"
             android:icon="@drawable/ic_event_busy_24dp"
             android:title="Без даты"/>
-        <item
-            android:id="@+id/nav_task_unfinished"
-            android:icon="@drawable/ic_inbox_24dp"
-            android:title="Все задачи"/>
         <item
             android:id="@+id/nav_task_finished"
             android:icon="@drawable/ic_done_24dp"
