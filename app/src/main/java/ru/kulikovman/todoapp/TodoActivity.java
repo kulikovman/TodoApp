@@ -66,6 +66,7 @@ public class TodoActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // Создаем базу и обновляем общий список задач
         mDbHelper = new TodoBaseHelper(this);
         mAllTasks = mDbHelper.getAllTasks();
 
@@ -86,7 +87,7 @@ public class TodoActivity extends AppCompatActivity
         View header = navigationView.getHeaderView(0);
         mNumberOfTasks = (TextView) header.findViewById(R.id.number_of_tasks);
 
-        // Получаем тип списка из Preferences
+        // Получаем тип текущего списка из Preferences
         mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         if (mSettings.contains(APP_PREFERENCES_TYPE_LIST)) {
             mTypeList = mSettings.getString(APP_PREFERENCES_TYPE_LIST, LIST_UNFINISHED);
@@ -113,6 +114,7 @@ public class TodoActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
+        // Это типовая процедура, при наличии бокового меню
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -148,6 +150,7 @@ public class TodoActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
+        // Присваиваем списку тип выбранный в меню
         if (id == R.id.nav_task_today) {
             mTypeList = LIST_TODAY;
             updateTaskList();
@@ -172,6 +175,8 @@ public class TodoActivity extends AppCompatActivity
 
     @Override
     public void onItemClick(View itemView, int position, Task task) {
+        // Выделяем или снимаем выделение выбранного элемента списка
+        // Этот листенер проброшен с адаптера
         if (mItemView == null) {
             itemView.setBackgroundColor(Color.LTGRAY);
             mItemView = itemView;
@@ -195,11 +200,13 @@ public class TodoActivity extends AppCompatActivity
             }
         }
 
+        // Запоминаем последний выбранный элемент
         mTask = task;
         mPosition = position;
     }
 
     private void updateTaskList() {
+        // Создаем нужный тип списка задач
         if (mTypeList != null) {
             switch (mTypeList) {
                 case LIST_TODAY:
@@ -222,8 +229,10 @@ public class TodoActivity extends AppCompatActivity
             mTasks = createUnfinishedTaskList();
         }
 
+        // Сортируем через кампоратор
         Collections.sort(mTasks, new TaskComparator());
 
+        // Назначаем адаптеру новый список
         if (mAdapter == null) {
             mAdapter = new TaskAdapter(this, mTasks);
             mRecyclerView.setAdapter(mAdapter);
@@ -236,8 +245,8 @@ public class TodoActivity extends AppCompatActivity
     }
 
     private void setNumberOfTasks() {
+        // Метод для установки количества задач в заголовке меню
         int taskCounter = 0;
-
         for (Task task : mAllTasks) {
             if (!task.isDone()) {
                 taskCounter++;
@@ -324,6 +333,7 @@ public class TodoActivity extends AppCompatActivity
         mDbHelper.updateTask(mTask);
         mAdapter.deleteItem(mPosition);
 
+        // Если у задачи был повтор, то создаем аналогичную задачу на новую дату
         if (!task.getRepeat().equals("Без повтора") && !task.isDone()) {
             String taskDate = task.getDate();
             long longDate = Long.parseLong(taskDate);
@@ -369,11 +379,11 @@ public class TodoActivity extends AppCompatActivity
         }
 
         mAllTasks = mDbHelper.getAllTasks();
-
         finishAction();
     }
 
     public void fabEditTask(View view) {
+        // Открываем активити редактирования задачи и передаем uuid задачи
         Intent intent = new Intent(this, TaskActivity.class);
         intent.putExtra("task_id", mTask.getId());
         startActivity(intent);
@@ -384,11 +394,11 @@ public class TodoActivity extends AppCompatActivity
         mAdapter.deleteItem(mPosition);
 
         mAllTasks = mDbHelper.getAllTasks();
-
         finishAction();
     }
 
     public void fabAddTask(View view) {
+        // Просто открываем активити
         Intent intent = new Intent(this, TaskActivity.class);
         startActivity(intent);
     }

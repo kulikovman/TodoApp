@@ -48,17 +48,19 @@ public class TaskActivity extends AppCompatActivity {
         mRepeatField = (TextView) findViewById(R.id.repeat_field);
 
         mDbHelper = new TodoBaseHelper(this);
+
+        // Читаем uuid из интента
         UUID uuid = (java.util.UUID) getIntent().getSerializableExtra("task_id");
 
+        // Если uuid не пустой, то получаем соответствующую задачу и обновляем поля
         if (uuid != null) {
             mTask = mDbHelper.getTaskByUUID(uuid);
             readTask();
         }
-
-        Log.d("myLog", "Активити успешно запущен");
     }
 
     public void taskOptions(View view) {
+        // Вызываем диалоги с выбором соответствующих опций
         switch (view.getId()) {
             case R.id.date_layout:
                 DialogFragment dateFragment = new DateFragment();
@@ -164,6 +166,7 @@ public class TaskActivity extends AppCompatActivity {
             }
 
             // Возвращаемся в список задач
+            // Удаляем текущий активити из стека
             Intent intent = new Intent(this, TodoActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
@@ -171,16 +174,15 @@ public class TaskActivity extends AppCompatActivity {
     }
 
     private void readTask() {
+        // Читаем инфо об открытой задаче
         mTitle = mTask.getTitle();
         mDate = mTask.getDate();
         mPriority = mTask.getPriority();
         mColor = mTask.getColor();
         mRepeat = mTask.getRepeat();
 
-
         // Устанавливаем заголовок
         mTitleField.setText(mTitle);
-
 
         // Устанавливаем дату
         if (!mDate.equals("Не установлена")) {
@@ -189,9 +191,7 @@ public class TaskActivity extends AppCompatActivity {
             DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
             mDate = dateFormat.format(date);
         }
-
         mDateField.setText(mDate);
-
 
         // Устанавливаем приоритет
         switch (mPriority) {
@@ -211,9 +211,7 @@ public class TaskActivity extends AppCompatActivity {
                 mPriority = "Самый низкий";
                 break;
         }
-
         mPriorityField.setText(mPriority);
-
 
         // Устанавливаем цвет
         switch (mColor) {
@@ -242,9 +240,7 @@ public class TaskActivity extends AppCompatActivity {
                 mColor = "Розовый";
                 break;
         }
-
         mColorField.setText(mColor);
-
 
         // Устанавливаем повтор
         mRepeatField.setText(mRepeat);
