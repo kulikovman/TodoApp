@@ -213,8 +213,7 @@ public class TodoActivity extends AppCompatActivity
         if (mTypeList != null) {
             switch (mTypeList) {
                 case LIST_TODAY:
-                    mTasks = createTodayTasks();
-                    //mTasks = mDbHelper.getUnfinishedTasks();
+                    mTasks = createTodayTaskList();
                     break;
                 case LIST_MONTH:
                     mTasks = mDbHelper.getUnfinishedTasks();
@@ -223,14 +222,14 @@ public class TodoActivity extends AppCompatActivity
                     mTasks = mDbHelper.getWithoutDateTasks();
                     break;
                 case LIST_UNFINISHED:
-                    mTasks = mDbHelper.getUnfinishedTasks();
+                    mTasks = createUnfinishedTaskList();
                     break;
                 case LIST_FINISHED:
-                    mTasks = mDbHelper.getFinishedTasks();
+                    mTasks = createFinishedTaskList();
                     break;
             }
         } else {
-            mTasks = mDbHelper.getUnfinishedTasks();
+            mTasks = createUnfinishedTaskList();
         }
 
         Collections.sort(mTasks, new TaskComparator());
@@ -247,7 +246,7 @@ public class TodoActivity extends AppCompatActivity
         setNumberOfTasks();
     }
 
-    private List<Task> createTodayTasks() {
+    private List<Task> createTodayTaskList() {
         List<Task> tasks = new ArrayList<>();
 
         Date date = new Date();
@@ -261,7 +260,28 @@ public class TodoActivity extends AppCompatActivity
                 }
             }
         }
+        return tasks;
+    }
 
+    private List<Task> createUnfinishedTaskList() {
+        List<Task> tasks = new ArrayList<>();
+
+        for (Task task : mAllTasks) {
+            if (!task.isDone()) {
+                tasks.add(task);
+            }
+        }
+        return tasks;
+    }
+
+    private List<Task> createFinishedTaskList() {
+        List<Task> tasks = new ArrayList<>();
+
+        for (Task task : mAllTasks) {
+            if (task.isDone()) {
+                tasks.add(task);
+            }
+        }
         return tasks;
     }
 
