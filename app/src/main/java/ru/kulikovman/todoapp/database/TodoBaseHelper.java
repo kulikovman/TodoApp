@@ -65,20 +65,6 @@ public class TodoBaseHelper extends SQLiteOpenHelper {
         mDb.close();
     }
 
-    public int getNumberOfTasks() {
-        int taskCounter = 0;
-
-        try (TodoCursorWrapper cursor = queryTasks(TaskTable.Cols.DONE + " = ?", new String[]{"0"})) {
-            taskCounter = cursor.getCount();
-        } finally {
-            if (mDb != null) {
-                mDb.close();
-            }
-        }
-
-        return taskCounter;
-    }
-
     public List<Task> getAllTasks() {
         List<Task> tasks = new ArrayList<>();
 
@@ -95,67 +81,6 @@ public class TodoBaseHelper extends SQLiteOpenHelper {
                 mDb.close();
             }
         }
-
-        return tasks;
-    }
-
-    public List<Task> getUnfinishedTasks() {
-        List<Task> tasks = new ArrayList<>();
-
-        try (TodoCursorWrapper cursor = queryTasks(TaskTable.Cols.DONE + " = ?", new String[]{"0"})) {
-            Log.d("myLog", "Незавершенных задач: " + String.valueOf(cursor.getCount()));
-            cursor.moveToFirst();
-
-            while (!cursor.isAfterLast()) {
-                tasks.add(cursor.getTask());
-                cursor.moveToNext();
-            }
-        } finally {
-            if (mDb != null) {
-                mDb.close();
-            }
-        }
-
-        return tasks;
-    }
-
-    public List<Task> getFinishedTasks() {
-        List<Task> tasks = new ArrayList<>();
-
-        try (TodoCursorWrapper cursor = queryTasks(TaskTable.Cols.DONE + " = ?", new String[]{"1"})) {
-            Log.d("myLog", "Завершенных задач: " + String.valueOf(cursor.getCount()));
-            cursor.moveToFirst();
-
-            while (!cursor.isAfterLast()) {
-                tasks.add(cursor.getTask());
-                cursor.moveToNext();
-            }
-        } finally {
-            if (mDb != null) {
-                mDb.close();
-            }
-        }
-
-        return tasks;
-    }
-
-    public List<Task> getWithoutDateTasks() {
-        List<Task> tasks = new ArrayList<>();
-
-        try (TodoCursorWrapper cursor = queryTasks(TaskTable.Cols.DATE + " = ?", new String[]{"Не установлена"})) {
-            Log.d("myLog", "Задач без даты: " + String.valueOf(cursor.getCount()));
-            cursor.moveToFirst();
-
-            while (!cursor.isAfterLast()) {
-                tasks.add(cursor.getTask());
-                cursor.moveToNext();
-            }
-        } finally {
-            if (mDb != null) {
-                mDb.close();
-            }
-        }
-
         return tasks;
     }
 
