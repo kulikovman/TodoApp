@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -52,9 +51,10 @@ public class TodoActivity extends AppCompatActivity
     private View mItemView;
     private Task mTask;
     private int mPosition;
+
     private List<Task> mAllTasks;
-    private List<Task> mTasks;
-    private String mTypeList;
+    private List<Task> mCurrentTasks;
+    private String mTypeTaskList;
 
     private FloatingActionButton mDeleteButton, mEditButton, mDoneButton;
     private TextView mNumberOfTasks;
@@ -90,7 +90,7 @@ public class TodoActivity extends AppCompatActivity
         // Получаем тип текущего списка из Preferences
         mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         if (mSettings.contains(APP_PREFERENCES_TYPE_LIST)) {
-            mTypeList = mSettings.getString(APP_PREFERENCES_TYPE_LIST, LIST_UNFINISHED);
+            mTypeTaskList = mSettings.getString(APP_PREFERENCES_TYPE_LIST, LIST_UNFINISHED);
         }
 
         mRecyclerView = (RecyclerView) findViewById(R.id.todo_recycler_view);
@@ -108,7 +108,7 @@ public class TodoActivity extends AppCompatActivity
 
         // Сохраняем тип текущего списка задач
         SharedPreferences.Editor editor = mSettings.edit();
-        editor.putString(APP_PREFERENCES_TYPE_LIST, mTypeList);
+        editor.putString(APP_PREFERENCES_TYPE_LIST, mTypeTaskList);
         editor.apply();
     }
 
@@ -152,19 +152,19 @@ public class TodoActivity extends AppCompatActivity
 
         // Присваиваем списку тип выбранный в меню
         if (id == R.id.nav_task_today) {
-            mTypeList = LIST_TODAY;
+            mTypeTaskList = LIST_TODAY;
             updateTaskList();
         } else if (id == R.id.nav_task_month) {
-            mTypeList = LIST_MONTH;
+            mTypeTaskList = LIST_MONTH;
             updateTaskList();
         } else if (id == R.id.nav_task_without_date) {
-            mTypeList = LIST_WITHOUT_DATE;
+            mTypeTaskList = LIST_WITHOUT_DATE;
             updateTaskList();
         } else if (id == R.id.nav_task_unfinished) {
-            mTypeList = LIST_UNFINISHED;
+            mTypeTaskList = LIST_UNFINISHED;
             updateTaskList();
         } else if (id == R.id.nav_task_finished) {
-            mTypeList = LIST_FINISHED;
+            mTypeTaskList = LIST_FINISHED;
             updateTaskList();
         }
 
@@ -207,37 +207,37 @@ public class TodoActivity extends AppCompatActivity
 
     private void updateTaskList() {
         // Создаем нужный тип списка задач
-        if (mTypeList != null) {
-            switch (mTypeList) {
+        if (mTypeTaskList != null) {
+            switch (mTypeTaskList) {
                 case LIST_TODAY:
-                    mTasks = createTodayTaskList();
+                    mCurrentTasks = createTodayTaskList();
                     break;
                 case LIST_MONTH:
-                    mTasks = createMonthTaskList();
+                    mCurrentTasks = createMonthTaskList();
                     break;
                 case LIST_WITHOUT_DATE:
-                    mTasks = createWithoutDateTaskList();
+                    mCurrentTasks = createWithoutDateTaskList();
                     break;
                 case LIST_UNFINISHED:
-                    mTasks = createUnfinishedTaskList();
+                    mCurrentTasks = createUnfinishedTaskList();
                     break;
                 case LIST_FINISHED:
-                    mTasks = createFinishedTaskList();
+                    mCurrentTasks = createFinishedTaskList();
                     break;
             }
         } else {
-            mTasks = createUnfinishedTaskList();
+            mCurrentTasks = createUnfinishedTaskList();
         }
 
         // Сортируем через кампоратор
-        Collections.sort(mTasks, new TaskComparator());
+        Collections.sort(mCurrentTasks, new TaskComparator());
 
         // Назначаем адаптеру новый список
         if (mAdapter == null) {
-            mAdapter = new TaskAdapter(this, mTasks);
+            mAdapter = new TaskAdapter(this, mCurrentTasks);
             mRecyclerView.setAdapter(mAdapter);
         } else {
-            mAdapter.setTasks(mTasks);
+            mAdapter.setTasks(mCurrentTasks);
             mAdapter.notifyDataSetChanged();
         }
 
@@ -363,15 +363,15 @@ public class TodoActivity extends AppCompatActivity
             task.setDate(taskDate);
 
             mDbHelper.addTask(task);
-            mTasks.add(task);
-            Collections.sort(mTasks, new TaskComparator());
+            mCurrentTasks.add(task);
+            Collections.sort(mCurrentTasks, new TaskComparator());
 
-            for (int i = 0; i < mTasks.size(); i++) {
-                String uuidFirst = mTasks.get(i).getId().toString();
+            for (int i = 0; i < mCurrentTasks.size(); i++) {
+                String uuidFirst = mCurrentTasks.get(i).getId().toString();
                 String uuidSecond = task.getId().toString();
 
                 if (uuidFirst.equals(uuidSecond)) {
-                    mTasks.remove(i);
+                    mCurrentTasks.remove(i);
                     mAdapter.addItem(i, task);
                     break;
                 }
