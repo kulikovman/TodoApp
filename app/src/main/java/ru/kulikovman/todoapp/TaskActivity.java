@@ -86,7 +86,6 @@ public class TaskActivity extends AppCompatActivity {
         // Получаем заголовок
         mTitle = mTitleField.getText().toString();
 
-
         // Если заголовок есть, то делаем все остальное
         if (!mTitle.equals("")) {
             // Получаем дату
@@ -96,7 +95,6 @@ public class TaskActivity extends AppCompatActivity {
                 mDate = String.valueOf(dateFormat.parse(mDate).getTime());
             } catch (ParseException ignored) {
             }
-
 
             // Получаем приоритет
             mPriority = mPriorityField.getText().toString();
@@ -117,7 +115,6 @@ public class TaskActivity extends AppCompatActivity {
                     mPriority = "4";
                     break;
             }
-
 
             // Получаем цвет
             mColor = mColorField.getText().toString();
@@ -148,10 +145,8 @@ public class TaskActivity extends AppCompatActivity {
                     break;
             }
 
-
             // Получаем повтор
             mRepeat = mRepeatField.getText().toString();
-
 
             // Сохраняем задачу в базу
             if (mTask == null) {
@@ -168,9 +163,9 @@ public class TaskActivity extends AppCompatActivity {
                 mDbHelper.updateTask(mTask);
             }
 
-
             // Возвращаемся в список задач
             Intent intent = new Intent(this, TodoActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }
     }

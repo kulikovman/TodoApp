@@ -105,11 +105,10 @@ public class TodoActivity extends AppCompatActivity
     protected void onPause() {
         super.onPause();
 
+        // Сохраняем тип текущего списка задач
         SharedPreferences.Editor editor = mSettings.edit();
         editor.putString(APP_PREFERENCES_TYPE_LIST, mTypeList);
         editor.apply();
-
-        Log.d("myLog", "Запущен onPause | mTypeList = " + mTypeList);
     }
 
     @Override
@@ -231,10 +230,9 @@ public class TodoActivity extends AppCompatActivity
         } else {
             mAdapter.setTasks(mTasks);
             mAdapter.notifyDataSetChanged();
-            finishAction();
         }
 
-        setNumberOfTasks();
+        finishAction();
     }
 
     private void setNumberOfTasks() {
@@ -373,7 +371,6 @@ public class TodoActivity extends AppCompatActivity
         mAllTasks = mDbHelper.getAllTasks();
 
         finishAction();
-        setNumberOfTasks();
     }
 
     public void fabEditTask(View view) {
@@ -389,7 +386,6 @@ public class TodoActivity extends AppCompatActivity
         mAllTasks = mDbHelper.getAllTasks();
 
         finishAction();
-        setNumberOfTasks();
     }
 
     public void fabAddTask(View view) {
@@ -403,6 +399,7 @@ public class TodoActivity extends AppCompatActivity
             mItemView.setBackgroundColor(Color.TRANSPARENT);
         }
         hideActionButton();
+        setNumberOfTasks();
     }
 
     private void hideActionButton() {
