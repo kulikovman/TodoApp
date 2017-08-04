@@ -54,7 +54,7 @@ public class TodoActivity extends AppCompatActivity
     private int mPosition;
     private List<Task> mAllTasks;
     private List<Task> mTasks;
-    private int mNumberOfTasks;
+    private int mTaskCounter;
     private String mTypeList;
 
     private FloatingActionButton mDeleteButton, mEditButton, mDoneButton;
@@ -69,7 +69,7 @@ public class TodoActivity extends AppCompatActivity
 
         mDbHelper = new TodoBaseHelper(this);
         mAllTasks = mDbHelper.getAllTasks();
-        mNumberOfTasks = mDbHelper.getNumberOfTasks();
+        mTaskCounter = mDbHelper.getNumberOfTasks();
 
         mDeleteButton = (FloatingActionButton) findViewById(R.id.fab_delete_task);
         mEditButton = (FloatingActionButton) findViewById(R.id.fab_edit_task);
@@ -104,11 +104,11 @@ public class TodoActivity extends AppCompatActivity
         mAdapter.setOnItemClickListener(this);
     }
 
-    private void setNumberOfTasks() {
-        mNumberOfTasks = mDbHelper.getNumberOfTasks();
-        String textNumberOfTasks = "Всего задач: " + mNumberOfTasks;
+    /*private void setNumberOfTasks() {
+        mTaskCounter = mDbHelper.getNumberOfTasks();
+        String textNumberOfTasks = "Всего задач: " + mTaskCounter;
         mNumberOfTasksField.setText(textNumberOfTasks);
-    }
+    }*/
 
     @Override
     protected void onPause() {
@@ -244,6 +244,19 @@ public class TodoActivity extends AppCompatActivity
         }
 
         setNumberOfTasks();
+    }
+
+    private void setNumberOfTasks() {
+        mTaskCounter = 0;
+
+        for (Task task : mAllTasks) {
+            if (!task.isDone()) {
+                mTaskCounter++;
+            }
+        }
+
+        String numberOfTasks = "Всего задач: " + mTaskCounter;
+        mNumberOfTasksField.setText(numberOfTasks);
     }
 
     private List<Task> createTodayTaskList() {
