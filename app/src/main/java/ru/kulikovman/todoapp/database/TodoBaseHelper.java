@@ -79,6 +79,26 @@ public class TodoBaseHelper extends SQLiteOpenHelper {
         return taskCounter;
     }
 
+    public List<Task> getAllTasks() {
+        List<Task> tasks = new ArrayList<>();
+
+        try (TodoCursorWrapper cursor = queryTasks(null, null)) {
+            Log.d("myLog", "Всего задач в базе: " + String.valueOf(cursor.getCount()));
+            cursor.moveToFirst();
+
+            while (!cursor.isAfterLast()) {
+                tasks.add(cursor.getTask());
+                cursor.moveToNext();
+            }
+        } finally {
+            if (mDb != null) {
+                mDb.close();
+            }
+        }
+
+        return tasks;
+    }
+
     public List<Task> getUnfinishedTasks() {
         List<Task> tasks = new ArrayList<>();
 

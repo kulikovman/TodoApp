@@ -21,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
@@ -51,6 +52,7 @@ public class TodoActivity extends AppCompatActivity
     private View mItemView;
     private Task mTask;
     private int mPosition;
+    private List<Task> mAllTasks;
     private List<Task> mTasks;
     private int mNumberOfTasks;
     private String mTypeList;
@@ -66,6 +68,7 @@ public class TodoActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         mDbHelper = new TodoBaseHelper(this);
+        mAllTasks = mDbHelper.getAllTasks();
         mNumberOfTasks = mDbHelper.getNumberOfTasks();
 
         mDeleteButton = (FloatingActionButton) findViewById(R.id.fab_delete_task);
@@ -156,9 +159,11 @@ public class TodoActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_task_today) {
-
+            mTypeList = LIST_TODAY;
+            updateUI();
         } else if (id == R.id.nav_task_month) {
-
+            mTypeList = LIST_MONTH;
+            updateUI();
         } else if (id == R.id.nav_task_without_date) {
             mTypeList = LIST_WITHOUT_DATE;
             updateUI();
@@ -208,7 +213,8 @@ public class TodoActivity extends AppCompatActivity
         if (mTypeList != null) {
             switch (mTypeList) {
                 case LIST_TODAY:
-                    mTasks = mDbHelper.getUnfinishedTasks();
+                    mTasks = createTodayTasks();
+                    //mTasks = mDbHelper.getUnfinishedTasks();
                     break;
                 case LIST_MONTH:
                     mTasks = mDbHelper.getUnfinishedTasks();
@@ -239,6 +245,24 @@ public class TodoActivity extends AppCompatActivity
         }
 
         setNumberOfTasks();
+    }
+
+    private List<Task> createTodayTasks() {
+        List<Task> tasks = new ArrayList<>();
+
+        Date date = new Date();
+        long targetDate = date.getTime();
+
+        for (Task task : mAllTasks) {
+            if (!task.getDate().equals("Не установлена") && !task.isDone()) {
+                long taskDate = Long.parseLong(task.getDate());
+                if (taskDate <= targetDate) {
+                    tasks.add(task);
+                }
+            }
+        }
+
+        return tasks;
     }
 
     public void fabDoneTask(View view) {
