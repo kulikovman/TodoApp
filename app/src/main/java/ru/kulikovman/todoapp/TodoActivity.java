@@ -216,7 +216,7 @@ public class TodoActivity extends AppCompatActivity
                     mTasks = createTodayTaskList();
                     break;
                 case LIST_MONTH:
-                    mTasks = mDbHelper.getUnfinishedTasks();
+                    mTasks = createMonthTaskList();
                     break;
                 case LIST_WITHOUT_DATE:
                     mTasks = createWithoutDateTaskList();
@@ -251,6 +251,24 @@ public class TodoActivity extends AppCompatActivity
 
         Date date = new Date();
         long targetDate = date.getTime();
+
+        for (Task task : mAllTasks) {
+            if (!task.getDate().equals("Не установлена") && !task.isDone()) {
+                long taskDate = Long.parseLong(task.getDate());
+                if (taskDate <= targetDate) {
+                    tasks.add(task);
+                }
+            }
+        }
+        return tasks;
+    }
+
+    private List<Task> createMonthTaskList() {
+        List<Task> tasks = new ArrayList<>();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, 1);
+        long targetDate = calendar.getTimeInMillis();
 
         for (Task task : mAllTasks) {
             if (!task.getDate().equals("Не установлена") && !task.isDone()) {
