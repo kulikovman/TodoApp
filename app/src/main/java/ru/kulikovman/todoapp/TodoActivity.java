@@ -219,7 +219,7 @@ public class TodoActivity extends AppCompatActivity
                     mTasks = mDbHelper.getUnfinishedTasks();
                     break;
                 case LIST_WITHOUT_DATE:
-                    mTasks = mDbHelper.getWithoutDateTasks();
+                    mTasks = createWithoutDateTaskList();
                     break;
                 case LIST_UNFINISHED:
                     mTasks = createUnfinishedTaskList();
@@ -279,6 +279,17 @@ public class TodoActivity extends AppCompatActivity
 
         for (Task task : mAllTasks) {
             if (task.isDone()) {
+                tasks.add(task);
+            }
+        }
+        return tasks;
+    }
+
+    private List<Task> createWithoutDateTaskList() {
+        List<Task> tasks = new ArrayList<>();
+
+        for (Task task : mAllTasks) {
+            if (task.getDate().equals("Не установлена") && !task.isDone()) {
                 tasks.add(task);
             }
         }
