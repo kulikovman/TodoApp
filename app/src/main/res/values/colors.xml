@@ -4,15 +4,6 @@
     <color name="colorPrimaryDark">#4D4D4D</color>
     <color name="colorAccent">#d7d7d7</color>
 
-    <color name="lightGrey">#d2d2d2</color>
-    <color name="redButton">#f55d55</color>
-
-    <color name="colorPickIcons">#8fbeff</color>
-    <color name="taskBackground">#8fbeff</color>
-    <color name="optionTextColor">#808080</color>
-    <color name="optionTitleColor">#484848</color>
-    <color name="addTaskButton">#44de56</color>
-
     // Базовые цвета
     <color name="transparent">#00ffffff</color>
     <color name="white">#ffffff</color>
@@ -34,5 +25,15 @@
     <color name="blue">#5ebcff</color>
     <color name="violet">#a95eff</color>
     <color name="pink">#ff5efa</color>
+
+    // Дополнительные цвета
+    <color name="lightGrey">#d2d2d2</color>
+    <color name="redButton">#f55d55</color>
+
+    <color name="colorPickIcons">#8fbeff</color>
+    <color name="taskBackground">#8fbeff</color>
+    <color name="optionTextColor">#808080</color>
+    <color name="optionTitleColor">#484848</color>
+    <color name="addTaskButton">#44de56</color>
 
 </resources>
