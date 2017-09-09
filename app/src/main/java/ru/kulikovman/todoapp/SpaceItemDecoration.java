@@ -12,7 +12,7 @@ public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
 
         // Вычисление пикселей по DP. Здесь отступ будет *8dp*
-        int margin = 50;
+        int margin = 10;
         int space = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, margin, view.getResources().getDisplayMetrics());
 
         if(parent.getChildAdapterPosition(view) == 0){
