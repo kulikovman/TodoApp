@@ -97,7 +97,9 @@ public class TodoActivity extends AppCompatActivity
         mRecyclerView = (RecyclerView) findViewById(R.id.todo_recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.addItemDecoration(new SpaceItemDecoration());
+
+        // Устанавливаем отступ в начале списка
+        //mRecyclerView.addItemDecoration(new SpaceItemDecoration());
 
         updateTaskList();
 
