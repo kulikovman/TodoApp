@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -35,13 +36,6 @@ import ru.kulikovman.todoapp.models.TaskComparator;
 public class TodoActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, TaskAdapter.OnItemClickListener {
 
-    public static final String LIST_TODAY = "today";
-    public static final String LIST_MONTH = "month";
-    public static final String LIST_WITHOUT_DATE = "without_date";
-    public static final String LIST_UNFINISHED = "unfinished";
-    public static final String LIST_FINISHED = "finished";
-
-    public static final String APP_PREFERENCES_TYPE_LIST = "type_list";
     private SharedPreferences mSharedPref;
 
     private RecyclerView mRecyclerView;
@@ -118,7 +112,7 @@ public class TodoActivity extends AppCompatActivity
 
         // Сохраняем тип текущего списка задач
         SharedPreferences.Editor editor = mSharedPref.edit();
-        editor.putString(APP_PREFERENCES_TYPE_LIST, mTypeTaskList);
+        editor.putString(getString(R.string.type_list), mTypeTaskList);
         editor.apply();
     }
 
@@ -162,19 +156,19 @@ public class TodoActivity extends AppCompatActivity
 
         // Присваиваем списку тип выбранный в меню
         if (id == R.id.nav_task_today) {
-            mTypeTaskList = LIST_TODAY;
+            mTypeTaskList = getString(R.string.list_today);
             updateTaskList();
         } else if (id == R.id.nav_task_month) {
-            mTypeTaskList = LIST_MONTH;
+            mTypeTaskList = getString(R.string.list_month);
             updateTaskList();
         } else if (id == R.id.nav_task_without_date) {
-            mTypeTaskList = LIST_WITHOUT_DATE;
+            mTypeTaskList = getString(R.string.list_without_date);
             updateTaskList();
         } else if (id == R.id.nav_task_unfinished) {
-            mTypeTaskList = LIST_UNFINISHED;
+            mTypeTaskList = getString(R.string.list_unfinished);
             updateTaskList();
         } else if (id == R.id.nav_task_finished) {
-            mTypeTaskList = LIST_FINISHED;
+            mTypeTaskList = getString(R.string.list_finished);
             updateTaskList();
         }
 

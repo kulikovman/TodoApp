@@ -4,11 +4,11 @@
 
     <!-- Возможные виды представления списка задач -->
     <string name="type_list" translatable="false">type_list</string>
-    <string name="list_today" translatable="false">list_today</string>
-    <string name="list_month" translatable="false">list_month</string>
-    <string name="list_without_date" translatable="false">list_without_date</string>
-    <string name="list_unfinished" translatable="false">list_unfinished</string>
-    <string name="list_finished" translatable="false">list_finished</string>
+    <string name="list_today" translatable="false">today</string>
+    <string name="list_month" translatable="false">month</string>
+    <string name="list_without_date" translatable="false">without_date</string>
+    <string name="list_unfinished" translatable="false">unfinished</string>
+    <string name="list_finished" translatable="false">finished</string>
 
 
 
