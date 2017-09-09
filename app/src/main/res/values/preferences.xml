@@ -2,8 +2,14 @@
 <resources>
     <string name="pref_key" translatable="false">ru.kulikovman.todoapp.pref_key</string>
 
-    <string name="left_dice_number" translatable="false">left_dice_number</string>
-    <string name="left_dice_view" translatable="false">left_dice_view</string>
-    <string name="right_dice_number" translatable="false">right_dice_number</string>
-    <string name="right_dice_view" translatable="false">right_dice_view</string>
+    <!-- Возможные виды представления списка задач -->
+    <string name="type_list" translatable="false">type_list</string>
+    <string name="list_today" translatable="false">list_today</string>
+    <string name="list_month" translatable="false">list_month</string>
+    <string name="list_without_date" translatable="false">list_without_date</string>
+    <string name="list_unfinished" translatable="false">list_unfinished</string>
+    <string name="list_finished" translatable="false">list_finished</string>
+
+
+
 </resources>

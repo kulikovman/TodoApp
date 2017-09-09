@@ -7,9 +7,9 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -41,9 +41,8 @@ public class TodoActivity extends AppCompatActivity
     public static final String LIST_UNFINISHED = "unfinished";
     public static final String LIST_FINISHED = "finished";
 
-    public static final String APP_PREFERENCES = "todo_settings";
     public static final String APP_PREFERENCES_TYPE_LIST = "type_list";
-    private SharedPreferences mSettings;
+    private SharedPreferences mSharedPref;
 
     private RecyclerView mRecyclerView;
     private TaskAdapter mAdapter;
@@ -64,16 +63,12 @@ public class TodoActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todo);
+
+        Log.d("myTag", "Запущен onCreate");
+
+        // Судя по всему, это код запуска бокового меню и сопутствующих элементов
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        // Создаем базу и обновляем общий список задач
-        mDbHelper = new TodoBaseHelper(this);
-        mAllTasks = mDbHelper.getAllTasks();
-
-        mDeleteButton = (FloatingActionButton) findViewById(R.id.fab_delete_task);
-        mEditButton = (FloatingActionButton) findViewById(R.id.fab_edit_task);
-        mDoneButton = (FloatingActionButton) findViewById(R.id.fab_done_task);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -84,22 +79,34 @@ public class TodoActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        // Находим поле в хедере для показа количества задач
+        // Инициализируем поле в хедере для показа количества задач
         View header = navigationView.getHeaderView(0);
         mNumberOfTasks = (TextView) header.findViewById(R.id.number_of_tasks);
 
-        // Получаем тип текущего списка из Preferences
-        mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-        if (mSettings.contains(APP_PREFERENCES_TYPE_LIST)) {
-            mTypeTaskList = mSettings.getString(APP_PREFERENCES_TYPE_LIST, LIST_UNFINISHED);
-        }
-
+        // Инициализируем необходимые вью элементы
+        mDeleteButton = (FloatingActionButton) findViewById(R.id.fab_delete_task);
+        mEditButton = (FloatingActionButton) findViewById(R.id.fab_edit_task);
+        mDoneButton = (FloatingActionButton) findViewById(R.id.fab_done_task);
         mRecyclerView = (RecyclerView) findViewById(R.id.todo_recycler_view);
+
+        // Создаем базу и обновляем общий список задач
+        mDbHelper = new TodoBaseHelper(this);
+        mAllTasks = mDbHelper.getAllTasks();
+
+        // Получаем SharedPreferences
+        mSharedPref = getSharedPreferences(getString(R.string.pref_key), Context.MODE_PRIVATE);
+
+        // Восстанавливаем из mSharedPref тип списка задач
+        mTypeTaskList = mSharedPref.getString(getString(R.string.type_list), getString(R.string.list_unfinished));
+
+        // Устанавливаем параметры для RecyclerView
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        // Создаем и устанавливаем список
         updateTaskList();
 
+        // Слушатель для адаптера списка
         mAdapter.setOnItemClickListener(this);
     }
 
@@ -107,15 +114,17 @@ public class TodoActivity extends AppCompatActivity
     protected void onPause() {
         super.onPause();
 
+        Log.d("myTag", "Запущен onPause");
+
         // Сохраняем тип текущего списка задач
-        SharedPreferences.Editor editor = mSettings.edit();
+        SharedPreferences.Editor editor = mSharedPref.edit();
         editor.putString(APP_PREFERENCES_TYPE_LIST, mTypeTaskList);
         editor.apply();
     }
 
     @Override
     public void onBackPressed() {
-        // Это типовая процедура, при наличии бокового меню
+        // Если открыто боковое меню, то сначала оно скроется
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -209,22 +218,16 @@ public class TodoActivity extends AppCompatActivity
     private void updateTaskList() {
         // Создаем нужный тип списка задач
         if (mTypeTaskList != null) {
-            switch (mTypeTaskList) {
-                case LIST_TODAY:
-                    mCurrentTasks = createTodayTaskList();
-                    break;
-                case LIST_MONTH:
-                    mCurrentTasks = createMonthTaskList();
-                    break;
-                case LIST_WITHOUT_DATE:
-                    mCurrentTasks = createWithoutDateTaskList();
-                    break;
-                case LIST_UNFINISHED:
-                    mCurrentTasks = createUnfinishedTaskList();
-                    break;
-                case LIST_FINISHED:
-                    mCurrentTasks = createFinishedTaskList();
-                    break;
+            if (mTypeTaskList.equals(getString(R.string.list_today))) {
+                mCurrentTasks = createTodayTaskList();
+            } else if (mTypeTaskList.equals(getString(R.string.list_month))) {
+                mCurrentTasks = createMonthTaskList();
+            } else if (mTypeTaskList.equals(getString(R.string.list_without_date))) {
+                mCurrentTasks = createWithoutDateTaskList();
+            } else if (mTypeTaskList.equals(getString(R.string.list_unfinished))) {
+                mCurrentTasks = createUnfinishedTaskList();
+            } else if (mTypeTaskList.equals(getString(R.string.list_finished))) {
+                mCurrentTasks = createFinishedTaskList();
             }
         } else {
             mCurrentTasks = createUnfinishedTaskList();
