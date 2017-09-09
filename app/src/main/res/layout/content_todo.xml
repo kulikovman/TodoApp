@@ -10,5 +10,4 @@
     tools:context="ru.kulikovman.todoapp.TodoActivity"
     tools:showIn="@layout/app_bar_todo">
 
-
 </android.support.v7.widget.RecyclerView>
