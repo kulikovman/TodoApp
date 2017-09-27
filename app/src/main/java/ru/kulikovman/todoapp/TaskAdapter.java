@@ -4,7 +4,6 @@ package ru.kulikovman.todoapp;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,6 @@ import android.widget.TextView;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -30,8 +28,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
 
     private int mPosition = RecyclerView.NO_POSITION;
 
-    private final ArrayList<Integer> mSelected = new ArrayList<>();
-
     public class TaskHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTaskTitle, mTaskDate, mTaskPriority, mTaskRepeat;
         private ImageButton mTaskColor;
@@ -39,9 +35,11 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
 
         public TaskHolder(View view) {
             super(view);
+
+            // Слушатель нажатий по элменту
             view.setOnClickListener(this);
 
-            //
+            // Инициализируем вью элемента списка
             mTaskTitle = (TextView) view.findViewById(R.id.item_task_title);
             mTaskDate = (TextView) view.findViewById(R.id.item_task_date);
             mTaskPriority = (TextView) view.findViewById(R.id.item_task_priority);
@@ -60,7 +58,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
 
             // Если старая и новая позиции совпадают, то удаляем позицию
             if (mPosition == oldPosition) {
-                mPosition = RecyclerView.NO_POSITION;   //NO_POSITION == -1
+                resetPosition();
             }
 
             // Обновляем айтем нажатый сейчас
@@ -72,7 +70,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
             }
         }
 
-        // Устанавливаем содержимое для всех элементов айтема
+        // Назначаем содержимое для текущего элемента списка
         public void bindTask(Task task) {
             mTask = task;
 
@@ -192,7 +190,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
         Task task = mTasks.get(position);
         holder.bindTask(task);
 
-        // Если установленная позиция равна текущей, то делаем айтем "нажатым"
+        // Если установленная позиция равна текущей, то делаем элемент "нажатым"
         holder.itemView.setPressed(mPosition == position);
     }
 
@@ -214,15 +212,19 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
         mListener = listener;
     }
 
-    // Здесь мы добавляем элемент в набор данных
+    // Добавляем элемент в набор данных
     public void addItem(int position, Task task) {
         mTasks.add(position, task);
         super.notifyItemInserted(position);
     }
 
-    // А здесь - удаляем
+    // Удаляем элемент из набора данных
     public void deleteItem(int position) {
         mTasks.remove(position);
         super.notifyItemRemoved(position);
+    }
+
+    public void resetPosition() {
+        mPosition = RecyclerView.NO_POSITION;   //NO_POSITION == -1
     }
 }
