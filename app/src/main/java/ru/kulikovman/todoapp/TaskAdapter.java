@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -23,46 +24,65 @@ import ru.kulikovman.todoapp.models.Task;
 
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
-    public static OnItemClickListener mListener;
-    private static Context mContext;
+    private static OnItemClickListener mListener;
+    private Context mContext;
     private List<Task> mTasks;
 
-    public static class TaskHolder extends RecyclerView.ViewHolder {
+    private int mPosition = RecyclerView.NO_POSITION;
+
+    private final ArrayList<Integer> mSelected = new ArrayList<>();
+
+    public class TaskHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTaskTitle, mTaskDate, mTaskPriority, mTaskRepeat;
         private ImageButton mTaskColor;
         private Task mTask;
 
         public TaskHolder(View view) {
             super(view);
+            view.setOnClickListener(this);
+
+            //
             mTaskTitle = (TextView) view.findViewById(R.id.item_task_title);
             mTaskDate = (TextView) view.findViewById(R.id.item_task_date);
             mTaskPriority = (TextView) view.findViewById(R.id.item_task_priority);
             mTaskRepeat = (TextView) view.findViewById(R.id.item_task_repeat);
             mTaskColor = (ImageButton) view.findViewById(R.id.item_task_color);
-
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (TaskAdapter.mListener != null) {
-                        TaskAdapter.mListener.onItemClick(v, getLayoutPosition(), mTask);
-                    }
-                }
-            });
         }
 
+        @Override
+        public void onClick(View v) {
+            // Обновляем айтем нажатый ранее
+            notifyItemChanged(mPosition);
+
+            // Сохраняем старую и получаем новую позицию
+            int oldPosition = mPosition;
+            mPosition = getLayoutPosition();
+
+            // Если старая и новая позиции совпадают, то удаляем позицию
+            if (mPosition == oldPosition) {
+                mPosition = RecyclerView.NO_POSITION;   //NO_POSITION == -1
+            }
+
+            // Обновляем айтем нажатый сейчас
+            notifyItemChanged(mPosition);
+
+            // Код для проброса слушателя
+            if (TaskAdapter.mListener != null) {
+                TaskAdapter.mListener.onItemClick(v, getLayoutPosition(), mTask, mPosition);
+            }
+        }
+
+        // Устанавливаем содержимое для всех элементов айтема
         public void bindTask(Task task) {
             mTask = task;
 
-
             // Обнуляем все текстовые поля
             //int defaultColor = mContext.getResources().getColor(R.color.gray_7);
-
 
             mTaskTitle.setText(null);
             mTaskDate.setText(null);
             mTaskPriority.setText(null);
             mTaskRepeat.setText(null);
-
 
             // Получаем значения полей
             String taskTitle = mTask.getTitle();
@@ -70,7 +90,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
             String taskPriority = mTask.getPriority();
             String taskRepeat = mTask.getRepeat();
             String taskColor = mTask.getColor();
-
 
             // Устанавливаем заголовок и его цвет
             mTaskTitle.setText(taskTitle);
@@ -81,7 +100,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
                 titleColor = ContextCompat.getColor(mContext, R.color.gray_7);
             }
             mTaskTitle.setTextColor(titleColor);
-
 
             // Устанавливаем дату
             if (!taskDate.equals("Не установлена")) {
@@ -107,7 +125,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
                 mTaskDate.setText(taskDate);
             }
 
-
             // Устанавливаем приоритет
             switch (taskPriority) {
                 case "0":
@@ -124,12 +141,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
                     break;
             }
 
-
             // Устанавливаем повтор
             if (!taskRepeat.equals("Без повтора")) {
                 mTaskRepeat.setText(taskRepeat);
             }
-
 
             // Устанавливаем цвет
             switch (taskColor) {
@@ -164,7 +179,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
     public TaskAdapter(Context context, List<Task> tasks) {
         mTasks = tasks;
         mContext = context;
-
     }
 
     @Override
@@ -174,9 +188,12 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
     }
 
     @Override
-    public void onBindViewHolder(TaskHolder holder, int position) {
+    public void onBindViewHolder(final TaskHolder holder, int position) {
         Task task = mTasks.get(position);
         holder.bindTask(task);
+
+        // Если установленная позиция равна текущей, то делаем айтем "нажатым"
+        holder.itemView.setPressed(mPosition == position);
     }
 
     @Override
@@ -188,8 +205,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
         mTasks = tasks;
     }
 
+    // Интерфейс для проброса слушателя наружу
     public interface OnItemClickListener {
-        void onItemClick(View itemView, int position, Task task);
+        void onItemClick(View itemView, int itemPosition, Task task, int selectedPosition);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {

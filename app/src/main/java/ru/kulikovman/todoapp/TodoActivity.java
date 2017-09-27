@@ -4,9 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -178,10 +176,10 @@ public class TodoActivity extends AppCompatActivity
     }
 
     @Override
-    public void onItemClick(View itemView, int position, Task task) {
+    public void onItemClick(View itemView, int position, Task task, int i) {
         // Выделяем или снимаем выделение выбранного элемента списка
         // Этот листенер проброшен с адаптера
-        if (mItemView == null) {
+        /*if (mItemView == null) {
             itemView.setBackgroundColor(Color.LTGRAY);
             mItemView = itemView;
             showActionButton();
@@ -202,7 +200,7 @@ public class TodoActivity extends AppCompatActivity
                     hideActionButton();
                 }
             }
-        }
+        }*/
 
         // Запоминаем последний выбранный элемент
         mTask = task;
