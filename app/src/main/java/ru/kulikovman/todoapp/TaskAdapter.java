@@ -2,12 +2,14 @@ package ru.kulikovman.todoapp;
 
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.text.DateFormat;
@@ -33,8 +35,12 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
         private ImageButton mTaskColor;
         private Task mTask;
 
+        private LinearLayout mItemLayout;
+
         public TaskHolder(View view) {
             super(view);
+
+            view.setClickable(true);
 
             // Слушатель нажатий по элменту
             view.setOnClickListener(this);
@@ -45,6 +51,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
             mTaskPriority = (TextView) view.findViewById(R.id.item_task_priority);
             mTaskRepeat = (TextView) view.findViewById(R.id.item_task_repeat);
             mTaskColor = (ImageButton) view.findViewById(R.id.item_task_color);
+            mItemLayout = (LinearLayout) view.findViewById(R.id.item_task_layout);
         }
 
         @Override
@@ -192,6 +199,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
 
         // Если установленная позиция равна текущей, то делаем элемент "нажатым"
         holder.itemView.setPressed(mPosition == position);
+
+        // Запасной вариант - выделение выбранным цветом, но без риппл эффекта
+        //holder.itemView.setBackgroundColor(mPosition == position ? Color.GREEN : Color.TRANSPARENT);
     }
 
     @Override
