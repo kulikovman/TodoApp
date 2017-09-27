@@ -58,7 +58,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
 
             // Если старая и новая позиции совпадают, то удаляем позицию
             if (mPosition == oldPosition) {
-                resetPosition();
+                resetSelection();
             }
 
             // Обновляем айтем нажатый сейчас
@@ -224,7 +224,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
         super.notifyItemRemoved(position);
     }
 
-    public void resetPosition() {
+    public void resetSelection() {
         mPosition = RecyclerView.NO_POSITION;   //NO_POSITION == -1
     }
 }

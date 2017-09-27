@@ -176,7 +176,7 @@ public class TodoActivity extends AppCompatActivity
     }
 
     @Override
-    public void onItemClick(View itemView, int position, Task task, int i) {
+    public void onItemClick(View itemView, int itemPosition, Task task, int selectedPosition) {
         // Выделяем или снимаем выделение выбранного элемента списка
         // Этот листенер проброшен с адаптера
         /*if (mItemView == null) {
@@ -202,9 +202,15 @@ public class TodoActivity extends AppCompatActivity
             }
         }*/
 
+        if (selectedPosition != RecyclerView.NO_POSITION) {
+            showActionButton();
+        } else {
+            hideActionButton();
+        }
+
         // Запоминаем последний выбранный элемент
         mTask = task;
-        mPosition = position;
+        mPosition = itemPosition;
     }
 
     private void updateTaskList() {
@@ -233,6 +239,7 @@ public class TodoActivity extends AppCompatActivity
             mAdapter = new TaskAdapter(this, mCurrentTasks);
             mRecyclerView.setAdapter(mAdapter);
         } else {
+            mAdapter.resetSelection();
             mAdapter.setTasks(mCurrentTasks);
             mAdapter.notifyDataSetChanged();
         }
