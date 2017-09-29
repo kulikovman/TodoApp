@@ -177,31 +177,7 @@ public class TodoActivity extends AppCompatActivity
 
     @Override
     public void onItemClick(View itemView, int itemPosition, Task task, int selectedPosition) {
-        // Выделяем или снимаем выделение выбранного элемента списка
-        // Этот листенер проброшен с адаптера
-        /*if (mItemView == null) {
-            itemView.setBackgroundColor(Color.LTGRAY);
-            mItemView = itemView;
-            showActionButton();
-        } else {
-            if (mItemView != itemView) {
-                mItemView.setBackgroundColor(Color.TRANSPARENT);
-                itemView.setBackgroundColor(Color.LTGRAY);
-                mItemView = itemView;
-                showActionButton();
-            } else {
-                int itemColor = ((ColorDrawable) itemView.getBackground()).getColor();
-
-                if (itemColor == Color.TRANSPARENT) {
-                    itemView.setBackgroundColor(Color.LTGRAY);
-                    showActionButton();
-                } else {
-                    itemView.setBackgroundColor(Color.TRANSPARENT);
-                    hideActionButton();
-                }
-            }
-        }*/
-
+        // Показываем или скрываем кнопки в зависимости от выделения элементов списка
         if (selectedPosition != RecyclerView.NO_POSITION) {
             showActionButton();
         } else {
