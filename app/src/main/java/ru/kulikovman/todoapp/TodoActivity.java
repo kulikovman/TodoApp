@@ -155,20 +155,17 @@ public class TodoActivity extends AppCompatActivity
         // Присваиваем списку тип выбранный в меню
         if (id == R.id.nav_task_today) {
             mTypeTaskList = getString(R.string.list_today);
-            updateTaskList();
         } else if (id == R.id.nav_task_month) {
             mTypeTaskList = getString(R.string.list_month);
-            updateTaskList();
         } else if (id == R.id.nav_task_without_date) {
             mTypeTaskList = getString(R.string.list_without_date);
-            updateTaskList();
         } else if (id == R.id.nav_task_unfinished) {
             mTypeTaskList = getString(R.string.list_unfinished);
-            updateTaskList();
         } else if (id == R.id.nav_task_finished) {
             mTypeTaskList = getString(R.string.list_finished);
-            updateTaskList();
         }
+
+        updateTaskList();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
