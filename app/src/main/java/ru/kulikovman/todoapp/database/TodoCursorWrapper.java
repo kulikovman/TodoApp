@@ -7,6 +7,8 @@ import android.database.CursorWrapper;
 import java.util.UUID;
 
 import ru.kulikovman.todoapp.database.TodoDbSchema.TaskTable;
+import ru.kulikovman.todoapp.database.TodoDbSchema.GroupTable;
+import ru.kulikovman.todoapp.models.Group;
 import ru.kulikovman.todoapp.models.Task;
 
 
@@ -26,5 +28,12 @@ public class TodoCursorWrapper extends CursorWrapper {
         int done = getInt(getColumnIndex(TaskTable.Cols.DONE));
 
         return new Task(UUID.fromString(uuid), title, date, priority, color, repeat, done != 0);
+    }
+
+    public Group getGroup() {
+        String name = getString(getColumnIndex(GroupTable.Cols.NAME));
+        int color = getInt(getColumnIndex(GroupTable.Cols.COLOR));
+
+        return new Group(name, color);
     }
 }
