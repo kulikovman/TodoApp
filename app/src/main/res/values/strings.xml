@@ -43,5 +43,11 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <string name="task_all">Все задачи</string>
+    <string name="task_today">Сегодня</string>
+    <string name="task_month">На месяц</string>
+    <string name="task_without_date">Без даты</string>
+    <string name="task_finished">Завершенные</string>
+
 
 </resources>

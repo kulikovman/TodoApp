@@ -4,6 +4,7 @@
 
     <!-- Возможные виды представления списка задач -->
     <string name="type_list" translatable="false">type_list</string>
+
     <string name="list_today" translatable="false">today</string>
     <string name="list_month" translatable="false">month</string>
     <string name="list_without_date" translatable="false">without_date</string>

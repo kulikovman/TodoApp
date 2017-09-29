@@ -40,13 +40,13 @@ public class TodoActivity extends AppCompatActivity
     private TaskAdapter mAdapter;
     private TodoBaseHelper mDbHelper;
 
-    private View mItemView;
     private Task mTask;
     private int mPosition;
+    private View mItemView;
 
     private List<Task> mAllTasks;
     private List<Task> mCurrentTasks;
-    private String mTypeTaskList;
+    private String mTypeList;
 
     private FloatingActionButton mDeleteButton, mEditButton, mDoneButton;
     private TextView mNumberOfTasks;
@@ -89,7 +89,7 @@ public class TodoActivity extends AppCompatActivity
         mSharedPref = getSharedPreferences(getString(R.string.pref_key), Context.MODE_PRIVATE);
 
         // Восстанавливаем из mSharedPref тип списка задач
-        mTypeTaskList = mSharedPref.getString(getString(R.string.type_list), getString(R.string.list_unfinished));
+        mTypeList = mSharedPref.getString(getString(R.string.type_list), getString(R.string.list_unfinished));
 
         // Устанавливаем параметры для RecyclerView
         mRecyclerView.setHasFixedSize(true);
@@ -110,7 +110,7 @@ public class TodoActivity extends AppCompatActivity
 
         // Сохраняем тип текущего списка задач
         SharedPreferences.Editor editor = mSharedPref.edit();
-        editor.putString(getString(R.string.type_list), mTypeTaskList);
+        editor.putString(getString(R.string.type_list), mTypeList);
         editor.apply();
     }
 
@@ -154,15 +154,15 @@ public class TodoActivity extends AppCompatActivity
 
         // Присваиваем списку тип выбранный в меню
         if (id == R.id.nav_task_today) {
-            mTypeTaskList = getString(R.string.list_today);
+            mTypeList = getString(R.string.list_today);
         } else if (id == R.id.nav_task_month) {
-            mTypeTaskList = getString(R.string.list_month);
+            mTypeList = getString(R.string.list_month);
         } else if (id == R.id.nav_task_without_date) {
-            mTypeTaskList = getString(R.string.list_without_date);
+            mTypeList = getString(R.string.list_without_date);
         } else if (id == R.id.nav_task_unfinished) {
-            mTypeTaskList = getString(R.string.list_unfinished);
+            mTypeList = getString(R.string.list_unfinished);
         } else if (id == R.id.nav_task_finished) {
-            mTypeTaskList = getString(R.string.list_finished);
+            mTypeList = getString(R.string.list_finished);
         }
 
         updateTaskList();
@@ -188,23 +188,9 @@ public class TodoActivity extends AppCompatActivity
 
     private void updateTaskList() {
         // Создаем нужный тип списка задач
-        if (mTypeTaskList != null) {
-            if (mTypeTaskList.equals(getString(R.string.list_today))) {
-                mCurrentTasks = createTodayTaskList();
-            } else if (mTypeTaskList.equals(getString(R.string.list_month))) {
-                mCurrentTasks = createMonthTaskList();
-            } else if (mTypeTaskList.equals(getString(R.string.list_without_date))) {
-                mCurrentTasks = createWithoutDateTaskList();
-            } else if (mTypeTaskList.equals(getString(R.string.list_unfinished))) {
-                mCurrentTasks = createUnfinishedTaskList();
-            } else if (mTypeTaskList.equals(getString(R.string.list_finished))) {
-                mCurrentTasks = createFinishedTaskList();
-            }
-        } else {
-            mCurrentTasks = createUnfinishedTaskList();
-        }
+        mCurrentTasks = createList(mTypeList);
 
-        // Сортируем через кампоратор
+        // Сортируем список через компаратор
         Collections.sort(mCurrentTasks, new TaskComparator());
 
         // Назначаем адаптеру новый список
@@ -217,8 +203,95 @@ public class TodoActivity extends AppCompatActivity
             mAdapter.notifyDataSetChanged();
         }
 
+        // TODO: 29.09.2017  Эту часть кода нужно проверить и переделать
+        // раньше она снимала выделение и скрывала кнопки
+        // сейчас выделение элементов работает по другому
         finishAction();
     }
+
+    // Создаем список задач в зависимости от выбранного типа
+    private List<Task> createList(String typeList) {
+        List<Task> tasks = new ArrayList<>();
+
+        // Получаем сегодняшнюю дату
+        Calendar calendar = Calendar.getInstance();
+        long targetDate = calendar.getTimeInMillis();
+
+        // Дата задачи
+        long taskDate;
+
+        // Если тип списка - на месяц или равен нулю
+        if (typeList.equals(getString(R.string.list_month)) || typeList.equals("")) {
+            calendar.add(Calendar.MONTH, 1);
+            targetDate = calendar.getTimeInMillis();
+
+            for (Task task : mAllTasks) {
+                if (!task.isDone()) {
+                    if (task.getDate().equals("Не установлена")) {
+                        tasks.add(task);
+                    } else {
+                        taskDate = Long.parseLong(task.getDate());
+                        if (taskDate <= targetDate) {
+                            tasks.add(task);
+                        }
+                    }
+                }
+            }
+            return tasks;
+        }
+
+        // Если тип списка - на сегодня
+        if (typeList.equals(getString(R.string.list_today))) {
+            for (Task task : mAllTasks) {
+                if (!task.isDone()) {
+                    if (task.getDate().equals("Не установлена")) {
+                        tasks.add(task);
+                    } else {
+                        taskDate = Long.parseLong(task.getDate());
+                        if (taskDate <= targetDate) {
+                            tasks.add(task);
+                        }
+                    }
+                }
+            }
+            return tasks;
+        }
+
+        // Если тип списка - без даты
+        if (typeList.equals(getString(R.string.list_without_date))) {
+            for (Task task : mAllTasks) {
+                if (!task.isDone()) {
+                    if (task.getDate().equals("Не установлена")) {
+                        tasks.add(task);
+                    }
+                }
+            }
+            return tasks;
+        }
+
+        // Если тип списка - все назавершенные
+        if (typeList.equals(getString(R.string.list_unfinished))) {
+            for (Task task : mAllTasks) {
+                if (!task.isDone()) {
+                    tasks.add(task);
+                }
+            }
+            return tasks;
+        }
+
+        // Если тип списка - все завершенные
+        if (typeList.equals(getString(R.string.list_finished))) {
+            for (Task task : mAllTasks) {
+                if (task.isDone()) {
+                    tasks.add(task);
+                }
+            }
+            return tasks;
+        }
+
+        return null;
+    }
+
 
     private void setNumberOfTasks() {
         // Метод для установки количества задач в заголовке меню
@@ -231,74 +304,6 @@ public class TodoActivity extends AppCompatActivity
 
         String numberOfTasks = "Всего задач: " + taskCounter;
         mNumberOfTasks.setText(numberOfTasks);
-    }
-
-    private List<Task> createTodayTaskList() {
-        List<Task> tasks = new ArrayList<>();
-
-        Date date = new Date();
-        long targetDate = date.getTime();
-
-        for (Task task : mAllTasks) {
-            if (!task.getDate().equals("Не установлена") && !task.isDone()) {
-                long taskDate = Long.parseLong(task.getDate());
-                if (taskDate <= targetDate) {
-                    tasks.add(task);
-                }
-            }
-        }
-        return tasks;
-    }
-
-    private List<Task> createMonthTaskList() {
-        List<Task> tasks = new ArrayList<>();
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.MONTH, 1);
-        long targetDate = calendar.getTimeInMillis();
-
-        for (Task task : mAllTasks) {
-            if (!task.getDate().equals("Не установлена") && !task.isDone()) {
-                long taskDate = Long.parseLong(task.getDate());
-                if (taskDate <= targetDate) {
-                    tasks.add(task);
-                }
-            }
-        }
-        return tasks;
-    }
-
-    private List<Task> createUnfinishedTaskList() {
-        List<Task> tasks = new ArrayList<>();
-
-        for (Task task : mAllTasks) {
-            if (!task.isDone()) {
-                tasks.add(task);
-            }
-        }
-        return tasks;
-    }
-
-    private List<Task> createFinishedTaskList() {
-        List<Task> tasks = new ArrayList<>();
-
-        for (Task task : mAllTasks) {
-            if (task.isDone()) {
-                tasks.add(task);
-            }
-        }
-        return tasks;
-    }
-
-    private List<Task> createWithoutDateTaskList() {
-        List<Task> tasks = new ArrayList<>();
-
-        for (Task task : mAllTasks) {
-            if (task.getDate().equals("Не установлена") && !task.isDone()) {
-                tasks.add(task);
-            }
-        }
-        return tasks;
     }
 
     public void fabDoneTask(View view) {

@@ -5,23 +5,23 @@
         <item
             android:id="@+id/nav_task_unfinished"
             android:icon="@drawable/ic_inbox_24dp"
-            android:title="Все задачи"/>
+            android:title="@string/task_all"/>
         <item
             android:id="@+id/nav_task_today"
             android:icon="@drawable/ic_event_24dp"
-            android:title="Сегодня"/>
+            android:title="@string/task_today"/>
         <item
             android:id="@+id/nav_task_month"
             android:icon="@drawable/ic_event_note_24dp"
-            android:title="На месяц"/>
+            android:title="@string/task_month"/>
         <item
             android:id="@+id/nav_task_without_date"
             android:icon="@drawable/ic_event_busy_24dp"
-            android:title="Без даты"/>
+            android:title="@string/task_without_date"/>
         <item
             android:id="@+id/nav_task_finished"
             android:icon="@drawable/ic_done_24dp"
-            android:title="Завершенные"/>
+            android:title="@string/task_finished"/>
     </group>
 
 </menu>
