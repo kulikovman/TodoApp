@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 import ru.kulikovman.todoapp.database.TodoDbSchema.TaskTable;
+import ru.kulikovman.todoapp.database.TodoDbSchema.GroupTable;
 import ru.kulikovman.todoapp.models.Task;
 
 
@@ -36,6 +37,11 @@ public class TodoBaseHelper extends SQLiteOpenHelper {
                 TaskTable.Cols.COLOR + ", " +
                 TaskTable.Cols.REPEAT + ", " +
                 TaskTable.Cols.DONE + ")"
+        );
+
+        db.execSQL("create table " + GroupTable.NAME + "(_id integer primary key autoincrement, " +
+                GroupTable.Cols.NAME + ", " +
+                GroupTable.Cols.COLOR + ")"
         );
     }
 
