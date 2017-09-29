@@ -13,8 +13,10 @@ public class Task {
     private String mRepeat;
     private boolean mDone;
 
-    // Новые поля, их пока нет в базе
-    // также для них нет геттеров и сеттеров и их нет в конструкторе
+    // TODO: 29.09.2017 Добавить функционал для этих полей
+    // они должны сохраняться в базу
+    // использоваться в конструкторах
+    // сделать геттеры и сеттеры
     private long mDateOfCreation;
     private long mDateOfCompletion;
     private Group mGroup;
