@@ -3,6 +3,8 @@ package ru.kulikovman.todoapp.models;
 import java.util.UUID;
 
 public class Task {
+    // TODO: 29.09.2017 Изменить типы полей
+    // для даты, приоритета, цвета, повтора
     private UUID mId;
     private String mTitle;
     private String mDate;
@@ -10,6 +12,12 @@ public class Task {
     private String mColor;
     private String mRepeat;
     private boolean mDone;
+
+    // Новые поля, их пока нет в базе
+    // также для них нет геттеров и сеттеров и их нет в конструкторе
+    private long mDateOfCreation;
+    private long mDateOfCompletion;
+    private Group mGroup;
 
     public Task(UUID id, String title, String date, String priority, String color, String repeat, boolean done) {
         mId = id;
