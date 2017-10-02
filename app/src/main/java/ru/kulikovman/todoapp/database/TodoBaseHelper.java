@@ -54,7 +54,7 @@ public class TodoBaseHelper extends SQLiteOpenHelper {
     }
 
 
-    // Методы для управления ЗАДАЧАМИ
+    // Методы для работы с ЗАДАЧАМИ
     public void addTask(Task task) {
         mDb = this.getWritableDatabase();
         ContentValues values = getTaskContentValues(task);
@@ -138,7 +138,7 @@ public class TodoBaseHelper extends SQLiteOpenHelper {
     }
 
 
-    // Методы для управления ГРУППАМИ
+    // Методы для работы с ГРУППАМИ
     public void addGroup(Group group) {
         mDb = this.getWritableDatabase();
         ContentValues values = getGroupContentValues(group);
