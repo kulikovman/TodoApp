@@ -14,6 +14,7 @@ import java.util.UUID;
 
 import ru.kulikovman.todoapp.database.TodoDbSchema.TaskTable;
 import ru.kulikovman.todoapp.database.TodoDbSchema.GroupTable;
+import ru.kulikovman.todoapp.models.Group;
 import ru.kulikovman.todoapp.models.Task;
 
 
@@ -52,16 +53,18 @@ public class TodoBaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+
+    // Методы для управления ЗАДАЧАМИ
     public void addTask(Task task) {
         mDb = this.getWritableDatabase();
-        ContentValues values = getContentValues(task);
+        ContentValues values = getTaskContentValues(task);
         mDb.insertWithOnConflict(TaskTable.NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
         mDb.close();
     }
 
     public void updateTask(Task task) {
         mDb = this.getWritableDatabase();
-        ContentValues values = getContentValues(task);
+        ContentValues values = getTaskContentValues(task);
         mDb.update(TaskTable.NAME, values, TaskTable.Cols.UUID + " = ?", new String[]{task.getId().toString()});
         mDb.close();
     }
@@ -106,7 +109,7 @@ public class TodoBaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    private static ContentValues getContentValues(Task task) {
+    private static ContentValues getTaskContentValues(Task task) {
         ContentValues values = new ContentValues();
         values.put(TaskTable.Cols.UUID, task.getId().toString());
         values.put(TaskTable.Cols.TITLE, task.getTitle());
@@ -123,6 +126,70 @@ public class TodoBaseHelper extends SQLiteOpenHelper {
         mDb = this.getReadableDatabase();
 
         Cursor cursor = mDb.query(TaskTable.NAME,
+                null, // columns - Список полей, которые мы хотим получить
+                where,  // selection - Строка условия WHERE
+                args, // selectionArgs - Массив аргументов для selection
+                null, // groupBy - Группировка
+                null, // having - Использование условий для агрегатных функций
+                null // orderBy - Сортировка
+        );
+
+        return new TodoCursorWrapper(cursor);
+    }
+
+
+    // Методы для управления ГРУППАМИ
+    public void addGroup(Group group) {
+        mDb = this.getWritableDatabase();
+        ContentValues values = getGroupContentValues(group);
+        mDb.insertWithOnConflict(GroupTable.NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+        mDb.close();
+    }
+
+    public void updateGroup(Group group) {
+        mDb = this.getWritableDatabase();
+        ContentValues values = getGroupContentValues(group);
+        mDb.update(GroupTable.NAME, values, GroupTable.Cols.NAME + " = ?", new String[]{group.getName()});
+        mDb.close();
+    }
+
+    public void deleteGroup(Group group) {
+        mDb = this.getWritableDatabase();
+        mDb.delete(GroupTable.NAME, GroupTable.Cols.NAME + " = ?", new String[]{group.getName()});
+        mDb.close();
+    }
+
+    public List<Group> getAllGroups() {
+        List<Group> groups = new ArrayList<>();
+
+        try (TodoCursorWrapper cursor = queryGroups(null, null)) {
+            Log.d("myLog", "Всего групп в базе: " + String.valueOf(cursor.getCount()));
+            cursor.moveToFirst();
+
+            while (!cursor.isAfterLast()) {
+                groups.add(cursor.getGroup());
+                cursor.moveToNext();
+            }
+        } finally {
+            if (mDb != null) {
+                mDb.close();
+            }
+        }
+        return groups;
+    }
+
+    private static ContentValues getGroupContentValues(Group group) {
+        ContentValues values = new ContentValues();
+        values.put(GroupTable.Cols.NAME, group.getName());
+        values.put(GroupTable.Cols.COLOR, group.getColorId());
+
+        return values;
+    }
+
+    private TodoCursorWrapper queryGroups(String where, String[] args) {
+        mDb = this.getReadableDatabase();
+
+        Cursor cursor = mDb.query(GroupTable.NAME,
                 null, // columns - Список полей, которые мы хотим получить
                 where,  // selection - Строка условия WHERE
                 args, // selectionArgs - Массив аргументов для selection
