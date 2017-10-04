@@ -22,7 +22,7 @@
         android:fitsSystemWindows="true"
         app:itemIconTint="@color/colorPickIcons"
         app:itemTextColor="@color/gray_6"
-        app:headerLayout="@layout/nav_header_todo"
+        app:headerLayout="@layout/nav_header_task_list"
         app:menu="@menu/activity_task_list_drawer"/>
 
 </android.support.v4.widget.DrawerLayout>
