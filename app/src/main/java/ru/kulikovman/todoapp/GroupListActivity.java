@@ -27,4 +27,12 @@ public class GroupListActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    public void fabAddGroup(View view) {
+    }
+
+    public void fabDeleteGroup(View view) {
+    }
+
+    public void fabEditGroup(View view) {
+    }
 }
