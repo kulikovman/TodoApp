@@ -42,6 +42,7 @@ public class TodoBaseHelper extends SQLiteOpenHelper {
 
         db.execSQL("create table " + GroupTable.NAME + "(_id integer primary key autoincrement, " +
                 GroupTable.Cols.NAME + ", " +
+                GroupTable.Cols.DESCRIPTION + ", " +
                 GroupTable.Cols.COLOR + ")"
         );
     }
@@ -181,6 +182,7 @@ public class TodoBaseHelper extends SQLiteOpenHelper {
     private static ContentValues getGroupContentValues(Group group) {
         ContentValues values = new ContentValues();
         values.put(GroupTable.Cols.NAME, group.getName());
+        values.put(GroupTable.Cols.DESCRIPTION, group.getDescription());
         values.put(GroupTable.Cols.COLOR, group.getColorId());
 
         return values;
