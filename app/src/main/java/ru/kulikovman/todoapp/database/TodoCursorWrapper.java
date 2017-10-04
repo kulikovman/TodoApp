@@ -32,6 +32,7 @@ public class TodoCursorWrapper extends CursorWrapper {
 
     public Group getGroup() {
         String name = getString(getColumnIndex(GroupTable.Cols.NAME));
+        String description = getString(getColumnIndex(GroupTable.Cols.DESCRIPTION));
         int color = getInt(getColumnIndex(GroupTable.Cols.COLOR));
 
         return new Group(name, color);
