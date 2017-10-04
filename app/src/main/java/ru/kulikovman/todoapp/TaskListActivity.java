@@ -79,7 +79,7 @@ public class TaskListActivity extends AppCompatActivity
         mDeleteButton = (FloatingActionButton) findViewById(R.id.fab_delete_task);
         mEditButton = (FloatingActionButton) findViewById(R.id.fab_edit_task);
         mDoneButton = (FloatingActionButton) findViewById(R.id.fab_done_task);
-        mRecyclerView = (RecyclerView) findViewById(R.id.todo_recycler_view);
+        mRecyclerView = (RecyclerView) findViewById(R.id.task_list_recycler_view);
 
         // Создаем базу и обновляем общий список задач
         mDbHelper = new TodoBaseHelper(this);
