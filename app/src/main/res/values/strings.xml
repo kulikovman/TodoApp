@@ -48,6 +48,7 @@
     <string name="task_month">На месяц</string>
     <string name="task_without_date">Без даты</string>
     <string name="task_finished">Завершенные</string>
+    <string name="title_activity_group_list">Группы задач</string>
 
 
 </resources>

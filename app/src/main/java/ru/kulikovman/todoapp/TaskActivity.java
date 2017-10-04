@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -167,7 +166,7 @@ public class TaskActivity extends AppCompatActivity {
 
             // Возвращаемся в список задач
             // Удаляем текущий активити из стека
-            Intent intent = new Intent(this, TodoActivity.class);
+            Intent intent = new Intent(this, TaskListActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }

@@ -31,7 +31,7 @@ import ru.kulikovman.todoapp.database.TodoBaseHelper;
 import ru.kulikovman.todoapp.models.Task;
 import ru.kulikovman.todoapp.models.TaskComparator;
 
-public class TodoActivity extends AppCompatActivity
+public class TaskListActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, TaskAdapter.OnItemClickListener {
 
     private SharedPreferences mSharedPref;
@@ -54,7 +54,7 @@ public class TodoActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_todo);
+        setContentView(R.layout.activity_task_list);
 
         Log.d("myTag", "Запущен onCreate");
 
