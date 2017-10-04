@@ -152,7 +152,13 @@ public class TaskListActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        // Присваиваем списку тип выбранный в меню
+        // Если выбран пункт редактирования групп
+        if (id == R.id.nav_edit_group) {
+            Intent intent = new Intent(this, GroupListActivity.class);
+            startActivity(intent);
+        }
+
+        // Если выбран вид списка, то присваиваем списку тип
         if (id == R.id.nav_task_today) {
             mTypeList = getString(R.string.list_today);
         } else if (id == R.id.nav_task_month) {
