@@ -243,15 +243,12 @@ public class TaskListActivity extends AppCompatActivity
         // Если тип списка - на сегодня
         if (typeList.equals(getString(R.string.list_today))) {
             for (Task task : mAllTasks) {
-                if (!task.isDone()) {
-                    if (task.getDate().equals("Не установлена")) {
+                if (!task.isDone() && !task.getDate().equals("Не установлена")) {
+                    taskDate = Long.parseLong(task.getDate());
+                    if (taskDate <= targetDate) {
                         tasks.add(task);
-                    } else {
-                        taskDate = Long.parseLong(task.getDate());
-                        if (taskDate <= targetDate) {
-                            tasks.add(task);
-                        }
                     }
+
                 }
             }
             return tasks;
