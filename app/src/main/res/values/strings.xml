@@ -1,26 +1,32 @@
 <resources>
+    <!-- Название приложения и заголовки активити -->
     <string name="app_name">Список задач</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_task">Задача</string>
+    <string name="title_activity_main">Список задач</string>
 
-    <string name="task_title_hint">Описание задачи…</string>
 
-    <string name="task_date">Дата выполнения</string>
-    <string name="task_priority">Приоритет</string>
-    <string name="task_color">Цвет</string>
-    <string name="task_repeat">Повторение</string>
 
-    <string name="date_dialog_title">Дата выполнения</string>
+
+
+    <!-- Выбор даты задачи -->
+    <string name="date_title">Дата выполнения</string>
     <string name="date_not_set">Не установлена</string>
 
-    <string name="priority_dialog_title">Приоритет</string>
+    <!-- Выбор приоритета задачи -->
+    <string name="priority_title">Приоритет</string>
     <string name="priority_0">Чрезвычайный</string>
     <string name="priority_1">Высокий</string>
     <string name="priority_2">Обычный</string>
     <string name="priority_3">Низкий</string>
     <string name="priority_4">Самый низкий</string>
 
-    <string name="color_dialog_title">Цвет группы</string>
+    <!-- Выбор группы задачи -->
+    <string name="group_title">Группа</string>
+    <string name="group_not_set">Не выбрана</string>
+
+    <!-- Выбор цвета группы -->
+    <string name="color_title">Цвет группы</string>
     <string name="color_transparent">Без цвета</string>
     <string name="color_1_red">Красный</string>
     <string name="color_2_orange">Оранжевый</string>
@@ -29,19 +35,32 @@
     <string name="color_5_blue">Синий</string>
     <string name="color_6_violet">Фиолетовый</string>
     <string name="color_7_pink">Розовый</string>
-    <string name="color_8_not_set">Не выбран</string>
+    <string name="color_not_set">Не выбран</string>
 
-    <string name="repeat_dialog_title">Повторение</string>
-    <string name="repeat_without">Без повтора</string>
+    <!-- Выбор повтора задачи -->
+    <string name="repeat_title">Повторение</string>
+    <string name="repeat_not_set">Без повтора</string>
     <string name="repeat_daily">Ежедневно</string>
     <string name="repeat_every_week">Каждую неделю</string>
     <string name="repeat_once_a_month">Раз в месяц</string>
     <string name="repeat_in_a_year">Через год</string>
     <string name="repeat_do_not">Не повторять</string>
-    <string name="title_activity_main">Список задач</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <!-- Выбор напоминания задачи -->
+    <string name="reminder_title">Напоминание</string>
+    <string name="reminder_not_set">Без напоминания</string>
+    <string name="reminder_on_the_day">В день выполнения</string>
+    <string name="reminder_day_before">За день</string>
+    <string name="reminder_week_before">За неделю</string>
+    <string name="reminder_month_before">За месяц</string>
+    <string name="reminder_pic_date">Выбрать дату</string>
+
+
+
+
+
+
+
 
     <!-- Имена пунктов главного бокового меню -->
     <string name="task_unsorted">Не отсортированные</string>
@@ -53,5 +72,13 @@
     <string name="title_activity_group_list">Группы задач</string>
     <string name="group_edit">Редактировать группы</string>
 
+
+
+
+
+    <!-- Другие разные строки -->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="task_title_hint">Описание задачи…</string>
 
 </resources>

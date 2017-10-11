@@ -17,7 +17,7 @@ public class PriorityFragment extends DialogFragment {
         final String priority[] = {"Чрезвычайный", "Высокий", "Обычный", "Низкий", "Самый низкий"};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(R.string.priority_dialog_title)
+        builder.setTitle(R.string.priority_title)
                 .setItems(priority, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         Log.d("myLog", String.valueOf(which));

@@ -17,7 +17,7 @@ public class RepeatFragment extends DialogFragment {
         final String repeat[] = {"Ежедневно", "Каждую неделю", "Раз в месяц", "Через год", "Не повторять"};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(R.string.repeat_dialog_title)
+        builder.setTitle(R.string.repeat_title)
                 .setItems(repeat, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         Log.d("myLog", String.valueOf(which));
@@ -28,7 +28,7 @@ public class RepeatFragment extends DialogFragment {
                         String date = dateField.getText().toString();
 
                         if (date.equals("Не установлена")) {
-                            repeatField.setText(R.string.repeat_without);
+                            repeatField.setText(R.string.repeat_not_set);
                         } else {
                             switch (which) {
                                 case 0:

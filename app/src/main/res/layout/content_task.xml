@@ -47,7 +47,7 @@
                     android:id="@+id/date_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/task_date"
+                    android:text="@string/date_title"
                     android:textColor="@color/optionTitleColor"
                     android:textSize="16sp" />
 
@@ -91,7 +91,7 @@
                     android:id="@+id/priority_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/task_priority"
+                    android:text="@string/priority_title"
                     android:textColor="@color/optionTitleColor"
                     android:textSize="16sp" />
 
@@ -116,14 +116,14 @@
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/btn_color"
+                android:id="@+id/btn_group"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="30dp"
                 android:layout_marginStart="30dp"
                 android:background="@color/transparent"
-                app:srcCompat="@drawable/ic_palette_24dp" />
+                app:srcCompat="@drawable/ic_dns_black_24dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -132,18 +132,18 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/color_title"
+                    android:id="@+id/group_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/task_color"
+                    android:text="@string/group_title"
                     android:textColor="@color/optionTitleColor"
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/color_field"
+                    android:id="@+id/group_field"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/color_8_not_set"
+                    android:text="@string/group_not_set"
                     android:textColor="@color/optionTextColor"
                     android:textSize="14sp" />
 
@@ -179,7 +179,7 @@
                     android:id="@+id/repeat_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/task_repeat"
+                    android:text="@string/repeat_title"
                     android:textColor="@color/optionTitleColor"
                     android:textSize="16sp" />
 
@@ -187,7 +187,51 @@
                     android:id="@+id/repeat_field"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/repeat_without"
+                    android:text="@string/repeat_not_set"
+                    android:textColor="@color/optionTextColor"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/reminder_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
+            android:onClick="taskOptions"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btn_reminder"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="30dp"
+                android:layout_marginStart="30dp"
+                android:background="@color/transparent"
+                app:srcCompat="@drawable/ic_alarm_24dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/reminder_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/reminder_title"
+                    android:textColor="@color/optionTitleColor"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/reminder_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/reminder_not_set"
                     android:textColor="@color/optionTextColor"
                     android:textSize="14sp" />
 

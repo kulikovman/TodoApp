@@ -17,7 +17,7 @@ public class ColorFragment extends DialogFragment {
         final String color[] = {"Красный", "Оранжевый", "Желтый", "Зеленый", "Синий", "Фиолетовый", "Розовый", "Без цвета"};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(R.string.color_dialog_title)
+        builder.setTitle(R.string.color_title)
                 .setItems(color, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         Log.d("myLog", String.valueOf(which));
@@ -47,7 +47,7 @@ public class ColorFragment extends DialogFragment {
                                 colorField.setText(R.string.color_7_pink);
                                 break;
                             case 7:
-                                colorField.setText(R.string.color_8_not_set);
+                                colorField.setText(R.string.color_not_set);
                                 break;
                         }
                     }
