@@ -11,17 +11,34 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/app_bar_height"
+        android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:titleEnabled="false">
+
+            <EditText
+                android:id="@+id/group_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginStart="67dp"
+                android:layout_marginTop="70dp"
+                android:hint="@string/group_name_hint"
+                android:inputType="textMultiLine|textCapSentences"
+                android:paddingBottom="20dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textSize="20sp"
+                app:popupTheme="@style/AppTheme.PopupOverlay"/>
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -36,12 +53,15 @@
     <include layout="@layout/content_edit_group"/>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/fab_save_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
+        android:onClick="fabSaveGroup"
+        app:backgroundTint="@color/green"
+        app:fabSize="normal"
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|end"
-        app:srcCompat="@android:drawable/ic_dialog_email"/>
+        app:srcCompat="@drawable/ic_send_white_24dp"/>
 
 </android.support.design.widget.CoordinatorLayout>

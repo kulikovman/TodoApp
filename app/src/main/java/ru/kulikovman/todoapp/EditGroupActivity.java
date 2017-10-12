@@ -26,4 +26,7 @@ public class EditGroupActivity extends AppCompatActivity {
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
+
+    public void fabSaveGroup(View view) {
+    }
 }
