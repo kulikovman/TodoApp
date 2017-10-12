@@ -28,7 +28,7 @@
     <string name="group_not_set">Не выбрана</string>
 
     <!-- Цвет группы -->
-    <string name="color_title">Цвет группы</string>
+    <string name="color_title">Цвет</string>
     <string name="color_without">Без цвета</string>
     <string name="color_1_red">Красный</string>
     <string name="color_2_orange">Оранжевый</string>
@@ -38,6 +38,10 @@
     <string name="color_6_violet">Фиолетовый</string>
     <string name="color_7_pink">Розовый</string>
     <string name="color_not_set">Не выбран</string>
+
+    <!-- Описание группы -->
+    <string name="description_title">Описание</string>
+    <string name="description_without">Без описания</string>
 
     <!-- Выбор повтора задачи -->
     <string name="repeat_title">Повторение</string>
