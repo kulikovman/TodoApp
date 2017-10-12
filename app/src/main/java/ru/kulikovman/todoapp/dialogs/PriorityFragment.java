@@ -14,11 +14,11 @@ public class PriorityFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final String emergency = getString(R.string.priority_0);
-        final String high = getString(R.string.priority_1);
-        final String common = getString(R.string.priority_2);
-        final String low = getString(R.string.priority_3);
-        final String lowest = getString(R.string.priority_4);
+        final String emergency = getString(R.string.priority_emergency);
+        final String high = getString(R.string.priority_high);
+        final String common = getString(R.string.priority_common);
+        final String low = getString(R.string.priority_low);
+        final String lowest = getString(R.string.priority_lowest);
 
         final String priority[] = {emergency, high, common, low, lowest};
 

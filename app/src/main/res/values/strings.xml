@@ -15,11 +15,11 @@
 
     <!-- Выбор приоритета задачи -->
     <string name="priority_title">Приоритет</string>
-    <string name="priority_0">Чрезвычайный</string>
-    <string name="priority_1">Высокий</string>
-    <string name="priority_2">Обычный</string>
-    <string name="priority_3">Низкий</string>
-    <string name="priority_4">Самый низкий</string>
+    <string name="priority_emergency">Чрезвычайный</string>
+    <string name="priority_high">Высокий</string>
+    <string name="priority_common">Обычный</string>
+    <string name="priority_low">Низкий</string>
+    <string name="priority_lowest">Самый низкий</string>
 
     <!-- Выбор группы задачи -->
     <string name="group_title">Группа</string>

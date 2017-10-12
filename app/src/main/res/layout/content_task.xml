@@ -99,7 +99,7 @@
                     android:id="@+id/priority_field"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/priority_2"
+                    android:text="@string/priority_common"
                     android:textColor="@color/optionTextColor"
                     android:textSize="14sp" />
 
