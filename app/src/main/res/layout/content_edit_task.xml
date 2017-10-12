@@ -28,7 +28,7 @@
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/btn_date"
+                android:id="@+id/date_icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center_vertical"
@@ -72,7 +72,7 @@
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/btn_priority"
+                android:id="@+id/priority_icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center_vertical"
@@ -116,7 +116,7 @@
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/btn_group"
+                android:id="@+id/group_icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center_vertical"
@@ -160,7 +160,7 @@
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/btn_repeat"
+                android:id="@+id/repeat_icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center_vertical"
@@ -204,7 +204,7 @@
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/btn_reminder"
+                android:id="@+id/reminder_icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center_vertical"
