@@ -14,7 +14,13 @@ public class RepeatFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final String repeat[] = {"Ежедневно", "Каждую неделю", "Раз в месяц", "Через год", "Не повторять"};
+        final String daily = getString(R.string.repeat_daily);
+        final String everyWeek = getString(R.string.repeat_every_week);
+        final String onceMonth = getString(R.string.repeat_once_a_month);
+        final String inYear = getString(R.string.repeat_in_a_year);
+        final String doNot = getString(R.string.repeat_do_not);
+
+        final String repeat[] = {daily, everyWeek, onceMonth, inYear, doNot};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(R.string.repeat_title)
@@ -32,19 +38,19 @@ public class RepeatFragment extends DialogFragment {
                         } else {
                             switch (which) {
                                 case 0:
-                                    repeatField.setText(R.string.repeat_daily);
+                                    repeatField.setText(daily);
                                     break;
                                 case 1:
-                                    repeatField.setText(R.string.repeat_every_week);
+                                    repeatField.setText(everyWeek);
                                     break;
                                 case 2:
-                                    repeatField.setText(R.string.repeat_once_a_month);
+                                    repeatField.setText(onceMonth);
                                     break;
                                 case 3:
-                                    repeatField.setText(R.string.repeat_in_a_year);
+                                    repeatField.setText(inYear);
                                     break;
                                 case 4:
-                                    repeatField.setText(R.string.repeat_do_not);
+                                    repeatField.setText(doNot);
                                     break;
                             }
                         }
