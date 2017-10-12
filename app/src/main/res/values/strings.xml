@@ -11,7 +11,7 @@
     <string name="date_not_set">Не установлена</string>
     <string name="date_today">Сегодня</string>
     <string name="date_tomorrow">Завтра</string>
-    <string name="date_pic_date">Выбрать дату</string>
+    <string name="date_pick_date">Выбрать дату</string>
     <string name="date_without_date">Без даты</string>
 
     <!-- Выбор приоритета задачи -->
@@ -54,7 +54,7 @@
     <string name="reminder_day_before">За день</string>
     <string name="reminder_week_before">За неделю</string>
     <string name="reminder_month_before">За месяц</string>
-    <string name="reminder_pic_date">Выбрать дату</string>
+    <string name="reminder_pick_date">Выбрать дату</string>
 
 
     <!-- Имена пунктов главного бокового меню -->
