@@ -12,6 +12,10 @@
     <!-- Выбор даты задачи -->
     <string name="date_title">Дата выполнения</string>
     <string name="date_not_set">Не установлена</string>
+    <string name="date_today">Сегодня</string>
+    <string name="date_tomorrow">Завтра</string>
+    <string name="date_pic_date">Выбрать дату</string>
+    <string name="date_without_date">Без даты</string>
 
     <!-- Выбор приоритета задачи -->
     <string name="priority_title">Приоритет</string>

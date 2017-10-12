@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -19,7 +20,11 @@ import ru.kulikovman.todoapp.R;
 public class DateFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final String date[] = {"Сегодня", "Завтра", "Выбрать дату", "Без даты"};
+        final String date[] = {
+                getString(R.string.date_today),
+                getString(R.string.date_tomorrow),
+                getString(R.string.date_pic_date),
+                getString(R.string.date_without_date)};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(R.string.date_title)
