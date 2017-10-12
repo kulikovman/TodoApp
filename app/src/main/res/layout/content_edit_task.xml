@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="ru.kulikovman.todoapp.TaskActivity"
-    tools:showIn="@layout/activity_task">
+    tools:context="ru.kulikovman.todoapp.EditTaskActivity"
+    tools:showIn="@layout/activity_edit_task">
 
     <LinearLayout
         android:layout_width="match_parent"

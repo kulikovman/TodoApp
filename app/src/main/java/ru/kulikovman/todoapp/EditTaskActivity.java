@@ -23,7 +23,7 @@ import ru.kulikovman.todoapp.dialogs.PriorityFragment;
 import ru.kulikovman.todoapp.dialogs.RepeatFragment;
 import ru.kulikovman.todoapp.models.Task;
 
-public class TaskActivity extends AppCompatActivity {
+public class EditTaskActivity extends AppCompatActivity {
     private TodoBaseHelper mDbHelper;
     private Task mTask;
 
@@ -34,7 +34,7 @@ public class TaskActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_task);
+        setContentView(R.layout.activity_edit_task);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -43,7 +43,7 @@ public class TaskActivity extends AppCompatActivity {
         mTitleField = (EditText) findViewById(R.id.task_title);
         mDateField = (TextView) findViewById(R.id.date_field);
         mPriorityField = (TextView) findViewById(R.id.priority_field);
-        mColorField = (TextView) findViewById(R.id.color_field);
+        //mColorField = (TextView) findViewById(R.id.color_field);
         mRepeatField = (TextView) findViewById(R.id.repeat_field);
 
         mDbHelper = new TodoBaseHelper(this);

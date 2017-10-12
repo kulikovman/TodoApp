@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="ru.kulikovman.todoapp.TaskActivity">
+    tools:context="ru.kulikovman.todoapp.EditTaskActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
@@ -50,7 +50,7 @@
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_task"/>
+    <include layout="@layout/content_edit_task"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_add_task"
