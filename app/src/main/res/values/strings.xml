@@ -5,10 +5,6 @@
     <string name="title_activity_task">Задача</string>
     <string name="title_activity_main">Список задач</string>
 
-
-
-
-
     <!-- Выбор даты задачи -->
     <string name="date_title">Дата выполнения</string>
     <string name="date_not_set">Не установлена</string>

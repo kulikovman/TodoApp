@@ -14,7 +14,12 @@ public class PriorityFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final String priority[] = {"Чрезвычайный", "Высокий", "Обычный", "Низкий", "Самый низкий"};
+        final String priority[] = {
+                getString(R.string.priority_0),
+                getString(R.string.priority_1),
+                getString(R.string.priority_2),
+                getString(R.string.priority_3),
+                getString(R.string.priority_4)};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(R.string.priority_title)
