@@ -7,27 +7,27 @@
         <item
             android:id="@+id/nav_task_unsorted"
             android:icon="@drawable/ic_inbox_24dp"
-            android:title="@string/task_unsorted"/>
+            android:title="@string/menu_unsorted_tasks"/>
         <item
             android:id="@+id/nav_task_today"
             android:icon="@drawable/ic_event_24dp"
-            android:title="@string/task_today"/>
+            android:title="@string/menu_today_tasks"/>
         <item
             android:id="@+id/nav_task_month"
             android:icon="@drawable/ic_event_note_24dp"
-            android:title="@string/task_month"/>
+            android:title="@string/menu_month_tasks"/>
         <item
             android:id="@+id/nav_task_without_date"
             android:icon="@drawable/ic_event_busy_24dp"
-            android:title="@string/task_without_date"/>
+            android:title="@string/menu_tasks_without_date"/>
         <item
             android:id="@+id/nav_task_unfinished"
             android:icon="@drawable/ic_inbox_24dp"
-            android:title="@string/task_all"/>
+            android:title="@string/menu_all_tasks"/>
         <item
             android:id="@+id/nav_task_finished"
             android:icon="@drawable/ic_done_24dp"
-            android:title="@string/task_finished"/>
+            android:title="@string/menu_finished_tasks"/>
     </group>
 
     <group
@@ -36,6 +36,6 @@
         <item
             android:id="@+id/nav_edit_group"
             android:icon="@drawable/ic_inbox_24dp"
-            android:title="@string/group_edit"/>
+            android:title="@string/menu_edit_groups"/>
     </group>
 </menu>
