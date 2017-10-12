@@ -28,7 +28,7 @@
 
     <!-- Выбор цвета группы -->
     <string name="color_title">Цвет группы</string>
-    <string name="color_transparent">Без цвета</string>
+    <string name="color_without">Без цвета</string>
     <string name="color_1_red">Красный</string>
     <string name="color_2_orange">Оранжевый</string>
     <string name="color_3_yellow">Желтый</string>

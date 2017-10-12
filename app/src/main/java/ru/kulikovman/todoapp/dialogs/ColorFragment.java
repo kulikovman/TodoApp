@@ -14,7 +14,16 @@ public class ColorFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final String color[] = {"Красный", "Оранжевый", "Желтый", "Зеленый", "Синий", "Фиолетовый", "Розовый", "Без цвета"};
+        final String red = getString(R.string.color_1_red);
+        final String orange = getString(R.string.color_2_orange);
+        final String yellow = getString(R.string.color_3_yellow);
+        final String green = getString(R.string.color_4_green);
+        final String blue = getString(R.string.color_5_blue);
+        final String violet = getString(R.string.color_6_violet);
+        final String pink = getString(R.string.color_7_pink);
+        final String without = getString(R.string.color_without);
+
+        final String color[] = {red, orange, yellow, green, blue, violet, pink, without};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(R.string.color_title)
@@ -26,25 +35,25 @@ public class ColorFragment extends DialogFragment {
 
                         switch (which) {
                             case 0:
-                                colorField.setText(R.string.color_1_red);
+                                colorField.setText(red);
                                 break;
                             case 1:
-                                colorField.setText(R.string.color_2_orange);
+                                colorField.setText(orange);
                                 break;
                             case 2:
-                                colorField.setText(R.string.color_3_yellow);
+                                colorField.setText(yellow);
                                 break;
                             case 3:
-                                colorField.setText(R.string.color_4_green);
+                                colorField.setText(green);
                                 break;
                             case 4:
-                                colorField.setText(R.string.color_5_blue);
+                                colorField.setText(blue);
                                 break;
                             case 5:
-                                colorField.setText(R.string.color_6_violet);
+                                colorField.setText(violet);
                                 break;
                             case 6:
-                                colorField.setText(R.string.color_7_pink);
+                                colorField.setText(pink);
                                 break;
                             case 7:
                                 colorField.setText(R.string.color_not_set);
