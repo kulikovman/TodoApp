@@ -14,12 +14,13 @@ public class PriorityFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final String priority[] = {
-                getString(R.string.priority_0),
-                getString(R.string.priority_1),
-                getString(R.string.priority_2),
-                getString(R.string.priority_3),
-                getString(R.string.priority_4)};
+        final String emergency = getString(R.string.priority_0);
+        final String high = getString(R.string.priority_1);
+        final String common = getString(R.string.priority_2);
+        final String low = getString(R.string.priority_3);
+        final String lowest = getString(R.string.priority_4);
+
+        final String priority[] = {emergency, high, common, low, lowest};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(R.string.priority_title)
@@ -31,19 +32,19 @@ public class PriorityFragment extends DialogFragment {
 
                         switch (which) {
                             case 0:
-                                priorityField.setText(R.string.priority_0);
+                                priorityField.setText(emergency);
                                 break;
                             case 1:
-                                priorityField.setText(R.string.priority_1);
+                                priorityField.setText(high);
                                 break;
                             case 2:
-                                priorityField.setText(R.string.priority_2);
+                                priorityField.setText(common);
                                 break;
                             case 3:
-                                priorityField.setText(R.string.priority_3);
+                                priorityField.setText(low);
                                 break;
                             case 4:
-                                priorityField.setText(R.string.priority_4);
+                                priorityField.setText(lowest);
                                 break;
                         }
                     }
