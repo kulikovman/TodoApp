@@ -41,10 +41,10 @@ public class EditTaskActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mTitleField = (EditText) findViewById(R.id.task_title);
-        mDateField = (TextView) findViewById(R.id.date_field);
-        mPriorityField = (TextView) findViewById(R.id.priority_field);
+        mDateField = (TextView) findViewById(R.id.date_state);
+        mPriorityField = (TextView) findViewById(R.id.priority_state);
         //mColorField = (TextView) findViewById(R.id.color_field);
-        mRepeatField = (TextView) findViewById(R.id.repeat_field);
+        mRepeatField = (TextView) findViewById(R.id.repeat_state);
 
         mDbHelper = new TodoBaseHelper(this);
 

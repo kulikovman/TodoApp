@@ -32,8 +32,8 @@ public class DateFragment extends DialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         Log.d("myLog", String.valueOf(which));
 
-                        TextView dateField = (TextView) getActivity().findViewById(R.id.date_field);
-                        TextView repeatField = (TextView) getActivity().findViewById(R.id.repeat_field);
+                        TextView dateField = (TextView) getActivity().findViewById(R.id.date_state);
+                        TextView repeatField = (TextView) getActivity().findViewById(R.id.repeat_state);
 
                         Calendar c = Calendar.getInstance();
                         DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());

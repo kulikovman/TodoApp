@@ -28,7 +28,7 @@ public class PriorityFragment extends DialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         Log.d("myLog", String.valueOf(which));
 
-                        TextView priorityField = (TextView) getActivity().findViewById(R.id.priority_field);
+                        TextView priorityField = (TextView) getActivity().findViewById(R.id.priority_state);
 
                         switch (which) {
                             case 0:

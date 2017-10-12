@@ -52,7 +52,7 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/date_field"
+                    android:id="@+id/date_state"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/date_not_set"
@@ -96,7 +96,7 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/priority_field"
+                    android:id="@+id/priority_state"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/priority_common"
@@ -140,7 +140,7 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/group_field"
+                    android:id="@+id/group_state"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/group_not_set"
@@ -184,7 +184,7 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/repeat_field"
+                    android:id="@+id/repeat_state"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/repeat_not_set"
@@ -228,7 +228,7 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/reminder_field"
+                    android:id="@+id/reminder_state"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/reminder_not_set"

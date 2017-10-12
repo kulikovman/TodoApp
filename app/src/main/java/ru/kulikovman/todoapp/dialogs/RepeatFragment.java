@@ -28,8 +28,8 @@ public class RepeatFragment extends DialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         Log.d("myLog", String.valueOf(which));
 
-                        TextView repeatField = (TextView) getActivity().findViewById(R.id.repeat_field);
-                        TextView dateField = (TextView) getActivity().findViewById(R.id.date_field);
+                        TextView repeatField = (TextView) getActivity().findViewById(R.id.repeat_state);
+                        TextView dateField = (TextView) getActivity().findViewById(R.id.date_state);
 
                         String date = dateField.getText().toString();
 

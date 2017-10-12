@@ -35,7 +35,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
         DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
         String date = dateFormat.format(calendar.getTime());
 
-        TextView dateField = (TextView) getActivity().findViewById(R.id.date_field);
+        TextView dateField = (TextView) getActivity().findViewById(R.id.date_state);
         dateField.setText(date);
     }
 }
