@@ -31,7 +31,7 @@ public class ColorFragment extends DialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         Log.d("myLog", String.valueOf(which));
 
-                        TextView colorField = (TextView) getActivity().findViewById(R.id.color_field);
+                        TextView colorField = (TextView) getActivity().findViewById(R.id.color_state);
 
                         switch (which) {
                             case 0:
