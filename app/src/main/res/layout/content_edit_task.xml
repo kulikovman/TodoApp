@@ -36,7 +36,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="30dp"
                 android:background="@color/transparent"
-                app:srcCompat="@drawable/ic_event_24dp" />
+                app:srcCompat="@drawable/ic_event_40dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -79,7 +79,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="30dp"
                 android:background="@color/transparent"
-                app:srcCompat="@drawable/ic_low_priority_24dp" />
+                app:srcCompat="@drawable/ic_low_priority_40dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -122,7 +122,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="30dp"
                 android:background="@color/transparent"
-                app:srcCompat="@drawable/ic_dns_black_24dp" />
+                app:srcCompat="@drawable/ic_dns_40dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -165,7 +165,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="30dp"
                 android:background="@color/transparent"
-                app:srcCompat="@drawable/ic_replay_24dp" />
+                app:srcCompat="@drawable/ic_replay_40dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -208,7 +208,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="30dp"
                 android:background="@color/transparent"
-                app:srcCompat="@drawable/ic_alarm_24dp" />
+                app:srcCompat="@drawable/ic_alarm_40dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"

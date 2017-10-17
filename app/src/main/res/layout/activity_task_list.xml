@@ -20,7 +20,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        app:itemIconTint="@color/colorPickIcons"
+        app:itemIconTint="@color/colorOptionsIcons"
         app:itemTextColor="@color/gray_6"
         app:headerLayout="@layout/nav_header_task_list"
         app:menu="@menu/activity_task_list_drawer"/>

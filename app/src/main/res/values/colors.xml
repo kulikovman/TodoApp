@@ -30,7 +30,7 @@
     <color name="lightGrey">#d2d2d2</color>
     <color name="redButton">#f55d55</color>
 
-    <color name="colorPickIcons">#8fbeff</color>
+    <color name="colorOptionsIcons">#5ebcff</color>
     <color name="taskBackground">#8fbeff</color>
     <color name="optionTextColor">#808080</color>
     <color name="optionTitleColor">#484848</color>

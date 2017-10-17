@@ -37,7 +37,7 @@
                 android:layout_marginEnd="30dp"
 
                 android:background="@color/transparent"
-                app:srcCompat="@drawable/ic_subject_black_24dp" />
+                app:srcCompat="@drawable/ic_subject_40dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -80,7 +80,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="30dp"
                 android:background="@color/transparent"
-                app:srcCompat="@drawable/ic_palette_24dp" />
+                app:srcCompat="@drawable/ic_palette_40dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
