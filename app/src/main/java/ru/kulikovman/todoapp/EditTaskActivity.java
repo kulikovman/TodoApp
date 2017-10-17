@@ -84,7 +84,7 @@ public class EditTaskActivity extends AppCompatActivity {
         }
     }
 
-    public void fabAddTask(View view) {
+    public void fabSaveTask(View view) {
         // Получаем заголовок
         mTitle = mTitleField.getText().toString();
 
