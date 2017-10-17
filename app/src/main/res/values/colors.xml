@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6daaff</color>
+    <color name="colorPrimary">#808080</color>
     <color name="colorPrimaryDark">#4D4D4D</color>
-    <color name="colorAccent">#d7d7d7</color>
+    <color name="colorAccent">#666666</color>
+
+    // Альтернативные цвета базовой темы
+    <color name="colorPrimaryAlt">#808080</color>
+    <color name="colorPrimaryDarkAlt">#4D4D4D</color>
+    <color name="colorAccentAlt">#666666</color>
 
     // Базовые цвета
     <color name="transparent">#00ffffff</color>
