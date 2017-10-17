@@ -41,7 +41,7 @@
 
     <!-- Создание описание группы -->
     <string name="description_title">Описание</string>
-    <string name="description_without">Без описания</string>
+    <string name="without_description">Без описания</string>
     <string name="save_button">Сохранить</string>
     <string name="cancel_button">Отмена</string>
 
