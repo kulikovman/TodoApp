@@ -28,7 +28,7 @@ public class EditTaskActivity extends AppCompatActivity {
     private Task mTask;
 
     private EditText mTitleField;
-    private TextView mDateField, mPriorityField, mColorField, mRepeatField;
+    private TextView mDateState, mPriorityState, mColorState, mRepeatState;
     private String mTitle, mDate, mPriority, mColor, mRepeat = "";
 
     @Override
@@ -41,10 +41,10 @@ public class EditTaskActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mTitleField = (EditText) findViewById(R.id.task_title);
-        mDateField = (TextView) findViewById(R.id.date_state);
-        mPriorityField = (TextView) findViewById(R.id.priority_state);
-        //mColorField = (TextView) findViewById(R.id.color_field);
-        mRepeatField = (TextView) findViewById(R.id.repeat_state);
+        mDateState = (TextView) findViewById(R.id.date_state);
+        mPriorityState = (TextView) findViewById(R.id.priority_state);
+        //mColorState = (TextView) findViewById(R.id.color_field);
+        mRepeatState = (TextView) findViewById(R.id.repeat_state);
 
         mDbHelper = new DbHelper(this);
 
@@ -90,7 +90,7 @@ public class EditTaskActivity extends AppCompatActivity {
         // Если заголовок есть, то делаем все остальное
         if (!mTitle.equals("")) {
             // Получаем дату
-            mDate = mDateField.getText().toString();
+            mDate = mDateState.getText().toString();
             DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
             try {
                 mDate = String.valueOf(dateFormat.parse(mDate).getTime());
@@ -98,7 +98,7 @@ public class EditTaskActivity extends AppCompatActivity {
             }
 
             // Получаем приоритет
-            mPriority = mPriorityField.getText().toString();
+            mPriority = mPriorityState.getText().toString();
             switch (mPriority) {
                 case "Чрезвычайный":
                     mPriority = "0";
@@ -118,7 +118,7 @@ public class EditTaskActivity extends AppCompatActivity {
             }
 
             // Получаем цвет
-            mColor = mColorField.getText().toString();
+            mColor = mColorState.getText().toString();
             switch (mColor) {
                 case "Не выбран":
                     mColor = "8_not_set";
@@ -147,7 +147,7 @@ public class EditTaskActivity extends AppCompatActivity {
             }
 
             // Получаем повтор
-            mRepeat = mRepeatField.getText().toString();
+            mRepeat = mRepeatState.getText().toString();
 
             // Сохраняем задачу в базу
             if (mTask == null) {
@@ -190,7 +190,7 @@ public class EditTaskActivity extends AppCompatActivity {
             DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
             mDate = dateFormat.format(date);
         }
-        mDateField.setText(mDate);
+        mDateState.setText(mDate);
 
         // Устанавливаем приоритет
         switch (mPriority) {
@@ -210,7 +210,7 @@ public class EditTaskActivity extends AppCompatActivity {
                 mPriority = "Самый низкий";
                 break;
         }
-        mPriorityField.setText(mPriority);
+        mPriorityState.setText(mPriority);
 
         // Устанавливаем цвет
         switch (mColor) {
@@ -239,9 +239,9 @@ public class EditTaskActivity extends AppCompatActivity {
                 mColor = "Розовый";
                 break;
         }
-        mColorField.setText(mColor);
+        mColorState.setText(mColor);
 
         // Устанавливаем повтор
-        mRepeatField.setText(mRepeat);
+        mRepeatState.setText(mRepeat);
     }
 }
