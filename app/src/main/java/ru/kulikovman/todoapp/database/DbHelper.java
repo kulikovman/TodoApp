@@ -12,19 +12,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import ru.kulikovman.todoapp.database.TodoDbSchema.TaskTable;
-import ru.kulikovman.todoapp.database.TodoDbSchema.GroupTable;
+import ru.kulikovman.todoapp.database.DbSchema.TaskTable;
+import ru.kulikovman.todoapp.database.DbSchema.GroupTable;
 import ru.kulikovman.todoapp.models.Group;
 import ru.kulikovman.todoapp.models.Task;
 
 
-public class TodoBaseHelper extends SQLiteOpenHelper {
+public class DbHelper extends SQLiteOpenHelper {
     private static final int VERSION = 1;
     private static final String DATABASE_NAME = "todoBase.db";
 
     private SQLiteDatabase mDb;
 
-    public TodoBaseHelper(Context context) {
+    public DbHelper(Context context) {
         super(context, DATABASE_NAME, null, VERSION);
     }
 
@@ -79,7 +79,7 @@ public class TodoBaseHelper extends SQLiteOpenHelper {
     public List<Task> getAllTasks() {
         List<Task> tasks = new ArrayList<>();
 
-        try (TodoCursorWrapper cursor = queryTasks(null, null)) {
+        try (TaskListCursorWrapper cursor = queryTasks(null, null)) {
             Log.d("myLog", "Всего задач в базе: " + String.valueOf(cursor.getCount()));
             cursor.moveToFirst();
 
@@ -96,7 +96,7 @@ public class TodoBaseHelper extends SQLiteOpenHelper {
     }
 
     public Task getTaskByUUID(UUID id) {
-        try (TodoCursorWrapper cursor = queryTasks(TaskTable.Cols.UUID + " = ?", new String[]{id.toString()})) {
+        try (TaskListCursorWrapper cursor = queryTasks(TaskTable.Cols.UUID + " = ?", new String[]{id.toString()})) {
             if (cursor.getCount() == 0) {
                 return null;
             }
@@ -123,7 +123,7 @@ public class TodoBaseHelper extends SQLiteOpenHelper {
         return values;
     }
 
-    private TodoCursorWrapper queryTasks(String where, String[] args) {
+    private TaskListCursorWrapper queryTasks(String where, String[] args) {
         mDb = this.getReadableDatabase();
 
         Cursor cursor = mDb.query(TaskTable.NAME,
@@ -135,7 +135,7 @@ public class TodoBaseHelper extends SQLiteOpenHelper {
                 null // orderBy - Сортировка
         );
 
-        return new TodoCursorWrapper(cursor);
+        return new TaskListCursorWrapper(cursor);
     }
 
 
@@ -163,7 +163,7 @@ public class TodoBaseHelper extends SQLiteOpenHelper {
     public List<Group> getAllGroups() {
         List<Group> groups = new ArrayList<>();
 
-        try (TodoCursorWrapper cursor = queryGroups(null, null)) {
+        try (TaskListCursorWrapper cursor = queryGroups(null, null)) {
             Log.d("myLog", "Всего групп в базе: " + String.valueOf(cursor.getCount()));
             cursor.moveToFirst();
 
@@ -188,7 +188,7 @@ public class TodoBaseHelper extends SQLiteOpenHelper {
         return values;
     }
 
-    private TodoCursorWrapper queryGroups(String where, String[] args) {
+    private TaskListCursorWrapper queryGroups(String where, String[] args) {
         mDb = this.getReadableDatabase();
 
         Cursor cursor = mDb.query(GroupTable.NAME,
@@ -200,6 +200,6 @@ public class TodoBaseHelper extends SQLiteOpenHelper {
                 null // orderBy - Сортировка
         );
 
-        return new TodoCursorWrapper(cursor);
+        return new TaskListCursorWrapper(cursor);
     }
 }

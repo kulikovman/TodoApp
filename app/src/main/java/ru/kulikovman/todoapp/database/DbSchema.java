@@ -1,7 +1,7 @@
 package ru.kulikovman.todoapp.database;
 
 
-public class TodoDbSchema {
+public class DbSchema {
     public static final class TaskTable {
         public static final String NAME = "tasks";
 

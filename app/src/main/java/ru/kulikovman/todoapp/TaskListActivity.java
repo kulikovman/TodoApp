@@ -27,7 +27,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import ru.kulikovman.todoapp.database.TodoBaseHelper;
+import ru.kulikovman.todoapp.database.DbHelper;
 import ru.kulikovman.todoapp.models.Task;
 import ru.kulikovman.todoapp.models.TaskComparator;
 
@@ -38,7 +38,7 @@ public class TaskListActivity extends AppCompatActivity
 
     private RecyclerView mRecyclerView;
     private TaskAdapter mAdapter;
-    private TodoBaseHelper mDbHelper;
+    private DbHelper mDbHelper;
 
     private Task mTask;
     private int mPosition;
@@ -82,7 +82,7 @@ public class TaskListActivity extends AppCompatActivity
         mRecyclerView = (RecyclerView) findViewById(R.id.task_list_recycler_view);
 
         // Создаем базу и обновляем общий список задач
-        mDbHelper = new TodoBaseHelper(this);
+        mDbHelper = new DbHelper(this);
         mAllTasks = mDbHelper.getAllTasks();
 
         // Получаем SharedPreferences

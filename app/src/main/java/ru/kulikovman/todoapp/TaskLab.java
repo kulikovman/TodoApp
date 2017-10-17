@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import ru.kulikovman.todoapp.database.TodoBaseHelper;
-import ru.kulikovman.todoapp.database.TodoCursorWrapper;
-import ru.kulikovman.todoapp.database.TodoDbSchema.TaskTable;
+import ru.kulikovman.todoapp.database.DbHelper;
+import ru.kulikovman.todoapp.database.TaskListCursorWrapper;
+import ru.kulikovman.todoapp.database.DbSchema.TaskTable;
 import ru.kulikovman.todoapp.models.Task;
 
 public class TaskLab {
@@ -30,7 +30,7 @@ public class TaskLab {
 
     private TaskLab(Context context) {
         mContext = context.getApplicationContext();
-        mDatabase = new TodoBaseHelper(mContext).getWritableDatabase();
+        mDatabase = new DbHelper(mContext).getWritableDatabase();
     }
 
     public void addTask(Task task) {
@@ -41,7 +41,7 @@ public class TaskLab {
     public List<Task> getTaskList() {
         List<Task> tasks = new ArrayList<>();
 
-        TodoCursorWrapper cursor = queryTasks(null, null);
+        TaskListCursorWrapper cursor = queryTasks(null, null);
 
         try {
             cursor.moveToFirst();
@@ -57,7 +57,7 @@ public class TaskLab {
     }
 
     public Task getTask(UUID id) {
-        TodoCursorWrapper cursor = queryTasks(TaskTable.Cols.UUID + " = ?", new String[]{id.toString()});
+        TaskListCursorWrapper cursor = queryTasks(TaskTable.Cols.UUID + " = ?", new String[]{id.toString()});
 
         try {
             if (cursor.getCount() == 0) {
@@ -91,7 +91,7 @@ public class TaskLab {
         return values;
     }
 
-    private TodoCursorWrapper queryTasks(String whereClause, String[] whereArgs) {
+    private TaskListCursorWrapper queryTasks(String whereClause, String[] whereArgs) {
         Cursor cursor = mDatabase.query(TaskTable.NAME,
                 null, // null - выбирает все столбцы
                 whereClause,
@@ -101,6 +101,6 @@ public class TaskLab {
                 null // orderBy
         );
 
-        return new TodoCursorWrapper(cursor);
+        return new TaskListCursorWrapper(cursor);
     }
 }

@@ -16,7 +16,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.UUID;
 
-import ru.kulikovman.todoapp.database.TodoBaseHelper;
+import ru.kulikovman.todoapp.database.DbHelper;
 import ru.kulikovman.todoapp.dialogs.ColorFragment;
 import ru.kulikovman.todoapp.dialogs.DateFragment;
 import ru.kulikovman.todoapp.dialogs.PriorityFragment;
@@ -24,7 +24,7 @@ import ru.kulikovman.todoapp.dialogs.RepeatFragment;
 import ru.kulikovman.todoapp.models.Task;
 
 public class EditTaskActivity extends AppCompatActivity {
-    private TodoBaseHelper mDbHelper;
+    private DbHelper mDbHelper;
     private Task mTask;
 
     private EditText mTitleField;
@@ -46,7 +46,7 @@ public class EditTaskActivity extends AppCompatActivity {
         //mColorField = (TextView) findViewById(R.id.color_field);
         mRepeatField = (TextView) findViewById(R.id.repeat_state);
 
-        mDbHelper = new TodoBaseHelper(this);
+        mDbHelper = new DbHelper(this);
 
         // Читаем uuid из интента
         UUID uuid = (java.util.UUID) getIntent().getSerializableExtra("task_id");

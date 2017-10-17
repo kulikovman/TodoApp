@@ -6,15 +6,15 @@ import android.database.CursorWrapper;
 
 import java.util.UUID;
 
-import ru.kulikovman.todoapp.database.TodoDbSchema.TaskTable;
-import ru.kulikovman.todoapp.database.TodoDbSchema.GroupTable;
+import ru.kulikovman.todoapp.database.DbSchema.TaskTable;
+import ru.kulikovman.todoapp.database.DbSchema.GroupTable;
 import ru.kulikovman.todoapp.models.Group;
 import ru.kulikovman.todoapp.models.Task;
 
 
-public class TodoCursorWrapper extends CursorWrapper {
+public class TaskListCursorWrapper extends android.database.CursorWrapper {
 
-    public TodoCursorWrapper(Cursor cursor) {
+    public TaskListCursorWrapper(Cursor cursor) {
         super(cursor);
     }
 

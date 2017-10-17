@@ -1,5 +1,6 @@
 package ru.kulikovman.todoapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -20,6 +21,9 @@ public class GroupListActivity extends AppCompatActivity {
     }
 
     public void fabAddGroup(View view) {
+        // Открываем активити редактирования группы
+        Intent intent = new Intent(this, EditGroupActivity.class);
+        startActivity(intent);
     }
 
     public void fabDeleteGroup(View view) {
