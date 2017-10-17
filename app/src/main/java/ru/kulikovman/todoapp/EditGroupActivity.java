@@ -15,6 +15,7 @@ import java.util.UUID;
 import ru.kulikovman.todoapp.database.DbHelper;
 import ru.kulikovman.todoapp.dialogs.ColorFragment;
 import ru.kulikovman.todoapp.dialogs.DateFragment;
+import ru.kulikovman.todoapp.dialogs.DescriptionFragment;
 import ru.kulikovman.todoapp.dialogs.PriorityFragment;
 import ru.kulikovman.todoapp.dialogs.RepeatFragment;
 import ru.kulikovman.todoapp.models.Group;
@@ -49,7 +50,7 @@ public class EditGroupActivity extends AppCompatActivity {
         // Обработка нажатий на опции группы
         switch (view.getId()) {
             case R.id.description_layout:
-                DialogFragment descriptionFragment = new DateFragment();
+                DialogFragment descriptionFragment = new DescriptionFragment();
                 descriptionFragment.show(getSupportFragmentManager(), "descriptionFragment");
                 break;
             case R.id.color_layout:
