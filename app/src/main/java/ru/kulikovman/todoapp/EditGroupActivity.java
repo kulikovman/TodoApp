@@ -49,8 +49,8 @@ public class EditGroupActivity extends AppCompatActivity {
         // Обработка нажатий на опции группы
         switch (view.getId()) {
             case R.id.description_layout:
-                DialogFragment dateFragment = new DateFragment();
-                dateFragment.show(getSupportFragmentManager(), "descriptionFragment");
+                DialogFragment descriptionFragment = new DateFragment();
+                descriptionFragment.show(getSupportFragmentManager(), "descriptionFragment");
                 break;
             case R.id.color_layout:
                 DialogFragment colorFragment = new ColorFragment();

@@ -39,9 +39,11 @@
     <string name="color_7_pink">Розовый</string>
     <string name="color_not_set">Не выбран</string>
 
-    <!-- Описание группы -->
+    <!-- Создание описание группы -->
     <string name="description_title">Описание</string>
     <string name="description_without">Без описания</string>
+    <string name="save_button">Сохранить</string>
+    <string name="cancel_button">Отмена</string>
 
     <!-- Выбор повтора задачи -->
     <string name="repeat_title">Повторение</string>
