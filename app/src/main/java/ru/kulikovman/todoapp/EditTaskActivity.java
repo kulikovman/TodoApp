@@ -40,6 +40,7 @@ public class EditTaskActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        // Инициализируем необходимые вью элементы
         mTitleField = (EditText) findViewById(R.id.task_title);
         mDateState = (TextView) findViewById(R.id.date_state);
         mPriorityState = (TextView) findViewById(R.id.priority_state);
