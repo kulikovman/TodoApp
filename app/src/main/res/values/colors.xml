@@ -32,8 +32,8 @@
 
     <color name="colorOptionsIcons">#5ebcff</color>
     <color name="taskBackground">#8fbeff</color>
-    <color name="optionTextColor">#808080</color>
-    <color name="optionTitleColor">#484848</color>
+    <color name="optionsTextColor">#808080</color>
+    <color name="optionsTitleColor">#484848</color>
     <color name="addTaskButton">#44de56</color>
 
 </resources>

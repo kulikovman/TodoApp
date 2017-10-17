@@ -49,7 +49,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/date_title"
-                    android:textColor="@color/optionTitleColor"
+                    android:textColor="@color/optionsTitleColor"
                     android:textSize="16sp" />
 
                 <TextView
@@ -57,7 +57,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/date_not_set"
-                    android:textColor="@color/optionTextColor"
+                    android:textColor="@color/optionsTextColor"
                     android:textSize="14sp" />
 
             </LinearLayout>
@@ -92,7 +92,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/priority_title"
-                    android:textColor="@color/optionTitleColor"
+                    android:textColor="@color/optionsTitleColor"
                     android:textSize="16sp" />
 
                 <TextView
@@ -100,7 +100,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/priority_common"
-                    android:textColor="@color/optionTextColor"
+                    android:textColor="@color/optionsTextColor"
                     android:textSize="14sp" />
 
             </LinearLayout>
@@ -135,7 +135,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/group_title"
-                    android:textColor="@color/optionTitleColor"
+                    android:textColor="@color/optionsTitleColor"
                     android:textSize="16sp" />
 
                 <TextView
@@ -143,7 +143,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/group_not_set"
-                    android:textColor="@color/optionTextColor"
+                    android:textColor="@color/optionsTextColor"
                     android:textSize="14sp" />
 
             </LinearLayout>
@@ -178,7 +178,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/repeat_title"
-                    android:textColor="@color/optionTitleColor"
+                    android:textColor="@color/optionsTitleColor"
                     android:textSize="16sp" />
 
                 <TextView
@@ -186,7 +186,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/repeat_not_set"
-                    android:textColor="@color/optionTextColor"
+                    android:textColor="@color/optionsTextColor"
                     android:textSize="14sp" />
 
             </LinearLayout>
@@ -221,7 +221,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/reminder_title"
-                    android:textColor="@color/optionTitleColor"
+                    android:textColor="@color/optionsTitleColor"
                     android:textSize="16sp" />
 
                 <TextView
@@ -229,7 +229,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/reminder_not_set"
-                    android:textColor="@color/optionTextColor"
+                    android:textColor="@color/optionsTextColor"
                     android:textSize="14sp" />
 
             </LinearLayout>
