@@ -36,8 +36,9 @@
                 android:inputType="textMultiLine|textCapSentences"
                 android:paddingBottom="20dp"
                 android:textColor="@color/white"
-                android:textColorHint="@color/white"
+                android:textColorHint="@color/gray_3"
                 android:textSize="20sp"
+                app:backgroundTint="@color/gray_2"
                 app:popupTheme="@style/AppTheme.PopupOverlay"/>
 
             <android.support.v7.widget.Toolbar
