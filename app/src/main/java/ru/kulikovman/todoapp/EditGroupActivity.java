@@ -1,5 +1,6 @@
 package ru.kulikovman.todoapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -61,5 +62,15 @@ public class EditGroupActivity extends AppCompatActivity {
 
     public void fabSaveGroup(View view) {
 
+
+
+
+
+
+
+        // Удаляем текущий активити из стека и возвращаемся в список групп
+        Intent intent = new Intent(this, GroupListActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 }

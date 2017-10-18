@@ -165,8 +165,7 @@ public class EditTaskActivity extends AppCompatActivity {
                 mDbHelper.updateTask(mTask);
             }
 
-            // Возвращаемся в список задач
-            // Удаляем текущий активити из стека
+            // Удаляем текущий активити из стека и возвращаемся в список задач
             Intent intent = new Intent(this, TaskListActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
