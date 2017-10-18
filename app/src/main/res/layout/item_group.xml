@@ -3,6 +3,7 @@
               android:id="@+id/item_group_layout"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
+              android:descendantFocusability="blocksDescendants"
               android:orientation="vertical"
               android:background="?attr/selectableItemBackground"
               android:paddingBottom="2dp"

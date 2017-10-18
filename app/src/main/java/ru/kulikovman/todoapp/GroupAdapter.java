@@ -79,4 +79,9 @@ public class GroupAdapter extends BaseAdapter {
         private TextView description;
         private ImageButton color;
     }
+
+    @Override
+    public boolean isEnabled(int position) {
+        return true;
+    }
 }
