@@ -15,12 +15,10 @@ import ru.kulikovman.todoapp.models.Group;
 
 
 public class GroupAdapter extends BaseAdapter {
-    private Context mContext;
     private List<Group> mGroups;
     private LayoutInflater mLayoutInflater;
 
     public GroupAdapter(Context context, List<Group> groups) {
-        mContext = context;
         mGroups = groups;
         mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
