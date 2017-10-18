@@ -35,6 +35,6 @@ public class TaskListCursorWrapper extends android.database.CursorWrapper {
         String description = getString(getColumnIndex(GroupTable.Cols.DESCRIPTION));
         int color = getInt(getColumnIndex(GroupTable.Cols.COLOR));
 
-        return new Group(name, color);
+        return new Group(name, description, color);
     }
 }
