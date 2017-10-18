@@ -45,11 +45,11 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
             view.setOnClickListener(this);
 
             // Инициализируем вью элемента списка
-            mTaskTitle = (TextView) view.findViewById(R.id.item_task_title);
-            mTaskDate = (TextView) view.findViewById(R.id.item_task_date);
+            mTaskTitle = (TextView) view.findViewById(R.id.item_group_name);
+            mTaskDate = (TextView) view.findViewById(R.id.item_group_description);
             mTaskPriority = (TextView) view.findViewById(R.id.item_task_priority);
             mTaskRepeat = (TextView) view.findViewById(R.id.item_task_repeat);
-            mTaskColor = (ImageButton) view.findViewById(R.id.item_task_color);
+            mTaskColor = (ImageButton) view.findViewById(R.id.item_group_color);
             mItemLayout = (LinearLayout) view.findViewById(R.id.item_task_layout);
         }
 

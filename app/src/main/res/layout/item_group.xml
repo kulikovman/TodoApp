@@ -14,7 +14,7 @@
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/item_task_color"
+            android:id="@+id/item_group_color"
             android:layout_width="10dp"
             android:layout_height="10dp"
             android:layout_gravity="center_vertical"
@@ -23,7 +23,7 @@
             android:background="@color/gray_2"/>
 
         <TextView
-            android:id="@+id/item_task_title"
+            android:id="@+id/item_group_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -41,7 +41,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/item_task_date"
+            android:id="@+id/item_group_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Все задачи по хозяйству хранятся тут"
