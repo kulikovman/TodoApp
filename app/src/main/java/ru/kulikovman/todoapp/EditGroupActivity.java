@@ -43,7 +43,6 @@ public class EditGroupActivity extends AppCompatActivity {
 
         // Подключаем базу данных
         //mDbHelper = new DbHelper(this);
-
     }
 
     public void groupOptions(View view) {
@@ -61,5 +60,6 @@ public class EditGroupActivity extends AppCompatActivity {
     }
 
     public void fabSaveGroup(View view) {
+
     }
 }

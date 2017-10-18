@@ -86,7 +86,7 @@ public class EditTaskActivity extends AppCompatActivity {
 
     public void fabSaveTask(View view) {
         // Получаем заголовок
-        mTitle = mTitleField.getText().toString();
+        mTitle = mTitleField.getText().toString().trim();
 
         // Если заголовок есть, то делаем все остальное
         if (!mTitle.equals("")) {
