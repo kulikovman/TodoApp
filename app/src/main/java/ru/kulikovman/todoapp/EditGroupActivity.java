@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -45,6 +46,8 @@ public class EditGroupActivity extends AppCompatActivity {
 
         // Подключаем базу данных
         mDbHelper = new DbHelper(this);
+
+        Log.d("myLog", "Успешно запущен EditGroupActivity - onCreate");
     }
 
     public void groupOptions(View view) {
@@ -93,6 +96,8 @@ public class EditGroupActivity extends AppCompatActivity {
                 }
             }
 
+            Log.d("myLog", "Перед созданием группы...");
+
             // Создаем группу
             Group group = new Group(name, colorId);
 
@@ -101,8 +106,12 @@ public class EditGroupActivity extends AppCompatActivity {
                 group.setDescription(description);
             }
 
+            Log.d("myLog", "Создана группа: " + group.getName() + " | " + group.getDescription() + " | " + group.getColorId());
+
             // Добавляем группу в базу
             mDbHelper.addGroup(group);
+
+            Log.d("myLog", "Группа добавлена в базу");
 
             // Удаляем текущий активити из стека и возвращаемся в список групп
             Intent intent = new Intent(this, GroupListActivity.class);

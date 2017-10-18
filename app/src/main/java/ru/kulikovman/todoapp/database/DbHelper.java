@@ -20,7 +20,7 @@ import ru.kulikovman.todoapp.models.Task;
 
 public class DbHelper extends SQLiteOpenHelper {
     private static final int VERSION = 1;
-    private static final String DATABASE_NAME = "todoBase.db";
+    private static final String DATABASE_NAME = "TaskListBase.db";
 
     private SQLiteDatabase mDb;
 
@@ -30,6 +30,8 @@ public class DbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        Log.d("myLog", "Запущен onCreate в DbHelper");
+
         db.execSQL("create table " + TaskTable.NAME + "(_id integer primary key autoincrement, " +
                 TaskTable.Cols.UUID + ", " +
                 TaskTable.Cols.TITLE + ", " +
@@ -49,6 +51,8 @@ public class DbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        Log.d("myLog", "Запущен onUpgrade в DbHelper");
+
         db.execSQL("drop table if exist " + TaskTable.NAME);
         db.execSQL("drop table if exist " + GroupTable.NAME);
         onCreate(db);
@@ -141,6 +145,8 @@ public class DbHelper extends SQLiteOpenHelper {
 
     // Методы для работы с ГРУППАМИ
     public void addGroup(Group group) {
+        Log.d("myLog", "Запущен addGroup в DbHelper");
+
         mDb = this.getWritableDatabase();
         ContentValues values = getGroupContentValues(group);
         mDb.insertWithOnConflict(GroupTable.NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);

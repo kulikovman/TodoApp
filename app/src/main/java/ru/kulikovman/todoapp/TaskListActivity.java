@@ -71,7 +71,13 @@ public class TaskListActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        // Инициализируем поле в хедере для показа количества задач
+        // Временная переадресация на список групп
+        // Сначала все отлаживаю на группах
+        Intent intent = new Intent(this, GroupListActivity.class);
+        startActivity(intent);
+
+
+        /*// Инициализируем поле в хедере для показа количества задач
         View header = navigationView.getHeaderView(0);
         mNumberOfTasks = (TextView) header.findViewById(R.id.number_of_tasks);
 
@@ -99,7 +105,7 @@ public class TaskListActivity extends AppCompatActivity
         updateTaskList();
 
         // Слушатель для адаптера списка
-        mAdapter.setOnItemClickListener(this);
+        mAdapter.setOnItemClickListener(this);*/
     }
 
     @Override
@@ -108,10 +114,10 @@ public class TaskListActivity extends AppCompatActivity
 
         Log.d("myTag", "Запущен onPause");
 
-        // Сохраняем тип текущего списка задач
+        /*// Сохраняем тип текущего списка задач
         SharedPreferences.Editor editor = mSharedPref.edit();
         editor.putString(getString(R.string.type_list), mTypeList);
-        editor.apply();
+        editor.apply();*/
     }
 
     @Override
