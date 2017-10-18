@@ -42,22 +42,43 @@ public class GroupAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View view = convertView;
+        ViewHolder holder;
 
-        if (view == null) {
-            view = mLayoutInflater.inflate(R.layout.item_group, parent, false);
+        if (convertView == null) {
+            // Привязываем к вью макет элемента
+            convertView = mLayoutInflater.inflate(R.layout.item_group, parent, false);
+
+            holder = new ViewHolder();
+
+            // Инициализируем необходимые вью элементы
+            holder.name = (TextView) convertView.findViewById(R.id.item_group_name);
+            holder.description = (TextView) convertView.findViewById(R.id.item_group_description);
+            holder.color = (ImageButton) convertView.findViewById(R.id.item_group_color);
+
+            // Сохраняем ссылку на ViewHolder
+            convertView.setTag(holder);
+        }
+        else {
+            // Получаем ссылку на ViewHolder
+            holder = (ViewHolder) convertView.getTag();
         }
 
-        TextView name = (TextView) view.findViewById(R.id.item_group_name);
-        TextView description = (TextView) view.findViewById(R.id.item_group_description);
-        ImageButton color = (ImageButton) view.findViewById(R.id.item_group_color);
-
+        // Получаем нужную группу
         Group group = (Group) getItem(position);
 
-        name.setText(group.getName());
-        description.setText(group.getDescription());
-        color.setBackgroundResource(group.getColorId());
+        // Устанавливаем значения во вью элементы
+        holder.name.setText(group.getName());
+        holder.description.setText(group.getDescription());
+        holder.color.setBackgroundResource(group.getColorId());
 
-        return view;
+        return convertView;
+
+    }
+
+    // Здесь храним ссылки для используемых вью элементов
+    private static class ViewHolder {
+        private TextView name;
+        private TextView description;
+        private ImageButton color;
     }
 }
