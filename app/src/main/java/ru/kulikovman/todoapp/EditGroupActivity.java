@@ -96,8 +96,6 @@ public class EditGroupActivity extends AppCompatActivity {
                 }
             }
 
-            Log.d("myLog", "Перед созданием группы...");
-
             // Создаем группу
             Group group = new Group(name, colorId);
 

@@ -6,14 +6,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 
+import ru.kulikovman.todoapp.database.DbHelper;
 import ru.kulikovman.todoapp.models.Group;
 
 public class GroupListActivity extends AppCompatActivity implements GroupAdapter.OnItemClickListener {
     private GroupAdapter mAdapter;
     private RecyclerView mRecyclerView;
     private TaskLab mTaskLab;
+    private DbHelper mDbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,29 +30,31 @@ public class GroupListActivity extends AppCompatActivity implements GroupAdapter
         // Инициализируем необходимые вью элементы
         mRecyclerView = (RecyclerView) findViewById(R.id.group_list_recycler_view);
 
-        // Организуем доступ к группам и задачам
-        mTaskLab = TaskLab.get(this);
+        // Подключаем базу данных
+        mDbHelper = new DbHelper(this);
 
         // Устанавливаем параметры для RecyclerView
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         updateGroupList();
+
+        Log.d("myLog", "Успешно запущен GroupListActivity - onCreate");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        updateGroupList();
+        //updateGroupList();
     }
 
     private void updateGroupList() {
         if (mAdapter == null) {
-            mAdapter = new GroupAdapter(this, mTaskLab.getGroups());
+            mAdapter = new GroupAdapter(this, mDbHelper.getAllGroups());
             mRecyclerView.setAdapter(mAdapter);
         } else {
             mAdapter.resetSelection();
-            mAdapter.setGroups(mTaskLab.getGroups());
+            mAdapter.setGroups(mDbHelper.getAllGroups());
             mAdapter.notifyDataSetChanged();
         }
     }
