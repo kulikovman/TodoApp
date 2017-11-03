@@ -13,13 +13,17 @@ import java.util.UUID;
 import ru.kulikovman.todoapp.database.DbHelper;
 import ru.kulikovman.todoapp.database.TaskListCursorWrapper;
 import ru.kulikovman.todoapp.database.DbSchema.TaskTable;
+import ru.kulikovman.todoapp.models.Group;
 import ru.kulikovman.todoapp.models.Task;
 
 public class TaskLab {
     private static TaskLab sTaskLab;
 
     private Context mContext;
-    private SQLiteDatabase mDatabase;
+    private DbHelper mDbHelper;
+
+    private List<Task> mTasks;
+    private List<Group> mGroups;
 
     public static TaskLab get(Context context) {
         if (sTaskLab == null) {
@@ -30,7 +34,11 @@ public class TaskLab {
 
     private TaskLab(Context context) {
         mContext = context.getApplicationContext();
-        mDatabase = new DbHelper(mContext).getWritableDatabase();
+        mDbHelper = new DbHelper(mContext);
+
+        // Подгружаем из базы группы и задачи
+        //mTasks = mDbHelper.getAllTasks();
+        mGroups = mDbHelper.getAllGroups();
     }
 
 
@@ -46,7 +54,7 @@ public class TaskLab {
 
 
 
-    public void addTask(Task task) {
+    /*public void addTask(Task task) {
         ContentValues values = getTaskContentValues(task);
         mDatabase.insert(TaskTable.NAME, null, values);
     }
@@ -115,5 +123,5 @@ public class TaskLab {
         );
 
         return new TaskListCursorWrapper(cursor);
-    }
+    }*/
 }
