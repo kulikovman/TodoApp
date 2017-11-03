@@ -33,6 +33,19 @@ public class TaskLab {
         mDatabase = new DbHelper(mContext).getWritableDatabase();
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
     public void addTask(Task task) {
         ContentValues values = getTaskContentValues(task);
         mDatabase.insert(TaskTable.NAME, null, values);

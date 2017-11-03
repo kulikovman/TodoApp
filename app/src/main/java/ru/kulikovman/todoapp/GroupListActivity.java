@@ -3,16 +3,20 @@ package ru.kulikovman.todoapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import ru.kulikovman.todoapp.database.DbHelper;
 
-public class GroupListActivity extends AppCompatActivity {
+public class GroupListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     private ListView mGroupListView;
     private DbHelper mDbHelper;
-    private GroupAdapter mGroupAdapter;
+    private GroupAdapterOld mGroupAdapterOld;
+    private RecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +34,11 @@ public class GroupListActivity extends AppCompatActivity {
         mDbHelper = new DbHelper(this);
 
         // Создаем адаптер и подключаем к списку
-        mGroupAdapter = new GroupAdapter(this, mDbHelper.getAllGroups());
-        mGroupListView.setAdapter(mGroupAdapter);
+        mGroupAdapterOld = new GroupAdapterOld(this, mDbHelper.getAllGroups());
+        mGroupListView.setAdapter(mGroupAdapterOld);
+
+        // Подключаем слушатель нажатий элементов
+        mGroupListView.setOnItemClickListener(this);
 
     }
 
@@ -45,5 +52,11 @@ public class GroupListActivity extends AppCompatActivity {
     }
 
     public void fabEditGroup(View view) {
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Toast.makeText(this, "Позиция: " + position, Toast.LENGTH_SHORT).show();
+        view.setPressed(true);
     }
 }
