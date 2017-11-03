@@ -15,6 +15,7 @@ public class GroupListActivity extends AppCompatActivity implements GroupAdapter
     private DbHelper mDbHelper;
     private GroupAdapter mGroupAdapter;
     private RecyclerView mRecyclerView;
+    private TaskLab mTaskLab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,14 +30,17 @@ public class GroupListActivity extends AppCompatActivity implements GroupAdapter
         mRecyclerView = (RecyclerView) findViewById(R.id.group_list_recycler_view);
 
         // Подключаем базу данных
-        mDbHelper = new DbHelper(this);
+        //mDbHelper = new DbHelper(this);
+
+        // Доступ к группам и задачам
+        mTaskLab = TaskLab.get(this);
 
         // Устанавливаем параметры для RecyclerView
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Создаем адаптер и подключаем к списку
-        mGroupAdapter = new GroupAdapter(this, mDbHelper.getAllGroups());
+        mGroupAdapter = new GroupAdapter(this, mTaskLab.getGroups());
         mRecyclerView.setAdapter(mGroupAdapter);
 
 

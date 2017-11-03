@@ -41,6 +41,17 @@ public class TaskLab {
         mGroups = mDbHelper.getAllGroups();
     }
 
+    public List<Task> getTasks() {
+        return mTasks;
+    }
+
+    public List<Group> getGroups() {
+        return mGroups;
+    }
+
+
+
+
 
 
 
