@@ -41,7 +41,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
 
             view.setClickable(true);
 
-            // Слушатель нажатий по элменту
+            // Слушатель нажатий по элементу
             view.setOnClickListener(this);
 
             // Инициализируем вью элемента списка

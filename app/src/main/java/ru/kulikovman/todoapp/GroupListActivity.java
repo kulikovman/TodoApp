@@ -2,6 +2,7 @@ package ru.kulikovman.todoapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,8 +16,12 @@ import ru.kulikovman.todoapp.models.Group;
 public class GroupListActivity extends AppCompatActivity implements GroupAdapter.OnItemClickListener {
     private GroupAdapter mAdapter;
     private RecyclerView mRecyclerView;
-    private TaskLab mTaskLab;
     private DbHelper mDbHelper;
+
+    private Group mGroup;
+    private int mPosition;
+
+    private FloatingActionButton mEditButton, mDeleteButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +34,8 @@ public class GroupListActivity extends AppCompatActivity implements GroupAdapter
 
         // Инициализируем необходимые вью элементы
         mRecyclerView = (RecyclerView) findViewById(R.id.group_list_recycler_view);
+        mEditButton = (FloatingActionButton) findViewById(R.id.fab_edit_group);
+        mDeleteButton = (FloatingActionButton) findViewById(R.id.fab_delete_group);
 
         // Подключаем базу данных
         mDbHelper = new DbHelper(this);
@@ -39,7 +46,10 @@ public class GroupListActivity extends AppCompatActivity implements GroupAdapter
 
         updateGroupList();
 
-        Log.d("myLog", "Успешно запущен GroupListActivity - onCreate");
+        // Слушатель для адаптера списка
+        mAdapter.setOnItemClickListener(this);
+
+        Log.d("myLog", "Успешно запущен onCreate в GroupListActivity");
     }
 
     @Override
@@ -73,6 +83,19 @@ public class GroupListActivity extends AppCompatActivity implements GroupAdapter
 
     @Override
     public void onItemClick(View itemView, int itemPosition, Group group, int selectedPosition) {
+        Log.d("myLog", "Запущен onItemClick в GroupListActivity");
 
+        // Показываем или скрываем кнопки в зависимости от выделения элементов списка
+        if (selectedPosition != RecyclerView.NO_POSITION) {
+            mEditButton.setVisibility(View.VISIBLE);
+            mDeleteButton.setVisibility(View.VISIBLE);
+        } else {
+            mEditButton.setVisibility(View.INVISIBLE);
+            mDeleteButton.setVisibility(View.INVISIBLE);
+        }
+
+        // Запоминаем последний выбранный элемент
+        mGroup = group;
+        mPosition = itemPosition;
     }
 }
