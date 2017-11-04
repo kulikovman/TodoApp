@@ -2,13 +2,11 @@ package ru.kulikovman.todoapp;
 
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -27,12 +25,8 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupHolder>
         private ImageButton mGroupColor;
         private Group mGroup;
 
-        private LinearLayout mItemLayout;
-
         public GroupHolder(View view) {
             super(view);
-
-            //view.setClickable(true);
 
             // Слушатель нажатий по элементу
             view.setOnClickListener(this);
@@ -41,7 +35,6 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupHolder>
             mGroupName = (TextView) view.findViewById(R.id.item_group_name);
             mGroupDescription = (TextView) view.findViewById(R.id.item_group_description);
             mGroupColor = (ImageButton) view.findViewById(R.id.item_group_color);
-            mItemLayout = (LinearLayout) view.findViewById(R.id.item_group_layout);
         }
 
         @Override
@@ -94,7 +87,7 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupHolder>
         holder.bindGroup(group);
 
         // Если установленная позиция равна текущей, то выделяем элемент
-        holder.mItemLayout.setSelected(mPosition == position);
+        holder.itemView.setSelected(mPosition == position);
     }
 
     @Override
