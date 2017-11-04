@@ -93,16 +93,8 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupHolder>
         Group group = mGroups.get(position);
         holder.bindGroup(group);
 
-        // Если установленная позиция равна текущей, то делаем элемент "нажатым"
-        //holder.itemView.setPressed(mPosition == position);
+        // Если установленная позиция равна текущей, то выделяем элемент
         holder.mItemLayout.setSelected(mPosition == position);
-
-        // Есть еще вариант с setSelected(), который является более подходящим
-        // Только нужно разабраться почему веделение визуально не выделяется
-        //holder.itemView.setSelected(mPosition == position);
-
-        // Запасной вариант - выделение выбранным цветом, но без риппл эффекта
-        //holder.itemView.setBackgroundColor(mPosition == position ? Color.LTGRAY : Color.TRANSPARENT);
     }
 
     @Override
