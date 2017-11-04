@@ -2,6 +2,7 @@ package ru.kulikovman.todoapp;
 
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,9 +32,9 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupHolder>
         public GroupHolder(View view) {
             super(view);
 
-            view.setClickable(true);
+            //view.setClickable(true);
 
-            // Слушатель нажатий по элменту
+            // Слушатель нажатий по элементу
             view.setOnClickListener(this);
 
             // Инициализируем вью элемента списка
@@ -93,13 +94,15 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupHolder>
         holder.bindGroup(group);
 
         // Если установленная позиция равна текущей, то делаем элемент "нажатым"
-        holder.itemView.setPressed(mPosition == position);
-
-        // Запасной вариант - выделение выбранным цветом, но без риппл эффекта
-        //holder.itemView.setBackgroundColor(mPosition == position ? Color.GREEN : Color.TRANSPARENT);
+        //holder.itemView.setPressed(mPosition == position);
+        holder.mItemLayout.setSelected(mPosition == position);
 
         // Есть еще вариант с setSelected(), который является более подходящим
         // Только нужно разабраться почему веделение визуально не выделяется
+        //holder.itemView.setSelected(mPosition == position);
+
+        // Запасной вариант - выделение выбранным цветом, но без риппл эффекта
+        //holder.itemView.setBackgroundColor(mPosition == position ? Color.LTGRAY : Color.TRANSPARENT);
     }
 
     @Override
