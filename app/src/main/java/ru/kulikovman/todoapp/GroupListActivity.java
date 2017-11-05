@@ -70,12 +70,20 @@ public class GroupListActivity extends AppCompatActivity implements GroupAdapter
     }
 
     public void fabAddGroup(View view) {
-        // Открываем активити редактирования группы
         Intent intent = new Intent(this, EditGroupActivity.class);
         startActivity(intent);
     }
 
     public void fabDeleteGroup(View view) {
+        mDbHelper.deleteGroup(mGroup);
+        mAdapter.deleteItem(mPosition);
+
+        hideFabButtons();
+    }
+
+    private void hideFabButtons() {
+        mEditButton.setVisibility(View.INVISIBLE);
+        mDeleteButton.setVisibility(View.INVISIBLE);
     }
 
     public void fabEditGroup(View view) {
@@ -90,8 +98,7 @@ public class GroupListActivity extends AppCompatActivity implements GroupAdapter
             mEditButton.setVisibility(View.VISIBLE);
             mDeleteButton.setVisibility(View.VISIBLE);
         } else {
-            mEditButton.setVisibility(View.INVISIBLE);
-            mDeleteButton.setVisibility(View.INVISIBLE);
+            hideFabButtons();
         }
 
         // Запоминаем последний выбранный элемент
