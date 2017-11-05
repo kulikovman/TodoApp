@@ -19,7 +19,6 @@ public class Group {
 
     public Group(String name) {
         mName = name;
-        mColor = "gray";
     }
 
     public String getName() {
