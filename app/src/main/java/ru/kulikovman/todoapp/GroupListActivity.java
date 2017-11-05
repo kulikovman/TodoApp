@@ -90,8 +90,6 @@ public class GroupListActivity extends AppCompatActivity implements GroupAdapter
 
     @Override
     public void onItemClick(View itemView, int itemPosition, Group group, int selectedPosition) {
-        Log.d("myLog", "Запущен onItemClick в GroupListActivity");
-
         // Показываем или скрываем кнопки в зависимости от выделения элементов списка
         if (selectedPosition != RecyclerView.NO_POSITION) {
             mEditButton.setVisibility(View.VISIBLE);
