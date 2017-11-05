@@ -31,11 +31,10 @@ public class TaskListCursorWrapper extends android.database.CursorWrapper {
     }
 
     public Group getGroup() {
-        String uuid = getString(getColumnIndex(GroupTable.Cols.UUID));
         String name = getString(getColumnIndex(GroupTable.Cols.NAME));
         String description = getString(getColumnIndex(GroupTable.Cols.DESCRIPTION));
         String color = getString(getColumnIndex(GroupTable.Cols.COLOR));
 
-        return new Group(UUID.fromString(uuid), name, description, color);
+        return new Group(name, description, color);
     }
 }

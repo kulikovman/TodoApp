@@ -43,7 +43,7 @@ public class EditGroupActivity extends AppCompatActivity {
         mDbHelper = new DbHelper(this);
 
         // Читаем uuid группы из интента
-        UUID uuid = (java.util.UUID) getIntent().getSerializableExtra("group_name");
+        UUID uuid = (java.util.UUID) getIntent().getSerializableExtra("group_uuid");
 
         // Если uuid не пустой, то получаем соответствующую группу и обновляем поля
         if (uuid != null) {

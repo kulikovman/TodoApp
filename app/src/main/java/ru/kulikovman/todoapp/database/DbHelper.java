@@ -143,6 +143,12 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
 
+
+
+
+
+
+
     // Методы для работы с ГРУППАМИ
     public void addGroup(Group group) {
         Log.d("myLog", "Запущен addGroup в DbHelper");
@@ -156,13 +162,13 @@ public class DbHelper extends SQLiteOpenHelper {
     public void updateGroup(Group group) {
         mDb = this.getWritableDatabase();
         ContentValues values = getGroupContentValues(group);
-        mDb.update(GroupTable.NAME, values, GroupTable.Cols.UUID + " = ?", new String[]{group.getId().toString()});
+        mDb.update(GroupTable.NAME, values, GroupTable.Cols.NAME + " = ?", new String[]{group.getName()});
         mDb.close();
     }
 
     public void deleteGroup(Group group) {
         mDb = this.getWritableDatabase();
-        mDb.delete(GroupTable.NAME, GroupTable.Cols.UUID + " = ?", new String[]{group.getId().toString()});
+        mDb.delete(GroupTable.NAME, GroupTable.Cols.NAME + " = ?", new String[]{group.getName()});
         mDb.close();
     }
 
@@ -185,8 +191,8 @@ public class DbHelper extends SQLiteOpenHelper {
         return groups;
     }
 
-    public Group getGroupByUUID(UUID id) {
-        try (TaskListCursorWrapper cursor = queryGroups(GroupTable.Cols.UUID + " = ?", new String[]{id.toString()})) {
+    public Group getGroupByName(String name) {
+        try (TaskListCursorWrapper cursor = queryGroups(GroupTable.Cols.NAME + " = ?", new String[]{name})) {
             if (cursor.getCount() == 0) {
                 return null;
             }
@@ -202,7 +208,6 @@ public class DbHelper extends SQLiteOpenHelper {
 
     private static ContentValues getGroupContentValues(Group group) {
         ContentValues values = new ContentValues();
-        values.put(GroupTable.Cols.UUID, group.getId().toString());
         values.put(GroupTable.Cols.NAME, group.getName());
         values.put(GroupTable.Cols.DESCRIPTION, group.getDescription());
         values.put(GroupTable.Cols.COLOR, group.getColor());
