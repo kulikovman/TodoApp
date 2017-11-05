@@ -156,7 +156,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public void updateGroup(Group group) {
         mDb = this.getWritableDatabase();
         ContentValues values = getGroupContentValues(group);
-        mDb.update(GroupTable.NAME, values, GroupTable.Cols.NAME + " = ?", new String[]{group.getName()});
+        mDb.update(GroupTable.NAME, values, GroupTable.Cols.UUID + " = ?", new String[]{group.getId().toString()});
         mDb.close();
     }
 
