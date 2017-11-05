@@ -166,6 +166,13 @@ public class DbHelper extends SQLiteOpenHelper {
         mDb.close();
     }
 
+    public void updateGroupByName(String name, Group group) {
+        mDb = this.getWritableDatabase();
+        ContentValues values = getGroupContentValues(group);
+        mDb.update(GroupTable.NAME, values, GroupTable.Cols.NAME + " = ?", new String[]{name});
+        mDb.close();
+    }
+
     public void deleteGroup(Group group) {
         mDb = this.getWritableDatabase();
         mDb.delete(GroupTable.NAME, GroupTable.Cols.NAME + " = ?", new String[]{group.getName()});

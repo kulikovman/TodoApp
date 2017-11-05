@@ -95,12 +95,12 @@ public class EditGroupActivity extends AppCompatActivity {
 
     public void saveGroup(View view) {
         // Получаем название группы
-        String name = mGroupName.getText().toString().trim();
+        String groupName = mGroupName.getText().toString().trim();
 
         // Если название есть, то делаем все остальное
-        if (name.length() > 0) {
+        if (groupName.length() > 0) {
             // Создаем группу
-            Group group = new Group(name);
+            Group group = new Group(groupName);
 
             // Если есть описание, то добавляем его в группу
             String description = mDescriptionState.getText().toString().trim();
@@ -133,11 +133,20 @@ public class EditGroupActivity extends AppCompatActivity {
             Log.d("myLog", "Создана группа: " + group.getName() + " | " + group.getDescription() + " | " + group.getColor());
 
             // Добавляем группу в базу
+            String oldGroupName = mGroup.getName();
+
             if (mGroup == null) {
                 mDbHelper.addGroup(group);
             } else {
-                mGroup = group;
-                mDbHelper.updateGroup(mGroup);
+                if (oldGroupName.equals(groupName)) {
+                    mDbHelper.updateGroup(group);
+                } else {
+                    if (!mDbHelper.isExistGroup(groupName)){
+                        mDbHelper.updateGroupByName(oldGroupName, group);
+                    } else {
+                        // TODO: Вызвать диалог с сообщением о существовании такой группы
+                    }
+                }
             }
 
 
