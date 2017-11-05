@@ -15,7 +15,6 @@ import ru.kulikovman.todoapp.database.DbHelper;
 import ru.kulikovman.todoapp.dialogs.ColorFragment;
 import ru.kulikovman.todoapp.dialogs.DescriptionFragment;
 import ru.kulikovman.todoapp.models.Group;
-import ru.kulikovman.todoapp.models.Task;
 
 public class EditGroupActivity extends AppCompatActivity {
     private DbHelper mDbHelper;
@@ -40,6 +39,9 @@ public class EditGroupActivity extends AppCompatActivity {
 
         // Подключаем базу данных
         mDbHelper = new DbHelper(this);
+
+        // TODO: 05.11.2017 Добавить группам UUID для однозначной идентификации
+        // Переделать редактирование и обновление под UUID
 
         // Читаем имя группы из интента
         String groupName = (String) getIntent().getSerializableExtra("group_name");
