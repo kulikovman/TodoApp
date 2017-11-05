@@ -20,6 +20,7 @@ public class DbSchema {
         public static final String NAME = "groups";
 
         public static final class Cols {
+            public static final String UUID = "uuid";
             public static final String NAME = "title";
             public static final String COLOR = "color";
             public static final String DESCRIPTION = "description";

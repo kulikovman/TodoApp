@@ -1,12 +1,16 @@
 package ru.kulikovman.todoapp.models;
 
 
+import java.util.UUID;
+
 public class Group {
+    private UUID mId;
     private String mName;
     private String mDescription;
     private String mColor;
 
-    public Group(String name, String description, String color) {
+    public Group(UUID id, String name, String description, String color) {
+        mId = id;
         mName = name;
         mDescription = description;
         mColor = color;
@@ -18,7 +22,16 @@ public class Group {
     }
 
     public Group(String name) {
+        mId = UUID.randomUUID();
         mName = name;
+    }
+
+    public UUID getId() {
+        return mId;
+    }
+
+    public void setId(UUID id) {
+        mId = id;
     }
 
     public String getName() {

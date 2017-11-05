@@ -185,8 +185,8 @@ public class DbHelper extends SQLiteOpenHelper {
         return groups;
     }
 
-    public Group getGroupByName(String name) {
-        try (TaskListCursorWrapper cursor = queryGroups(GroupTable.Cols.NAME + " = ?", new String[]{name})) {
+    public Group getGroupByUUID(UUID id) {
+        try (TaskListCursorWrapper cursor = queryGroups(GroupTable.Cols.UUID + " = ?", new String[]{id.toString()})) {
             if (cursor.getCount() == 0) {
                 return null;
             }
