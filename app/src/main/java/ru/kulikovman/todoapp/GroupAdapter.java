@@ -63,10 +63,28 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupHolder>
         public void bindGroup(Group group) {
             mGroup = group;
 
-            // Устанавливаем значения полей и цвет ярлычка
+            // Устанавливаем значения полей
             mGroupName.setText(mGroup.getName());
             mGroupDescription.setText(mGroup.getDescription());
-            mGroupColor.setBackgroundResource(mGroup.getColor());
+
+            // Устанавливаем цвет ярлычка
+            if (mGroup.getColor() == null) {
+                mGroupColor.setBackgroundResource(R.color.gray_2);
+            } else if (mGroup.getColor().equals("red")) {
+                mGroupColor.setBackgroundResource(R.color.red);
+            } else if (mGroup.getColor().equals("orange")) {
+                mGroupColor.setBackgroundResource(R.color.orange);
+            } else if (mGroup.getColor().equals("yellow")) {
+                mGroupColor.setBackgroundResource(R.color.yellow);
+            } else if (mGroup.getColor().equals("green")) {
+                mGroupColor.setBackgroundResource(R.color.green);
+            } else if (mGroup.getColor().equals("blue")) {
+                mGroupColor.setBackgroundResource(R.color.blue);
+            } else if (mGroup.getColor().equals("violet")) {
+                mGroupColor.setBackgroundResource(R.color.violet);
+            } else if (mGroup.getColor().equals("pink")) {
+                mGroupColor.setBackgroundResource(R.color.pink);
+            }
         }
     }
 
