@@ -73,6 +73,14 @@
     <string name="menu_finished_tasks">Завершенные</string>
     <string name="menu_edit_groups">Редактировать группы</string>
 
+
+    <!-- Диалог - группа существует -->
+    <string name="dialog_exists_group_title">Ошибка</string>
+    <string name="dialog_exists_group_message">Группа с таким названием уже существует.</string>
+    <string name="dialog_exists_group_close">Закрыть</string>
+
+
+
     <!-- Другие разные строки -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
