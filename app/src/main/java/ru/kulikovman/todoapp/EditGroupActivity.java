@@ -11,8 +11,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 
-import java.util.UUID;
-
 import ru.kulikovman.todoapp.database.DbHelper;
 import ru.kulikovman.todoapp.dialogs.ColorFragment;
 import ru.kulikovman.todoapp.dialogs.DescriptionFragment;
@@ -42,12 +40,12 @@ public class EditGroupActivity extends AppCompatActivity {
         // Подключаем базу данных
         mDbHelper = new DbHelper(this);
 
-        // Читаем uuid группы из интента
-        UUID uuid = (java.util.UUID) getIntent().getSerializableExtra("group_uuid");
+        // Читаем имя группы из интента
+        String groupName = (String) getIntent().getSerializableExtra("group_name");
 
-        // Если uuid не пустой, то получаем соответствующую группу и обновляем поля
-        if (uuid != null) {
-            mGroup = mDbHelper.getGroupByUUID(uuid);
+        // Если имя есть, то получаем группу и обновляем поля активности
+        if (groupName != null) {
+            mGroup = mDbHelper.getGroupByName(groupName);
             loadGroup();
         }
 

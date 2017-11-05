@@ -206,6 +206,16 @@ public class DbHelper extends SQLiteOpenHelper {
         }
     }
 
+    public boolean isExistGroup(String name) {
+        try (TaskListCursorWrapper cursor = queryGroups(GroupTable.Cols.NAME + " = ?", new String[]{name})) {
+            return cursor.getCount() > 0;
+        } finally {
+            if (mDb != null) {
+                mDb.close();
+            }
+        }
+    }
+
     private static ContentValues getGroupContentValues(Group group) {
         ContentValues values = new ContentValues();
         values.put(GroupTable.Cols.NAME, group.getName());
