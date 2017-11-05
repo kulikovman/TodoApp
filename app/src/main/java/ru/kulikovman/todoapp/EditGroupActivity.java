@@ -62,38 +62,35 @@ public class EditGroupActivity extends AppCompatActivity {
 
         // Если название есть, то делаем все остальное
         if (name.length() > 0) {
-            // Получаем описание
-            String description = mDescriptionState.getText().toString().trim();
-            String color = mColorState.getText().toString();
-
-            // Серый цвет по умолчанию
-            int colorId = R.color.gray_2;
-
-            // Если выбран цвет, то сохраняем его
-            if (!color.equals(getString(R.string.color_not_set))) {
-                if (color.equals(getString(R.string.color_1_red))) {
-                    colorId = R.color.red;
-                } else if (color.equals(getString(R.string.color_2_orange))) {
-                    colorId = R.color.orange;
-                } else if (color.equals(getString(R.string.color_3_yellow))) {
-                    colorId = R.color.yellow;
-                } else if (color.equals(getString(R.string.color_4_green))) {
-                    colorId = R.color.green;
-                } else if (color.equals(getString(R.string.color_5_blue))) {
-                    colorId = R.color.blue;
-                } else if (color.equals(getString(R.string.color_6_violet))) {
-                    colorId = R.color.violet;
-                } else if (color.equals(getString(R.string.color_7_pink))) {
-                    colorId = R.color.pink;
-                }
-            }
-
             // Создаем группу
-            Group group = new Group(name, colorId);
+            Group group = new Group(name);
 
             // Если есть описание, то добавляем его в группу
+            String description = mDescriptionState.getText().toString().trim();
+
             if (!description.equals(getString(R.string.without_description))) {
                 group.setDescription(description);
+            }
+
+            // Если указан цвет, то добавляем его в группу
+            String color = mColorState.getText().toString();
+
+            if (!color.equals(getString(R.string.color_not_set))) {
+                if (color.equals(getString(R.string.color_1_red))) {
+                    group.setColor("red");
+                } else if (color.equals(getString(R.string.color_2_orange))) {
+                    group.setColor("orange");
+                } else if (color.equals(getString(R.string.color_3_yellow))) {
+                    group.setColor("yellow");
+                } else if (color.equals(getString(R.string.color_4_green))) {
+                    group.setColor("green");
+                } else if (color.equals(getString(R.string.color_5_blue))) {
+                    group.setColor("blue");
+                } else if (color.equals(getString(R.string.color_6_violet))) {
+                    group.setColor("violet");
+                } else if (color.equals(getString(R.string.color_7_pink))) {
+                    group.setColor("pink");
+                }
             }
 
             Log.d("myLog", "Создана группа: " + group.getName() + " | " + group.getDescription() + " | " + group.getColor());
