@@ -213,7 +213,7 @@ public class DbHelper extends SQLiteOpenHelper {
         }
     }
 
-    public boolean isExistGroup(String name) {
+    public boolean isGroupExist(String name) {
         try (TaskListCursorWrapper cursor = queryGroups(GroupTable.Cols.NAME + " = ?", new String[]{name})) {
             return cursor.getCount() > 0;
         } finally {

@@ -10,11 +10,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-
 import ru.kulikovman.todoapp.database.DbHelper;
 import ru.kulikovman.todoapp.dialogs.ColorFragment;
 import ru.kulikovman.todoapp.dialogs.DescriptionFragment;
-import ru.kulikovman.todoapp.dialogs.ExistGroupMessageFragment;
+import ru.kulikovman.todoapp.dialogs.GroupExistMessageFragment;
 import ru.kulikovman.todoapp.models.Group;
 
 public class EditGroupActivity extends AppCompatActivity {
@@ -74,7 +73,7 @@ public class EditGroupActivity extends AppCompatActivity {
         // Загружаем описание
         String description = mGroup.getDescription();
 
-        if (description == null){
+        if (description == null) {
             mDescriptionState.setText(getString(R.string.without_description));
         } else {
             mDescriptionState.setText(description);
@@ -106,7 +105,7 @@ public class EditGroupActivity extends AppCompatActivity {
         // Получаем название группы
         String name = mGroupName.getText().toString().trim();
 
-        // Если название есть, то делаем все остальное
+        // Если название заполнено, то делаем все остальное
         if (name.length() > 0) {
             // Создаем группу
             Group group = new Group(name);
@@ -141,30 +140,41 @@ public class EditGroupActivity extends AppCompatActivity {
 
             Log.d("myLog", "Создана группа: " + group.getName() + " | " + group.getDescription() + " | " + group.getColor());
 
-            // Добавляем группу в базу
+            // Добавляем или обнвляем группу в базе
             if (mGroup == null) {
-                Log.d("myLog", "mGroup == null");
-                mDbHelper.addGroup(group);
-                Log.d("myLog", "Группа добавлена в базу");
+                // Добавляем новую группу
+                if (!mDbHelper.isGroupExist(name)) {
+                    mDbHelper.addGroup(group);
+                    closeActivity();
+                } else {
+                    showErrorMessage();
+                }
             } else {
+                // Обновляем существующую
                 if (mGroup.getName().equals(name)) {
                     mDbHelper.updateGroup(group);
+                    closeActivity();
                 } else {
-                    if (!mDbHelper.isExistGroup(name)){
+                    if (!mDbHelper.isGroupExist(name)) {
                         mDbHelper.updateGroupByName(mGroup.getName(), group);
+                        closeActivity();
                     } else {
-                        DialogFragment existGroupMessageFragment = new ExistGroupMessageFragment();
-                        existGroupMessageFragment.show(getSupportFragmentManager(), "existGroupMessageFragment");
+                        showErrorMessage();
                     }
                 }
             }
-
-
-
-            // Удаляем текущий активити из стека и возвращаемся в список групп
-            Intent intent = new Intent(this, GroupListActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
         }
+    }
+
+    private void closeActivity() {
+        // Удаляем текущий активити из стека и возвращаемся в список групп
+        Intent intent = new Intent(this, GroupListActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    private void showErrorMessage() {
+        DialogFragment groupExistMessageFragment = new GroupExistMessageFragment();
+        groupExistMessageFragment.show(getSupportFragmentManager(), "groupExistMessageFragment");
     }
 }
