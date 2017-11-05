@@ -1,27 +1,25 @@
 package ru.kulikovman.todoapp.models;
 
 
-import ru.kulikovman.todoapp.R;
-
 public class Group {
     private String mName;
     private String mDescription;
-    private int mColorId;
+    private String mColor;
 
-    public Group(String name, String description, int colorId) {
+    public Group(String name, String description, String color) {
         mName = name;
         mDescription = description;
-        mColorId = colorId;
+        mColor = color;
     }
 
-    public Group(String name, int colorId) {
+    public Group(String name, String color) {
         mName = name;
-        mColorId = colorId;
+        mColor = color;
     }
 
     public Group(String name) {
         mName = name;
-        mColorId = R.color.gray_2;
+        mColor = "gray";
     }
 
     public String getName() {
@@ -32,12 +30,12 @@ public class Group {
         mName = name;
     }
 
-    public int getColorId() {
-        return mColorId;
+    public String getColor() {
+        return mColor;
     }
 
-    public void setColorId(int colorId) {
-        mColorId = colorId;
+    public void setColor(String color) {
+        mColor = color;
     }
 
     public String getDescription() {

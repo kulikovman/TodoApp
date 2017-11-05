@@ -189,7 +189,7 @@ public class DbHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(GroupTable.Cols.NAME, group.getName());
         values.put(GroupTable.Cols.DESCRIPTION, group.getDescription());
-        values.put(GroupTable.Cols.COLOR, group.getColorId());
+        values.put(GroupTable.Cols.COLOR, group.getColor());
 
         return values;
     }

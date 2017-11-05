@@ -66,7 +66,7 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupHolder>
             // Устанавливаем значения полей и цвет ярлычка
             mGroupName.setText(mGroup.getName());
             mGroupDescription.setText(mGroup.getDescription());
-            mGroupColor.setBackgroundResource(mGroup.getColorId());
+            mGroupColor.setBackgroundResource(mGroup.getColor());
         }
     }
 
