@@ -162,7 +162,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     public void deleteGroup(Group group) {
         mDb = this.getWritableDatabase();
-        mDb.delete(GroupTable.NAME, GroupTable.Cols.NAME + " = ?", new String[]{group.getName()});
+        mDb.delete(GroupTable.NAME, GroupTable.Cols.UUID + " = ?", new String[]{group.getId().toString()});
         mDb.close();
     }
 
