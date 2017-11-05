@@ -10,14 +10,16 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+
 import ru.kulikovman.todoapp.database.DbHelper;
 import ru.kulikovman.todoapp.dialogs.ColorFragment;
 import ru.kulikovman.todoapp.dialogs.DescriptionFragment;
 import ru.kulikovman.todoapp.models.Group;
+import ru.kulikovman.todoapp.models.Task;
 
 public class EditGroupActivity extends AppCompatActivity {
     private DbHelper mDbHelper;
-    //private Group mGroup;
+    private Group mGroup;
 
     private EditText mGroupName;
     private TextView mDescriptionState, mColorState;
@@ -39,6 +41,15 @@ public class EditGroupActivity extends AppCompatActivity {
         // Подключаем базу данных
         mDbHelper = new DbHelper(this);
 
+        // Читаем имя группы из интента
+        String groupName = (String) getIntent().getSerializableExtra("group_name");
+
+        // Если uuid не пустой, то получаем соответствующую задачу и обновляем поля
+        if (groupName != null) {
+            mGroup = mDbHelper.getGroupByName(groupName);
+            loadGroup();
+        }
+
         Log.d("myLog", "Успешно запущен EditGroupActivity - onCreate");
     }
 
@@ -56,7 +67,34 @@ public class EditGroupActivity extends AppCompatActivity {
         }
     }
 
-    public void fabSaveGroup(View view) {
+    private void loadGroup() {
+        // Загружаем название и описание
+        mGroupName.setText(mGroup.getName());
+        mDescriptionState.setText(mGroup.getDescription());
+
+        // Загружаем цвет
+        String color = mGroup.getColor();
+
+        if (color == null) {
+            mColorState.setText(getString(R.string.color_not_set));
+        } else if (color.equals("red")) {
+            mColorState.setText(getString(R.string.color_1_red));
+        } else if (color.equals("orange")) {
+            mColorState.setText(getString(R.string.color_2_orange));
+        } else if (color.equals("yellow")) {
+            mColorState.setText(getString(R.string.color_3_yellow));
+        } else if (color.equals("green")) {
+            mColorState.setText(getString(R.string.color_4_green));
+        } else if (color.equals("blue")) {
+            mColorState.setText(getString(R.string.color_5_blue));
+        } else if (color.equals("violet")) {
+            mColorState.setText(getString(R.string.color_6_violet));
+        } else if (color.equals("pink")) {
+            mColorState.setText(getString(R.string.color_7_pink));
+        }
+    }
+
+    public void saveGroup(View view) {
         // Получаем название группы
         String name = mGroupName.getText().toString().trim();
 
@@ -96,7 +134,12 @@ public class EditGroupActivity extends AppCompatActivity {
             Log.d("myLog", "Создана группа: " + group.getName() + " | " + group.getDescription() + " | " + group.getColor());
 
             // Добавляем группу в базу
-            mDbHelper.addGroup(group);
+            if (mGroup == null) {
+                mDbHelper.addGroup(group);
+            } else {
+                mDbHelper.updateGroup(group);
+            }
+
 
             Log.d("myLog", "Группа добавлена в базу");
 

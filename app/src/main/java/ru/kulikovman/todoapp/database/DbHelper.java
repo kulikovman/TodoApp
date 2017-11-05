@@ -185,6 +185,21 @@ public class DbHelper extends SQLiteOpenHelper {
         return groups;
     }
 
+    public Group getGroupByName(String name) {
+        try (TaskListCursorWrapper cursor = queryGroups(GroupTable.Cols.NAME + " = ?", new String[]{name})) {
+            if (cursor.getCount() == 0) {
+                return null;
+            }
+
+            cursor.moveToFirst();
+            return cursor.getGroup();
+        } finally {
+            if (mDb != null) {
+                mDb.close();
+            }
+        }
+    }
+
     private static ContentValues getGroupContentValues(Group group) {
         ContentValues values = new ContentValues();
         values.put(GroupTable.Cols.NAME, group.getName());
