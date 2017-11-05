@@ -14,6 +14,7 @@ import android.widget.TextView;
 import ru.kulikovman.todoapp.database.DbHelper;
 import ru.kulikovman.todoapp.dialogs.ColorFragment;
 import ru.kulikovman.todoapp.dialogs.DescriptionFragment;
+import ru.kulikovman.todoapp.dialogs.ExistGroupMessageFragment;
 import ru.kulikovman.todoapp.models.Group;
 
 public class EditGroupActivity extends AppCompatActivity {
@@ -67,9 +68,17 @@ public class EditGroupActivity extends AppCompatActivity {
     }
 
     private void loadGroup() {
-        // Загружаем название и описание
+        // Загружаем название
         mGroupName.setText(mGroup.getName());
-        mDescriptionState.setText(mGroup.getDescription());
+
+        // Загружаем описание
+        String description = mGroup.getDescription();
+
+        if (description == null){
+            mDescriptionState.setText(getString(R.string.without_description));
+        } else {
+            mDescriptionState.setText(description);
+        }
 
         // Загружаем цвет
         String color = mGroup.getColor();
@@ -95,12 +104,12 @@ public class EditGroupActivity extends AppCompatActivity {
 
     public void saveGroup(View view) {
         // Получаем название группы
-        String groupName = mGroupName.getText().toString().trim();
+        String name = mGroupName.getText().toString().trim();
 
         // Если название есть, то делаем все остальное
-        if (groupName.length() > 0) {
+        if (name.length() > 0) {
             // Создаем группу
-            Group group = new Group(groupName);
+            Group group = new Group(name);
 
             // Если есть описание, то добавляем его в группу
             String description = mDescriptionState.getText().toString().trim();
@@ -133,24 +142,24 @@ public class EditGroupActivity extends AppCompatActivity {
             Log.d("myLog", "Создана группа: " + group.getName() + " | " + group.getDescription() + " | " + group.getColor());
 
             // Добавляем группу в базу
-            String oldGroupName = mGroup.getName();
-
             if (mGroup == null) {
+                Log.d("myLog", "mGroup == null");
                 mDbHelper.addGroup(group);
+                Log.d("myLog", "Группа добавлена в базу");
             } else {
-                if (oldGroupName.equals(groupName)) {
+                if (mGroup.getName().equals(name)) {
                     mDbHelper.updateGroup(group);
                 } else {
-                    if (!mDbHelper.isExistGroup(groupName)){
-                        mDbHelper.updateGroupByName(oldGroupName, group);
+                    if (!mDbHelper.isExistGroup(name)){
+                        mDbHelper.updateGroupByName(mGroup.getName(), group);
                     } else {
-                        // TODO: Вызвать диалог с сообщением о существовании такой группы
+                        DialogFragment existGroupMessageFragment = new ExistGroupMessageFragment();
+                        existGroupMessageFragment.show(getSupportFragmentManager(), "existGroupMessageFragment");
                     }
                 }
             }
 
 
-            Log.d("myLog", "Группа добавлена в базу");
 
             // Удаляем текущий активити из стека и возвращаемся в список групп
             Intent intent = new Intent(this, GroupListActivity.class);
