@@ -77,7 +77,6 @@ public class GroupListActivity extends AppCompatActivity implements GroupAdapter
     public void fabDeleteGroup(View view) {
         mDbHelper.deleteGroup(mGroup);
         mAdapter.deleteItem(mPosition);
-
         hideFabButtons();
     }
 

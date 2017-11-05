@@ -116,6 +116,7 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupHolder>
     public void deleteItem(int position) {
         mGroups.remove(position);
         super.notifyItemRemoved(position);
+        resetSelection();
     }
 
     public void resetSelection() {
