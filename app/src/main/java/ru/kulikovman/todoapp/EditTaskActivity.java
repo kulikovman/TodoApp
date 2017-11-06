@@ -155,6 +155,7 @@ public class EditTaskActivity extends AppCompatActivity {
         return dateFormat.format(date);
     }
 
+    // TODO: 07.11.2017 Осталось сделать корректное сохранение задачи в базу
     public void saveTask(View view) {
         // Получаем заголовок
         mTitle = mTaskTitle.getText().toString().trim();
@@ -189,34 +190,6 @@ public class EditTaskActivity extends AppCompatActivity {
                     break;
             }
 
-            // Получаем цвет
-            mColor = mColorState.getText().toString();
-            switch (mColor) {
-                case "Не выбран":
-                    mColor = "8_not_set";
-                    break;
-                case "Красный":
-                    mColor = "1_red";
-                    break;
-                case "Оранжевый":
-                    mColor = "2_orange";
-                    break;
-                case "Желтый":
-                    mColor = "3_yellow";
-                    break;
-                case "Зеленый":
-                    mColor = "4_green";
-                    break;
-                case "Синий":
-                    mColor = "5_blue";
-                    break;
-                case "Фиолетовый":
-                    mColor = "6_violet";
-                    break;
-                case "Розовый":
-                    mColor = "7_pink";
-                    break;
-            }
 
             // Получаем повтор
             mRepeat = mRepeatState.getText().toString();
