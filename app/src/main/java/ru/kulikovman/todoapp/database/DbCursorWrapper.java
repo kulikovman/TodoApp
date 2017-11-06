@@ -2,7 +2,6 @@ package ru.kulikovman.todoapp.database;
 
 
 import android.database.Cursor;
-import android.database.CursorWrapper;
 
 import java.util.List;
 import java.util.UUID;
@@ -35,14 +34,20 @@ public class DbCursorWrapper extends android.database.CursorWrapper {
         long completionDate = getLong(getColumnIndex(TaskTable.Cols.COMPLETION_DATE));
         long repeatDate = getLong(getColumnIndex(TaskTable.Cols.REPEAT_DATE));
         long reminderDate = getLong(getColumnIndex(TaskTable.Cols.REMINDER_DATE));
-        String group = getString(getColumnIndex(TaskTable.Cols.GROUP));
+        String groupName = getString(getColumnIndex(TaskTable.Cols.GROUP));
 
+        // Создаем задачу
+        Task task = new Task(UUID.fromString(uuid), title, priority, done != 0,
+                createDate, targetDate, completionDate, repeatDate, reminderDate);
 
+        // Назначаем группу
+        for (Group group : mGroups) {
+            if (group.getName().equals(groupName)) {
+                task.setGroup(group);
+            }
+        }
 
-        return new Task(UUID.fromString(uuid), title, date, priority, color, repeat, done != 0);
-
-
-
+        return task;
     }
 
     public Group getGroup() {

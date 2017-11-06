@@ -17,7 +17,7 @@ public class Task {
 
     private Group mGroup;
 
-    public Task(UUID id, String title, int priority, boolean done, long createDate, long targetDate, long completionDate, long repeatDate, long reminderDate, Group group) {
+    public Task(UUID id, String title, int priority, boolean done, long createDate, long targetDate, long completionDate, long repeatDate, long reminderDate) {
         mId = id;
         mTitle = title;
         mPriority = priority;
@@ -27,7 +27,6 @@ public class Task {
         mCompletionDate = completionDate;
         mRepeatDate = repeatDate;
         mReminderDate = reminderDate;
-        mGroup = group;
     }
 
     public Task(String title) {
