@@ -90,9 +90,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
 
             // Получаем значения полей
             String taskTitle = mTask.getTitle();
-            String taskDate = mTask.getDate();
+            String taskDate = mTask.getTargetDate();
             String taskPriority = mTask.getPriority();
-            String taskRepeat = mTask.getRepeat();
+            String taskRepeat = mTask.getRepeatDate();
             String taskColor = mTask.getColor();
 
             // Устанавливаем заголовок и его цвет

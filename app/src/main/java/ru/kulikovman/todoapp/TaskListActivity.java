@@ -1,12 +1,10 @@
 package ru.kulikovman.todoapp;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -239,10 +237,10 @@ public class TaskListActivity extends AppCompatActivity
 
             for (Task task : mAllTasks) {
                 if (!task.isDone()) {
-                    if (task.getDate().equals("Не установлена")) {
+                    if (task.getTargetDate().equals("Не установлена")) {
                         tasks.add(task);
                     } else {
-                        taskDate = Long.parseLong(task.getDate());
+                        taskDate = Long.parseLong(task.getTargetDate());
                         if (taskDate <= targetDate) {
                             tasks.add(task);
                         }
@@ -255,8 +253,8 @@ public class TaskListActivity extends AppCompatActivity
         // Если тип списка - на сегодня
         if (typeList.equals(getString(R.string.list_today))) {
             for (Task task : mAllTasks) {
-                if (!task.isDone() && !task.getDate().equals("Не установлена")) {
-                    taskDate = Long.parseLong(task.getDate());
+                if (!task.isDone() && !task.getTargetDate().equals("Не установлена")) {
+                    taskDate = Long.parseLong(task.getTargetDate());
                     if (taskDate <= targetDate) {
                         tasks.add(task);
                     }
@@ -270,7 +268,7 @@ public class TaskListActivity extends AppCompatActivity
         if (typeList.equals(getString(R.string.list_without_date))) {
             for (Task task : mAllTasks) {
                 if (!task.isDone()) {
-                    if (task.getDate().equals("Не установлена")) {
+                    if (task.getTargetDate().equals("Не установлена")) {
                         tasks.add(task);
                     }
                 }
@@ -317,22 +315,22 @@ public class TaskListActivity extends AppCompatActivity
 
     public void fabDoneTask(View view) {
         Task task = new Task(mTask.getTitle(),
-                mTask.getDate(), mTask.getPriority(), mTask.getColor(), mTask.getRepeat());
+                mTask.getTargetDate(), mTask.getPriority(), mTask.getColor(), mTask.getRepeatDate());
 
         mTask.setDone(!mTask.isDone());
         mDbHelper.updateTask(mTask);
         mAdapter.deleteItem(mPosition);
 
         // Если у задачи был повтор, то создаем аналогичную задачу на новую дату
-        if (!task.getRepeat().equals("Без повтора") && !task.isDone()) {
-            String taskDate = task.getDate();
+        if (!task.getRepeatDate().equals("Без повтора") && !task.isDone()) {
+            String taskDate = task.getTargetDate();
             long longDate = Long.parseLong(taskDate);
 
             Date date = new Date(longDate);
             Calendar calendar = new GregorianCalendar();
             calendar.setTime(date);
 
-            switch (task.getRepeat()) {
+            switch (task.getRepeatDate()) {
                 case "Ежедневно":
                     calendar.add(Calendar.DAY_OF_YEAR, 1);
                     break;
@@ -350,7 +348,7 @@ public class TaskListActivity extends AppCompatActivity
             date = calendar.getTime();
             longDate = date.getTime();
             taskDate = String.valueOf(longDate);
-            task.setDate(taskDate);
+            task.setTargetDate(taskDate);
 
             mDbHelper.addTask(task);
             mCurrentTasks.add(task);

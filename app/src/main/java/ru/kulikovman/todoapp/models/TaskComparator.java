@@ -2,15 +2,13 @@ package ru.kulikovman.todoapp.models;
 
 import java.util.Comparator;
 
-import ru.kulikovman.todoapp.models.Task;
-
 
 public class TaskComparator implements Comparator<Task> {
 
     @Override
     public int compare(Task task1, Task task2) {
         // Первый этап сортировки - дата
-        int result = task1.getDate().compareTo(task2.getDate());
+        int result = task1.getTargetDate().compareTo(task2.getTargetDate());
         if (result != 0) {
             return result / Math.abs(result);
         }

@@ -157,10 +157,10 @@ public class EditTaskActivity extends AppCompatActivity {
                 mDbHelper.addTask(mTask);
             } else {
                 mTask.setTitle(mTitle);
-                mTask.setDate(mDate);
+                mTask.setTargetDate(mDate);
                 mTask.setPriority(mPriority);
                 mTask.setColor(mColor);
-                mTask.setRepeat(mRepeat);
+                mTask.setRepeatDate(mRepeat);
 
                 mDbHelper.updateTask(mTask);
             }
@@ -175,10 +175,10 @@ public class EditTaskActivity extends AppCompatActivity {
     private void readTask() {
         // Читаем инфо об открытой задаче
         mTitle = mTask.getTitle();
-        mDate = mTask.getDate();
+        mDate = mTask.getTargetDate();
         mPriority = mTask.getPriority();
         mColor = mTask.getColor();
-        mRepeat = mTask.getRepeat();
+        mRepeat = mTask.getRepeatDate();
 
         // Устанавливаем заголовок
         mTitleField.setText(mTitle);

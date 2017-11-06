@@ -1,53 +1,39 @@
 package ru.kulikovman.todoapp.models;
 
+import java.util.Date;
 import java.util.UUID;
 
 public class Task {
-    // TODO: 29.09.2017 Изменить типы полей
-    // для даты, приоритета, цвета, повтора
     private UUID mId;
     private String mTitle;
-    private String mDate;
-    private String mPriority;
-    private String mColor;
-    private String mRepeat;
+    private int mPriority;
     private boolean mDone;
 
-    // TODO: 29.09.2017 Добавить функционал для этих полей
-    // они должны сохраняться в базу
-    // использоваться в конструкторах
-    // сделать геттеры и сеттеры
-    private long mDateOfCreation;
-    private long mDateOfCompletion;
+    private long mCreateDate;
+    private long mTargetDate;
+    private long mCompletionDate;
+    private long mRepeatDate;
+    private long mReminderDate;
+
     private Group mGroup;
 
-    public Task(UUID id, String title, String date, String priority, String color, String repeat, boolean done) {
+    public Task(UUID id, String title, int priority, boolean done, long createDate, long targetDate, long completionDate, long repeatDate, long reminderDate, Group group) {
         mId = id;
         mTitle = title;
-        mDate = date;
         mPriority = priority;
-        mColor = color;
-        mRepeat = repeat;
         mDone = done;
-    }
-
-    public Task(String title, String date, String priority, String color, String repeat) {
-        mId = UUID.randomUUID();
-        mTitle = title;
-        mDate = date;
-        mPriority = priority;
-        mColor = color;
-        mRepeat = repeat;
-        mDone = false;
+        mCreateDate = createDate;
+        mTargetDate = targetDate;
+        mCompletionDate = completionDate;
+        mRepeatDate = repeatDate;
+        mReminderDate = reminderDate;
+        mGroup = group;
     }
 
     public Task(String title) {
         mId = UUID.randomUUID();
         mTitle = title;
-    }
-
-    public Task(UUID id) {
-        mId = id;
+        mCreateDate = new Date().getTime();
     }
 
     public UUID getId() {
@@ -66,36 +52,12 @@ public class Task {
         mTitle = title;
     }
 
-    public String getDate() {
-        return mDate;
-    }
-
-    public void setDate(String date) {
-        mDate = date;
-    }
-
-    public String getPriority() {
+    public int getPriority() {
         return mPriority;
     }
 
-    public void setPriority(String priority) {
+    public void setPriority(int priority) {
         mPriority = priority;
-    }
-
-    public String getColor() {
-        return mColor;
-    }
-
-    public void setColor(String color) {
-        mColor = color;
-    }
-
-    public String getRepeat() {
-        return mRepeat;
-    }
-
-    public void setRepeat(String repeat) {
-        mRepeat = repeat;
     }
 
     public boolean isDone() {
@@ -104,5 +66,53 @@ public class Task {
 
     public void setDone(boolean done) {
         mDone = done;
+    }
+
+    public long getCreateDate() {
+        return mCreateDate;
+    }
+
+    public void setCreateDate(long createDate) {
+        mCreateDate = createDate;
+    }
+
+    public long getTargetDate() {
+        return mTargetDate;
+    }
+
+    public void setTargetDate(long targetDate) {
+        mTargetDate = targetDate;
+    }
+
+    public long getCompletionDate() {
+        return mCompletionDate;
+    }
+
+    public void setCompletionDate(long completionDate) {
+        mCompletionDate = completionDate;
+    }
+
+    public long getRepeatDate() {
+        return mRepeatDate;
+    }
+
+    public void setRepeatDate(long repeatDate) {
+        mRepeatDate = repeatDate;
+    }
+
+    public long getReminderDate() {
+        return mReminderDate;
+    }
+
+    public void setReminderDate(long reminderDate) {
+        mReminderDate = reminderDate;
+    }
+
+    public Group getGroup() {
+        return mGroup;
+    }
+
+    public void setGroup(Group group) {
+        mGroup = group;
     }
 }
