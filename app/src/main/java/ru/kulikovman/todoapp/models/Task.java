@@ -7,12 +7,12 @@ public class Task {
     private UUID mId;
     private String mTitle;
     private int mPriority;
-    private String mRepeatDate;
     private boolean mDone;
 
     private long mCreateDate;
     private long mTargetDate;
     private long mCompletionDate;
+    private String mRepeatDate;
     private long mReminderDate;
 
     private Group mGroup;
@@ -21,11 +21,11 @@ public class Task {
         mId = id;
         mTitle = title;
         mPriority = priority;
-        mRepeatDate = repeatDate;
         mDone = done;
         mCreateDate = createDate;
         mTargetDate = targetDate;
         mCompletionDate = completionDate;
+        mRepeatDate = repeatDate;
         mReminderDate = reminderDate;
     }
 
