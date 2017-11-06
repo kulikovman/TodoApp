@@ -32,7 +32,7 @@ public class DbCursorWrapper extends android.database.CursorWrapper {
         long createDate = getLong(getColumnIndex(TaskTable.Cols.CREATE_DATE));
         long targetDate = getLong(getColumnIndex(TaskTable.Cols.TARGET_DATE));
         long completionDate = getLong(getColumnIndex(TaskTable.Cols.COMPLETION_DATE));
-        long repeatDate = getLong(getColumnIndex(TaskTable.Cols.REPEAT_DATE));
+        String repeatDate = getString(getColumnIndex(TaskTable.Cols.REPEAT_DATE));
         long reminderDate = getLong(getColumnIndex(TaskTable.Cols.REMINDER_DATE));
         String groupName = getString(getColumnIndex(TaskTable.Cols.GROUP));
 
