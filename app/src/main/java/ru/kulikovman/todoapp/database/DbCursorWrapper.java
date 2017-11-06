@@ -13,14 +13,14 @@ import ru.kulikovman.todoapp.models.Group;
 import ru.kulikovman.todoapp.models.Task;
 
 
-public class TaskListCursorWrapper extends android.database.CursorWrapper {
+public class DbCursorWrapper extends android.database.CursorWrapper {
     private List<Group> mGroups;
 
-    public TaskListCursorWrapper(Cursor cursor) {
+    public DbCursorWrapper(Cursor cursor) {
         super(cursor);
     }
 
-    public TaskListCursorWrapper(Cursor cursor, List<Group> groups) {
+    public DbCursorWrapper(Cursor cursor, List<Group> groups) {
         super(cursor);
         mGroups = groups;
     }

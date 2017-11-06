@@ -86,7 +86,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public List<Task> getAllTasks() {
         List<Task> tasks = new ArrayList<>();
 
-        try (TaskListCursorWrapper cursor = queryTasks(null, null)) {
+        try (DbCursorWrapper cursor = queryTasks(null, null)) {
             Log.d("myLog", "Всего задач в базе: " + String.valueOf(cursor.getCount()));
             cursor.moveToFirst();
 
@@ -103,7 +103,7 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     public Task getTaskByUUID(UUID id) {
-        try (TaskListCursorWrapper cursor = queryTasks(TaskTable.Cols.UUID + " = ?", new String[]{id.toString()})) {
+        try (DbCursorWrapper cursor = queryTasks(TaskTable.Cols.UUID + " = ?", new String[]{id.toString()})) {
             if (cursor.getCount() == 0) {
                 return null;
             }
@@ -133,7 +133,7 @@ public class DbHelper extends SQLiteOpenHelper {
         return values;
     }
 
-    private TaskListCursorWrapper queryTasks(String where, String[] args) {
+    private DbCursorWrapper queryTasks(String where, String[] args) {
         mDb = this.getReadableDatabase();
 
         Cursor cursor = mDb.query(TaskTable.NAME,
@@ -145,7 +145,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 null // orderBy - Сортировка
         );
 
-        return new TaskListCursorWrapper(cursor, getAllGroups());
+        return new DbCursorWrapper(cursor, getAllGroups());
     }
 
 
@@ -188,7 +188,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public List<Group> getAllGroups() {
         List<Group> groups = new ArrayList<>();
 
-        try (TaskListCursorWrapper cursor = queryGroups(null, null)) {
+        try (DbCursorWrapper cursor = queryGroups(null, null)) {
             Log.d("myLog", "Всего групп в базе: " + String.valueOf(cursor.getCount()));
             cursor.moveToFirst();
 
@@ -205,7 +205,7 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     public Group getGroupByName(String name) {
-        try (TaskListCursorWrapper cursor = queryGroups(GroupTable.Cols.NAME + " = ?", new String[]{name})) {
+        try (DbCursorWrapper cursor = queryGroups(GroupTable.Cols.NAME + " = ?", new String[]{name})) {
             if (cursor.getCount() == 0) {
                 return null;
             }
@@ -220,7 +220,7 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     public boolean isGroupExist(String name) {
-        try (TaskListCursorWrapper cursor = queryGroups(GroupTable.Cols.NAME + " = ?", new String[]{name})) {
+        try (DbCursorWrapper cursor = queryGroups(GroupTable.Cols.NAME + " = ?", new String[]{name})) {
             return cursor.getCount() > 0;
         } finally {
             if (mDb != null) {
@@ -238,7 +238,7 @@ public class DbHelper extends SQLiteOpenHelper {
         return values;
     }
 
-    private TaskListCursorWrapper queryGroups(String where, String[] args) {
+    private DbCursorWrapper queryGroups(String where, String[] args) {
         mDb = this.getReadableDatabase();
 
         Cursor cursor = mDb.query(GroupTable.NAME,
@@ -250,6 +250,6 @@ public class DbHelper extends SQLiteOpenHelper {
                 null // orderBy - Сортировка
         );
 
-        return new TaskListCursorWrapper(cursor);
+        return new DbCursorWrapper(cursor);
     }
 }
