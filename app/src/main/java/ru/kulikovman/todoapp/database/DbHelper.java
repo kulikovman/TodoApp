@@ -35,11 +35,14 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL("create table " + TaskTable.NAME + "(_id integer primary key autoincrement, " +
                 TaskTable.Cols.UUID + ", " +
                 TaskTable.Cols.TITLE + ", " +
-                TaskTable.Cols.DATE + ", " +
                 TaskTable.Cols.PRIORITY + ", " +
-                TaskTable.Cols.COLOR + ", " +
-                TaskTable.Cols.REPEAT + ", " +
-                TaskTable.Cols.DONE + ")"
+                TaskTable.Cols.DONE + ", " +
+                TaskTable.Cols.CREATE_DATE + ", " +
+                TaskTable.Cols.TARGET_DATE + ", " +
+                TaskTable.Cols.COMPLETION_DATE + ", " +
+                TaskTable.Cols.REPEAT_DATE + ", " +
+                TaskTable.Cols.REMINDER_DATE + ", " +
+                TaskTable.Cols.GROUP + ")"
         );
 
         db.execSQL("create table " + GroupTable.NAME + "(_id integer primary key autoincrement, " +
