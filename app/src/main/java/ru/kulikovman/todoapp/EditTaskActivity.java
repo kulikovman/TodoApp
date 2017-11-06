@@ -21,15 +21,17 @@ import ru.kulikovman.todoapp.dialogs.ColorFragment;
 import ru.kulikovman.todoapp.dialogs.DateFragment;
 import ru.kulikovman.todoapp.dialogs.PriorityFragment;
 import ru.kulikovman.todoapp.dialogs.RepeatFragment;
+import ru.kulikovman.todoapp.models.Group;
 import ru.kulikovman.todoapp.models.Task;
 
 public class EditTaskActivity extends AppCompatActivity {
     private DbHelper mDbHelper;
     private Task mTask;
 
-    private EditText mTitleField;
-    private TextView mDateState, mPriorityState, mColorState, mRepeatState;
-    private String mTitle, mDate, mPriority, mColor, mRepeat = "";
+    private EditText mTaskTitle;
+    private TextView mDateState, mPriorityState, mGroupState, mRepeatState, mReminderState;
+
+    //private String mTitle, mDate, mPriority, mColor, mRepeat = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,21 +43,23 @@ public class EditTaskActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Инициализируем необходимые вью элементы
-        mTitleField = (EditText) findViewById(R.id.task_title);
+        mTaskTitle = (EditText) findViewById(R.id.task_title);
         mDateState = (TextView) findViewById(R.id.date_state);
         mPriorityState = (TextView) findViewById(R.id.priority_state);
-        //mColorState = (TextView) findViewById(R.id.color_field);
+        mGroupState = (TextView) findViewById(R.id.group_state);
         mRepeatState = (TextView) findViewById(R.id.repeat_state);
+        mReminderState = (TextView) findViewById(R.id.reminder_state);
 
+        // Подключаем базу данных
         mDbHelper = new DbHelper(this);
 
         // Читаем uuid из интента
         UUID uuid = (java.util.UUID) getIntent().getSerializableExtra("task_id");
 
-        // Если uuid не пустой, то получаем соответствующую задачу и обновляем поля
+        // Если uuid не пустой, то получаем задачу и обновляем поля
         if (uuid != null) {
             mTask = mDbHelper.getTaskByUUID(uuid);
-            readTask();
+            loadTask();
         }
     }
 
@@ -84,9 +88,69 @@ public class EditTaskActivity extends AppCompatActivity {
         }
     }
 
-    public void fabSaveTask(View view) {
+    private void loadTask() {
+        // Подготовка
+        DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
+
+
+        // Устанавливаем заголовок
+        mTaskTitle.setText(mTask.getTitle());
+
+        // Устанавливаем дату
+        long targetDate = mTask.getTargetDate();
+
+        if (targetDate != 0) {
+            Date date = new Date(targetDate);
+            mDateState.setText(dateFormat.format(date));
+        }
+
+        // Устанавливаем приоритет
+        int priority = mTask.getPriority();
+
+        if (priority == 0) {
+            mPriorityState.setText(getString(R.string.priority_emergency));
+        } else if (priority == 1) {
+            mPriorityState.setText(getString(R.string.priority_high));
+        } else if (priority == 2) {
+            mPriorityState.setText(getString(R.string.priority_common));
+        } else if (priority == 3) {
+            mPriorityState.setText(getString(R.string.priority_low));
+        } else if (priority == 4) {
+            mPriorityState.setText(getString(R.string.priority_lowest));
+        }
+
+        // Устанавливаем группу
+        Group group = mTask.getGroup();
+
+        if (group != null) {
+            mGroupState.setText(group.getName());
+        } else {
+            mGroupState.setText(getString(R.string.group_not_set));
+        }
+
+        // Устанавливаем повтор
+
+
+
+
+        mRepeatState.setText(mRepeat);
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
+    public void saveTask(View view) {
         // Получаем заголовок
-        mTitle = mTitleField.getText().toString().trim();
+        mTitle = mTaskTitle.getText().toString().trim();
 
         // Если заголовок есть, то делаем все остальное
         if (!mTitle.equals("")) {
@@ -172,76 +236,5 @@ public class EditTaskActivity extends AppCompatActivity {
         }
     }
 
-    private void readTask() {
-        // Читаем инфо об открытой задаче
-        mTitle = mTask.getTitle();
-        mDate = mTask.getTargetDate();
-        mPriority = mTask.getPriority();
-        mColor = mTask.getColor();
-        mRepeat = mTask.getRepeatDate();
 
-        // Устанавливаем заголовок
-        mTitleField.setText(mTitle);
-
-        // Устанавливаем дату
-        if (!mDate.equals("Не установлена")) {
-            long dateLong = Long.parseLong(mDate);
-            Date date = new Date(dateLong);
-            DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
-            mDate = dateFormat.format(date);
-        }
-        mDateState.setText(mDate);
-
-        // Устанавливаем приоритет
-        switch (mPriority) {
-            case "0":
-                mPriority = "Чрезвычайный";
-                break;
-            case "1":
-                mPriority = "Высокий";
-                break;
-            case "2":
-                mPriority = "Обычный";
-                break;
-            case "3":
-                mPriority = "Низкий";
-                break;
-            case "4":
-                mPriority = "Самый низкий";
-                break;
-        }
-        mPriorityState.setText(mPriority);
-
-        // Устанавливаем цвет
-        switch (mColor) {
-            case "8_not_set":
-                mColor = "Не выбран";
-                break;
-            case "1_red":
-                mColor = "Красный";
-                break;
-            case "2_orange":
-                mColor = "Оранжевый";
-                break;
-            case "3_yellow":
-                mColor = "Желтый";
-                break;
-            case "4_green":
-                mColor = "Зеленый";
-                break;
-            case "5_blue":
-                mColor = "Синий";
-                break;
-            case "6_violet":
-                mColor = "Фиолетовый";
-                break;
-            case "7_pink":
-                mColor = "Розовый";
-                break;
-        }
-        mColorState.setText(mColor);
-
-        // Устанавливаем повтор
-        mRepeatState.setText(mRepeat);
-    }
 }
