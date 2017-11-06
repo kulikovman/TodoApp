@@ -41,13 +41,13 @@ public class DbCursorWrapper extends android.database.CursorWrapper {
                 createDate, targetDate, completionDate, repeatDate, reminderDate);
 
         // Назначаем группу
-        if (mGroups != null) {
+        //if (mGroups != null) {
             for (Group group : mGroups) {
                 if (group.getName().equals(groupName)) {
                     task.setGroup(group);
                 }
             }
-        }
+        //}
 
         return task;
     }
