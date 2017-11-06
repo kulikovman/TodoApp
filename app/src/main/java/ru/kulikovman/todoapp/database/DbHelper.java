@@ -121,11 +121,14 @@ public class DbHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(TaskTable.Cols.UUID, task.getId().toString());
         values.put(TaskTable.Cols.TITLE, task.getTitle());
-        values.put(TaskTable.Cols.DATE, task.getTargetDate());
         values.put(TaskTable.Cols.PRIORITY, task.getPriority());
-        values.put(TaskTable.Cols.COLOR, task.getColor());
-        values.put(TaskTable.Cols.REPEAT, task.getRepeatDate());
         values.put(TaskTable.Cols.DONE, task.isDone() ? "1" : "0");
+        values.put(TaskTable.Cols.CREATE_DATE, task.getCreateDate());
+        values.put(TaskTable.Cols.TARGET_DATE, task.getTargetDate());
+        values.put(TaskTable.Cols.COMPLETION_DATE, task.getCompletionDate());
+        values.put(TaskTable.Cols.REPEAT_DATE, task.getRepeatDate());
+        values.put(TaskTable.Cols.REMINDER_DATE, task.getReminderDate());
+        values.put(TaskTable.Cols.GROUP, task.getGroup().getName());
 
         return values;
     }
@@ -142,7 +145,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 null // orderBy - Сортировка
         );
 
-        return new TaskListCursorWrapper(cursor);
+        return new TaskListCursorWrapper(cursor, getAllGroups());
     }
 
 
