@@ -14,11 +14,11 @@ public class RepeatFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final String daily = getString(R.string.repeat_daily);
-        final String everyWeek = getString(R.string.repeat_every_week);
-        final String onceMonth = getString(R.string.repeat_once_a_month);
-        final String inYear = getString(R.string.repeat_in_a_year);
-        final String doNot = getString(R.string.repeat_do_not);
+        final String daily = getString(R.string.repeat_day);
+        final String everyWeek = getString(R.string.repeat_week);
+        final String onceMonth = getString(R.string.repeat_month);
+        final String inYear = getString(R.string.repeat_year);
+        final String doNot = getString(R.string.repeat_without);
 
         final String repeat[] = {daily, everyWeek, onceMonth, inYear, doNot};
 

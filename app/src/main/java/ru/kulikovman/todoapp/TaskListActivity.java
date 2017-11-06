@@ -373,7 +373,7 @@ public class TaskListActivity extends AppCompatActivity
     public void fabEditTask(View view) {
         // Открываем активити редактирования задачи и передаем uuid задачи
         Intent intent = new Intent(this, EditTaskActivity.class);
-        intent.putExtra("task_id", mTask.getId());
+        intent.putExtra("task_uuid", mTask.getId());
         startActivity(intent);
     }
 

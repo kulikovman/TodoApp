@@ -53,7 +53,7 @@ public class DateFragment extends DialogFragment {
                                 datePickerFragment.show(getFragmentManager(), "datePicker");
                                 break;
                             case 3:
-                                dateField.setText(R.string.date_not_set);
+                                dateField.setText(R.string.date_without);
                                 repeatField.setText(R.string.repeat_not_set);
                                 break;
                         }

@@ -31,8 +31,6 @@ public class EditTaskActivity extends AppCompatActivity {
     private EditText mTaskTitle;
     private TextView mDateState, mPriorityState, mGroupState, mRepeatState, mReminderState;
 
-    //private String mTitle, mDate, mPriority, mColor, mRepeat = "";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +52,7 @@ public class EditTaskActivity extends AppCompatActivity {
         mDbHelper = new DbHelper(this);
 
         // Читаем uuid из интента
-        UUID uuid = (java.util.UUID) getIntent().getSerializableExtra("task_id");
+        UUID uuid = (java.util.UUID) getIntent().getSerializableExtra("task_uuid");
 
         // Если uuid не пустой, то получаем задачу и обновляем поля
         if (uuid != null) {
@@ -89,19 +87,16 @@ public class EditTaskActivity extends AppCompatActivity {
     }
 
     private void loadTask() {
-        // Подготовка
-        DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
-
-
         // Устанавливаем заголовок
         mTaskTitle.setText(mTask.getTitle());
 
         // Устанавливаем дату
         long targetDate = mTask.getTargetDate();
 
-        if (targetDate != 0) {
-            Date date = new Date(targetDate);
-            mDateState.setText(dateFormat.format(date));
+        if (targetDate == 0) {
+            mDateState.setText(getString(R.string.date_without));
+        } else {
+            mDateState.setText(convertLongDateToText(targetDate));
         }
 
         // Устанавливаем приоритет
@@ -122,30 +117,42 @@ public class EditTaskActivity extends AppCompatActivity {
         // Устанавливаем группу
         Group group = mTask.getGroup();
 
-        if (group != null) {
-            mGroupState.setText(group.getName());
-        } else {
+        if (group == null) {
             mGroupState.setText(getString(R.string.group_not_set));
+        } else {
+            mGroupState.setText(group.getName());
         }
 
         // Устанавливаем повтор
+        String repeat = mTask.getRepeatDate();
 
+        if (repeat == null) {
+            mRepeatState.setText(getString(R.string.repeat_without));
+        } else if (repeat.equals("day")) {
+            mRepeatState.setText(getString(R.string.repeat_day));
+        } else if (repeat.equals("week")) {
+            mRepeatState.setText(getString(R.string.repeat_week));
+        } else if (repeat.equals("month")) {
+            mRepeatState.setText(getString(R.string.repeat_month));
+        } else if (repeat.equals("year")) {
+            mRepeatState.setText(getString(R.string.repeat_year));
+        }
 
+        // Устанавливаем напоминание
+        long reminderDate = mTask.getReminderDate();
 
+        if (reminderDate == 0) {
+            mReminderState.setText(getString(R.string.reminder_without));
+        } else {
+            mDateState.setText(convertLongDateToText(reminderDate));
+        }
+    }
 
-        mRepeatState.setText(mRepeat);
+    public String convertLongDateToText(long sourceDate) {
+        Date date = new Date(sourceDate);
+        DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
 
-
-
-
-
-
-
-
-
-
-
-
+        return dateFormat.format(date);
     }
 
     public void saveTask(View view) {
