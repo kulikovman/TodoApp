@@ -140,7 +140,7 @@ public class EditGroupActivity extends AppCompatActivity {
 
             Log.d("myLog", "Создана группа: " + group.getName() + " | " + group.getDescription() + " | " + group.getColor());
 
-            // Добавляем или обнвляем группу в базе
+            // Добавляем или обновляем группу в базе
             if (mGroup == null) {
                 // Добавляем новую группу
                 if (!mDbHelper.isGroupExist(name)) {

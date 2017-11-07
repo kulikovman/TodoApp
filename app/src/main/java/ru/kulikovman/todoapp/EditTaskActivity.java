@@ -19,6 +19,7 @@ import java.util.UUID;
 import ru.kulikovman.todoapp.database.DbHelper;
 import ru.kulikovman.todoapp.dialogs.ColorFragment;
 import ru.kulikovman.todoapp.dialogs.DateFragment;
+import ru.kulikovman.todoapp.dialogs.GroupExistMessageFragment;
 import ru.kulikovman.todoapp.dialogs.PriorityFragment;
 import ru.kulikovman.todoapp.dialogs.RepeatFragment;
 import ru.kulikovman.todoapp.models.Group;
@@ -227,35 +228,22 @@ public class EditTaskActivity extends AppCompatActivity {
                 task.setReminderDate(convertTextDateToLong(date));
             }
 
-
-
-
-
-
-
-
-
-            // Сохраняем задачу в базу
+            // Добавляем или обновляем задачу в базе
             if (mTask == null) {
-                mTask = new Task(mTitle, mDate, mPriority, mColor, mRepeat);
-
-                mDbHelper.addTask(mTask);
+                mDbHelper.addTask(task);
             } else {
-                mTask.setTitle(mTitle);
-                mTask.setTargetDate(mDate);
-                mTask.setPriority(mPriority);
-                mTask.setColor(mColor);
-                mTask.setRepeatDate(mRepeat);
-
-                mDbHelper.updateTask(mTask);
+                task.setId(mTask.getId());
+                mDbHelper.updateTask(task);
             }
 
-            // Удаляем текущий активити из стека и возвращаемся в список задач
-            Intent intent = new Intent(this, TaskListActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
+            closeActivity();
         }
     }
 
-
+    private void closeActivity() {
+        // Удаляем текущий активити из стека и возвращаемся в список групп
+        Intent intent = new Intent(this, TaskListActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
 }
