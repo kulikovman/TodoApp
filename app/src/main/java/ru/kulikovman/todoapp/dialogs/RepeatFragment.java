@@ -18,7 +18,7 @@ public class RepeatFragment extends DialogFragment {
         final String everyWeek = getString(R.string.repeat_week);
         final String onceMonth = getString(R.string.repeat_month);
         final String inYear = getString(R.string.repeat_year);
-        final String doNot = getString(R.string.repeat_without);
+        final String doNot = getString(R.string.repeat_not);
 
         final String repeat[] = {daily, everyWeek, onceMonth, inYear, doNot};
 
@@ -34,7 +34,7 @@ public class RepeatFragment extends DialogFragment {
                         String date = dateField.getText().toString();
 
                         if (date.equals("Не установлена")) {
-                            repeatField.setText(R.string.repeat_not_set);
+                            repeatField.setText(R.string.repeat_without);
                         } else {
                             switch (which) {
                                 case 0:

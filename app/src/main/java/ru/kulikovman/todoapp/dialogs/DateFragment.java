@@ -22,7 +22,7 @@ public class DateFragment extends DialogFragment {
         final String today = getString(R.string.date_today);
         final String tomorrow = getString(R.string.date_tomorrow);
         final String pickDate = getString(R.string.date_pick_date);
-        final String withoutDate = getString(R.string.date_without_date);
+        final String withoutDate = getString(R.string.date_not);
 
         final String date[] = {today, tomorrow, pickDate, withoutDate};
 
@@ -54,7 +54,7 @@ public class DateFragment extends DialogFragment {
                                 break;
                             case 3:
                                 dateField.setText(R.string.date_without);
-                                repeatField.setText(R.string.repeat_not_set);
+                                repeatField.setText(R.string.repeat_without);
                                 break;
                         }
                     }

@@ -45,6 +45,7 @@ public class DbCursorWrapper extends android.database.CursorWrapper {
             for (Group group : mGroups) {
                 if (group.getName().equals(groupName)) {
                     task.setGroup(group);
+                    break;
                 }
             }
         //}

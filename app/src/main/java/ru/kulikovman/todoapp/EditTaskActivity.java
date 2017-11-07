@@ -118,7 +118,7 @@ public class EditTaskActivity extends AppCompatActivity {
         Group group = mTask.getGroup();
 
         if (group == null) {
-            mGroupState.setText(getString(R.string.group_not_set));
+            mGroupState.setText(getString(R.string.group_without));
         } else {
             mGroupState.setText(group.getName());
         }
@@ -127,7 +127,7 @@ public class EditTaskActivity extends AppCompatActivity {
         String repeat = mTask.getRepeatDate();
 
         if (repeat == null) {
-            mRepeatState.setText(getString(R.string.repeat_without));
+            mRepeatState.setText(getString(R.string.repeat_not));
         } else if (repeat.equals("day")) {
             mRepeatState.setText(getString(R.string.repeat_day));
         } else if (repeat.equals("week")) {
@@ -155,44 +155,81 @@ public class EditTaskActivity extends AppCompatActivity {
         return dateFormat.format(date);
     }
 
-    // TODO: 07.11.2017 Осталось сделать корректное сохранение задачи в базу
+    public long convertTextDateToLong(String sourceDate) {
+        long date = 0;
+        DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
+
+        try {
+            date = dateFormat.parse(sourceDate).getTime();
+        } catch (ParseException ignored) {
+        }
+
+        return date;
+    }
+
     public void saveTask(View view) {
-        // Получаем заголовок
-        mTitle = mTaskTitle.getText().toString().trim();
+        // Получаем заголовок задачи
+        String title = mTaskTitle.getText().toString().trim();
 
         // Если заголовок есть, то делаем все остальное
-        if (!mTitle.equals("")) {
+        if (title.length() > 0) {
+            // Создаем задачу
+            Task task = new Task(title);
+
             // Получаем дату
-            mDate = mDateState.getText().toString();
-            DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
-            try {
-                mDate = String.valueOf(dateFormat.parse(mDate).getTime());
-            } catch (ParseException ignored) {
+            String date = mDateState.getText().toString().trim();
+
+            if (!date.equals(getString(R.string.date_without))) {
+                task.setTargetDate(convertTextDateToLong(date));
             }
 
             // Получаем приоритет
-            mPriority = mPriorityState.getText().toString();
-            switch (mPriority) {
-                case "Чрезвычайный":
-                    mPriority = "0";
-                    break;
-                case "Высокий":
-                    mPriority = "1";
-                    break;
-                case "Обычный":
-                    mPriority = "2";
-                    break;
-                case "Низкий":
-                    mPriority = "3";
-                    break;
-                case "Самый низкий":
-                    mPriority = "4";
-                    break;
+            String priority = mPriorityState.getText().toString().trim();
+
+            if (priority.equals(getString(R.string.priority_emergency))) {
+                task.setPriority(0);
+            } else if (priority.equals(getString(R.string.priority_high))) {
+                task.setPriority(1);
+            } else if (priority.equals(getString(R.string.priority_common))) {
+                task.setPriority(2);
+            } else if (priority.equals(getString(R.string.priority_low))) {
+                task.setPriority(3);
+            } else if (priority.equals(getString(R.string.priority_lowest))) {
+                task.setPriority(4);
             }
 
+            // Получаем группу
+            String group = mGroupState.getText().toString().trim();
+
+            if (!group.equals(getString(R.string.group_without))) {
+                task.setGroup(mDbHelper.getGroupByName(group));
+            }
 
             // Получаем повтор
-            mRepeat = mRepeatState.getText().toString();
+            String repeat = mRepeatState.getText().toString().trim();
+
+            if (!repeat.equals(getString(R.string.repeat_without))) {
+                if (!repeat.equals(getString(R.string.repeat_day))) {
+                    task.setRepeatDate("day");
+                } else if (!repeat.equals(getString(R.string.repeat_week))) {
+                    task.setRepeatDate("week");
+                } else if (!repeat.equals(getString(R.string.repeat_month))) {
+                    task.setRepeatDate("month");
+                } else if (!repeat.equals(getString(R.string.repeat_year))) {
+                    task.setRepeatDate("year");
+                }
+            }
+
+            // Получаем напоминание
+
+
+
+
+
+
+
+
+
 
             // Сохраняем задачу в базу
             if (mTask == null) {

@@ -100,7 +100,7 @@
                     android:id="@+id/color_state"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/color_not_set"
+                    android:text="@string/color_without"
                     android:textColor="@color/optionsTextColor"
                     android:textSize="14sp" />
 

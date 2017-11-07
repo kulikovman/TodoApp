@@ -83,7 +83,7 @@ public class EditGroupActivity extends AppCompatActivity {
         String color = mGroup.getColor();
 
         if (color == null) {
-            mColorState.setText(getString(R.string.color_not_set));
+            mColorState.setText(getString(R.string.color_without));
         } else if (color.equals("red")) {
             mColorState.setText(getString(R.string.color_1_red));
         } else if (color.equals("orange")) {
@@ -120,7 +120,7 @@ public class EditGroupActivity extends AppCompatActivity {
             // Если указан цвет, то добавляем его в группу
             String color = mColorState.getText().toString();
 
-            if (!color.equals(getString(R.string.color_not_set))) {
+            if (!color.equals(getString(R.string.color_without))) {
                 if (color.equals(getString(R.string.color_1_red))) {
                     group.setColor("red");
                 } else if (color.equals(getString(R.string.color_2_orange))) {

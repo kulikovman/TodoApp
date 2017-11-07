@@ -21,7 +21,7 @@ public class ColorFragment extends DialogFragment {
         final String blue = getString(R.string.color_5_blue);
         final String violet = getString(R.string.color_6_violet);
         final String pink = getString(R.string.color_7_pink);
-        final String without = getString(R.string.color_without);
+        final String without = getString(R.string.color_not);
 
         final String color[] = {red, orange, yellow, green, blue, violet, pink, without};
 
@@ -56,7 +56,7 @@ public class ColorFragment extends DialogFragment {
                                 colorField.setText(pink);
                                 break;
                             case 7:
-                                colorField.setText(R.string.color_not_set);
+                                colorField.setText(R.string.color_without);
                                 break;
                         }
                     }
