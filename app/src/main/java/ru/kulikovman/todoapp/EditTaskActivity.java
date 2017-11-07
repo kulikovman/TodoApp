@@ -220,8 +220,12 @@ public class EditTaskActivity extends AppCompatActivity {
                 }
             }
 
-            // Получаем напоминание
+            // Получаем дату напоминания
+            String reminder = mReminderState.getText().toString().trim();
 
+            if (!reminder.equals(getString(R.string.reminder_without))) {
+                task.setReminderDate(convertTextDateToLong(date));
+            }
 
 
 

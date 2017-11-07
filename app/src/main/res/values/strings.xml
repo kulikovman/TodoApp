@@ -62,6 +62,7 @@
     <string name="reminder_week_before">За неделю</string>
     <string name="reminder_month_before">За месяц</string>
     <string name="reminder_pick_date">Выбрать дату</string>
+    <string name="reminder_not">Без напоминания</string>
 
 
     <!-- Имена пунктов главного бокового меню -->
