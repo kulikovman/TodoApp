@@ -30,7 +30,7 @@ public class GroupDialog extends DialogFragment {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setTitle(R.string.group_title)
                     .setMessage(R.string.group_message)
-                    .setPositiveButton(R.string.group_button_create, new DialogInterface.OnClickListener() {
+                    .setPositiveButton(R.string.group_button_ok, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
 
@@ -75,7 +75,7 @@ public class GroupDialog extends DialogFragment {
                             }
                         }
                     })
-                    .setPositiveButton(R.string.group_button_create, new DialogInterface.OnClickListener() {
+                    .setPositiveButton(R.string.group_button_ok, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
 

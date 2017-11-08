@@ -21,7 +21,7 @@ public class DescriptionDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Это нужно для привязки к диалогу вью из макета
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View dialogDescription = inflater.inflate(R.layout.dialog_description, null);
+        View dialogDescription = inflater.inflate(R.layout.dialog_input_text, null);
 
         // Инициализируем вью элементы
         final EditText dialogInputText = (EditText) dialogDescription.findViewById(R.id.dialog_input_text);

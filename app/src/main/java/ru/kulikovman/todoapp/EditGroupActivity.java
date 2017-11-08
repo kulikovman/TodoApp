@@ -13,7 +13,7 @@ import android.widget.TextView;
 import ru.kulikovman.todoapp.database.DbHelper;
 import ru.kulikovman.todoapp.dialogs.ColorDialog;
 import ru.kulikovman.todoapp.dialogs.DescriptionDialog;
-import ru.kulikovman.todoapp.dialogs.GroupExistMessageDialog;
+import ru.kulikovman.todoapp.dialogs.GroupExistDialog;
 import ru.kulikovman.todoapp.models.Group;
 
 public class EditGroupActivity extends AppCompatActivity {
@@ -175,7 +175,7 @@ public class EditGroupActivity extends AppCompatActivity {
 
     private void showErrorMessage() {
         // TODO: 08.11.2017 Удалить фрагмент и сделать обычное сообщение в виде местного диалога
-        DialogFragment groupExistMessageFragment = new GroupExistMessageDialog();
+        DialogFragment groupExistMessageFragment = new GroupExistDialog();
         groupExistMessageFragment.show(getSupportFragmentManager(), "groupExistMessageFragment");
     }
 }

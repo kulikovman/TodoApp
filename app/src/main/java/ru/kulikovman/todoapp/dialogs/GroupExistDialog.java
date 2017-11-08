@@ -10,7 +10,7 @@ import android.support.v7.app.AlertDialog;
 
 import ru.kulikovman.todoapp.R;
 
-public class GroupExistMessageDialog extends DialogFragment {
+public class GroupExistDialog extends DialogFragment {
 
     @NonNull
     @Override

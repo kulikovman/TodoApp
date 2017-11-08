@@ -27,9 +27,14 @@
     <string name="group_title">Группа</string>
     <string name="group_without">Не выбрана</string>
     <string name="group_not">Без группы</string>
-    <string name="group_button_create">Создать</string>
+    <string name="group_button_ok">Создать</string>
     <string name="group_button_cancel">Отмена</string>
     <string name="group_message">Вы пока не создали ни одной группы</string>
+
+    <!-- Диалог - создание группы -->
+    <string name="create_group_title">Название группы</string>
+    <string name="create_group_button_ok">Создать</string>
+    <string name="create_group_button_cancel">Отмена</string>
 
     <!-- Цвет группы -->
     <string name="color_title">Цвет</string>
