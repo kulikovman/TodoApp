@@ -33,7 +33,9 @@ public class GroupDialog extends DialogFragment {
                     .setPositiveButton(R.string.group_button_ok, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-
+                            // Запускаем диалог создания группы
+                            DialogFragment createGroupDialog = new CreateGroupDialog();
+                            createGroupDialog.show(getActivity().getSupportFragmentManager(), "createGroupDialog");
                         }
                     })
                     .setNegativeButton(R.string.group_button_cancel, new DialogInterface.OnClickListener() {
