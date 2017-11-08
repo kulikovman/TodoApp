@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import ru.kulikovman.todoapp.R;
 
-public class DescriptionFragment extends DialogFragment {
+public class DescriptionDialog extends DialogFragment {
 
     @NonNull
     @Override

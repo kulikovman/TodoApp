@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import ru.kulikovman.todoapp.R;
 
-public class ColorFragment extends DialogFragment {
+public class ColorDialog extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {

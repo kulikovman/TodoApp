@@ -11,9 +11,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import ru.kulikovman.todoapp.database.DbHelper;
-import ru.kulikovman.todoapp.dialogs.ColorFragment;
-import ru.kulikovman.todoapp.dialogs.DescriptionFragment;
-import ru.kulikovman.todoapp.dialogs.GroupExistMessageFragment;
+import ru.kulikovman.todoapp.dialogs.ColorDialog;
+import ru.kulikovman.todoapp.dialogs.DescriptionDialog;
+import ru.kulikovman.todoapp.dialogs.GroupExistMessageDialog;
 import ru.kulikovman.todoapp.models.Group;
 
 public class EditGroupActivity extends AppCompatActivity {
@@ -56,11 +56,11 @@ public class EditGroupActivity extends AppCompatActivity {
         // Обработка нажатий на опции группы
         switch (view.getId()) {
             case R.id.description_layout:
-                DialogFragment descriptionFragment = new DescriptionFragment();
+                DialogFragment descriptionFragment = new DescriptionDialog();
                 descriptionFragment.show(getSupportFragmentManager(), "descriptionFragment");
                 break;
-            case R.id.color_layout:
-                DialogFragment colorFragment = new ColorFragment();
+            case R.id.group_layout:
+                DialogFragment colorFragment = new ColorDialog();
                 colorFragment.show(getSupportFragmentManager(), "colorFragment");
                 break;
         }
@@ -174,7 +174,8 @@ public class EditGroupActivity extends AppCompatActivity {
     }
 
     private void showErrorMessage() {
-        DialogFragment groupExistMessageFragment = new GroupExistMessageFragment();
+        // TODO: 08.11.2017 Удалить фрагмент и сделать обычное сообщение в виде местного диалога
+        DialogFragment groupExistMessageFragment = new GroupExistMessageDialog();
         groupExistMessageFragment.show(getSupportFragmentManager(), "groupExistMessageFragment");
     }
 }

@@ -16,7 +16,7 @@ import java.util.Locale;
 
 import ru.kulikovman.todoapp.R;
 
-public class DateFragment extends DialogFragment {
+public class DateDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final String today = getString(R.string.date_today);
@@ -49,7 +49,7 @@ public class DateFragment extends DialogFragment {
                                 dateField.setText(dateTomorrow);
                                 break;
                             case 2:
-                                DialogFragment datePickerFragment = new DatePickerFragment();
+                                DialogFragment datePickerFragment = new DatePickerDialog();
                                 datePickerFragment.show(getFragmentManager(), "datePicker");
                                 break;
                             case 3:

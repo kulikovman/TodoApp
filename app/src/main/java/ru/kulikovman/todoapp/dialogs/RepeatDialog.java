@@ -10,17 +10,17 @@ import android.widget.TextView;
 
 import ru.kulikovman.todoapp.R;
 
-public class RepeatFragment extends DialogFragment {
+public class RepeatDialog extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final String daily = getString(R.string.repeat_day);
-        final String everyWeek = getString(R.string.repeat_week);
-        final String onceMonth = getString(R.string.repeat_month);
-        final String inYear = getString(R.string.repeat_year);
-        final String doNot = getString(R.string.repeat_not);
+        final String day = getString(R.string.repeat_day);
+        final String week = getString(R.string.repeat_week);
+        final String month = getString(R.string.repeat_month);
+        final String year = getString(R.string.repeat_year);
+        final String not = getString(R.string.repeat_not);
 
-        final String repeat[] = {daily, everyWeek, onceMonth, inYear, doNot};
+        final String repeat[] = {day, week, month, year, not};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(R.string.repeat_title)
@@ -38,19 +38,19 @@ public class RepeatFragment extends DialogFragment {
                         } else {
                             switch (which) {
                                 case 0:
-                                    repeatField.setText(daily);
+                                    repeatField.setText(day);
                                     break;
                                 case 1:
-                                    repeatField.setText(everyWeek);
+                                    repeatField.setText(week);
                                     break;
                                 case 2:
-                                    repeatField.setText(onceMonth);
+                                    repeatField.setText(month);
                                     break;
                                 case 3:
-                                    repeatField.setText(inYear);
+                                    repeatField.setText(year);
                                     break;
                                 case 4:
-                                    repeatField.setText(doNot);
+                                    repeatField.setText(not);
                                     break;
                             }
                         }

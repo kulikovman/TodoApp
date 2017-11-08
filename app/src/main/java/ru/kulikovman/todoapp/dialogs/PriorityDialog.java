@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import ru.kulikovman.todoapp.R;
 
-public class PriorityFragment extends DialogFragment {
+public class PriorityDialog extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {

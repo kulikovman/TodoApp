@@ -17,11 +17,10 @@ import java.util.Locale;
 import java.util.UUID;
 
 import ru.kulikovman.todoapp.database.DbHelper;
-import ru.kulikovman.todoapp.dialogs.ColorFragment;
-import ru.kulikovman.todoapp.dialogs.DateFragment;
-import ru.kulikovman.todoapp.dialogs.GroupExistMessageFragment;
-import ru.kulikovman.todoapp.dialogs.PriorityFragment;
-import ru.kulikovman.todoapp.dialogs.RepeatFragment;
+import ru.kulikovman.todoapp.dialogs.DateDialog;
+import ru.kulikovman.todoapp.dialogs.GroupDialog;
+import ru.kulikovman.todoapp.dialogs.PriorityDialog;
+import ru.kulikovman.todoapp.dialogs.RepeatDialog;
 import ru.kulikovman.todoapp.models.Group;
 import ru.kulikovman.todoapp.models.Task;
 
@@ -66,23 +65,25 @@ public class EditTaskActivity extends AppCompatActivity {
         // Вызываем диалоги с выбором соответствующих опций
         switch (view.getId()) {
             case R.id.date_layout:
-                DialogFragment dateFragment = new DateFragment();
-                dateFragment.show(getSupportFragmentManager(), "dateFragment");
+                DialogFragment dateDialog = new DateDialog();
+                dateDialog.show(getSupportFragmentManager(), "dateDialog");
                 break;
 
             case R.id.priority_layout:
-                DialogFragment priorityFragment = new PriorityFragment();
-                priorityFragment.show(getSupportFragmentManager(), "priorityFragment");
+                DialogFragment priorityDialog = new PriorityDialog();
+                priorityDialog.show(getSupportFragmentManager(), "priorityDialog");
                 break;
 
-            case R.id.color_layout:
-                DialogFragment colorFragment = new ColorFragment();
-                colorFragment.show(getSupportFragmentManager(), "colorFragment");
+            case R.id.group_layout:
+                DialogFragment groupDialog = new GroupDialog();
+                groupDialog.show(getSupportFragmentManager(), "groupDialog");
                 break;
 
             case R.id.repeat_layout:
-                DialogFragment repeatFragment = new RepeatFragment();
-                repeatFragment.show(getSupportFragmentManager(), "repeatFragment");
+                DialogFragment repeatDialog = new RepeatDialog();
+                repeatDialog.show(getSupportFragmentManager(), "repeatDialog");
+                break;
+            case R.id.reminder_layout:
                 break;
         }
     }
