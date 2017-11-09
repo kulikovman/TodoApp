@@ -55,20 +55,20 @@ public class ReminderDialog extends DialogFragment {
                                     break;
                                 case 1:
                                     calendar.add(Calendar.DAY_OF_YEAR, -1);
-                                    reminderState.setText(Helper.convertCalendarToText(calendar));
+                                    reminderState.setText(Helper.convertCalendarToTextDate(calendar));
                                     break;
                                 case 2:
                                     calendar.add(Calendar.WEEK_OF_YEAR, -1);
-                                    reminderState.setText(Helper.convertCalendarToText(calendar));
+                                    reminderState.setText(Helper.convertCalendarToTextDate(calendar));
                                     break;
                                 case 3:
                                     calendar.add(Calendar.MONTH, -1);
-                                    reminderState.setText(Helper.convertCalendarToText(calendar));
+                                    reminderState.setText(Helper.convertCalendarToTextDate(calendar));
                                     break;
                                 case 4:
                                     // Запуск диалога выбора даты напоминания
-                                    DialogFragment datePickerFragment = new DatePickerDialog();
-                                    datePickerFragment.show(getFragmentManager(), "datePicker");
+                                    DialogFragment reminderDatePickerDialog = new ReminderDatePickerDialog();
+                                    reminderDatePickerDialog.show(getFragmentManager(), "reminderDatePickerDialog");
                                     break;
                                 case 5:
                                     reminderState.setText(R.string.reminder_not);

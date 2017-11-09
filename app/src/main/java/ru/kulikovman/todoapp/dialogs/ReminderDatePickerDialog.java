@@ -8,11 +8,8 @@ import android.support.v4.app.DialogFragment;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.Locale;
 
 import ru.kulikovman.todoapp.Helper;
 import ru.kulikovman.todoapp.R;
@@ -40,6 +37,6 @@ public class ReminderDatePickerDialog extends DialogFragment implements DatePick
 
         // Инициализируем вью и записываем в него дату
         TextView reminderState = (TextView) getActivity().findViewById(R.id.reminder_state);
-        reminderState.setText(Helper.convertCalendarToText(calendar));
+        reminderState.setText(Helper.convertCalendarToTextDate(calendar));
     }
 }

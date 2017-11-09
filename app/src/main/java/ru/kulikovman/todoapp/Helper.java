@@ -25,7 +25,7 @@ public class Helper {
         return calendar;
     }
 
-    public static String convertCalendarToText(Calendar calendar) {
+    public static String convertCalendarToTextDate(Calendar calendar) {
         return mDateFormat.format(calendar.getTime());
     }
 }
