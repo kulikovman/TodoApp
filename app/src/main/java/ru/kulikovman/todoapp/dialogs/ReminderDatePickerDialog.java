@@ -14,28 +14,32 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
+import ru.kulikovman.todoapp.Helper;
 import ru.kulikovman.todoapp.R;
 
 public class ReminderDatePickerDialog extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        // Use the current date as the default date in the picker
-        final Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
+        // Получаем дату задачи
+        TextView dateState = (TextView) getActivity().findViewById(R.id.date_state);
+        String taskDate = dateState.getText().toString();
 
-        // Create a new instance of DatePickerDialog and return it
+        final Calendar calendar = Helper.convertTextDateToCalendar(taskDate);
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        // Создаем новый DatePickerDialog и возвращаем его
         return new DatePickerDialog(getActivity(), this, year, month, day);
     }
 
     public void onDateSet(DatePicker view, int year, int month, int day) {
+        // Получаем выбранную дату
         Calendar calendar = new GregorianCalendar(view.getYear(), view.getMonth(), view.getDayOfMonth());
-        DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
-        String date = dateFormat.format(calendar.getTime());
 
-        TextView dateField = (TextView) getActivity().findViewById(R.id.date_state);
-        dateField.setText(date);
+        // Инициализируем вью и записываем в него дату
+        TextView reminderState = (TextView) getActivity().findViewById(R.id.reminder_state);
+        reminderState.setText(Helper.convertCalendarToText(calendar));
     }
 }

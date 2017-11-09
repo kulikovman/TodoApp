@@ -8,12 +8,9 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.TextView;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Locale;
 
+import ru.kulikovman.todoapp.Helper;
 import ru.kulikovman.todoapp.R;
 
 
@@ -49,12 +46,7 @@ public class ReminderDialog extends DialogFragment {
                             // ...
                         } else {
                             // Если дата есть, то преобразуем ее из текста в календарь
-                            Calendar calendar = Calendar.getInstance();
-                            DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
-                            try {
-                                calendar.setTime(dateFormat.parse(selectedDate));
-                            } catch (ParseException ignored) {
-                            }
+                            Calendar calendar = Helper.convertTextDateToCalendar(selectedDate);
 
                             // Записываем в поле выбранную дату
                             switch (which) {
@@ -63,15 +55,15 @@ public class ReminderDialog extends DialogFragment {
                                     break;
                                 case 1:
                                     calendar.add(Calendar.DAY_OF_YEAR, -1);
-                                    reminderState.setText(dateFormat.format(calendar.getTime()));
+                                    reminderState.setText(Helper.convertCalendarToText(calendar));
                                     break;
                                 case 2:
                                     calendar.add(Calendar.WEEK_OF_YEAR, -1);
-                                    reminderState.setText(dateFormat.format(calendar.getTime()));
+                                    reminderState.setText(Helper.convertCalendarToText(calendar));
                                     break;
                                 case 3:
                                     calendar.add(Calendar.MONTH, -1);
-                                    reminderState.setText(dateFormat.format(calendar.getTime()));
+                                    reminderState.setText(Helper.convertCalendarToText(calendar));
                                     break;
                                 case 4:
                                     // Запуск диалога выбора даты напоминания
