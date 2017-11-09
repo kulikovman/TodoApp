@@ -20,6 +20,7 @@ import ru.kulikovman.todoapp.database.DbHelper;
 import ru.kulikovman.todoapp.dialogs.DateDialog;
 import ru.kulikovman.todoapp.dialogs.GroupDialog;
 import ru.kulikovman.todoapp.dialogs.PriorityDialog;
+import ru.kulikovman.todoapp.dialogs.ReminderDialog;
 import ru.kulikovman.todoapp.dialogs.RepeatDialog;
 import ru.kulikovman.todoapp.models.Group;
 import ru.kulikovman.todoapp.models.Task;
@@ -68,22 +69,21 @@ public class EditTaskActivity extends AppCompatActivity {
                 DialogFragment dateDialog = new DateDialog();
                 dateDialog.show(getSupportFragmentManager(), "dateDialog");
                 break;
-
             case R.id.priority_layout:
                 DialogFragment priorityDialog = new PriorityDialog();
                 priorityDialog.show(getSupportFragmentManager(), "priorityDialog");
                 break;
-
             case R.id.group_layout:
                 DialogFragment groupDialog = new GroupDialog();
                 groupDialog.show(getSupportFragmentManager(), "groupDialog");
                 break;
-
             case R.id.repeat_layout:
                 DialogFragment repeatDialog = new RepeatDialog();
                 repeatDialog.show(getSupportFragmentManager(), "repeatDialog");
                 break;
             case R.id.reminder_layout:
+                DialogFragment reminderDialog = new ReminderDialog();
+                reminderDialog.show(getSupportFragmentManager(), "reminderDialog");
                 break;
         }
     }
