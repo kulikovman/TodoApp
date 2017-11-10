@@ -71,10 +71,7 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupHolder>
             // Получаем название цвета и закрашиваем ярлычок
             String color = group.getColor();
 
-            if (color == null) {
-                // Цвет по умолчанию
-                mGroupColor.setBackgroundResource(R.color.gray_2);
-            } else {
+            if (color != null) {
                 // Получаем id цвета из его названия
                 int colorId = mContext.getResources().getIdentifier(color, "color", mContext.getPackageName());
                 mGroupColor.setBackgroundResource(colorId);

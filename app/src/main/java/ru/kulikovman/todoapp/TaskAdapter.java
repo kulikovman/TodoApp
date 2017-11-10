@@ -1,7 +1,7 @@
 package ru.kulikovman.todoapp;
 
-
 import android.content.Context;
+import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,19 +11,15 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Locale;
 
 import ru.kulikovman.todoapp.models.Task;
 
+import static android.view.ViewGroup.*;
 import static ru.kulikovman.todoapp.Helper.convertLongToLongTextDate;
 import static ru.kulikovman.todoapp.Helper.convertLongToShortTextDate;
-
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
     private static OnItemClickListener mListener;
@@ -80,149 +76,126 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
         public void bindTask(Task task) {
             mTask = task;
 
+            // Устанавливаем состояние айтема по умолчанию
+            // TODO: 10.11.2017 Протестировать работу без предварительного обнуления полей айтема
+            //defaultStateItem();
+
             // Устанавливаем название задачи
             mTaskTitle.setText(task.getTitle());
 
             // Если задача завершена, то делаем ее светло-серой
             if (task.isDone()) {
-                mTaskTitle.setTextColor(ContextCompat.getColor(mContext, R.color.gray_4);
+                mTaskTitle.setTextColor(ContextCompat.getColor(mContext, R.color.gray_4));
             }
 
             // Устанавливаем дату
-            long date = task.getTargetDate();
+            long targetDate = task.getTargetDate();
 
-            if (date != 0) {
+            if (targetDate != 0) {
                 // Получаем год даты задачи и текущий год
-                Calendar targetDate = new GregorianCalendar();
-                targetDate.setTimeInMillis(date);
-                int targetYear = targetDate.get(Calendar.YEAR);
+                Calendar calendar = new GregorianCalendar();
+                calendar.setTimeInMillis(targetDate);
+                int targetYear = calendar.get(Calendar.YEAR);
 
-                Calendar currentDate = Calendar.getInstance();
-                int currentYear = currentDate.get(Calendar.YEAR);
+                int currentYear = Calendar.getInstance().get(Calendar.YEAR);
 
-                // Сравниваем года и устанавливаем дату в нужном формате
-                if (targetDate == currentDate) {
-                    mTaskDate.setText(convertLongToShortTextDate(date));
+                // Сравниваем года и записываем дату в нужном формате
+                if (targetYear == currentYear) {
+                    mTaskDate.setText(convertLongToShortTextDate(targetDate));
                 } else {
-                    mTaskDate.setText(convertLongToLongTextDate(date));
+                    mTaskDate.setText(convertLongToLongTextDate(targetDate));
                 }
             }
 
             // Устанавливаем приоритет
+            int priority = task.getPriority();
 
-
-
-
-
-            switch (taskPriority) {
-                case "0":
+            if (priority != 2) {
+                if (priority == 0) {
                     mTaskPriority.setText(R.string.priority_emergency);
-                    break;
-                case "1":
+                } else if (priority == 1) {
                     mTaskPriority.setText(R.string.priority_high);
-                    break;
-                case "3":
+                } else if (priority == 3) {
                     mTaskPriority.setText(R.string.priority_low);
-                    break;
-                case "4":
+                } else if (priority == 4) {
                     mTaskPriority.setText(R.string.priority_lowest);
-                    break;
+                }
             }
 
+            // Устанавливаем повтор
+            String repeat = task.getRepeatDate();
 
+            if (repeat != null) {
+                switch (repeat) {
+                    case "day":
+                        mTaskRepeat.setText(R.string.repeat_day);
+                        break;
+                    case "week":
+                        mTaskRepeat.setText(R.string.repeat_week);
+                        break;
+                    case "month":
+                        mTaskRepeat.setText(R.string.repeat_month);
+                        break;
+                    case "year":
+                        mTaskRepeat.setText(R.string.repeat_year);
+                        break;
+                }
+            }
 
+            // Получаем название цвета и закрашиваем ярлычок
+            String color = task.getGroup().getColor();
 
+            if (color != null) {
+                // Получаем id цвета из его названия
+                int colorId = mContext.getResources().getIdentifier(color, "color", mContext.getPackageName());
+                mTaskColor.setBackgroundResource(colorId);
+            }
 
+            // Оформляем иконку предупреждения
+            long reminderDate = task.getReminderDate();
+            long currentDate = Calendar.getInstance().getTimeInMillis();
 
+            if (reminderDate != 0 || currentDate > targetDate) {
+                // Делаем иконку видимой
+                mTaskWarning.setVisibility(View.VISIBLE);
 
+                // Смещаем вправо до начала заголовка задачи
+                MarginLayoutParams layoutParams = (MarginLayoutParams) mTaskWarning.getLayoutParams();
+                layoutParams.setMargins(50, 0, 7, 0);
 
+                // Если дата просрочена, то меняем иконку
+                if (currentDate > targetDate) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        mTaskWarning.setImageResource(R.drawable.ic_error_outline_24dp);
+                    } else {
+                        mTaskWarning.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_error_outline_24dp));
+                    }
+                }
+            }
+        }
 
-
-
-
-
-
-
-
-
-
-
-            // Это предыдущая версия кода
-            //
-            //
-            // Обнуляем все текстовые поля
-            //int defaultColor = mContext.getResources().getColor(R.color.gray_7);
-
+        private void defaultStateItem() {
+            // Обнуляем все поля
             mTaskTitle.setText(null);
             mTaskDate.setText(null);
             mTaskPriority.setText(null);
             mTaskRepeat.setText(null);
 
-            // Получаем значения полей
-            String taskTitle = mTask.getTitle();
-            String taskDate = mTask.getTargetDate();
-            String taskPriority = mTask.getPriority();
-            String taskRepeat = mTask.getRepeatDate();
-            String taskColor = mTask.getColor();
+            // Цвет ярлычка по умолчанию
+            mTaskColor.setBackgroundResource(R.color.gray_2);
 
+            // Прячем и сдвигаем иконку предупреждения
+            mTaskWarning.setVisibility(View.INVISIBLE);
 
+            MarginLayoutParams layoutParams = (MarginLayoutParams) mTaskWarning.getLayoutParams();
+            layoutParams.setMargins(30, 0, 7, 0);
 
-
-
-            // Устанавливаем приоритет
-            switch (taskPriority) {
-                case "0":
-                    mTaskPriority.setText(R.string.priority_emergency);
-                    break;
-                case "1":
-                    mTaskPriority.setText(R.string.priority_high);
-                    break;
-                case "3":
-                    mTaskPriority.setText(R.string.priority_low);
-                    break;
-                case "4":
-                    mTaskPriority.setText(R.string.priority_lowest);
-                    break;
+            // Устанавливаем иконку предупреждения по умолчанию
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                mTaskWarning.setImageResource(R.drawable.ic_notifications_outline_24dp);
+            } else {
+                mTaskWarning.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_notifications_outline_24dp));
             }
-
-            // Устанавливаем повтор
-            if (!taskRepeat.equals("Без повтора")) {
-                mTaskRepeat.setText(taskRepeat);
-            }
-
-            // Устанавливаем цвет
-            switch (taskColor) {
-                case "8_not_set":
-                    mTaskColor.setBackgroundResource(R.color.gray_2);
-                    break;
-                case "1_red":
-                    mTaskColor.setBackgroundResource(R.color.red);
-                    break;
-                case "2_orange":
-                    mTaskColor.setBackgroundResource(R.color.orange);
-                    break;
-                case "3_yellow":
-                    mTaskColor.setBackgroundResource(R.color.yellow);
-                    break;
-                case "4_green":
-                    mTaskColor.setBackgroundResource(R.color.green);
-                    break;
-                case "5_blue":
-                    mTaskColor.setBackgroundResource(R.color.blue);
-                    break;
-                case "6_violet":
-                    mTaskColor.setBackgroundResource(R.color.violet);
-                    break;
-                case "7_pink":
-                    mTaskColor.setBackgroundResource(R.color.pink);
-                    break;
-            }
-
-
-
-
-
-
         }
     }
 
