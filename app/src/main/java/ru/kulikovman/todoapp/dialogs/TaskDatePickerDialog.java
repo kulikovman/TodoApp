@@ -14,28 +14,29 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
+import ru.kulikovman.todoapp.Helper;
 import ru.kulikovman.todoapp.R;
 
 public class TaskDatePickerDialog extends DialogFragment implements android.app.DatePickerDialog.OnDateSetListener {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        // Use the current date as the default date in the picker
+        // Получаем сегодняшнюю дату
         final Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
 
-        // Create a new instance of TaskDatePickerDialog and return it
+        // Создаем и возвращаем новый DatePickerDialog
         return new android.app.DatePickerDialog(getActivity(), this, year, month, day);
     }
 
     public void onDateSet(DatePicker view, int year, int month, int day) {
+        // Получаем выбранную дату
         Calendar calendar = new GregorianCalendar(view.getYear(), view.getMonth(), view.getDayOfMonth());
-        DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
-        String date = dateFormat.format(calendar.getTime());
 
-        TextView dateField = (TextView) getActivity().findViewById(R.id.date_state);
-        dateField.setText(date);
+        // Инициализируем вью и записываем в него дату
+        TextView dateState = (TextView) getActivity().findViewById(R.id.date_state);
+        dateState.setText(Helper.convertCalendarToTextDate(calendar));
     }
 }
