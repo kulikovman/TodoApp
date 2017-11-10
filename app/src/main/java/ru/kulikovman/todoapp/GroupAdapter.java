@@ -13,6 +13,7 @@ import java.util.List;
 
 import ru.kulikovman.todoapp.models.Group;
 
+
 public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupHolder> {
     private static GroupAdapter.OnItemClickListener mListener;
     private Context mContext;

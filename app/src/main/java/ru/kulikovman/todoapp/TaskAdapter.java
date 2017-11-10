@@ -34,12 +34,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
         private ImageButton mTaskColor;
         private Task mTask;
 
-        private LinearLayout mItemLayout;
-
         public TaskHolder(View view) {
             super(view);
-
-            view.setClickable(true);
 
             // Слушатель нажатий по элементу
             view.setOnClickListener(this);
@@ -50,7 +46,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
             mTaskPriority = (TextView) view.findViewById(R.id.item_task_priority);
             mTaskRepeat = (TextView) view.findViewById(R.id.item_task_repeat);
             mTaskColor = (ImageButton) view.findViewById(R.id.item_group_color);
-            mItemLayout = (LinearLayout) view.findViewById(R.id.item_task_layout);
         }
 
         @Override
@@ -80,103 +75,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
         public void bindTask(Task task) {
             mTask = task;
 
-            // Обнуляем все текстовые поля
-            //int defaultColor = mContext.getResources().getColor(R.color.gray_7);
-
-            mTaskTitle.setText(null);
-            mTaskDate.setText(null);
-            mTaskPriority.setText(null);
-            mTaskRepeat.setText(null);
-
-            // Получаем значения полей
-            String taskTitle = mTask.getTitle();
-            String taskDate = mTask.getTargetDate();
-            String taskPriority = mTask.getPriority();
-            String taskRepeat = mTask.getRepeatDate();
-            String taskColor = mTask.getColor();
-
-            // Устанавливаем заголовок и его цвет
-            mTaskTitle.setText(taskTitle);
-            int titleColor;
-            if (mTask.isDone()) {
-                titleColor = ContextCompat.getColor(mContext, R.color.gray_4);
-            } else {
-                titleColor = ContextCompat.getColor(mContext, R.color.gray_7);
-            }
-            mTaskTitle.setTextColor(titleColor);
-
-            // Устанавливаем дату
-            if (!taskDate.equals("Не установлена")) {
-                long dateLong = Long.parseLong(taskDate);
-                Date date = new Date(dateLong);
-
-                Calendar targetDate = new GregorianCalendar();
-                targetDate.setTime(date);
-                int targetYear = targetDate.get(Calendar.YEAR);
-
-                Calendar currentDate = Calendar.getInstance();
-                int currentYear = currentDate.get(Calendar.YEAR);
-
-                DateFormat dateFormatShort = new SimpleDateFormat("dd MMMM", Locale.getDefault());
-                DateFormat dateFormatLong = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
-
-                if (targetYear == currentYear) {
-                    taskDate = dateFormatShort.format(date);
-                } else {
-                    taskDate = dateFormatLong.format(date);
-                }
-
-                mTaskDate.setText(taskDate);
-            }
-
-            // Устанавливаем приоритет
-            switch (taskPriority) {
-                case "0":
-                    mTaskPriority.setText(R.string.priority_emergency);
-                    break;
-                case "1":
-                    mTaskPriority.setText(R.string.priority_high);
-                    break;
-                case "3":
-                    mTaskPriority.setText(R.string.priority_low);
-                    break;
-                case "4":
-                    mTaskPriority.setText(R.string.priority_lowest);
-                    break;
-            }
-
-            // Устанавливаем повтор
-            if (!taskRepeat.equals("Без повтора")) {
-                mTaskRepeat.setText(taskRepeat);
-            }
-
-            // Устанавливаем цвет
-            switch (taskColor) {
-                case "8_not_set":
-                    mTaskColor.setBackgroundResource(R.color.gray_2);
-                    break;
-                case "1_red":
-                    mTaskColor.setBackgroundResource(R.color.red);
-                    break;
-                case "2_orange":
-                    mTaskColor.setBackgroundResource(R.color.orange);
-                    break;
-                case "3_yellow":
-                    mTaskColor.setBackgroundResource(R.color.yellow);
-                    break;
-                case "4_green":
-                    mTaskColor.setBackgroundResource(R.color.green);
-                    break;
-                case "5_blue":
-                    mTaskColor.setBackgroundResource(R.color.blue);
-                    break;
-                case "6_violet":
-                    mTaskColor.setBackgroundResource(R.color.violet);
-                    break;
-                case "7_pink":
-                    mTaskColor.setBackgroundResource(R.color.pink);
-                    break;
-            }
         }
     }
 

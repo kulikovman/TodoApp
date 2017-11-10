@@ -7,7 +7,7 @@ public class TaskComparator implements Comparator<Task> {
 
     @Override
     public int compare(Task task1, Task task2) {
-        // Первый этап сортировки - дата
+        /*// Первый этап сортировки - дата
         int result = task1.getTargetDate().compareTo(task2.getTargetDate());
         if (result != 0) {
             return result / Math.abs(result);
@@ -28,6 +28,8 @@ public class TaskComparator implements Comparator<Task> {
         // Завершающий этап сортировки - заголовок
         result = task1.getTitle().compareTo(task2.getTitle());
 
-        return result != 0 ? result / Math.abs(result) : 0;
+        return result != 0 ? result / Math.abs(result) : 0;*/
+
+        return 0;
     }
 }
