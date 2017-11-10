@@ -25,7 +25,7 @@ import ru.kulikovman.todoapp.dialogs.RepeatDialog;
 import ru.kulikovman.todoapp.models.Group;
 import ru.kulikovman.todoapp.models.Task;
 
-public class EditTaskActivity extends AppCompatActivity {
+public class TaskEditActivity extends AppCompatActivity {
     private DbHelper mDbHelper;
     private Task mTask;
 

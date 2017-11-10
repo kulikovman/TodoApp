@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".EditTaskActivity"
+            android:name=".TaskEditActivity"
             android:label="@string/title_activity_edit_task"
             android:parentActivityName=".TaskListActivity"
             android:screenOrientation="portrait"
@@ -41,7 +41,7 @@
                 android:value="ru.kulikovman.todoapp.TaskListActivity"/>
         </activity>
         <activity
-            android:name=".EditGroupActivity"
+            android:name=".GroupEditActivity"
             android:label="@string/title_activity_edit_group"
             android:parentActivityName=".TaskListActivity"
             android:theme="@style/AppTheme.NoActionBar">

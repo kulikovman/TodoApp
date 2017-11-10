@@ -70,7 +70,7 @@ public class GroupListActivity extends AppCompatActivity implements GroupAdapter
     }
 
     public void fabAddGroup(View view) {
-        Intent intent = new Intent(this, EditGroupActivity.class);
+        Intent intent = new Intent(this, GroupEditActivity.class);
         startActivity(intent);
     }
 
@@ -87,7 +87,7 @@ public class GroupListActivity extends AppCompatActivity implements GroupAdapter
 
     public void fabEditGroup(View view) {
         // Передаем с интентом имя группы
-        Intent intent = new Intent(this, EditGroupActivity.class);
+        Intent intent = new Intent(this, GroupEditActivity.class);
         intent.putExtra("group_name", mGroup.getName());
         startActivity(intent);
     }

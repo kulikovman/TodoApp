@@ -20,16 +20,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import ru.kulikovman.todoapp.database.DbHelper;
 import ru.kulikovman.todoapp.models.Task;
-import ru.kulikovman.todoapp.models.TaskComparator;
 
 public class TaskListActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, TaskAdapter.OnItemClickListener {
@@ -375,7 +369,7 @@ public class TaskListActivity extends AppCompatActivity
 
     public void fabEditTask(View view) {
         // Открываем активити редактирования задачи и передаем uuid задачи
-        Intent intent = new Intent(this, EditTaskActivity.class);
+        Intent intent = new Intent(this, TaskEditActivity.class);
         intent.putExtra("task_uuid", mTask.getId());
         startActivity(intent);
     }
@@ -390,7 +384,7 @@ public class TaskListActivity extends AppCompatActivity
 
     public void fabAddTask(View view) {
         // Просто открываем активити
-        Intent intent = new Intent(this, EditTaskActivity.class);
+        Intent intent = new Intent(this, TaskEditActivity.class);
         startActivity(intent);
     }
 

@@ -16,7 +16,7 @@ import ru.kulikovman.todoapp.dialogs.DescriptionDialog;
 import ru.kulikovman.todoapp.dialogs.GroupExistDialog;
 import ru.kulikovman.todoapp.models.Group;
 
-public class EditGroupActivity extends AppCompatActivity {
+public class GroupEditActivity extends AppCompatActivity {
     private DbHelper mDbHelper;
     private Group mGroup;
 
@@ -49,7 +49,7 @@ public class EditGroupActivity extends AppCompatActivity {
             loadGroup();
         }
 
-        Log.d("myLog", "Успешно запущен EditGroupActivity - onCreate");
+        Log.d("myLog", "Успешно запущен GroupEditActivity - onCreate");
     }
 
     public void groupOptions(View view) {
