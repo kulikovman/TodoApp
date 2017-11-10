@@ -65,13 +65,12 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupHolder>
             mGroup = group;
 
             // Устанавливаем значения полей
-            mGroupName.setText(mGroup.getName());
-            mGroupDescription.setText(mGroup.getDescription());
+            mGroupName.setText(group.getName());
+            mGroupDescription.setText(group.getDescription());
 
-            // Получаем название цвета
-            String color = mGroup.getColor();
+            // Получаем название цвета и закрашиваем ярлычок
+            String color = group.getColor();
 
-            // Устанавливаем цвет
             if (color == null) {
                 // Цвет по умолчанию
                 mGroupColor.setBackgroundResource(R.color.gray_2);

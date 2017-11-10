@@ -25,6 +25,9 @@ import ru.kulikovman.todoapp.dialogs.RepeatDialog;
 import ru.kulikovman.todoapp.models.Group;
 import ru.kulikovman.todoapp.models.Task;
 
+import static ru.kulikovman.todoapp.Helper.convertLongTextDateToLong;
+import static ru.kulikovman.todoapp.Helper.convertLongToLongTextDate;
+
 public class TaskEditActivity extends AppCompatActivity {
     private DbHelper mDbHelper;
     private Task mTask;
@@ -98,7 +101,7 @@ public class TaskEditActivity extends AppCompatActivity {
         if (targetDate == 0) {
             mDateState.setText(getString(R.string.date_without));
         } else {
-            mDateState.setText(convertLongDateToText(targetDate));
+            mDateState.setText(convertLongToLongTextDate(targetDate));
         }
 
         // Устанавливаем приоритет
@@ -146,27 +149,8 @@ public class TaskEditActivity extends AppCompatActivity {
         if (reminderDate == 0) {
             mReminderState.setText(getString(R.string.reminder_without));
         } else {
-            mDateState.setText(convertLongDateToText(reminderDate));
+            mDateState.setText(convertLongToLongTextDate(reminderDate));
         }
-    }
-
-    public String convertLongDateToText(long sourceDate) {
-        Date date = new Date(sourceDate);
-        DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
-
-        return dateFormat.format(date);
-    }
-
-    public long convertTextDateToLong(String sourceDate) {
-        long date = 0;
-        DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
-
-        try {
-            date = dateFormat.parse(sourceDate).getTime();
-        } catch (ParseException ignored) {
-        }
-
-        return date;
     }
 
     public void saveTask(View view) {
@@ -182,7 +166,7 @@ public class TaskEditActivity extends AppCompatActivity {
             String date = mDateState.getText().toString().trim();
 
             if (!date.equals(getString(R.string.date_without))) {
-                task.setTargetDate(convertTextDateToLong(date));
+                task.setTargetDate(convertLongTextDateToLong(date));
             }
 
             // Получаем приоритет
@@ -226,7 +210,7 @@ public class TaskEditActivity extends AppCompatActivity {
             String reminder = mReminderState.getText().toString().trim();
 
             if (!reminder.equals(getString(R.string.reminder_without))) {
-                task.setReminderDate(convertTextDateToLong(date));
+                task.setReminderDate(convertLongTextDateToLong(date));
             }
 
             // Добавляем или обновляем задачу в базе
