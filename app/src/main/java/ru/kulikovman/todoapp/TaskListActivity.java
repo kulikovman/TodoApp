@@ -1,10 +1,12 @@
 package ru.kulikovman.todoapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -69,15 +71,15 @@ public class TaskListActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        // Временная переадресация на список групп
+        /*// Временная переадресация на список групп
         // Сначала все отлаживаю на группах
         Intent intent = new Intent(this, GroupListActivity.class);
-        startActivity(intent);
+        startActivity(intent);*/
 
 
         /*// Инициализируем поле в хедере для показа количества задач
         View header = navigationView.getHeaderView(0);
-        mNumberOfTasks = (TextView) header.findViewById(R.id.number_of_tasks);
+        mNumberOfTasks = (TextView) header.findViewById(R.id.number_of_tasks);*/
 
         // Инициализируем необходимые вью элементы
         mDeleteButton = (FloatingActionButton) findViewById(R.id.fab_delete_task);
@@ -87,12 +89,10 @@ public class TaskListActivity extends AppCompatActivity
 
         // Создаем базу и обновляем общий список задач
         mDbHelper = new DbHelper(this);
-        mAllTasks = mDbHelper.getAllTasks();
+        //mAllTasks = mDbHelper.getAllTasks();
 
-        // Получаем SharedPreferences
+        // Получаем SharedPreferences и восстанавливаем тип списка задач
         mSharedPref = getSharedPreferences(getString(R.string.pref_key), Context.MODE_PRIVATE);
-
-        // Восстанавливаем из mSharedPref тип списка задач
         mTypeList = mSharedPref.getString(getString(R.string.type_list), getString(R.string.list_unfinished));
 
         // Устанавливаем параметры для RecyclerView
@@ -100,10 +100,13 @@ public class TaskListActivity extends AppCompatActivity
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Создаем и устанавливаем список
-        updateTaskList();
+        //updateTaskList();
+
+        mAdapter = new TaskAdapter(this, mDbHelper.getAllTasks());
+        mRecyclerView.setAdapter(mAdapter);
 
         // Слушатель для адаптера списка
-        mAdapter.setOnItemClickListener(this);*/
+        mAdapter.setOnItemClickListener(this);
     }
 
     @Override
@@ -175,7 +178,7 @@ public class TaskListActivity extends AppCompatActivity
             mTypeList = getString(R.string.list_finished);
         }
 
-        updateTaskList();
+        //updateTaskList();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -196,7 +199,7 @@ public class TaskListActivity extends AppCompatActivity
         mPosition = itemPosition;
     }
 
-    private void updateTaskList() {
+    /*private void updateTaskList() {
         // Создаем нужный тип списка задач
         mCurrentTasks = createList(mTypeList);
 
@@ -217,9 +220,9 @@ public class TaskListActivity extends AppCompatActivity
         // раньше она снимала выделение и скрывала кнопки
         // сейчас выделение элементов работает по другому
         finishAction();
-    }
+    }*/
 
-    // Создаем список задач в зависимости от выбранного типа
+    /*// Создаем список задач в зависимости от выбранного типа
     private List<Task> createList(String typeList) {
         List<Task> tasks = new ArrayList<>();
 
@@ -297,7 +300,7 @@ public class TaskListActivity extends AppCompatActivity
         }
 
         return null;
-    }
+    }*/
 
 
     private void setNumberOfTasks() {
@@ -313,7 +316,7 @@ public class TaskListActivity extends AppCompatActivity
         mNumberOfTasks.setText(numberOfTasks);
     }
 
-    public void fabDoneTask(View view) {
+    /*public void fabDoneTask(View view) {
         Task task = new Task(mTask.getTitle(),
                 mTask.getTargetDate(), mTask.getPriority(), mTask.getColor(), mTask.getRepeatDate());
 
@@ -368,7 +371,7 @@ public class TaskListActivity extends AppCompatActivity
 
         mAllTasks = mDbHelper.getAllTasks();
         finishAction();
-    }
+    }*/
 
     public void fabEditTask(View view) {
         // Открываем активити редактирования задачи и передаем uuid задачи

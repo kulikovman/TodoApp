@@ -16,7 +16,7 @@ import java.util.Locale;
 
 import ru.kulikovman.todoapp.R;
 
-public class DatePickerDialog extends DialogFragment implements android.app.DatePickerDialog.OnDateSetListener {
+public class TaskDatePickerDialog extends DialogFragment implements android.app.DatePickerDialog.OnDateSetListener {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -26,7 +26,7 @@ public class DatePickerDialog extends DialogFragment implements android.app.Date
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
 
-        // Create a new instance of DatePickerDialog and return it
+        // Create a new instance of TaskDatePickerDialog and return it
         return new android.app.DatePickerDialog(getActivity(), this, year, month, day);
     }
 

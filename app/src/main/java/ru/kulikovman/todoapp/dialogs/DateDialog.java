@@ -49,7 +49,7 @@ public class DateDialog extends DialogFragment {
                                 dateField.setText(dateTomorrow);
                                 break;
                             case 2:
-                                DialogFragment datePickerFragment = new DatePickerDialog();
+                                DialogFragment datePickerFragment = new TaskDatePickerDialog();
                                 datePickerFragment.show(getFragmentManager(), "datePicker");
                                 break;
                             case 3:
