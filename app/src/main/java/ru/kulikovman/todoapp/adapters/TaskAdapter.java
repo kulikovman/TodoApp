@@ -1,4 +1,4 @@
-package ru.kulikovman.todoapp;
+package ru.kulikovman.todoapp.adapters;
 
 import android.content.Context;
 import android.os.Build;
@@ -15,6 +15,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import ru.kulikovman.todoapp.R;
 import ru.kulikovman.todoapp.models.Task;
 
 import static android.view.ViewGroup.*;

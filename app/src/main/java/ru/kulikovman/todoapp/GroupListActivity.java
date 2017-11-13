@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 
+import ru.kulikovman.todoapp.adapters.GroupAdapter;
 import ru.kulikovman.todoapp.database.DbHelper;
 import ru.kulikovman.todoapp.models.Group;
 

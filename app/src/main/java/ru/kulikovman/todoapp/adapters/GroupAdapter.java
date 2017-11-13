@@ -1,4 +1,4 @@
-package ru.kulikovman.todoapp;
+package ru.kulikovman.todoapp.adapters;
 
 
 import android.content.Context;
@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import ru.kulikovman.todoapp.R;
 import ru.kulikovman.todoapp.models.Group;
 
 

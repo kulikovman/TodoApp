@@ -1,7 +1,9 @@
 package ru.kulikovman.todoapp.models;
 
 
-public class Group {
+import io.realm.RealmObject;
+
+public class Group extends RealmObject {
     private String mName;
     private String mDescription;
     private String mColor;

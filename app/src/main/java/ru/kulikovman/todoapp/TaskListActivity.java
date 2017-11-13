@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import ru.kulikovman.todoapp.adapters.TaskAdapter;
 import ru.kulikovman.todoapp.database.DbHelper;
 import ru.kulikovman.todoapp.models.Task;
 
@@ -65,15 +66,15 @@ public class TaskListActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        /*// Временная переадресация на список групп
+        // Временная переадресация на список групп
         // Сначала все отлаживаю на группах
         Intent intent = new Intent(this, GroupListActivity.class);
-        startActivity(intent);*/
+        startActivity(intent);
 
 
         /*// Инициализируем поле в хедере для показа количества задач
         View header = navigationView.getHeaderView(0);
-        mNumberOfTasks = (TextView) header.findViewById(R.id.number_of_tasks);*/
+        mNumberOfTasks = (TextView) header.findViewById(R.id.number_of_tasks);
 
         // Инициализируем необходимые вью элементы
         mDeleteButton = (FloatingActionButton) findViewById(R.id.fab_delete_task);
@@ -100,7 +101,7 @@ public class TaskListActivity extends AppCompatActivity
         mRecyclerView.setAdapter(mAdapter);
 
         // Слушатель для адаптера списка
-        mAdapter.setOnItemClickListener(this);
+        mAdapter.setOnItemClickListener(this);*/
     }
 
     @Override
