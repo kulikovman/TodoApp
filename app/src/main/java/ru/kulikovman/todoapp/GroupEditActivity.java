@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import io.realm.Realm;
 import ru.kulikovman.todoapp.database.DbHelper;
 import ru.kulikovman.todoapp.dialogs.ColorDialog;
 import ru.kulikovman.todoapp.dialogs.DescriptionDialog;
@@ -37,7 +38,7 @@ public class GroupEditActivity extends AppCompatActivity {
         mDescriptionState = (TextView) findViewById(R.id.description_state);
         mColorState = (TextView) findViewById(R.id.color_state);
 
-        // Подключаем базу данных
+        /*// Подключаем базу данных
         mDbHelper = new DbHelper(this);
 
         // Читаем имя группы из интента
@@ -47,7 +48,7 @@ public class GroupEditActivity extends AppCompatActivity {
         if (groupName != null) {
             mGroup = mDbHelper.getGroupByName(groupName);
             loadGroup();
-        }
+        }*/
 
         Log.d("myLog", "Успешно запущен GroupEditActivity - onCreate");
     }
@@ -141,7 +142,14 @@ public class GroupEditActivity extends AppCompatActivity {
             Log.d("myLog", "Создана группа: " + group.getName() + " | " + group.getDescription() + " | " + group.getColor());
 
             // Добавляем или обновляем группу в базе
-            if (mGroup == null) {
+            Realm realm = Realm.getDefaultInstance();
+            realm.beginTransaction();
+            realm.insert(group);
+            realm.commitTransaction();
+
+
+
+            /*if (mGroup == null) {
                 // Добавляем новую группу
                 if (!mDbHelper.isGroupExist(name)) {
                     mDbHelper.addGroup(group);
@@ -162,7 +170,7 @@ public class GroupEditActivity extends AppCompatActivity {
                         showErrorMessage();
                     }
                 }
-            }
+            }*/
         }
     }
 

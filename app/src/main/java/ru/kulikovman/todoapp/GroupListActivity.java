@@ -10,7 +10,10 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
 import ru.kulikovman.todoapp.adapters.GroupAdapter;
+import ru.kulikovman.todoapp.adapters.GroupRealmAdapter;
 import ru.kulikovman.todoapp.database.DbHelper;
 import ru.kulikovman.todoapp.models.Group;
 
@@ -18,6 +21,7 @@ public class GroupListActivity extends AppCompatActivity implements GroupAdapter
     private GroupAdapter mAdapter;
     private RecyclerView mRecyclerView;
     private DbHelper mDbHelper;
+    private Realm mRealm;
 
     private Group mGroup;
     private int mPosition;
@@ -38,7 +42,7 @@ public class GroupListActivity extends AppCompatActivity implements GroupAdapter
         mEditButton = (FloatingActionButton) findViewById(R.id.fab_edit_group);
         mDeleteButton = (FloatingActionButton) findViewById(R.id.fab_delete_group);
 
-        // Подключаем базу данных
+        /*// Подключаем базу данных
         mDbHelper = new DbHelper(this);
 
         // Устанавливаем параметры для RecyclerView
@@ -48,9 +52,22 @@ public class GroupListActivity extends AppCompatActivity implements GroupAdapter
         updateGroupList();
 
         // Слушатель для адаптера списка
-        mAdapter.setOnItemClickListener(this);
+        mAdapter.setOnItemClickListener(this);*/
+        Realm.init(this);
+        mRealm = Realm.getDefaultInstance();
+
+        mAdapter = new GroupAdapter(this, loadAllGroups());
+
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setAdapter(mAdapter);
+
 
         Log.d("myLog", "Успешно запущен onCreate в GroupListActivity");
+    }
+
+    private RealmResults<Group> loadAllGroups() {
+        return mRealm.where(Group.class).findAll();
     }
 
     @Override
@@ -59,7 +76,7 @@ public class GroupListActivity extends AppCompatActivity implements GroupAdapter
         //updateGroupList();
     }
 
-    private void updateGroupList() {
+    /*private void updateGroupList() {
         if (mAdapter == null) {
             mAdapter = new GroupAdapter(this, mDbHelper.getAllGroups());
             mRecyclerView.setAdapter(mAdapter);
@@ -68,7 +85,7 @@ public class GroupListActivity extends AppCompatActivity implements GroupAdapter
             mAdapter.setGroups(mDbHelper.getAllGroups());
             mAdapter.notifyDataSetChanged();
         }
-    }
+    }*/
 
     public void fabAddGroup(View view) {
         Intent intent = new Intent(this, GroupEditActivity.class);

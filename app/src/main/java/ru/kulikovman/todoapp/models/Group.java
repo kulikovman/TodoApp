@@ -23,6 +23,9 @@ public class Group extends RealmObject {
         mName = name;
     }
 
+    public Group() {
+    }
+
     public String getName() {
         return mName;
     }
