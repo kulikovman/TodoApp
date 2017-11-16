@@ -147,7 +147,7 @@ public class GroupEditActivity extends AppCompatActivity {
             realm.insert(group);
             realm.commitTransaction();
 
-
+            closeActivity();
 
             /*if (mGroup == null) {
                 // Добавляем новую группу

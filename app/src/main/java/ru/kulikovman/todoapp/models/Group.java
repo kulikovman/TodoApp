@@ -8,6 +8,10 @@ public class Group extends RealmObject {
     private String mDescription;
     private String mColor;
 
+    public static final String NAME = "mName";
+    public static final String DESCRIPTION = "mDescription";
+    public static final String COLOR = "mColor";
+
     public Group(String name, String description, String color) {
         mName = name;
         mDescription = description;

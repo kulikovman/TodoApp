@@ -2,7 +2,9 @@ package ru.kulikovman.todoapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -42,26 +44,19 @@ public class GroupListActivity extends AppCompatActivity implements GroupAdapter
         mEditButton = (FloatingActionButton) findViewById(R.id.fab_edit_group);
         mDeleteButton = (FloatingActionButton) findViewById(R.id.fab_delete_group);
 
-        /*// Подключаем базу данных
-        mDbHelper = new DbHelper(this);
+        // Инициализируем Realm и получаем его инстанс
+        Realm.init(this);
+        mRealm = Realm.getDefaultInstance();
 
         // Устанавливаем параметры для RecyclerView
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        // Создаем или обновляем адаптер
         updateGroupList();
 
         // Слушатель для адаптера списка
-        mAdapter.setOnItemClickListener(this);*/
-        Realm.init(this);
-        mRealm = Realm.getDefaultInstance();
-
-        mAdapter = new GroupAdapter(this, loadAllGroups());
-
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setAdapter(mAdapter);
-
+        mAdapter.setOnItemClickListener(this);
 
         Log.d("myLog", "Успешно запущен onCreate в GroupListActivity");
     }
@@ -76,16 +71,16 @@ public class GroupListActivity extends AppCompatActivity implements GroupAdapter
         //updateGroupList();
     }
 
-    /*private void updateGroupList() {
+    private void updateGroupList() {
         if (mAdapter == null) {
-            mAdapter = new GroupAdapter(this, mDbHelper.getAllGroups());
+            mAdapter = new GroupAdapter(this, loadAllGroups());
             mRecyclerView.setAdapter(mAdapter);
         } else {
             mAdapter.resetSelection();
-            mAdapter.setGroups(mDbHelper.getAllGroups());
+            mAdapter.setGroups(loadAllGroups());
             mAdapter.notifyDataSetChanged();
         }
-    }*/
+    }
 
     public void fabAddGroup(View view) {
         Intent intent = new Intent(this, GroupEditActivity.class);
@@ -93,6 +88,15 @@ public class GroupListActivity extends AppCompatActivity implements GroupAdapter
     }
 
     public void fabDeleteGroup(View view) {
+        mRealm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                RealmResults<Group> result = realm.where(Group.class).equalTo("mName",userId).findAll();
+                result.deleteAllFromRealm();
+            }
+        });
+
+
         mDbHelper.deleteGroup(mGroup);
         mAdapter.deleteItem(mPosition);
         hideFabButtons();
