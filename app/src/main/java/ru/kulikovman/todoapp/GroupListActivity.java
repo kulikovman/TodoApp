@@ -90,23 +90,15 @@ public class GroupListActivity extends AppCompatActivity implements GroupAdapter
     public void fabDeleteGroup(View view) {
         final RealmResults<Group> results = mRealm.where(Group.class).equalTo(Group.NAME, mGroup.getName()).findAll();
 
-        Log.d("log", "Количество групп: " + results.size());
-
         mRealm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
-                Log.d("log", "Перед удалением");
                 results.deleteAllFromRealm();
             }
         });
 
-
-        //mDbHelper.deleteGroup(mGroup);
-        Log.d("log", "Перед обновлением списка");
-        //mAdapter.notifyDataSetChanged();
         mAdapter.notifyItemRemoved(mPosition);
         mAdapter.resetSelection();
-        Log.d("log", "Перед сокрытием кнопок");
         hideFabButtons();
     }
 
