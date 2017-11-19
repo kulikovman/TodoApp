@@ -21,7 +21,6 @@ import ru.kulikovman.todoapp.dialogs.GroupExistDialog;
 import ru.kulikovman.todoapp.models.Group;
 
 public class GroupEditActivity extends AppCompatActivity {
-    private DbHelper mDbHelper;
     private Group mGroup;
     private Realm mRealm;
 
@@ -143,17 +142,16 @@ public class GroupEditActivity extends AppCompatActivity {
                 }
             }
 
-            // Открываем транзакцию для сохранения группы в базе
+            // Добавляем или обновляем группу в базе
             mRealm.beginTransaction();
 
-            // Проверяем существование группы и совпадения названий
             if (mGroup == null) {
                 // Добавляем новую группу
-                if (isGroupExist(name)) {
-                    showErrorMessage();
-                } else {
+                if (!isGroupExist(name)) {
                     mRealm.insert(group);
                     closeActivity();
+                } else {
+                    showErrorMessage();
                 }
             } else {
                 // Или обновляем существующую
@@ -163,11 +161,11 @@ public class GroupEditActivity extends AppCompatActivity {
                 if (mGroup.getName().equals(name)) {
                     closeActivity();
                 } else {
-                    if (isGroupExist(name)) {
-                        showErrorMessage();
-                    } else {
+                    if (!isGroupExist(name)) {
                         mGroup.setName(name);
                         closeActivity();
+                    } else {
+                        showErrorMessage();
                     }
                 }
             }
@@ -180,7 +178,7 @@ public class GroupEditActivity extends AppCompatActivity {
     }
 
     private void closeActivity() {
-        // Закрываем открытую транзакцию
+        // Совершаем открытую транзакцию
         mRealm.commitTransaction();
 
         // Удаляем текущий активити из стека и возвращаемся в список групп
@@ -190,6 +188,10 @@ public class GroupEditActivity extends AppCompatActivity {
     }
 
     private void showErrorMessage() {
+        // Отменяем открытую транзакцию
+        mRealm.cancelTransaction();
+
+        // Показываем сообщение об ошибке
         DialogFragment groupExistDialog = new GroupExistDialog();
         groupExistDialog.show(getSupportFragmentManager(), "groupExistDialog");
     }
