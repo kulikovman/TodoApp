@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
 import ru.kulikovman.todoapp.database.DbHelper;
 import ru.kulikovman.todoapp.dialogs.ColorDialog;
 import ru.kulikovman.todoapp.dialogs.DescriptionDialog;
@@ -20,6 +21,7 @@ import ru.kulikovman.todoapp.models.Group;
 public class GroupEditActivity extends AppCompatActivity {
     private DbHelper mDbHelper;
     private Group mGroup;
+    private Realm mRealm;
 
     private EditText mGroupName;
     private TextView mDescriptionState, mColorState;
@@ -38,8 +40,8 @@ public class GroupEditActivity extends AppCompatActivity {
         mDescriptionState = (TextView) findViewById(R.id.description_state);
         mColorState = (TextView) findViewById(R.id.color_state);
 
-        /*// Подключаем базу данных
-        mDbHelper = new DbHelper(this);
+        // Подключаем базу данных
+        mRealm = Realm.getDefaultInstance();
 
         // Читаем имя группы из интента
         String groupName = (String) getIntent().getSerializableExtra("group_name");
@@ -48,9 +50,9 @@ public class GroupEditActivity extends AppCompatActivity {
         if (groupName != null) {
             mGroup = mDbHelper.getGroupByName(groupName);
             loadGroup();
-        }*/
+        }
 
-        Log.d("myLog", "Успешно запущен GroupEditActivity - onCreate");
+        Log.d("myLog", "Запущен onCreate в GroupEditActivity");
     }
 
     public void groupOptions(View view) {
@@ -142,36 +144,57 @@ public class GroupEditActivity extends AppCompatActivity {
             Log.d("myLog", "Создана группа: " + group.getName() + " | " + group.getDescription() + " | " + group.getColor());
 
             // Добавляем или обновляем группу в базе
-            Realm realm = Realm.getDefaultInstance();
-            realm.beginTransaction();
-            realm.insert(group);
-            realm.commitTransaction();
-
-            closeActivity();
-
-            /*if (mGroup == null) {
+            if (mGroup == null) {
                 // Добавляем новую группу
-                if (!mDbHelper.isGroupExist(name)) {
-                    mDbHelper.addGroup(group);
+                if (!isGroupExist(name)) {
+                    mRealm.beginTransaction();
+                    mRealm.insert(group);
+                    mRealm.commitTransaction();
+
                     closeActivity();
                 } else {
                     showErrorMessage();
                 }
             } else {
                 // Обновляем существующую
+                Group realmGroup = mRealm.where(Group.class).equalTo(Group.NAME, mGroup.getName()).findFirst();
+
                 if (mGroup.getName().equals(name)) {
-                    mDbHelper.updateGroup(group);
+                    mRealm.beginTransaction();
+                    realmGroup.setDescription(group.getDescription());
+                    realmGroup.setColor(group.getColor());
+                    mRealm.commitTransaction();
+
                     closeActivity();
                 } else {
-                    if (!mDbHelper.isGroupExist(name)) {
-                        mDbHelper.updateGroupByName(mGroup.getName(), group);
+                    if (!isGroupExist(name)) {
+                        mRealm.beginTransaction();
+                        realmGroup.setName(name);
+                        realmGroup.setDescription(group.getDescription());
+                        realmGroup.setColor(group.getColor());
+                        mRealm.commitTransaction();
+
                         closeActivity();
                     } else {
                         showErrorMessage();
                     }
                 }
-            }*/
+            }
         }
+    }
+
+    private void addGroup(final Group group) {
+        mRealm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                realm.copyToRealmOrUpdate(group);
+            }
+        });
+    }
+
+    private boolean isGroupExist(String name) {
+        RealmResults<Group> groups = mRealm.where(Group.class).equalTo(Group.NAME, name).findAll();
+        return groups.size() > 0;
     }
 
     private void closeActivity() {
