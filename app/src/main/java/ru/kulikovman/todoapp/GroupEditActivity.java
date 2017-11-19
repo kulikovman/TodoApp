@@ -48,7 +48,7 @@ public class GroupEditActivity extends AppCompatActivity {
 
         // Если имя есть, то получаем группу и обновляем поля активности
         if (groupName != null) {
-            mGroup = mDbHelper.getGroupByName(groupName);
+            mGroup = mRealm.where(Group.class).equalTo(Group.NAME, groupName).findFirst();
             loadGroup();
         }
 
