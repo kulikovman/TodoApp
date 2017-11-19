@@ -157,21 +157,19 @@ public class GroupEditActivity extends AppCompatActivity {
                 }
             } else {
                 // Обновляем существующую
-                Group realmGroup = mRealm.where(Group.class).equalTo(Group.NAME, mGroup.getName()).findFirst();
-
                 if (mGroup.getName().equals(name)) {
                     mRealm.beginTransaction();
-                    realmGroup.setDescription(group.getDescription());
-                    realmGroup.setColor(group.getColor());
+                    mGroup.setDescription(group.getDescription());
+                    mGroup.setColor(group.getColor());
                     mRealm.commitTransaction();
 
                     closeActivity();
                 } else {
                     if (!isGroupExist(name)) {
                         mRealm.beginTransaction();
-                        realmGroup.setName(name);
-                        realmGroup.setDescription(group.getDescription());
-                        realmGroup.setColor(group.getColor());
+                        mGroup.setName(name);
+                        mGroup.setDescription(group.getDescription());
+                        mGroup.setColor(group.getColor());
                         mRealm.commitTransaction();
 
                         closeActivity();
