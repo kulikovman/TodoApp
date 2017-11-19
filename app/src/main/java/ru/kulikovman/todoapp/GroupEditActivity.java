@@ -1,5 +1,7 @@
 package ru.kulikovman.todoapp;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -188,8 +190,7 @@ public class GroupEditActivity extends AppCompatActivity {
     }
 
     private void showErrorMessage() {
-        // TODO: 08.11.2017 Удалить фрагмент и сделать обычное сообщение в виде местного диалога
-        DialogFragment groupExistMessageFragment = new GroupExistDialog();
-        groupExistMessageFragment.show(getSupportFragmentManager(), "groupExistMessageFragment");
+        DialogFragment groupExistDialog = new GroupExistDialog();
+        groupExistDialog.show(getSupportFragmentManager(), "groupExistDialog");
     }
 }
