@@ -1,7 +1,5 @@
 package ru.kulikovman.todoapp;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -14,7 +12,6 @@ import android.widget.TextView;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
-import ru.kulikovman.todoapp.database.DbHelper;
 import ru.kulikovman.todoapp.dialogs.ColorDialog;
 import ru.kulikovman.todoapp.dialogs.DescriptionDialog;
 import ru.kulikovman.todoapp.dialogs.GroupExistDialog;
@@ -178,7 +175,7 @@ public class GroupEditActivity extends AppCompatActivity {
     }
 
     private void closeActivity() {
-        // Совершаем открытую транзакцию
+        // Закрываем открытую транзакцию
         mRealm.commitTransaction();
 
         // Удаляем текущий активити из стека и возвращаемся в список групп
