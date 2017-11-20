@@ -6,7 +6,7 @@ import java.util.UUID;
 import io.realm.RealmObject;
 
 public class Task extends RealmObject {
-    public static final String UUID = "mId";
+    public static final String ID = "mId";
     public static final String TITLE = "mTitle";
     public static final String PRIORITY = "mPriority";
     public static final String DONE = "mDone";

@@ -107,7 +107,7 @@ public class TaskListActivity extends AppCompatActivity
     }
 
     private RealmResults<Task> loadUnfinishedTasks() {
-        return mRealm.where(Task.class).equalTo()
+        return mRealm.where(Task.class).equalTo(Task.DONE, false).findAll();
     }
 
     @Override
