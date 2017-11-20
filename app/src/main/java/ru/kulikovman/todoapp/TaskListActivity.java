@@ -22,8 +22,11 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
 import ru.kulikovman.todoapp.adapters.TaskAdapter;
 import ru.kulikovman.todoapp.database.DbHelper;
+import ru.kulikovman.todoapp.models.Group;
 import ru.kulikovman.todoapp.models.Task;
 
 public class TaskListActivity extends AppCompatActivity
@@ -34,6 +37,7 @@ public class TaskListActivity extends AppCompatActivity
     private RecyclerView mRecyclerView;
     private TaskAdapter mAdapter;
     private DbHelper mDbHelper;
+    private Realm mRealm;
 
     private Task mTask;
     private int mPosition;
@@ -51,8 +55,6 @@ public class TaskListActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_list);
 
-        Log.d("myTag", "Запущен onCreate");
-
         // Судя по всему, это код запуска бокового меню и сопутствующих элементов
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -66,15 +68,13 @@ public class TaskListActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        // Временная переадресация на список групп
-        // Сначала все отлаживаю на группах
-        Intent intent = new Intent(this, GroupListActivity.class);
-        startActivity(intent);
-
+        // Инициализируем Realm и получаем его инстанс
+        Realm.init(this);
+        mRealm = Realm.getDefaultInstance();
 
         /*// Инициализируем поле в хедере для показа количества задач
         View header = navigationView.getHeaderView(0);
-        mNumberOfTasks = (TextView) header.findViewById(R.id.number_of_tasks);
+        mNumberOfTasks = (TextView) header.findViewById(R.id.number_of_tasks);*/
 
         // Инициализируем необходимые вью элементы
         mDeleteButton = (FloatingActionButton) findViewById(R.id.fab_delete_task);
@@ -82,9 +82,9 @@ public class TaskListActivity extends AppCompatActivity
         mDoneButton = (FloatingActionButton) findViewById(R.id.fab_done_task);
         mRecyclerView = (RecyclerView) findViewById(R.id.task_list_recycler_view);
 
-        // Создаем базу и обновляем общий список задач
+        /*// Создаем базу и обновляем общий список задач
         mDbHelper = new DbHelper(this);
-        //mAllTasks = mDbHelper.getAllTasks();
+        //mAllTasks = mDbHelper.getAllTasks();*/
 
         // Получаем SharedPreferences и восстанавливаем тип списка задач
         mSharedPref = getSharedPreferences(getString(R.string.pref_key), Context.MODE_PRIVATE);
@@ -97,11 +97,17 @@ public class TaskListActivity extends AppCompatActivity
         // Создаем и устанавливаем список
         //updateTaskList();
 
-        mAdapter = new TaskAdapter(this, mDbHelper.getAllTasks());
+        mAdapter = new TaskAdapter(this, loadUnfinishedTasks());
         mRecyclerView.setAdapter(mAdapter);
 
         // Слушатель для адаптера списка
-        mAdapter.setOnItemClickListener(this);*/
+        mAdapter.setOnItemClickListener(this);
+
+        Log.d("log", "Успешно завершен onCreate в TaskListActivity");
+    }
+
+    private RealmResults<Task> loadUnfinishedTasks() {
+        return mRealm.where(Task.class).equalTo()
     }
 
     @Override

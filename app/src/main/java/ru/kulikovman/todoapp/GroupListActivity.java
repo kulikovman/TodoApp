@@ -13,13 +13,11 @@ import android.view.View;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import ru.kulikovman.todoapp.adapters.GroupAdapter;
-import ru.kulikovman.todoapp.database.DbHelper;
 import ru.kulikovman.todoapp.models.Group;
 
 public class GroupListActivity extends AppCompatActivity implements GroupAdapter.OnItemClickListener {
     private GroupAdapter mAdapter;
     private RecyclerView mRecyclerView;
-    private DbHelper mDbHelper;
     private Realm mRealm;
 
     private Group mGroup;
@@ -41,8 +39,7 @@ public class GroupListActivity extends AppCompatActivity implements GroupAdapter
         mEditButton = (FloatingActionButton) findViewById(R.id.fab_edit_group);
         mDeleteButton = (FloatingActionButton) findViewById(R.id.fab_delete_group);
 
-        // Инициализируем Realm и получаем его инстанс
-        Realm.init(this);
+        // Подключаем базу данных
         mRealm = Realm.getDefaultInstance();
 
         // Устанавливаем параметры для RecyclerView
@@ -55,7 +52,7 @@ public class GroupListActivity extends AppCompatActivity implements GroupAdapter
         // Слушатель для адаптера списка
         mAdapter.setOnItemClickListener(this);
 
-        Log.d("myLog", "Успешно запущен onCreate в GroupListActivity");
+        Log.d("log", "Успешно завершен onCreate в GroupListActivity");
     }
 
     private RealmResults<Group> loadAllGroups() {

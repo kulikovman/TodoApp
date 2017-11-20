@@ -3,18 +3,29 @@ package ru.kulikovman.todoapp.models;
 import java.util.Date;
 import java.util.UUID;
 
-public class Task {
+import io.realm.RealmObject;
+
+public class Task extends RealmObject {
+    public static final String UUID = "mId";
+    public static final String TITLE = "mTitle";
+    public static final String PRIORITY = "mPriority";
+    public static final String DONE = "mDone";
+    public static final String CREATE_DATE = "mCreateDate";
+    public static final String TARGET_DATE = "mTargetDate";
+    public static final String COMPLETION_DATE = "mCompletionDate";
+    public static final String REPEAT_DATE = "mRepeatDate";
+    public static final String REMINDER_DATE = "mReminderDate";
+    public static final String GROUP = "mGroup";
+
     private UUID mId;
     private String mTitle;
     private int mPriority;
     private boolean mDone;
-
     private long mCreateDate;
     private long mTargetDate;
     private long mCompletionDate;
     private String mRepeatDate;
     private long mReminderDate;
-
     private Group mGroup;
 
     public Task(UUID id, String title, int priority, boolean done, long createDate, long targetDate, long completionDate, String repeatDate, long reminderDate) {
