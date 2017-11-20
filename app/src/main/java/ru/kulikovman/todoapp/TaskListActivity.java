@@ -82,10 +82,6 @@ public class TaskListActivity extends AppCompatActivity
         mDoneButton = (FloatingActionButton) findViewById(R.id.fab_done_task);
         mRecyclerView = (RecyclerView) findViewById(R.id.task_list_recycler_view);
 
-        /*// Создаем базу и обновляем общий список задач
-        mDbHelper = new DbHelper(this);
-        //mAllTasks = mDbHelper.getAllTasks();*/
-
         // Получаем SharedPreferences и восстанавливаем тип списка задач
         mSharedPref = getSharedPreferences(getString(R.string.pref_key), Context.MODE_PRIVATE);
         mTypeList = mSharedPref.getString(getString(R.string.type_list), getString(R.string.list_unfinished));
@@ -96,14 +92,13 @@ public class TaskListActivity extends AppCompatActivity
 
         // Создаем и устанавливаем список
         //updateTaskList();
-
         mAdapter = new TaskAdapter(this, loadUnfinishedTasks());
         mRecyclerView.setAdapter(mAdapter);
 
         // Слушатель для адаптера списка
         mAdapter.setOnItemClickListener(this);
 
-        Log.d("log", "Успешно завершен onCreate в TaskListActivity");
+        Log.d("log", "Завершен onCreate в TaskListActivity");
     }
 
     private RealmResults<Task> loadUnfinishedTasks() {
@@ -114,7 +109,7 @@ public class TaskListActivity extends AppCompatActivity
     protected void onPause() {
         super.onPause();
 
-        Log.d("myTag", "Запущен onPause");
+        Log.d("log", "Запущен onPause");
 
         /*// Сохраняем тип текущего списка задач
         SharedPreferences.Editor editor = mSharedPref.edit();

@@ -46,6 +46,9 @@ public class Task extends RealmObject {
         mCreateDate = new Date().getTime();
     }
 
+    public Task() {
+    }
+
     public UUID getId() {
         return mId;
     }

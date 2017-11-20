@@ -52,7 +52,7 @@ public class GroupListActivity extends AppCompatActivity implements GroupAdapter
         // Слушатель для адаптера списка
         mAdapter.setOnItemClickListener(this);
 
-        Log.d("log", "Успешно завершен onCreate в GroupListActivity");
+        Log.d("log", "Завершен onCreate в GroupListActivity");
     }
 
     private RealmResults<Group> loadAllGroups() {
