@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.UUID;
 
+import io.realm.Realm;
 import ru.kulikovman.todoapp.database.DbHelper;
 import ru.kulikovman.todoapp.dialogs.DateDialog;
 import ru.kulikovman.todoapp.dialogs.GroupDialog;
@@ -29,8 +30,8 @@ import static ru.kulikovman.todoapp.Helper.convertLongTextDateToLong;
 import static ru.kulikovman.todoapp.Helper.convertLongToLongTextDate;
 
 public class TaskEditActivity extends AppCompatActivity {
-    private DbHelper mDbHelper;
     private Task mTask;
+    private Realm mRealm;
 
     private EditText mTaskTitle;
     private TextView mDateState, mPriorityState, mGroupState, mRepeatState, mReminderState;
@@ -53,14 +54,14 @@ public class TaskEditActivity extends AppCompatActivity {
         mReminderState = (TextView) findViewById(R.id.reminder_state);
 
         // Подключаем базу данных
-        mDbHelper = new DbHelper(this);
+        mRealm = Realm.getDefaultInstance();
 
         // Читаем uuid из интента
         UUID uuid = (java.util.UUID) getIntent().getSerializableExtra("task_uuid");
 
         // Если uuid не пустой, то получаем задачу и обновляем поля
         if (uuid != null) {
-            mTask = mDbHelper.getTaskByUUID(uuid);
+            mTask = mRealm.where(Task.class).equalTo(Task.ID, String.valueOf(uuid)).findFirst();
             loadTask();
         }
     }
@@ -185,10 +186,11 @@ public class TaskEditActivity extends AppCompatActivity {
             }
 
             // Получаем группу
-            String group = mGroupState.getText().toString().trim();
+            String groupName = mGroupState.getText().toString().trim();
 
-            if (!group.equals(getString(R.string.group_without))) {
-                task.setGroup(mDbHelper.getGroupByName(group));
+            if (!groupName.equals(getString(R.string.group_without))) {
+                Group group = mRealm.where(Group.class).equalTo(Group.NAME, groupName).findFirst();
+                task.setGroup(group);
             }
 
             // Получаем повтор
@@ -214,13 +216,20 @@ public class TaskEditActivity extends AppCompatActivity {
             }
 
             // Добавляем или обновляем задачу в базе
+            mRealm.beginTransaction();
+
             if (mTask == null) {
-                mDbHelper.addTask(task);
+                mRealm.insert(task);
             } else {
-                task.setId(mTask.getId());
-                mDbHelper.updateTask(task);
+                mTask.setTitle(title);
+                mTask.setTargetDate(task.getTargetDate());
+                mTask.setPriority(task.getPriority());
+                mTask.setGroup(task.getGroup());
+                mTask.setRepeatDate(task.getRepeatDate());
+                mTask.setReminderDate(task.getReminderDate());
             }
 
+            mRealm.commitTransaction();
             closeActivity();
         }
     }

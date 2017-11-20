@@ -50,7 +50,7 @@ public class GroupEditActivity extends AppCompatActivity {
             loadGroup();
         }
 
-        Log.d("myLog", "Запущен onCreate в GroupEditActivity");
+        Log.d("log", "Успешно завершен onCreate в GroupEditActivity");
     }
 
     public void groupOptions(View view) {
