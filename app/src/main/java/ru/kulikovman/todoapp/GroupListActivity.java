@@ -2,9 +2,7 @@ package ru.kulikovman.todoapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Message;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,7 +13,6 @@ import android.view.View;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import ru.kulikovman.todoapp.adapters.GroupAdapter;
-import ru.kulikovman.todoapp.adapters.GroupRealmAdapter;
 import ru.kulikovman.todoapp.database.DbHelper;
 import ru.kulikovman.todoapp.models.Group;
 
