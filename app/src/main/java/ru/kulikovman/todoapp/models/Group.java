@@ -4,13 +4,13 @@ package ru.kulikovman.todoapp.models;
 import io.realm.RealmObject;
 
 public class Group extends RealmObject {
-    private String mName;
-    private String mDescription;
-    private String mColor;
-
     public static final String NAME = "mName";
     public static final String DESCRIPTION = "mDescription";
     public static final String COLOR = "mColor";
+
+    private String mName;
+    private String mDescription;
+    private String mColor;
 
     public Group(String name, String description, String color) {
         mName = name;
