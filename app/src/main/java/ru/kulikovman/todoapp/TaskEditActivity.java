@@ -9,15 +9,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-import java.util.UUID;
-
 import io.realm.Realm;
-import ru.kulikovman.todoapp.database.DbHelper;
+
 import ru.kulikovman.todoapp.dialogs.DateDialog;
 import ru.kulikovman.todoapp.dialogs.GroupDialog;
 import ru.kulikovman.todoapp.dialogs.PriorityDialog;
@@ -57,11 +50,11 @@ public class TaskEditActivity extends AppCompatActivity {
         mRealm = Realm.getDefaultInstance();
 
         // Читаем uuid из интента
-        UUID uuid = (java.util.UUID) getIntent().getSerializableExtra("task_uuid");
+        String id = (String) getIntent().getSerializableExtra("task_id");
 
         // Если uuid не пустой, то получаем задачу и обновляем поля
-        if (uuid != null) {
-            mTask = mRealm.where(Task.class).equalTo(Task.ID, String.valueOf(uuid)).findFirst();
+        if (id != null) {
+            mTask = mRealm.where(Task.class).equalTo(Task.ID, id).findFirst();
             loadTask();
         }
     }

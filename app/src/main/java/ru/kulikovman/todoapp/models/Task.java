@@ -17,7 +17,7 @@ public class Task extends RealmObject {
     public static final String REMINDER_DATE = "mReminderDate";
     public static final String GROUP = "mGroup";
 
-    private UUID mId;
+    private String mId;
     private String mTitle;
     private int mPriority;
     private boolean mDone;
@@ -28,7 +28,7 @@ public class Task extends RealmObject {
     private long mReminderDate;
     private Group mGroup;
 
-    public Task(UUID id, String title, int priority, boolean done, long createDate, long targetDate, long completionDate, String repeatDate, long reminderDate) {
+    public Task(String id, String title, int priority, boolean done, long createDate, long targetDate, long completionDate, String repeatDate, long reminderDate) {
         mId = id;
         mTitle = title;
         mPriority = priority;
@@ -41,7 +41,7 @@ public class Task extends RealmObject {
     }
 
     public Task(String title) {
-        mId = UUID.randomUUID();
+        mId = UUID.randomUUID().toString();
         mTitle = title;
         mCreateDate = new Date().getTime();
     }
@@ -49,12 +49,12 @@ public class Task extends RealmObject {
     public Task() {
     }
 
-    public UUID getId() {
+    public String getId() {
         return mId;
     }
 
     public void setId(UUID id) {
-        mId = id;
+        mId = id.toString();
     }
 
     public String getTitle() {

@@ -9,27 +9,28 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.TextView;
 
-import java.util.List;
-
+import io.realm.Realm;
+import io.realm.RealmResults;
 import ru.kulikovman.todoapp.R;
-import ru.kulikovman.todoapp.database.DbHelper;
 import ru.kulikovman.todoapp.models.Group;
 
 public class GroupDialog extends DialogFragment {
+    private Realm mRealm;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Подключаемся к базе и получаем список групп
-        DbHelper dbHelper = new DbHelper(getContext());
-        List<Group> groups = dbHelper.getAllGroups();
+        mRealm = Realm.getDefaultInstance();
+        RealmResults<Group> groups = mRealm.where(Group.class).findAll();
+
+        Log.d("log", "Количество групп: " + groups.size());
 
         // Создаем массив строк и заполняем именами групп
 
-        if (groups == null) {
+        if (groups.size() == 0) {
             // Если список групп пуст, то показываем сообщение
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setTitle(R.string.group_title)
-                    .setMessage(R.string.group_message)
+            builder.setMessage(R.string.group_message)
                     .setPositiveButton(R.string.group_button_ok, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -37,17 +38,9 @@ public class GroupDialog extends DialogFragment {
                             DialogFragment createGroupDialog = new CreateGroupDialog();
                             createGroupDialog.show(getActivity().getSupportFragmentManager(), "createGroupDialog");
                         }
-                    })
-                    .setNegativeButton(R.string.group_button_cancel, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                        }
                     });
 
             return builder.create();
-
-
 
         } else {
             // Если есть существующие группы, то готовим список
@@ -80,13 +73,9 @@ public class GroupDialog extends DialogFragment {
                     .setPositiveButton(R.string.group_button_ok, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-
-                        }
-                    })
-                    .setNegativeButton(R.string.group_button_cancel, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
+                            // Запускаем диалог создания группы
+                            DialogFragment createGroupDialog = new CreateGroupDialog();
+                            createGroupDialog.show(getActivity().getSupportFragmentManager(), "createGroupDialog");
                         }
                     });
 

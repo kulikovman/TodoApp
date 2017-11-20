@@ -144,12 +144,14 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
             }
 
             // Получаем название цвета и закрашиваем ярлычок
-            String color = task.getGroup().getColor();
+            if (task.getGroup() != null) {
+                String color = task.getGroup().getColor();
 
-            if (color != null) {
-                // Получаем id цвета из его названия
-                int colorId = mContext.getResources().getIdentifier(color, "color", mContext.getPackageName());
-                mTaskColor.setBackgroundResource(colorId);
+                if (color != null) {
+                    // Получаем id цвета из его названия
+                    int colorId = mContext.getResources().getIdentifier(color, "color", mContext.getPackageName());
+                    mTaskColor.setBackgroundResource(colorId);
+                }
             }
 
             // Оформляем иконку предупреждения

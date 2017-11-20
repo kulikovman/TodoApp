@@ -16,8 +16,7 @@ public class GroupExistDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(R.string.dialog_exists_group_title)
-                .setMessage(R.string.dialog_exists_group_message)
+        builder.setMessage(R.string.dialog_exists_group_message)
                 .setPositiveButton(R.string.dialog_exists_group_close, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

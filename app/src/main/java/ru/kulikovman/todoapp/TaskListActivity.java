@@ -3,7 +3,6 @@ package ru.kulikovman.todoapp;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,8 +24,6 @@ import java.util.List;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import ru.kulikovman.todoapp.adapters.TaskAdapter;
-import ru.kulikovman.todoapp.database.DbHelper;
-import ru.kulikovman.todoapp.models.Group;
 import ru.kulikovman.todoapp.models.Task;
 
 public class TaskListActivity extends AppCompatActivity
@@ -36,7 +33,6 @@ public class TaskListActivity extends AppCompatActivity
 
     private RecyclerView mRecyclerView;
     private TaskAdapter mAdapter;
-    private DbHelper mDbHelper;
     private Realm mRealm;
 
     private Task mTask;
@@ -299,7 +295,7 @@ public class TaskListActivity extends AppCompatActivity
     }*/
 
 
-    private void setNumberOfTasks() {
+    /*private void setNumberOfTasks() {
         // Метод для установки количества задач в заголовке меню
         int taskCounter = 0;
         for (Task task : mAllTasks) {
@@ -310,7 +306,7 @@ public class TaskListActivity extends AppCompatActivity
 
         String numberOfTasks = "Всего задач: " + taskCounter;
         mNumberOfTasks.setText(numberOfTasks);
-    }
+    }*/
 
     /*public void fabDoneTask(View view) {
         Task task = new Task(mTask.getTitle(),
@@ -369,20 +365,20 @@ public class TaskListActivity extends AppCompatActivity
         finishAction();
     }*/
 
-    public void fabEditTask(View view) {
+    /*public void fabEditTask(View view) {
         // Открываем активити редактирования задачи и передаем uuid задачи
         Intent intent = new Intent(this, TaskEditActivity.class);
-        intent.putExtra("task_uuid", mTask.getId());
+        intent.putExtra("task_id", mTask.getId());
         startActivity(intent);
-    }
+    }*/
 
-    public void fabDeleteTask(View view) {
+    /*public void fabDeleteTask(View view) {
         mDbHelper.deleteTask(mTask);
         mAdapter.deleteItem(mPosition);
 
         mAllTasks = mDbHelper.getAllTasks();
         finishAction();
-    }
+    }*/
 
     public void fabAddTask(View view) {
         // Просто открываем активити
@@ -390,14 +386,14 @@ public class TaskListActivity extends AppCompatActivity
         startActivity(intent);
     }
 
-    private void finishAction() {
+    /*private void finishAction() {
         // Убираем выделение и скрываем кнопки действий
         if (mItemView != null) {
             mItemView.setBackgroundColor(Color.TRANSPARENT);
         }
         hideActionButton();
         setNumberOfTasks();
-    }
+    }*/
 
     private void hideActionButton() {
         mDeleteButton.setVisibility(View.INVISIBLE);
