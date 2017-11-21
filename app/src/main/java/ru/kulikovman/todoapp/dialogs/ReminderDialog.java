@@ -41,7 +41,7 @@ public class ReminderDialog extends DialogFragment {
                         String selectedDate = dateState.getText().toString();
 
                         // Записываем выбранную дату в поле
-                        if (!selectedDate.equals(getString(R.string.date_without))) {
+                        if (selectedDate.equals(getString(R.string.date_without))) {
                             // Если у задачи нет даты, то показываем сообщение
                             // ...
                         } else {

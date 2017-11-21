@@ -46,7 +46,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
             mTaskDate = (TextView) view.findViewById(R.id.item_task_date);
             mTaskPriority = (TextView) view.findViewById(R.id.item_task_priority);
             mTaskRepeat = (TextView) view.findViewById(R.id.item_task_repeat);
-            mTaskColor = (ImageButton) view.findViewById(R.id.item_group_color);
+            mTaskColor = (ImageButton) view.findViewById(R.id.item_task_color);
             mTaskWarning = (ImageView) view.findViewById(R.id.item_task_warning);
         }
 
@@ -78,8 +78,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
             mTask = task;
 
             // Устанавливаем состояние айтема по умолчанию
-            // TODO: 10.11.2017 Протестировать работу без предварительного обнуления полей айтема
-            //defaultStateItem();
+            defaultStateItem();
 
             // Устанавливаем название задачи
             mTaskTitle.setText(task.getTitle());
