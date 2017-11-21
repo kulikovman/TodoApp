@@ -27,8 +27,16 @@ public class ReminderDatePickerDialog extends DialogFragment implements DatePick
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
+        // Получаем сегодняшнюю дату
+        Calendar currentDate = Calendar.getInstance();
+        currentDate.add(Calendar.DAY_OF_YEAR, 1);
+
         // Создаем и возвращаем новый DatePickerDialog
-        return new DatePickerDialog(getActivity(), this, year, month, day);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), this, year, month, day);
+        datePickerDialog.getDatePicker().setMaxDate(calendar.getTimeInMillis());
+        datePickerDialog.getDatePicker().setMinDate(currentDate.getTimeInMillis());
+
+        return datePickerDialog;
     }
 
     public void onDateSet(DatePicker view, int year, int month, int day) {

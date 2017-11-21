@@ -38,7 +38,7 @@ public class CreateGroupDialog extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(R.string.create_group_title)
                 .setView(dialogDescription)
-                .setPositiveButton(R.string.dialog_button_create_group, new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.dialog_button_ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // Получаем введенный текст

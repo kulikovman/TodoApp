@@ -94,6 +94,6 @@
     <!-- Кнопки диалогов -->
     <string name="dialog_button_ok">OK</string>
     <string name="dialog_button_cancel">Отмена</string>
-    <string name="dialog_button_create_group">Создать группу</string>
+    <string name="dialog_button_create_group">Создать</string>
 
 </resources>
