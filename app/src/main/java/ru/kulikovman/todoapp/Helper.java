@@ -43,11 +43,17 @@ public class Helper {
         return mLongDateFormat.format(calendar.getTime());
     }
 
-    public static String convertLongToShortTextDate(long longDate) {
+    public static String convertLongToLongTextDate(long longDate) {
         return mLongDateFormat.format(new Date(longDate));
     }
 
-    public static String convertLongToLongTextDate(long longDate) {
+    public static String convertLongToShortTextDate(long longDate) {
         return mShortDateFormat.format(new Date(longDate));
     }
+
+    public static Calendar getTodayRoundCalendar() {
+        String date = convertLongToLongTextDate(Calendar.getInstance().getTimeInMillis());
+        return convertTextDateToCalendar(date);
+    }
+
 }

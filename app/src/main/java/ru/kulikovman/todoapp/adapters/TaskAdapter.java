@@ -19,8 +19,8 @@ import ru.kulikovman.todoapp.R;
 import ru.kulikovman.todoapp.models.Task;
 
 import static android.view.ViewGroup.*;
-import static ru.kulikovman.todoapp.Helper.convertLongToLongTextDate;
 import static ru.kulikovman.todoapp.Helper.convertLongToShortTextDate;
+import static ru.kulikovman.todoapp.Helper.convertLongToLongTextDate;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
     private static OnItemClickListener mListener;
@@ -101,9 +101,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
 
                 // Сравниваем года и записываем дату в нужном формате
                 if (targetYear == currentYear) {
-                    mTaskDate.setText(convertLongToShortTextDate(targetDate));
-                } else {
                     mTaskDate.setText(convertLongToLongTextDate(targetDate));
+                } else {
+                    mTaskDate.setText(convertLongToShortTextDate(targetDate));
                 }
             }
 

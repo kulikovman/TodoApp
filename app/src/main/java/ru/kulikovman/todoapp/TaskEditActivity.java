@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.Calendar;
+
 import io.realm.Realm;
 
 import ru.kulikovman.todoapp.dialogs.DateDialog;
@@ -16,12 +18,15 @@ import ru.kulikovman.todoapp.dialogs.GroupDialog;
 import ru.kulikovman.todoapp.dialogs.PriorityDialog;
 import ru.kulikovman.todoapp.dialogs.ReminderDialog;
 import ru.kulikovman.todoapp.dialogs.RepeatDialog;
+import ru.kulikovman.todoapp.messages.CanNotSetReminder;
 import ru.kulikovman.todoapp.messages.FirstSetTaskDate;
 import ru.kulikovman.todoapp.models.Group;
 import ru.kulikovman.todoapp.models.Task;
 
 import static ru.kulikovman.todoapp.Helper.convertLongTextDateToLong;
-import static ru.kulikovman.todoapp.Helper.convertLongToLongTextDate;
+import static ru.kulikovman.todoapp.Helper.convertLongToShortTextDate;
+import static ru.kulikovman.todoapp.Helper.convertTextDateToCalendar;
+import static ru.kulikovman.todoapp.Helper.getTodayRoundCalendar;
 
 public class TaskEditActivity extends AppCompatActivity {
     private Task mTask;
@@ -80,6 +85,7 @@ public class TaskEditActivity extends AppCompatActivity {
                 repeatDialog.show(getSupportFragmentManager(), "repeatDialog");
                 break;
             case R.id.reminder_layout:
+                // Получаем дату задачи
                 String date = mDateState.getText().toString().trim();
 
                 if (date.equals(getString(R.string.date_without))) {
@@ -87,11 +93,21 @@ public class TaskEditActivity extends AppCompatActivity {
                     DialogFragment firstSetTaskDate = new FirstSetTaskDate();
                     firstSetTaskDate.show(getSupportFragmentManager(), "firstSetTaskDate");
                 } else {
-                    // Показываем диалог выбора даты напоминания
-                    DialogFragment reminderDialog = new ReminderDialog();
-                    reminderDialog.show(getSupportFragmentManager(), "reminderDialog");
-                    break;
+                    // Сравниваем дату задачи и сегодняшнюю
+                    Calendar taskDate = convertTextDateToCalendar(date);
+                    Calendar todayDate = getTodayRoundCalendar();
+
+                    if (taskDate.getTimeInMillis() == todayDate.getTimeInMillis()) {
+                        // Нельзя установить напоминания для сегодняшней задачи
+                        DialogFragment canNotSetReminder = new CanNotSetReminder();
+                        canNotSetReminder.show(getSupportFragmentManager(), "canNotSetReminder");
+                    } else {
+                        // Показываем диалог выбора даты напоминания
+                        DialogFragment reminderDialog = new ReminderDialog();
+                        reminderDialog.show(getSupportFragmentManager(), "reminderDialog");
+                    }
                 }
+                break;
         }
     }
 
@@ -105,7 +121,7 @@ public class TaskEditActivity extends AppCompatActivity {
         if (targetDate == 0) {
             mDateState.setText(getString(R.string.date_without));
         } else {
-            mDateState.setText(convertLongToLongTextDate(targetDate));
+            mDateState.setText(convertLongToShortTextDate(targetDate));
         }
 
         // Устанавливаем приоритет
@@ -153,7 +169,7 @@ public class TaskEditActivity extends AppCompatActivity {
         if (reminderDate == 0) {
             mReminderState.setText(getString(R.string.reminder_without));
         } else {
-            mDateState.setText(convertLongToLongTextDate(reminderDate));
+            mDateState.setText(convertLongToShortTextDate(reminderDate));
         }
     }
 
