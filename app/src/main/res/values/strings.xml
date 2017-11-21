@@ -90,6 +90,7 @@
     <!-- Информационные сообщения -->
     <string name="message_group_is_exist">Группа с таким названием уже существует.</string>
     <string name="message_set_task_date">Сначала установите дату выполнения задачи.</string>
+    <string name="message_can_not_set_reminder">Нельзя установить напоминание для задачи назначенной на сегодня.</string>
 
     <!-- Кнопки диалогов -->
     <string name="dialog_button_ok">OK</string>
