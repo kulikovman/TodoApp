@@ -22,13 +22,16 @@ public class TaskDatePickerDialog extends DialogFragment implements android.app.
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Получаем сегодняшнюю дату
-        final Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
+        final Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
 
         // Создаем и возвращаем новый DatePickerDialog
-        return new android.app.DatePickerDialog(getActivity(), this, year, month, day);
+        DatePickerDialog datePicker = new DatePickerDialog(getActivity(), this, year, month, day);
+        datePicker.getDatePicker().setMinDate(calendar.getTimeInMillis());
+
+        return datePicker;
     }
 
     public void onDateSet(DatePicker view, int year, int month, int day) {
