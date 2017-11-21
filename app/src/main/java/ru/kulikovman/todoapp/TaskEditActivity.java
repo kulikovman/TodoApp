@@ -16,6 +16,7 @@ import ru.kulikovman.todoapp.dialogs.GroupDialog;
 import ru.kulikovman.todoapp.dialogs.PriorityDialog;
 import ru.kulikovman.todoapp.dialogs.ReminderDialog;
 import ru.kulikovman.todoapp.dialogs.RepeatDialog;
+import ru.kulikovman.todoapp.messages.FirstSetTaskDate;
 import ru.kulikovman.todoapp.models.Group;
 import ru.kulikovman.todoapp.models.Task;
 
@@ -79,9 +80,18 @@ public class TaskEditActivity extends AppCompatActivity {
                 repeatDialog.show(getSupportFragmentManager(), "repeatDialog");
                 break;
             case R.id.reminder_layout:
-                DialogFragment reminderDialog = new ReminderDialog();
-                reminderDialog.show(getSupportFragmentManager(), "reminderDialog");
-                break;
+                String date = mDateState.getText().toString().trim();
+
+                if (date.equals(getString(R.string.date_without))) {
+                    // Если у задачи нет даты, то показываем сообщение
+                    DialogFragment firstSetTaskDate = new FirstSetTaskDate();
+                    firstSetTaskDate.show(getSupportFragmentManager(), "firstSetTaskDate");
+                } else {
+                    // Показываем диалог выбора даты напоминания
+                    DialogFragment reminderDialog = new ReminderDialog();
+                    reminderDialog.show(getSupportFragmentManager(), "reminderDialog");
+                    break;
+                }
         }
     }
 

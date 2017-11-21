@@ -12,6 +12,8 @@ import java.util.Calendar;
 
 import ru.kulikovman.todoapp.Helper;
 import ru.kulikovman.todoapp.R;
+import ru.kulikovman.todoapp.messages.FirstSetTaskDate;
+import ru.kulikovman.todoapp.messages.GroupIsExist;
 
 
 public class ReminderDialog extends DialogFragment {
@@ -37,43 +39,35 @@ public class ReminderDialog extends DialogFragment {
                         TextView dateState = (TextView) getActivity().findViewById(R.id.date_state);
                         TextView reminderState = (TextView) getActivity().findViewById(R.id.reminder_state);
 
-                        // Получаем дату задачи
+                        // Получаем дату задачи и преобразуем в кадендарь
                         String selectedDate = dateState.getText().toString();
+                        Calendar calendar = Helper.convertTextDateToCalendar(selectedDate);
 
-                        // Записываем выбранную дату в поле
-                        if (selectedDate.equals(getString(R.string.date_without))) {
-                            // Если у задачи нет даты, то показываем сообщение
-                            // ...
-                        } else {
-                            // Если дата есть, то преобразуем ее из текста в календарь
-                            Calendar calendar = Helper.convertTextDateToCalendar(selectedDate);
-
-                            // Записываем в поле выбранную дату
-                            switch (which) {
-                                case 0:
-                                    reminderState.setText(selectedDate);
-                                    break;
-                                case 1:
-                                    calendar.add(Calendar.DAY_OF_YEAR, -1);
-                                    reminderState.setText(Helper.convertCalendarToTextDate(calendar));
-                                    break;
-                                case 2:
-                                    calendar.add(Calendar.WEEK_OF_YEAR, -1);
-                                    reminderState.setText(Helper.convertCalendarToTextDate(calendar));
-                                    break;
-                                case 3:
-                                    calendar.add(Calendar.MONTH, -1);
-                                    reminderState.setText(Helper.convertCalendarToTextDate(calendar));
-                                    break;
-                                case 4:
-                                    // Запуск диалога выбора даты напоминания
-                                    DialogFragment reminderDatePickerDialog = new ReminderDatePickerDialog();
-                                    reminderDatePickerDialog.show(getFragmentManager(), "reminderDatePickerDialog");
-                                    break;
-                                case 5:
-                                    reminderState.setText(R.string.reminder_not);
-                                    break;
-                            }
+                        // Записываем в поле выбранную дату
+                        switch (which) {
+                            case 0:
+                                reminderState.setText(selectedDate);
+                                break;
+                            case 1:
+                                calendar.add(Calendar.DAY_OF_YEAR, -1);
+                                reminderState.setText(Helper.convertCalendarToTextDate(calendar));
+                                break;
+                            case 2:
+                                calendar.add(Calendar.WEEK_OF_YEAR, -1);
+                                reminderState.setText(Helper.convertCalendarToTextDate(calendar));
+                                break;
+                            case 3:
+                                calendar.add(Calendar.MONTH, -1);
+                                reminderState.setText(Helper.convertCalendarToTextDate(calendar));
+                                break;
+                            case 4:
+                                // Запуск диалога выбора даты напоминания
+                                DialogFragment reminderDatePickerDialog = new ReminderDatePickerDialog();
+                                reminderDatePickerDialog.show(getFragmentManager(), "reminderDatePickerDialog");
+                                break;
+                            case 5:
+                                reminderState.setText(R.string.reminder_not);
+                                break;
                         }
                     }
                 });

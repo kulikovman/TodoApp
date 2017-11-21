@@ -14,7 +14,7 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 import ru.kulikovman.todoapp.dialogs.ColorDialog;
 import ru.kulikovman.todoapp.dialogs.DescriptionDialog;
-import ru.kulikovman.todoapp.dialogs.GroupExistDialog;
+import ru.kulikovman.todoapp.messages.GroupIsExist;
 import ru.kulikovman.todoapp.models.Group;
 
 public class GroupEditActivity extends AppCompatActivity {
@@ -189,7 +189,7 @@ public class GroupEditActivity extends AppCompatActivity {
         mRealm.cancelTransaction();
 
         // Показываем сообщение об ошибке
-        DialogFragment groupExistDialog = new GroupExistDialog();
+        DialogFragment groupExistDialog = new GroupIsExist();
         groupExistDialog.show(getSupportFragmentManager(), "groupExistDialog");
     }
 }

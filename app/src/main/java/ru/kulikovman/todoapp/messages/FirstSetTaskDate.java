@@ -1,5 +1,4 @@
-package ru.kulikovman.todoapp.dialogs;
-
+package ru.kulikovman.todoapp.messages;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -10,14 +9,14 @@ import android.support.v7.app.AlertDialog;
 
 import ru.kulikovman.todoapp.R;
 
-public class GroupExistDialog extends DialogFragment {
 
+public class FirstSetTaskDate extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage(R.string.dialog_exists_group_message)
-                .setPositiveButton(R.string.dialog_exists_group_close, new DialogInterface.OnClickListener() {
+        builder.setMessage(R.string.message_set_task_date)
+                .setPositiveButton(R.string.dialog_button_ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // Ничего не делаем при нажатии

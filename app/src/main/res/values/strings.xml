@@ -33,8 +33,6 @@
 
     <!-- Диалог - создание группы -->
     <string name="create_group_title">Название группы</string>
-    <string name="create_group_button_ok">Создать</string>
-    <string name="create_group_button_cancel">Отмена</string>
 
     <!-- Цвет группы -->
     <string name="color_title">Цвет</string>
@@ -73,7 +71,6 @@
     <string name="reminder_pick_date">Выбрать дату</string>
     <string name="reminder_not">Без напоминания</string>
 
-
     <!-- Имена пунктов главного бокового меню -->
     <string name="menu_unsorted_tasks">Не отсортированные</string>
     <string name="menu_today_tasks">Сегодня</string>
@@ -83,14 +80,6 @@
     <string name="menu_finished_tasks">Завершенные</string>
     <string name="menu_edit_groups">Редактировать группы</string>
 
-
-    <!-- Диалог - группа существует -->
-    <string name="dialog_exists_group_title">Ошибка</string>
-    <string name="dialog_exists_group_message">Группа с таким названием уже существует.</string>
-    <string name="dialog_exists_group_close">Закрыть</string>
-
-
-
     <!-- Другие разные строки -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -98,6 +87,13 @@
     <string name="group_name_hint">Название группы…</string>
     <string name="group_description_hint">Описание группы…</string>
 
+    <!-- Информационные сообщения -->
+    <string name="message_group_is_exist">Группа с таким названием уже существует.</string>
+    <string name="message_set_task_date">Сначала установите дату выполнения задачи.</string>
 
+    <!-- Кнопки диалогов -->
+    <string name="dialog_button_ok">OK</string>
+    <string name="dialog_button_cancel">Отмена</string>
+    <string name="dialog_button_create_group">Создать группу</string>
 
 </resources>

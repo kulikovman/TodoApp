@@ -14,6 +14,7 @@ import android.widget.EditText;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import ru.kulikovman.todoapp.R;
+import ru.kulikovman.todoapp.messages.GroupIsExist;
 import ru.kulikovman.todoapp.models.Group;
 
 
@@ -37,7 +38,7 @@ public class CreateGroupDialog extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(R.string.create_group_title)
                 .setView(dialogDescription)
-                .setPositiveButton(R.string.create_group_button_ok, new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.dialog_button_create_group, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // Получаем введенный текст
@@ -60,8 +61,8 @@ public class CreateGroupDialog extends DialogFragment {
                             } else {
                                 Log.d("log", "Группа существует");
                                 // Показываем сообщение об ошибке
-                                DialogFragment groupExistDialog = new GroupExistDialog();
-                                groupExistDialog.show(getActivity().getSupportFragmentManager(), "groupExistDialog");
+                                DialogFragment groupIsExist = new GroupIsExist();
+                                groupIsExist.show(getActivity().getSupportFragmentManager(), "groupIsExist");
                             }
 
                         } else {
