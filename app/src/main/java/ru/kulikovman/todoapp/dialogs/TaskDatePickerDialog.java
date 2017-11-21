@@ -8,11 +8,8 @@ import android.support.v4.app.DialogFragment;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.Locale;
 
 import ru.kulikovman.todoapp.Helper;
 import ru.kulikovman.todoapp.R;
@@ -40,6 +37,6 @@ public class TaskDatePickerDialog extends DialogFragment implements android.app.
 
         // Инициализируем вью и записываем в него дату
         TextView dateState = (TextView) getActivity().findViewById(R.id.date_state);
-        dateState.setText(Helper.convertCalendarToTextDate(calendar));
+        dateState.setText(Helper.convertCalendarToLongTextDate(calendar));
     }
 }

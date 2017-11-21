@@ -45,6 +45,6 @@ public class ReminderDatePickerDialog extends DialogFragment implements DatePick
 
         // Инициализируем вью и записываем в него дату
         TextView reminderState = (TextView) getActivity().findViewById(R.id.reminder_state);
-        reminderState.setText(Helper.convertCalendarToTextDate(calendar));
+        reminderState.setText(Helper.convertCalendarToLongTextDate(calendar));
     }
 }

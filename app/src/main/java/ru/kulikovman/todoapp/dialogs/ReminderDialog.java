@@ -12,8 +12,6 @@ import java.util.Calendar;
 
 import ru.kulikovman.todoapp.Helper;
 import ru.kulikovman.todoapp.R;
-import ru.kulikovman.todoapp.messages.FirstSetTaskDate;
-import ru.kulikovman.todoapp.messages.GroupIsExist;
 
 
 public class ReminderDialog extends DialogFragment {
@@ -50,15 +48,15 @@ public class ReminderDialog extends DialogFragment {
                                 break;
                             case 1:
                                 calendar.add(Calendar.DAY_OF_YEAR, -1);
-                                reminderState.setText(Helper.convertCalendarToTextDate(calendar));
+                                reminderState.setText(Helper.convertCalendarToLongTextDate(calendar));
                                 break;
                             case 2:
                                 calendar.add(Calendar.WEEK_OF_YEAR, -1);
-                                reminderState.setText(Helper.convertCalendarToTextDate(calendar));
+                                reminderState.setText(Helper.convertCalendarToLongTextDate(calendar));
                                 break;
                             case 3:
                                 calendar.add(Calendar.MONTH, -1);
-                                reminderState.setText(Helper.convertCalendarToTextDate(calendar));
+                                reminderState.setText(Helper.convertCalendarToLongTextDate(calendar));
                                 break;
                             case 4:
                                 // Запуск диалога выбора даты напоминания

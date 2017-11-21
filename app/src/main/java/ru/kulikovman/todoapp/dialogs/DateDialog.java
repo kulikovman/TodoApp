@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import ru.kulikovman.todoapp.Helper;
 import ru.kulikovman.todoapp.R;
 
 public class DateDialog extends DialogFragment {
@@ -32,29 +33,33 @@ public class DateDialog extends DialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         Log.d("myLog", String.valueOf(which));
 
-                        TextView dateField = (TextView) getActivity().findViewById(R.id.date_state);
-                        TextView repeatField = (TextView) getActivity().findViewById(R.id.repeat_state);
+                        // Инициализируем необходимые вью
+                        TextView dateState = (TextView) getActivity().findViewById(R.id.date_state);
+                        TextView repeatState = (TextView) getActivity().findViewById(R.id.repeat_state);
+                        TextView reminderState = (TextView) getActivity().findViewById(R.id.reminder_state);
 
-                        Calendar c = Calendar.getInstance();
-                        DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
+                        // Получаем округленный календарь с текущей датой
+                        Calendar calendar = Helper.getTodayRoundCalendar();
 
                         switch (which) {
-                            case 0:
-                                String dateToday = dateFormat.format(c.getTime());
-                                dateField.setText(dateToday);
+                            case 0: // На сегодня
+                                dateState.setText(Helper.convertCalendarToLongTextDate(calendar));
+                                reminderState.setText(R.string.reminder_without);
                                 break;
-                            case 1:
-                                c.add(Calendar.DATE, 1);
-                                String dateTomorrow = dateFormat.format(c.getTime());
-                                dateField.setText(dateTomorrow);
+                            case 1: // На завтра
+                                calendar.add(Calendar.DATE, 1);
+                                dateState.setText(Helper.convertCalendarToLongTextDate(calendar));
+                                reminderState.setText(R.string.reminder_without);
                                 break;
-                            case 2:
+                            case 2: // Выбрать дату
                                 DialogFragment datePickerFragment = new TaskDatePickerDialog();
                                 datePickerFragment.show(getFragmentManager(), "datePicker");
+                                reminderState.setText(R.string.reminder_without);
                                 break;
-                            case 3:
-                                dateField.setText(R.string.date_without);
-                                repeatField.setText(R.string.repeat_without);
+                            case 3: // Без даты
+                                dateState.setText(R.string.date_without);
+                                repeatState.setText(R.string.repeat_without);
+                                reminderState.setText(R.string.reminder_without);
                                 break;
                         }
                     }

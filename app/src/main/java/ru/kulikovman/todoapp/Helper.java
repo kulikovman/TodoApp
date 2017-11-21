@@ -39,7 +39,7 @@ public class Helper {
         return date;
     }
 
-    public static String convertCalendarToTextDate(Calendar calendar) {
+    public static String convertCalendarToLongTextDate(Calendar calendar) {
         return mLongDateFormat.format(calendar.getTime());
     }
 
