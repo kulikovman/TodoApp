@@ -28,6 +28,13 @@ public class Helper {
         return calendar;
     }
 
+    public static Calendar convertLongToCalendar(long date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(date);
+
+        return calendar;
+    }
+
     public static long convertLongTextDateToLong(String longTextDate) {
         long date = 0;
         try {

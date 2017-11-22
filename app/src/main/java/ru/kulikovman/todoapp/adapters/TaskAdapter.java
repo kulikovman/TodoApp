@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import ru.kulikovman.todoapp.Helper;
 import ru.kulikovman.todoapp.R;
 import ru.kulikovman.todoapp.models.Task;
 
@@ -153,11 +155,16 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
                 }
             }
 
-            // Оформляем иконку предупреждения
-            /*long reminderDate = task.getReminderDate();
-            long currentDate = Calendar.getInstance().getTimeInMillis();
+            // Показываем иконку предупреждения
+            Calendar taskDate = Helper.convertLongToCalendar(task.getTargetDate());
+            Calendar todayDate = Helper.getTodayRoundCalendar();
 
-            if (reminderDate != 0 || currentDate > targetDate) {
+            int daysBeforeTaskDate = (int) ((taskDate.getTimeInMillis() - todayDate.getTimeInMillis()) / 1000 / 60 / 60 / 24);
+            Log.d("log", "Разница в днях: " + daysBeforeTaskDate);
+
+            String reminder = task.getReminderDate();
+
+            if (reminder != null || daysBeforeTaskDate < 0) {
                 // Делаем иконку видимой
                 mTaskWarning.setVisibility(View.VISIBLE);
 
@@ -166,14 +173,14 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
                 layoutParams.setMargins(50, 0, 7, 0);
 
                 // Если дата просрочена, то меняем иконку
-                if (currentDate > targetDate) {
+                if (daysBeforeTaskDate < 0) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         mTaskWarning.setImageResource(R.drawable.ic_error_outline_24dp);
                     } else {
                         mTaskWarning.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_error_outline_24dp));
                     }
                 }
-            }*/
+            }
         }
 
         private void defaultStateItem() {
