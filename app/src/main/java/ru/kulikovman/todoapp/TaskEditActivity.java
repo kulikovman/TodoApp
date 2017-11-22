@@ -1,12 +1,17 @@
 package ru.kulikovman.todoapp;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.Calendar;
@@ -35,7 +40,9 @@ public class TaskEditActivity extends AppCompatActivity {
 
     private EditText mTaskTitle;
     private TextView mDateState, mPriorityState, mGroupState, mRepeatState, mReminderState;
+    //private LinearLayout mContainerLayout;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,11 +59,10 @@ public class TaskEditActivity extends AppCompatActivity {
         mGroupState = (TextView) findViewById(R.id.group_state);
         mRepeatState = (TextView) findViewById(R.id.repeat_state);
         mReminderState = (TextView) findViewById(R.id.reminder_state);
+        //mContainerLayout = (LinearLayout) findViewById(R.id.container_layout);
 
-        // Подключаем базу данных
+        // Подключаем базу данных и читаем id из интента
         mRealm = Realm.getDefaultInstance();
-
-        // Читаем uuid из интента
         String id = (String) getIntent().getSerializableExtra("task_id");
 
         // Если uuid не пустой, то получаем задачу и обновляем поля
@@ -64,9 +70,21 @@ public class TaskEditActivity extends AppCompatActivity {
             mTask = mRealm.where(Task.class).equalTo(Task.ID, id).findFirst();
             loadTask();
         }
+
+        // Слушатель касаний для макета
+        //mContainerLayout.setOnTouchListener(this);
     }
 
     public void taskOptions(View view) {
+        // Прячем клавиатуру
+        View v = this.getCurrentFocus();
+        if (v != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm != null) {
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+            }
+        }
+
         // Вызываем диалоги с выбором соответствующих опций
         switch (view.getId()) {
             case R.id.date_layout:
@@ -94,19 +112,9 @@ public class TaskEditActivity extends AppCompatActivity {
                     DialogFragment firstSetTaskDate = new FirstSetTaskDate();
                     firstSetTaskDate.show(getSupportFragmentManager(), "firstSetTaskDate");
                 } else {
-                    // Сравниваем дату задачи и сегодняшнюю
-                    Calendar taskDate = convertTextDateToCalendar(date);
-                    Calendar todayDate = getTodayRoundCalendar();
-
-                    if (taskDate.getTimeInMillis() == todayDate.getTimeInMillis()) {
-                        // Нельзя установить напоминания для сегодняшней задачи
-                        DialogFragment canNotSetReminder = new CanNotSetReminder();
-                        canNotSetReminder.show(getSupportFragmentManager(), "canNotSetReminder");
-                    } else {
-                        // Показываем диалог выбора даты напоминания
-                        DialogFragment reminderDialog = new ReminderDialog();
-                        reminderDialog.show(getSupportFragmentManager(), "reminderDialog");
-                    }
+                    // Показываем диалог выбора даты напоминания
+                    DialogFragment reminderDialog = new ReminderDialog();
+                    reminderDialog.show(getSupportFragmentManager(), "reminderDialog");
                 }
                 break;
         }
@@ -260,4 +268,18 @@ public class TaskEditActivity extends AppCompatActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
+
+    /*@Override
+    public boolean onTouch(View v, MotionEvent event) {
+        // Прячем клавиатуру
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm != null) {
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
+        }
+
+        return true;
+    }*/
 }

@@ -40,11 +40,7 @@ public class ReminderDialog extends DialogFragment {
         Log.d("log", "Дней до даты выполнения задачи: " + daysBeforeTarget);
 
         // Формируем диалог с корректным списком
-        if (daysBeforeTarget == 0) { // У задачи сегодняшняя дата выполнения
-            DialogFragment canNotSetReminder = new CanNotSetReminder();
-            canNotSetReminder.show(getActivity().getSupportFragmentManager(), "canNotSetReminder");
-
-        } else if (daysBeforeTarget == 1) { // Задача на завтра
+        if (daysBeforeTarget == 0) { // У задачи сегодняшняя дата
             final String reminder[] = {onTheDay, not};
 
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -66,7 +62,7 @@ public class ReminderDialog extends DialogFragment {
                     });
             return builder.create();
 
-        } else if (daysBeforeTarget == 2) { // Задача на послезавтра
+        } else if (daysBeforeTarget == 1) { // Задача на завтра
             final String reminder[] = {onTheDay, dayBefore, not};
 
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

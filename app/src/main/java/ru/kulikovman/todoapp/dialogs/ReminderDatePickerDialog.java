@@ -29,7 +29,6 @@ public class ReminderDatePickerDialog extends DialogFragment implements DatePick
 
         // Получаем сегодняшнюю дату
         Calendar currentDate = Calendar.getInstance();
-        currentDate.add(Calendar.DAY_OF_YEAR, 1);
 
         // Создаем и возвращаем новый DatePickerDialog
         DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), this, year, month, day);
