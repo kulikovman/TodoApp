@@ -218,10 +218,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
         holder.bindTask(task);
 
         // Если установленная позиция равна текущей, то делаем элемент "нажатым"
-        holder.itemView.setPressed(mPosition == position);
-
-        // Запасной вариант - выделение выбранным цветом, но без риппл эффекта
-        //holder.itemView.setBackgroundColor(mPosition == position ? Color.GREEN : Color.TRANSPARENT);
+        holder.itemView.setSelected(mPosition == position);
     }
 
     @Override
