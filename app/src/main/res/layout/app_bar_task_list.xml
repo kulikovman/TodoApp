@@ -41,7 +41,7 @@
         android:layout_gravity="bottom|end"
         android:layout_marginBottom="100dp"
         android:layout_marginEnd="@dimen/fab_margin_end"
-
+        android:onClick="fabDeleteTask"
         android:visibility="invisible"
         app:backgroundTint="@color/gray_1"
         app:fabSize="mini"
@@ -54,7 +54,7 @@
         android:layout_gravity="bottom|end"
         android:layout_marginBottom="160dp"
         android:layout_marginEnd="@dimen/fab_margin_end"
-
+        android:onClick="fabEditTask"
         android:visibility="invisible"
         app:backgroundTint="@color/gray_1"
         app:fabSize="mini"

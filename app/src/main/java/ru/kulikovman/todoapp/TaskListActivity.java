@@ -24,6 +24,7 @@ import java.util.List;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import ru.kulikovman.todoapp.adapters.TaskAdapter;
+import ru.kulikovman.todoapp.models.Group;
 import ru.kulikovman.todoapp.models.Task;
 
 public class TaskListActivity extends AppCompatActivity
@@ -105,7 +106,7 @@ public class TaskListActivity extends AppCompatActivity
     protected void onPause() {
         super.onPause();
 
-        Log.d("log", "Запущен onPause");
+        Log.d("log", "Запущен onPause в TaskListActivity");
 
         /*// Сохраняем тип текущего списка задач
         SharedPreferences.Editor editor = mSharedPref.edit();
@@ -365,20 +366,24 @@ public class TaskListActivity extends AppCompatActivity
         finishAction();
     }*/
 
-    /*public void fabEditTask(View view) {
-        // Открываем активити редактирования задачи и передаем uuid задачи
+    public void fabEditTask(View view) {
+        // Открываем активити редактирования задачи и передаем id задачи
         Intent intent = new Intent(this, TaskEditActivity.class);
         intent.putExtra("task_id", mTask.getId());
         startActivity(intent);
-    }*/
+    }
 
-    /*public void fabDeleteTask(View view) {
-        mDbHelper.deleteTask(mTask);
-        mAdapter.deleteItem(mPosition);
+    public void fabDeleteTask(View view) {
+        // Удаление задачи
+        mRealm.beginTransaction();
+        mTask.deleteFromRealm();
+        mRealm.commitTransaction();
 
-        mAllTasks = mDbHelper.getAllTasks();
-        finishAction();
-    }*/
+        // Сопутствующие операции
+        mAdapter.notifyItemRemoved(mPosition);
+        mAdapter.resetSelection();
+        hideActionButton();
+    }
 
     public void fabAddTask(View view) {
         // Просто открываем активити
