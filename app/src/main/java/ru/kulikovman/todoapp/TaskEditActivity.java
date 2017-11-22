@@ -168,7 +168,7 @@ public class TaskEditActivity extends AppCompatActivity {
         String repeat = mTask.getRepeatDate();
 
         if (repeat == null) {
-            mRepeatState.setText(getString(R.string.repeat_not));
+            mRepeatState.setText(getString(R.string.repeat_without));
         } else if (repeat.equals("day")) {
             mRepeatState.setText(getString(R.string.repeat_day));
         } else if (repeat.equals("week")) {
@@ -180,12 +180,20 @@ public class TaskEditActivity extends AppCompatActivity {
         }
 
         // Устанавливаем напоминание
-        long reminderDate = mTask.getReminderDate();
+        String reminder = mTask.getReminderDate();
 
-        if (reminderDate == 0) {
+        if (reminder == null) {
             mReminderState.setText(getString(R.string.reminder_without));
-        } else {
-            mReminderState.setText(convertLongToLongTextDate(reminderDate));
+        } else if (reminder.equals("on_the_day")) {
+            mReminderState.setText(getString(R.string.reminder_on_the_day));
+        } else if (reminder.equals("day_before")) {
+            mReminderState.setText(getString(R.string.reminder_day_before));
+        } else if (reminder.equals("two_day_before")) {
+            mReminderState.setText(getString(R.string.reminder_two_day_before));
+        } else if (reminder.equals("week_before")) {
+            mReminderState.setText(getString(R.string.reminder_week_before));
+        } else if (reminder.equals("month_before")) {
+            mReminderState.setText(getString(R.string.reminder_month_before));
         }
     }
 
@@ -247,7 +255,17 @@ public class TaskEditActivity extends AppCompatActivity {
             String reminder = mReminderState.getText().toString().trim();
 
             if (!reminder.equals(getString(R.string.reminder_without))) {
-                task.setReminderDate(convertLongTextDateToLong(reminder));
+                if (reminder.equals(getString(R.string.reminder_on_the_day))) {
+                    task.setReminderDate("on_the_day");
+                } else if (reminder.equals(getString(R.string.reminder_day_before))) {
+                    task.setReminderDate("day_before");
+                } else if (reminder.equals(getString(R.string.reminder_two_day_before))) {
+                    task.setReminderDate("two_day_before");
+                } else if (reminder.equals(getString(R.string.reminder_week_before))) {
+                    task.setReminderDate("week_before");
+                } else if (reminder.equals(getString(R.string.reminder_month_before))) {
+                    task.setReminderDate("month_before");
+                }
             }
 
             // Добавляем или обновляем задачу в базе

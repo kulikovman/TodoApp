@@ -154,7 +154,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
             }
 
             // Оформляем иконку предупреждения
-            long reminderDate = task.getReminderDate();
+            /*long reminderDate = task.getReminderDate();
             long currentDate = Calendar.getInstance().getTimeInMillis();
 
             if (reminderDate != 0 || currentDate > targetDate) {
@@ -173,7 +173,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
                         mTaskWarning.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_error_outline_24dp));
                     }
                 }
-            }
+            }*/
         }
 
         private void defaultStateItem() {

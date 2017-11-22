@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -50,33 +51,29 @@ public class CreateGroupDialog extends DialogFragment {
 
                             // Добавляем группу в базу
                             if (existGroups.size() == 0) {
-                                Log.d("log", "Таких групп нет");
                                 Group group = new Group(enteredName);
 
                                 mRealm.beginTransaction();
                                 mRealm.insert(group);
                                 mRealm.commitTransaction();
 
-                                showGroupListDialog();
+                                // Записываем название группы в соответствующее поле
+                                TextView groupState = (TextView) getActivity().findViewById(R.id.group_state);
+                                groupState.setText(enteredName);
                             } else {
-                                Log.d("log", "Группа существует");
                                 // Показываем сообщение об ошибке
                                 DialogFragment groupIsExist = new GroupIsExist();
                                 groupIsExist.show(getActivity().getSupportFragmentManager(), "groupIsExist");
                             }
 
                         } else {
-                            showGroupListDialog();
+                            // Показываем диалог со списком групп
+                            DialogFragment groupDialog = new GroupDialog();
+                            groupDialog.show(getActivity().getSupportFragmentManager(), "groupDialog");
                         }
                     }
                 });
 
         return builder.create();
-    }
-
-    private void showGroupListDialog() {
-        // Показываем диалог со списком групп
-        DialogFragment groupDialog = new GroupDialog();
-        groupDialog.show(getActivity().getSupportFragmentManager(), "groupDialog");
     }
 }
