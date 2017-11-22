@@ -66,10 +66,10 @@
     <string name="reminder_without">Без напоминания</string>
     <string name="reminder_on_the_day">В день выполнения</string>
     <string name="reminder_day_before">За день</string>
+    <string name="reminder_two_day_before">За два дня</string>
     <string name="reminder_week_before">За неделю</string>
     <string name="reminder_month_before">За месяц</string>
-    <string name="reminder_pick_date">Выбрать дату</string>
-    <string name="reminder_not">Без напоминания</string>
+    <string name="reminder_not">Не напоминать</string>
 
     <!-- Имена пунктов главного бокового меню -->
     <string name="menu_unsorted_tasks">Не отсортированные</string>
