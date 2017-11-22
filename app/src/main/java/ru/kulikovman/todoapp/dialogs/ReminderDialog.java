@@ -29,19 +29,42 @@ public class ReminderDialog extends DialogFragment {
         // Инициализируем нужные вью
         final TextView repeatState = (TextView) getActivity().findViewById(R.id.repeat_state);
         final TextView reminderState = (TextView) getActivity().findViewById(R.id.reminder_state);
+        final TextView dateState = (TextView) getActivity().findViewById(R.id.date_state);
 
         // Получаем вид повтора и формируем список возможных напоминаний
         String repeat = repeatState.getText().toString();
         final String reminder[];
 
-        if (repeat.equals(getString(R.string.repeat_day))) {
-            reminder = new String[]{onTheDay, not};
-        } else if (repeat.equals(getString(R.string.repeat_week))) {
-            reminder = new String[]{onTheDay, dayBefore, twoDayBefore, not};
-        } else if (repeat.equals(getString(R.string.repeat_month))) {
-            reminder = new String[]{onTheDay, dayBefore, twoDayBefore, weekBefore, not};
+        // Если есть повтор, то смотрим на него, если нет, то на дату задачи
+        if (!repeat.equals(getString(R.string.repeat_without))) {
+            if (repeat.equals(getString(R.string.repeat_day))) {
+                reminder = new String[]{onTheDay, not};
+            } else if (repeat.equals(getString(R.string.repeat_week))) {
+                reminder = new String[]{onTheDay, dayBefore, twoDayBefore, not};
+            } else if (repeat.equals(getString(R.string.repeat_month))) {
+                reminder = new String[]{onTheDay, dayBefore, twoDayBefore, weekBefore, not};
+            } else {
+                reminder = new String[]{onTheDay, dayBefore, twoDayBefore, weekBefore, monthBefore, not};
+            }
         } else {
-            reminder = new String[]{onTheDay, dayBefore, twoDayBefore, weekBefore, monthBefore, not};
+            // Получаем дату задачи и сегодняшнюю дату
+            Calendar taskDate = Helper.convertTextDateToCalendar(dateState.getText().toString());
+            Calendar todayDate = Helper.getTodayRoundCalendar();
+
+            // Вычисляем разницу в днях
+            int daysBeforeTaskDate = (int) (taskDate.getTimeInMillis() - todayDate.getTimeInMillis()) / 1000 / 60 / 60 / 24;
+
+            if (daysBeforeTaskDate == 0) { // Сегодня
+                reminder = new String[]{onTheDay, not};
+            } else if (daysBeforeTaskDate == 1) { // Завтра
+                reminder = new String[]{onTheDay, dayBefore, not};
+            } else if (daysBeforeTaskDate <= 7) { // Меньше недели
+                reminder = new String[]{onTheDay, dayBefore, twoDayBefore, not};
+            } else if (daysBeforeTaskDate <= 31) { // Меньше месяца
+                reminder = new String[]{onTheDay, dayBefore, twoDayBefore, weekBefore, not};
+            } else {
+                reminder = new String[]{onTheDay, dayBefore, twoDayBefore, weekBefore, monthBefore, not};
+            }
         }
 
         // Создаем и запускаем диалог

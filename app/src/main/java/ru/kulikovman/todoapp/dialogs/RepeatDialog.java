@@ -29,30 +29,11 @@ public class RepeatDialog extends DialogFragment {
                         Log.d("myLog", String.valueOf(which));
 
                         TextView repeatField = (TextView) getActivity().findViewById(R.id.repeat_state);
-                        TextView dateField = (TextView) getActivity().findViewById(R.id.date_state);
 
-                        String date = dateField.getText().toString();
-
-                        if (date.equals("Не установлена")) {
+                        if (which == repeat.length - 1) {
                             repeatField.setText(R.string.repeat_without);
                         } else {
-                            switch (which) {
-                                case 0:
-                                    repeatField.setText(day);
-                                    break;
-                                case 1:
-                                    repeatField.setText(week);
-                                    break;
-                                case 2:
-                                    repeatField.setText(month);
-                                    break;
-                                case 3:
-                                    repeatField.setText(year);
-                                    break;
-                                case 4:
-                                    repeatField.setText(not);
-                                    break;
-                            }
+                            repeatField.setText(repeat[which]);
                         }
                     }
                 });
