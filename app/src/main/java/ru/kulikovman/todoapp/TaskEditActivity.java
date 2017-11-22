@@ -85,6 +85,9 @@ public class TaskEditActivity extends AppCompatActivity {
             }
         }
 
+        // Получаем дату задачи
+        String date = mDateState.getText().toString().trim();
+
         // Вызываем диалоги с выбором соответствующих опций
         switch (view.getId()) {
             case R.id.date_layout:
@@ -100,13 +103,17 @@ public class TaskEditActivity extends AppCompatActivity {
                 groupDialog.show(getSupportFragmentManager(), "groupDialog");
                 break;
             case R.id.repeat_layout:
-                DialogFragment repeatDialog = new RepeatDialog();
-                repeatDialog.show(getSupportFragmentManager(), "repeatDialog");
+                if (date.equals(getString(R.string.date_without))) {
+                    // Если у задачи нет даты, то показываем сообщение
+                    DialogFragment firstSetTaskDate = new FirstSetTaskDate();
+                    firstSetTaskDate.show(getSupportFragmentManager(), "firstSetTaskDate");
+                } else {
+                    // Показываем диалог выбора повтора
+                    DialogFragment repeatDialog = new RepeatDialog();
+                    repeatDialog.show(getSupportFragmentManager(), "repeatDialog");
+                }
                 break;
             case R.id.reminder_layout:
-                // Получаем дату задачи
-                String date = mDateState.getText().toString().trim();
-
                 if (date.equals(getString(R.string.date_without))) {
                     // Если у задачи нет даты, то показываем сообщение
                     DialogFragment firstSetTaskDate = new FirstSetTaskDate();
