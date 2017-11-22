@@ -52,7 +52,8 @@ public class ReminderDialog extends DialogFragment {
             Calendar todayDate = Helper.getTodayRoundCalendar();
 
             // Вычисляем разницу в днях
-            int daysBeforeTaskDate = (int) (taskDate.getTimeInMillis() - todayDate.getTimeInMillis()) / 1000 / 60 / 60 / 24;
+            int daysBeforeTaskDate = (int) ((taskDate.getTimeInMillis() - todayDate.getTimeInMillis()) / 1000 / 60 / 60 / 24);
+            Log.d("log", "Разница в днях: " + daysBeforeTaskDate);
 
             if (daysBeforeTaskDate == 0) { // Сегодня
                 reminder = new String[]{onTheDay, not};
