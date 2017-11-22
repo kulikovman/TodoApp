@@ -24,6 +24,7 @@ import ru.kulikovman.todoapp.models.Group;
 import ru.kulikovman.todoapp.models.Task;
 
 import static ru.kulikovman.todoapp.Helper.convertLongTextDateToLong;
+import static ru.kulikovman.todoapp.Helper.convertLongToLongTextDate;
 import static ru.kulikovman.todoapp.Helper.convertLongToShortTextDate;
 import static ru.kulikovman.todoapp.Helper.convertTextDateToCalendar;
 import static ru.kulikovman.todoapp.Helper.getTodayRoundCalendar;
@@ -121,7 +122,7 @@ public class TaskEditActivity extends AppCompatActivity {
         if (targetDate == 0) {
             mDateState.setText(getString(R.string.date_without));
         } else {
-            mDateState.setText(convertLongToShortTextDate(targetDate));
+            mDateState.setText(convertLongToLongTextDate(targetDate));
         }
 
         // Устанавливаем приоритет
@@ -169,7 +170,7 @@ public class TaskEditActivity extends AppCompatActivity {
         if (reminderDate == 0) {
             mReminderState.setText(getString(R.string.reminder_without));
         } else {
-            mDateState.setText(convertLongToShortTextDate(reminderDate));
+            mReminderState.setText(convertLongToLongTextDate(reminderDate));
         }
     }
 
@@ -231,7 +232,7 @@ public class TaskEditActivity extends AppCompatActivity {
             String reminder = mReminderState.getText().toString().trim();
 
             if (!reminder.equals(getString(R.string.reminder_without))) {
-                task.setReminderDate(convertLongTextDateToLong(date));
+                task.setReminderDate(convertLongTextDateToLong(reminder));
             }
 
             // Добавляем или обновляем задачу в базе
