@@ -216,13 +216,13 @@ public class TaskEditActivity extends AppCompatActivity {
             String repeat = mRepeatState.getText().toString().trim();
 
             if (!repeat.equals(getString(R.string.repeat_without))) {
-                if (!repeat.equals(getString(R.string.repeat_day))) {
+                if (repeat.equals(getString(R.string.repeat_day))) {
                     task.setRepeatDate("day");
-                } else if (!repeat.equals(getString(R.string.repeat_week))) {
+                } else if (repeat.equals(getString(R.string.repeat_week))) {
                     task.setRepeatDate("week");
-                } else if (!repeat.equals(getString(R.string.repeat_month))) {
+                } else if (repeat.equals(getString(R.string.repeat_month))) {
                     task.setRepeatDate("month");
-                } else if (!repeat.equals(getString(R.string.repeat_year))) {
+                } else if (repeat.equals(getString(R.string.repeat_year))) {
                     task.setRepeatDate("year");
                 }
             }
