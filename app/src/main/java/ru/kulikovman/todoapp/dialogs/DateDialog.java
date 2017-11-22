@@ -38,30 +38,29 @@ public class DateDialog extends DialogFragment {
                         TextView repeatState = (TextView) getActivity().findViewById(R.id.repeat_state);
                         TextView reminderState = (TextView) getActivity().findViewById(R.id.reminder_state);
 
-                        // Получаем округленный календарь с текущей датой
+                        // Получаем текущую дату
                         Calendar calendar = Helper.getTodayRoundCalendar();
 
                         switch (which) {
                             case 0: // На сегодня
                                 dateState.setText(Helper.convertCalendarToLongTextDate(calendar));
-                                reminderState.setText(R.string.reminder_without);
                                 break;
                             case 1: // На завтра
                                 calendar.add(Calendar.DATE, 1);
                                 dateState.setText(Helper.convertCalendarToLongTextDate(calendar));
-                                reminderState.setText(R.string.reminder_without);
                                 break;
                             case 2: // Выбрать дату
                                 DialogFragment datePickerFragment = new TaskDatePickerDialog();
                                 datePickerFragment.show(getFragmentManager(), "datePicker");
-                                reminderState.setText(R.string.reminder_without);
                                 break;
                             case 3: // Без даты
                                 dateState.setText(R.string.date_without);
                                 repeatState.setText(R.string.repeat_without);
-                                reminderState.setText(R.string.reminder_without);
                                 break;
                         }
+
+                        // Всегда сбрасываем напоминание
+                        reminderState.setText(R.string.reminder_without);
                     }
                 });
 

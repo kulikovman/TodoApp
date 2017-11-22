@@ -28,13 +28,17 @@ public class RepeatDialog extends DialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         Log.d("myLog", String.valueOf(which));
 
-                        TextView repeatField = (TextView) getActivity().findViewById(R.id.repeat_state);
+                        TextView repeatState = (TextView) getActivity().findViewById(R.id.repeat_state);
+                        TextView reminderState = (TextView) getActivity().findViewById(R.id.reminder_state);
 
                         if (which == repeat.length - 1) {
-                            repeatField.setText(R.string.repeat_without);
+                            repeatState.setText(R.string.repeat_without);
                         } else {
-                            repeatField.setText(repeat[which]);
+                            repeatState.setText(repeat[which]);
                         }
+
+                        // Всегда сбрасываем напоминание
+                        reminderState.setText(R.string.reminder_without);
                     }
                 });
 
