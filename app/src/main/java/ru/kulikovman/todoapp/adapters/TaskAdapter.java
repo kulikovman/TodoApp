@@ -162,7 +162,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
             if (reminder != null) {
                 // Делаем иконку видимой и двигаем вправо до начала заголовка
                 mTaskWarning.setVisibility(View.VISIBLE);
-                setMarginStartForView(mTaskWarning, 50);
+                setMarginStartForView(mTaskWarning, 48);
             }
 
             // Если задача просрочена, меняем иконку
@@ -174,6 +174,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
                 Log.d("log", "Разница в днях: " + daysBeforeTaskDate);
 
                 if (daysBeforeTaskDate < 0) {
+                    // Делаем иконку видимой и двигаем вправо до начала заголовка
+                    mTaskWarning.setVisibility(View.VISIBLE);
+                    setMarginStartForView(mTaskWarning, 48);
+
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         mTaskWarning.setImageResource(R.drawable.ic_error_outline_24dp);
                     } else {
@@ -193,9 +197,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
             // Цвет ярлычка по умолчанию
             mTaskColor.setBackgroundResource(R.color.gray_2);
 
-            // Прячем и сдвигаем обратно иконку предупреждения
+            // Прячем и двигаем иконку предупреждения на место
             mTaskWarning.setVisibility(View.INVISIBLE);
-            setMarginStartForView(mTaskWarning, 30);
+            setMarginStartForView(mTaskWarning, 32);
 
             // Ставим иконку по умолчанию
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
