@@ -52,6 +52,7 @@ public class TaskListActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         startService(new Intent(this, MyService.class));
         setContentView(R.layout.activity_task_list);
+        Realm.init(this);
 
         // Судя по всему, это код запуска бокового меню и сопутствующих элементов
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -66,8 +67,7 @@ public class TaskListActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        // Инициализируем Realm и получаем его инстанс
-        Realm.init(this);
+        // Подключаемся к базе данных
         mRealm = Realm.getDefaultInstance();
 
         /*// Инициализируем поле в хедере для показа количества задач
