@@ -53,6 +53,12 @@ public class GroupEditActivity extends AppCompatActivity {
         Log.d("log", "Успешно завершен onCreate в GroupEditActivity");
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mRealm.close();
+    }
+
     public void groupOptions(View view) {
         // Обработка нажатий на опции группы
         switch (view.getId()) {

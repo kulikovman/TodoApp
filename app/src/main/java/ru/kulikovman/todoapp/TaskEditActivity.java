@@ -75,6 +75,12 @@ public class TaskEditActivity extends AppCompatActivity {
         //mContainerLayout.setOnTouchListener(this);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mRealm.close();
+    }
+
     public void taskOptions(View view) {
         // Прячем клавиатуру
         View v = this.getCurrentFocus();

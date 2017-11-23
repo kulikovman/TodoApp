@@ -116,6 +116,12 @@ public class TaskListActivity extends AppCompatActivity
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mRealm.close();
+    }
+
+    @Override
     public void onBackPressed() {
         // Если открыто боковое меню, то сначала оно скроется
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -65,6 +65,12 @@ public class GroupListActivity extends AppCompatActivity implements GroupAdapter
         //updateGroupList();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mRealm.close();
+    }
+
     private void updateGroupList() {
         if (mAdapter == null) {
             mAdapter = new GroupAdapter(this, loadAllGroups());
