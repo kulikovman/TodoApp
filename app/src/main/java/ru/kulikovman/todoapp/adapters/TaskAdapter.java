@@ -104,9 +104,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
 
                 // Сравниваем года и записываем дату в нужном формате
                 if (targetYear == currentYear) {
-                    mTaskDate.setText(convertLongToLongTextDate(targetDate));
-                } else {
                     mTaskDate.setText(convertLongToShortTextDate(targetDate));
+                } else {
+                    mTaskDate.setText(convertLongToLongTextDate(targetDate));
                 }
             }
 
@@ -156,25 +156,23 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
                 }
             }
 
-            // Показываем иконку предупреждения
-            Calendar taskDate = Helper.convertLongToCalendar(task.getTargetDate());
-            Calendar todayDate = Helper.getTodayRoundCalendar();
-
-            int daysBeforeTaskDate = (int) ((taskDate.getTimeInMillis() - todayDate.getTimeInMillis()) / 1000 / 60 / 60 / 24);
-            Log.d("log", "Разница в днях: " + daysBeforeTaskDate);
-
+            // Если есть напоминание, показываем иконку
             String reminder = task.getReminderDate();
 
-            if (reminder != null || daysBeforeTaskDate < 0) {
-                // Делаем иконку видимой
+            if (reminder != null) {
+                // Делаем иконку видимой и двигаем вправо до начала заголовка
                 mTaskWarning.setVisibility(View.VISIBLE);
+                setMarginStartForView(mTaskWarning, 50);
+            }
 
-                // Двигаем вправо до начала заголовка задачи
-                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mTaskWarning.getLayoutParams();
-                params.setMarginStart(Helper.convertDpToPx(mContext, 50)); // пиксели...
-                mTaskWarning.setLayoutParams(params);
+            // Если задача просрочена, меняем иконку
+            if (targetDate != 0) {
+                Calendar taskDate = Helper.convertLongToCalendar(task.getTargetDate());
+                Calendar todayDate = Helper.getTodayRoundCalendar();
 
-                // Если дата просрочена, то меняем иконку
+                int daysBeforeTaskDate = (int) ((taskDate.getTimeInMillis() - todayDate.getTimeInMillis()) / 1000 / 60 / 60 / 24);
+                Log.d("log", "Разница в днях: " + daysBeforeTaskDate);
+
                 if (daysBeforeTaskDate < 0) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         mTaskWarning.setImageResource(R.drawable.ic_error_outline_24dp);
@@ -195,19 +193,23 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
             // Цвет ярлычка по умолчанию
             mTaskColor.setBackgroundResource(R.color.gray_2);
 
-            // Прячем и сдвигаем иконку предупреждения
+            // Прячем и сдвигаем обратно иконку предупреждения
             mTaskWarning.setVisibility(View.INVISIBLE);
+            setMarginStartForView(mTaskWarning, 30);
 
-            /*MarginLayoutParams params = (MarginLayoutParams) mTaskWarning.getLayoutParams();
-            params.setMargins(50, params.topMargin, params.rightMargin, params.bottomMargin);*/
-
-            // Устанавливаем иконку предупреждения по умолчанию
+            // Ставим иконку по умолчанию
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 mTaskWarning.setImageResource(R.drawable.ic_notifications_outline_24dp);
             } else {
                 mTaskWarning.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_notifications_outline_24dp));
             }
         }
+    }
+
+    private void setMarginStartForView(View view, int value) {
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) view.getLayoutParams();
+        params.setMarginStart(Helper.convertDpToPx(mContext, value));
+        view.setLayoutParams(params);
     }
 
     public TaskAdapter(Context context, List<Task> tasks) {
