@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.Calendar;
@@ -168,9 +169,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
                 // Делаем иконку видимой
                 mTaskWarning.setVisibility(View.VISIBLE);
 
-                // Смещаем вправо до начала заголовка задачи
-                MarginLayoutParams layoutParams = (MarginLayoutParams) mTaskWarning.getLayoutParams();
-                layoutParams.setMargins(50, 0, 7, 0);
+                // Двигаем вправо до начала заголовка задачи
+                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mTaskWarning.getLayoutParams();
+                params.setMarginStart(Helper.convertDpToPx(mContext, 50)); // пиксели...
+                mTaskWarning.setLayoutParams(params);
 
                 // Если дата просрочена, то меняем иконку
                 if (daysBeforeTaskDate < 0) {
@@ -196,8 +198,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
             // Прячем и сдвигаем иконку предупреждения
             mTaskWarning.setVisibility(View.INVISIBLE);
 
-            MarginLayoutParams layoutParams = (MarginLayoutParams) mTaskWarning.getLayoutParams();
-            layoutParams.setMargins(30, 0, 7, 0);
+            /*MarginLayoutParams params = (MarginLayoutParams) mTaskWarning.getLayoutParams();
+            params.setMargins(50, params.topMargin, params.rightMargin, params.bottomMargin);*/
 
             // Устанавливаем иконку предупреждения по умолчанию
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

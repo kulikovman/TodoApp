@@ -1,6 +1,11 @@
 package ru.kulikovman.todoapp;
 
 
+import android.content.Context;
+import android.content.res.Resources;
+import android.support.annotation.DimenRes;
+import android.util.TypedValue;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -63,4 +68,8 @@ public class Helper {
         return convertTextDateToCalendar(date);
     }
 
+    public static int convertDpToPx(Context context, int valueInDp) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, valueInDp,
+                context.getResources().getDisplayMetrics());
+    }
 }
