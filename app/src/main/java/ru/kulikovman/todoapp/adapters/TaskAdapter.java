@@ -117,7 +117,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
 
                 // Если задача просрочена, то выделяем дату
                 if (daysBeforeTaskDate < 0) {
-                    mTaskDate.setTextColor(mContext.getResources().getColor(R.color.red));
+                    mTaskDate.setTextColor(mContext.getResources().getColor(R.color.red_date));
                 }
             }
 
