@@ -50,6 +50,7 @@ public class TaskListActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        startService(new Intent(this, MyService.class));
         setContentView(R.layout.activity_task_list);
 
         // Судя по всему, это код запуска бокового меню и сопутствующих элементов
