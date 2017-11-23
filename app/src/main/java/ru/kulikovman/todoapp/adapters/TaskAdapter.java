@@ -99,7 +99,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
                 Calendar calendar = new GregorianCalendar();
                 calendar.setTimeInMillis(targetDate);
                 int targetYear = calendar.get(Calendar.YEAR);
-
                 int currentYear = Calendar.getInstance().get(Calendar.YEAR);
 
                 // Сравниваем года и записываем дату в нужном формате
@@ -107,6 +106,18 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
                     mTaskDate.setText(convertLongToShortTextDate(targetDate));
                 } else {
                     mTaskDate.setText(convertLongToLongTextDate(targetDate));
+                }
+
+                // Считаем количество дней до задачи
+                Calendar taskDate = Helper.convertLongToCalendar(task.getTargetDate());
+                Calendar todayDate = Helper.getTodayRoundCalendar();
+
+                int daysBeforeTaskDate = (int) ((taskDate.getTimeInMillis() - todayDate.getTimeInMillis()) / 1000 / 60 / 60 / 24);
+                Log.d("log", "Разница в днях: " + daysBeforeTaskDate);
+
+                // Если задача просрочена, то выделяем дату
+                if (daysBeforeTaskDate < 0) {
+                    mTaskDate.setTextColor(mContext.getResources().getColor(R.color.red));
                 }
             }
 
@@ -164,27 +175,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
                 mTaskWarning.setVisibility(View.VISIBLE);
                 setMarginStartForView(mTaskWarning, 48);
             }
-
-            // Если задача просрочена, меняем иконку
-            if (targetDate != 0) {
-                Calendar taskDate = Helper.convertLongToCalendar(task.getTargetDate());
-                Calendar todayDate = Helper.getTodayRoundCalendar();
-
-                int daysBeforeTaskDate = (int) ((taskDate.getTimeInMillis() - todayDate.getTimeInMillis()) / 1000 / 60 / 60 / 24);
-                Log.d("log", "Разница в днях: " + daysBeforeTaskDate);
-
-                if (daysBeforeTaskDate < 0) {
-                    // Делаем иконку видимой и двигаем вправо до начала заголовка
-                    mTaskWarning.setVisibility(View.VISIBLE);
-                    setMarginStartForView(mTaskWarning, 48);
-
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        mTaskWarning.setImageResource(R.drawable.ic_error_outline_24dp);
-                    } else {
-                        mTaskWarning.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_error_outline_24dp));
-                    }
-                }
-            }
         }
 
         private void defaultStateItem() {
@@ -201,12 +191,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
             mTaskWarning.setVisibility(View.INVISIBLE);
             setMarginStartForView(mTaskWarning, 32);
 
-            // Ставим иконку по умолчанию
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                mTaskWarning.setImageResource(R.drawable.ic_notifications_outline_24dp);
-            } else {
-                mTaskWarning.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_notifications_outline_24dp));
-            }
+            // Цвет даты по умолчанию
+            mTaskDate.setTextColor(mContext.getResources().getColor(R.color.gray_4));
         }
     }
 
