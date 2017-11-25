@@ -165,10 +165,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
                 }
             }
 
-            // Если есть напоминание, показываем иконку
-            String reminder = task.getReminder();
-
-            if (reminder != null) {
+            // Если напоминание включено, показываем иконку
+            if (task.getReminder()) {
                 // Делаем иконку видимой и двигаем вправо до начала заголовка
                 mTaskWarning.setVisibility(View.VISIBLE);
                 setMarginStartForView(mTaskWarning, 48);
