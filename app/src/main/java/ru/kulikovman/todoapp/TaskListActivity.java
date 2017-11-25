@@ -434,9 +434,7 @@ public class TaskListActivity extends AppCompatActivity
         mAlarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
         Intent intent = new Intent(this, TimeNotification.class);
-
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0,
-                intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
         // На случай, если мы ранее запускали активити, а потом поменяли время, откажемся от уведомления
         mAlarmManager.cancel(pendingIntent);
@@ -445,7 +443,7 @@ public class TaskListActivity extends AppCompatActivity
         mAlarmManager.set(AlarmManager.RTC_WAKEUP, mNotyfyTime.getTimeInMillis(), pendingIntent);
 
         Log.d("log", "Завершен restartNotify в TaskListActivity");
-        Log.d("log", "Время уведомления: " + mNotyfyTime.toString());
+        Log.d("log", "Время уведомления: " + mNotyfyTime.getTime());
 
     }
 }
