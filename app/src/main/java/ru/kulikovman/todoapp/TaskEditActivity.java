@@ -117,9 +117,14 @@ public class TaskEditActivity extends AppCompatActivity {
                     DialogFragment firstSetTaskDate = new FirstSetTaskDate();
                     firstSetTaskDate.show(getSupportFragmentManager(), "firstSetTaskDate");
                 } else {
-                    // Показываем диалог выбора даты напоминания
-                    DialogFragment reminderDialog = new ReminderDialog();
-                    reminderDialog.show(getSupportFragmentManager(), "reminderDialog");
+                    // Меняем статус напоминания
+                    String reminder = mReminderState.getText().toString();
+
+                    if (reminder.equals(getString(R.string.reminder_disabled))) {
+                        mReminderState.setText(R.string.reminder_enabled);
+                    } else {
+                        mReminderState.setText(R.string.reminder_disabled);
+                    }
                 }
                 break;
         }
@@ -178,20 +183,12 @@ public class TaskEditActivity extends AppCompatActivity {
         }
 
         // Устанавливаем напоминание
-        String reminder = mTask.getReminder();
+        boolean reminder = mTask.getReminder();
 
-        if (reminder == null) {
-            mReminderState.setText(getString(R.string.reminder_without));
-        } else if (reminder.equals("on_the_day")) {
-            mReminderState.setText(getString(R.string.reminder_on_the_day));
-        } else if (reminder.equals("day_before")) {
-            mReminderState.setText(getString(R.string.reminder_day_before));
-        } else if (reminder.equals("two_day_before")) {
-            mReminderState.setText(getString(R.string.reminder_two_day_before));
-        } else if (reminder.equals("week_before")) {
-            mReminderState.setText(getString(R.string.reminder_week_before));
-        } else if (reminder.equals("month_before")) {
-            mReminderState.setText(getString(R.string.reminder_month_before));
+        if (reminder) {
+            mReminderState.setText(getString(R.string.reminder_enabled));
+        } else {
+            mReminderState.setText(getString(R.string.reminder_disabled));
         }
     }
 
@@ -205,14 +202,14 @@ public class TaskEditActivity extends AppCompatActivity {
             Task task = new Task(title);
 
             // Получаем дату
-            String date = mDateState.getText().toString().trim();
+            String date = mDateState.getText().toString();
 
             if (!date.equals(getString(R.string.date_without))) {
                 task.setTargetDate(convertLongTextDateToLong(date));
             }
 
             // Получаем приоритет
-            String priority = mPriorityState.getText().toString().trim();
+            String priority = mPriorityState.getText().toString();
 
             if (priority.equals(getString(R.string.priority_emergency))) {
                 task.setPriority(0);
@@ -227,7 +224,7 @@ public class TaskEditActivity extends AppCompatActivity {
             }
 
             // Получаем группу
-            String groupName = mGroupState.getText().toString().trim();
+            String groupName = mGroupState.getText().toString();
 
             if (!groupName.equals(getString(R.string.group_without))) {
                 Group group = mRealm.where(Group.class).equalTo(Group.NAME, groupName).findFirst();
@@ -235,7 +232,7 @@ public class TaskEditActivity extends AppCompatActivity {
             }
 
             // Получаем повтор
-            String repeat = mRepeatState.getText().toString().trim();
+            String repeat = mRepeatState.getText().toString();
 
             if (!repeat.equals(getString(R.string.repeat_without))) {
                 if (repeat.equals(getString(R.string.repeat_day))) {
@@ -249,21 +246,13 @@ public class TaskEditActivity extends AppCompatActivity {
                 }
             }
 
-            // Получаем дату напоминания
-            String reminder = mReminderState.getText().toString().trim();
+            // Получаем статус напоминания
+            String reminder = mReminderState.getText().toString();
 
-            if (!reminder.equals(getString(R.string.reminder_without))) {
-                if (reminder.equals(getString(R.string.reminder_on_the_day))) {
-                    task.setReminder("on_the_day");
-                } else if (reminder.equals(getString(R.string.reminder_day_before))) {
-                    task.setReminder("day_before");
-                } else if (reminder.equals(getString(R.string.reminder_two_day_before))) {
-                    task.setReminder("two_day_before");
-                } else if (reminder.equals(getString(R.string.reminder_week_before))) {
-                    task.setReminder("week_before");
-                } else if (reminder.equals(getString(R.string.reminder_month_before))) {
-                    task.setReminder("month_before");
-                }
+            if (reminder.equals(getString(R.string.reminder_enabled))) {
+                task.setReminder(true);
+            } else {
+                task.setReminder(false);
             }
 
             // Добавляем или обновляем задачу в базе
@@ -291,18 +280,4 @@ public class TaskEditActivity extends AppCompatActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
-
-    /*@Override
-    public boolean onTouch(View v, MotionEvent event) {
-        // Прячем клавиатуру
-        View view = this.getCurrentFocus();
-        if (view != null) {
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            if (imm != null) {
-                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-            }
-        }
-
-        return true;
-    }*/
 }

@@ -61,7 +61,7 @@
     <string name="repeat_year">Через год</string>
     <string name="repeat_not">Не повторять</string>
 
-    <!-- Выбор напоминания задачи -->
+    <!-- Напоминание о задаче -->
     <string name="reminder_title">Напоминание</string>
     <string name="reminder_without">Без напоминания</string>
     <string name="reminder_on_the_day">В день выполнения</string>
@@ -70,6 +70,8 @@
     <string name="reminder_week_before">За неделю</string>
     <string name="reminder_month_before">За месяц</string>
     <string name="reminder_not">Не напоминать</string>
+    <string name="reminder_enabled">Включено</string>
+    <string name="reminder_disabled">Без напоминания</string>
 
     <!-- Имена пунктов главного бокового меню -->
     <string name="menu_unsorted_tasks">Не отсортированные</string>
