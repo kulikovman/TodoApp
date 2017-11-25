@@ -9,13 +9,21 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 
+import io.realm.Realm;
+import ru.kulikovman.todoapp.models.Task;
+
 public class TimeNotification extends BroadcastReceiver {
     private NotificationManager mNotificationManager;
     private final int NOTIFICATION_ID = 127;
+    private Realm mRealm;
 
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d("log", "Запущен onReceive в TimeNotification");
+
+        mRealm = Realm.getDefaultInstance();
+
+        Task currentTask = mRealm.where(Task.class).findFirst();
 
         // Инициализация уведомления
         mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -27,10 +35,10 @@ public class TimeNotification extends BroadcastReceiver {
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, finishIntent, PendingIntent.FLAG_CANCEL_CURRENT);
         builder.setContentIntent(pendingIntent)
                 .setSmallIcon(R.drawable.ic_event_24dp)
-                .setTicker("Есть задачи")
+                .setTicker("Выполнить задачу")
                 .setAutoCancel(true)
-                .setContentTitle("Задачи на сегодня")
-                .setContentText("- Помыть кота\n- Погладить кота");
+                .setContentTitle("Напоминание о задаче")
+                .setContentText(currentTask.getTitle());
 
         Notification notification = builder.build();
         notification.defaults = Notification.DEFAULT_ALL;

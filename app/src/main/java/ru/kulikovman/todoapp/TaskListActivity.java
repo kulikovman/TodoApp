@@ -57,7 +57,6 @@ public class TaskListActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        startService(new Intent(this, MyService.class));
         setContentView(R.layout.activity_task_list);
         Realm.init(this);
 
@@ -104,7 +103,7 @@ public class TaskListActivity extends AppCompatActivity
         mAdapter.setOnItemClickListener(this);
 
         mNotyfyTime = Calendar.getInstance();
-        mNotyfyTime.add(Calendar.MINUTE, 1);
+        mNotyfyTime.add(Calendar.SECOND, 10);
         restartNotify();
 
         Log.d("log", "Завершен onCreate в TaskListActivity");
