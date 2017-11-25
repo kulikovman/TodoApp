@@ -32,7 +32,6 @@ public class TaskEditActivity extends AppCompatActivity {
 
     private EditText mTaskTitle;
     private TextView mDateState, mPriorityState, mGroupState, mRepeatState, mReminderState;
-    //private LinearLayout mContainerLayout;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -62,9 +61,6 @@ public class TaskEditActivity extends AppCompatActivity {
             mTask = mRealm.where(Task.class).equalTo(Task.ID, id).findFirst();
             loadTask();
         }
-
-        // Слушатель касаний для макета
-        //mContainerLayout.setOnTouchListener(this);
     }
 
     @Override
