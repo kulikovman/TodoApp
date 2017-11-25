@@ -36,39 +36,6 @@ public class RepeatDialog extends DialogFragment {
                         } else {
                             repeatState.setText(repeat[which]);
                         }
-
-                        String reminder = reminderState.getText().toString();
-
-                        switch (which) {
-                            case 0:
-                                repeatState.setText(day);
-                                if (reminder.equals(getString(R.string.reminder_month_before)) ||
-                                        reminder.equals(getString(R.string.reminder_week_before)) ||
-                                        reminder.equals(getString(R.string.reminder_two_day_before)) ||
-                                        reminder.equals(getString(R.string.reminder_day_before))) {
-                                    reminderState.setText(R.string.reminder_without);
-                                }
-                                break;
-                            case 1:
-                                repeatState.setText(week);
-                                if (reminder.equals(getString(R.string.reminder_month_before)) ||
-                                        reminder.equals(getString(R.string.reminder_week_before))) {
-                                    reminderState.setText(R.string.reminder_without);
-                                }
-                                break;
-                            case 2:
-                                repeatState.setText(month);
-                                if (reminder.equals(getString(R.string.reminder_month_before))) {
-                                    reminderState.setText(R.string.reminder_without);
-                                }
-                                break;
-                            case 3:
-                                repeatState.setText(year);
-                                break;
-                            case 4:
-                                repeatState.setText(R.string.repeat_without);
-                                break;
-                        }
                     }
                 });
 
