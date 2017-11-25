@@ -50,7 +50,6 @@ public class TaskEditActivity extends AppCompatActivity {
         mGroupState = (TextView) findViewById(R.id.group_state);
         mRepeatState = (TextView) findViewById(R.id.repeat_state);
         mReminderState = (TextView) findViewById(R.id.reminder_state);
-        //mContainerLayout = (LinearLayout) findViewById(R.id.container_layout);
 
         // Подключаем базу данных и читаем id из интента
         mRealm = Realm.getDefaultInstance();
