@@ -56,11 +56,11 @@ public class DateDialog extends DialogFragment {
                             case 3: // Без даты
                                 dateState.setText(R.string.date_without);
                                 repeatState.setText(R.string.repeat_without);
+
+                                // Выключаем напоминание
+                                reminderState.setText(R.string.reminder_disabled);
                                 break;
                         }
-
-                        // Всегда сбрасываем напоминание
-                        reminderState.setText(R.string.reminder_without);
                     }
                 });
 

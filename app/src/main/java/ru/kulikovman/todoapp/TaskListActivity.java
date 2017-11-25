@@ -104,7 +104,7 @@ public class TaskListActivity extends AppCompatActivity
 
         mNotyfyTime = Calendar.getInstance();
         mNotyfyTime.add(Calendar.SECOND, 10);
-        restartNotify();
+        //restartNotify();
 
         Log.d("log", "Завершен onCreate в TaskListActivity");
     }

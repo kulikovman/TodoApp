@@ -71,7 +71,7 @@
     <string name="reminder_month_before">За месяц</string>
     <string name="reminder_not">Не напоминать</string>
     <string name="reminder_enabled">Включено</string>
-    <string name="reminder_disabled">Без напоминания</string>
+    <string name="reminder_disabled">Выключено</string>
 
     <!-- Имена пунктов главного бокового меню -->
     <string name="menu_unsorted_tasks">Не отсортированные</string>
