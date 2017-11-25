@@ -7,14 +7,10 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import java.util.Calendar;
 
 import io.realm.Realm;
 
@@ -23,16 +19,12 @@ import ru.kulikovman.todoapp.dialogs.GroupDialog;
 import ru.kulikovman.todoapp.dialogs.PriorityDialog;
 import ru.kulikovman.todoapp.dialogs.ReminderDialog;
 import ru.kulikovman.todoapp.dialogs.RepeatDialog;
-import ru.kulikovman.todoapp.messages.CanNotSetReminder;
 import ru.kulikovman.todoapp.messages.FirstSetTaskDate;
 import ru.kulikovman.todoapp.models.Group;
 import ru.kulikovman.todoapp.models.Task;
 
 import static ru.kulikovman.todoapp.Helper.convertLongTextDateToLong;
 import static ru.kulikovman.todoapp.Helper.convertLongToLongTextDate;
-import static ru.kulikovman.todoapp.Helper.convertLongToShortTextDate;
-import static ru.kulikovman.todoapp.Helper.convertTextDateToCalendar;
-import static ru.kulikovman.todoapp.Helper.getTodayRoundCalendar;
 
 public class TaskEditActivity extends AppCompatActivity {
     private Task mTask;
@@ -186,7 +178,7 @@ public class TaskEditActivity extends AppCompatActivity {
         }
 
         // Устанавливаем напоминание
-        String reminder = mTask.getReminderDate();
+        String reminder = mTask.getReminder();
 
         if (reminder == null) {
             mReminderState.setText(getString(R.string.reminder_without));
@@ -262,15 +254,15 @@ public class TaskEditActivity extends AppCompatActivity {
 
             if (!reminder.equals(getString(R.string.reminder_without))) {
                 if (reminder.equals(getString(R.string.reminder_on_the_day))) {
-                    task.setReminderDate("on_the_day");
+                    task.setReminder("on_the_day");
                 } else if (reminder.equals(getString(R.string.reminder_day_before))) {
-                    task.setReminderDate("day_before");
+                    task.setReminder("day_before");
                 } else if (reminder.equals(getString(R.string.reminder_two_day_before))) {
-                    task.setReminderDate("two_day_before");
+                    task.setReminder("two_day_before");
                 } else if (reminder.equals(getString(R.string.reminder_week_before))) {
-                    task.setReminderDate("week_before");
+                    task.setReminder("week_before");
                 } else if (reminder.equals(getString(R.string.reminder_month_before))) {
-                    task.setReminderDate("month_before");
+                    task.setReminder("month_before");
                 }
             }
 
@@ -285,7 +277,7 @@ public class TaskEditActivity extends AppCompatActivity {
                 mTask.setPriority(task.getPriority());
                 mTask.setGroup(task.getGroup());
                 mTask.setRepeatDate(task.getRepeatDate());
-                mTask.setReminderDate(task.getReminderDate());
+                mTask.setReminder(task.getReminder());
             }
 
             mRealm.commitTransaction();

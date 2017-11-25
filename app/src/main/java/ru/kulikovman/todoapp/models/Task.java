@@ -14,7 +14,7 @@ public class Task extends RealmObject {
     public static final String TARGET_DATE = "mTargetDate";
     public static final String COMPLETION_DATE = "mCompletionDate";
     public static final String REPEAT_DATE = "mRepeatDate";
-    public static final String REMINDER_DATE = "mReminderDate";
+    public static final String REMINDER_DATE = "mReminder";
     public static final String GROUP = "mGroup";
 
     private String mId;
@@ -25,10 +25,10 @@ public class Task extends RealmObject {
     private long mTargetDate;
     private long mCompletionDate;
     private String mRepeatDate;
-    private String mReminderDate;
+    private boolean mReminder;
     private Group mGroup;
 
-    public Task(String id, String title, int priority, boolean done, long createDate, long targetDate, long completionDate, String repeatDate, String reminderDate) {
+    public Task(String id, String title, int priority, boolean done, long createDate, long targetDate, long completionDate, String repeatDate, boolean reminder) {
         mId = id;
         mTitle = title;
         mPriority = priority;
@@ -37,7 +37,7 @@ public class Task extends RealmObject {
         mTargetDate = targetDate;
         mCompletionDate = completionDate;
         mRepeatDate = repeatDate;
-        mReminderDate = reminderDate;
+        mReminder = reminder;
     }
 
     public Task(String title) {
@@ -113,12 +113,12 @@ public class Task extends RealmObject {
         mRepeatDate = repeatDate;
     }
 
-    public String getReminderDate() {
-        return mReminderDate;
+    public boolean getReminder() {
+        return mReminder;
     }
 
-    public void setReminderDate(String reminderDate) {
-        mReminderDate = reminderDate;
+    public void setReminder(boolean reminder) {
+        mReminder = reminder;
     }
 
     public Group getGroup() {

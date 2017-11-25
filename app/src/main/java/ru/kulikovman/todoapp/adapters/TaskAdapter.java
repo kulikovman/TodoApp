@@ -1,7 +1,6 @@
 package ru.kulikovman.todoapp.adapters;
 
 import android.content.Context;
-import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -21,7 +20,6 @@ import ru.kulikovman.todoapp.Helper;
 import ru.kulikovman.todoapp.R;
 import ru.kulikovman.todoapp.models.Task;
 
-import static android.view.ViewGroup.*;
 import static ru.kulikovman.todoapp.Helper.convertLongToShortTextDate;
 import static ru.kulikovman.todoapp.Helper.convertLongToLongTextDate;
 
@@ -168,7 +166,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
             }
 
             // Если есть напоминание, показываем иконку
-            String reminder = task.getReminderDate();
+            String reminder = task.getReminder();
 
             if (reminder != null) {
                 // Делаем иконку видимой и двигаем вправо до начала заголовка
