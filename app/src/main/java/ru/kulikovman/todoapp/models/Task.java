@@ -14,7 +14,7 @@ public class Task extends RealmObject {
     public static final String TARGET_DATE = "mTargetDate";
     public static final String COMPLETION_DATE = "mCompletionDate";
     public static final String REPEAT_DATE = "mRepeatDate";
-    public static final String REMINDER_DATE = "mReminder";
+    public static final String REMINDER = "mReminder";
     public static final String GROUP = "mGroup";
 
     private String mId;

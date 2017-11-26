@@ -1,8 +1,6 @@
 package ru.kulikovman.todoapp;
 
 import android.app.AlarmManager;
-import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -41,7 +39,7 @@ public class TaskListActivity extends AppCompatActivity
     private Realm mRealm;
 
     private AlarmManager mAlarmManager;
-    private Calendar mNotyfyTime;
+    private Calendar mNotifyTime;
 
     private Task mTask;
     private int mPosition;
@@ -102,9 +100,9 @@ public class TaskListActivity extends AppCompatActivity
         // Слушатель для адаптера списка
         mAdapter.setOnItemClickListener(this);
 
-        mNotyfyTime = Calendar.getInstance();
-        mNotyfyTime.add(Calendar.SECOND, 10);
-        //restartNotify();
+
+        setNotifyTime();
+        restartNotify();
 
         Log.d("log", "Завершен onCreate в TaskListActivity");
     }
@@ -429,20 +427,32 @@ public class TaskListActivity extends AppCompatActivity
         mDoneButton.setVisibility(View.VISIBLE);
     }
 
+    private void setNotifyTime() {
+        mNotifyTime = Calendar.getInstance();
+        int hour = mNotifyTime.get(Calendar.HOUR_OF_DAY);
+
+        if (hour >= 11) {
+            mNotifyTime.add(Calendar.DAY_OF_YEAR, 1);
+        }
+
+        mNotifyTime.set(Calendar.HOUR_OF_DAY, 11);
+        mNotifyTime.set(Calendar.MINUTE, 0);
+        mNotifyTime.set(Calendar.SECOND, 0);
+    }
+
     private void restartNotify() {
         mAlarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
-        Intent intent = new Intent(this, TimeNotification.class);
+        Intent intent = new Intent(this, TaskNotification.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
-        // На случай, если мы ранее запускали активити, а потом поменяли время, откажемся от уведомления
+        // Если ранее запускали активити, а потом поменяли время, откажемся от уведомления
         mAlarmManager.cancel(pendingIntent);
 
         // Устанавливаем разовое напоминание
-        mAlarmManager.set(AlarmManager.RTC_WAKEUP, mNotyfyTime.getTimeInMillis(), pendingIntent);
+        mAlarmManager.set(AlarmManager.RTC_WAKEUP, mNotifyTime.getTimeInMillis(), pendingIntent);
 
         Log.d("log", "Завершен restartNotify в TaskListActivity");
-        Log.d("log", "Время уведомления: " + mNotyfyTime.getTime());
-
+        Log.d("log", "Время уведомления: " + mNotifyTime.getTime());
     }
 }
