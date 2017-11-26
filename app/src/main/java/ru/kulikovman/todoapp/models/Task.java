@@ -42,7 +42,7 @@ public class Task extends RealmObject {
 
     public Task(String title) {
         mId = UUID.randomUUID().toString();
-        mCreateDate = new Date().getTime();
+        mCreateDate = System.currentTimeMillis();
         mTitle = title;
         mDone = false;
     }
