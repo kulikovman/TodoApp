@@ -135,7 +135,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
             }
 
             // Устанавливаем повтор
-            String repeat = task.getRepeatDate();
+            String repeat = task.getRepeat();
 
             if (repeat != null) {
                 switch (repeat) {

@@ -324,62 +324,47 @@ public class TaskListActivity extends AppCompatActivity
         mNumberOfTasks.setText(numberOfTasks);
     }*/
 
-    /*public void fabDoneTask(View view) {
-        Task task = new Task(mTask.getTitle(),
-                mTask.getTargetDate(), mTask.getPriority(), mTask.getColor(), mTask.getRepeatDate());
+    public void fabDoneTask(View view) {
+        String repeat = mTask.getRepeat();
 
-        mTask.setDone(!mTask.isDone());
-        mDbHelper.updateTask(mTask);
-        mAdapter.deleteItem(mPosition);
+        // Если есть повтор, создаем новую задачу
+        if (repeat != null){
+            Task task = new Task(mTask.getTitle());
+            task.setPriority(mTask.getPriority());
+            task.setGroup(mTask.getGroup());
+            task.setRepeat(mTask.getRepeat());
+            task.setReminder(mTask.getReminder());
 
-        // Если у задачи был повтор, то создаем аналогичную задачу на новую дату
-        if (!task.getRepeatDate().equals("Без повтора") && !task.isDone()) {
-            String taskDate = task.getTargetDate();
-            long longDate = Long.parseLong(taskDate);
+            Calendar calendar = Helper.convertLongToCalendar(mTask.getTargetDate());
 
-            Date date = new Date(longDate);
-            Calendar calendar = new GregorianCalendar();
-            calendar.setTime(date);
-
-            switch (task.getRepeatDate()) {
-                case "Ежедневно":
-                    calendar.add(Calendar.DAY_OF_YEAR, 1);
-                    break;
-                case "Каждую неделю":
-                    calendar.add(Calendar.DAY_OF_YEAR, 7);
-                    break;
-                case "Раз в месяц":
-                    calendar.add(Calendar.MONTH, 1);
-                    break;
-                case "Через год":
-                    calendar.add(Calendar.YEAR, 1);
-                    break;
+            if (repeat.equals("day")) {
+                calendar.add(Calendar.DAY_OF_YEAR, 1);
+            } else if (repeat.equals("week")) {
+                calendar.add(Calendar.WEEK_OF_YEAR, 1);
+            } else if (repeat.equals("month")) {
+                calendar.add(Calendar.MONTH, 1);
+            } else if (repeat.equals("year")) {
+                calendar.add(Calendar.YEAR, 1);
             }
 
-            date = calendar.getTime();
-            longDate = date.getTime();
-            taskDate = String.valueOf(longDate);
-            task.setTargetDate(taskDate);
+            task.setTargetDate(calendar.getTimeInMillis());
 
-            mDbHelper.addTask(task);
-            mCurrentTasks.add(task);
-            Collections.sort(mCurrentTasks, new TaskComparator());
-
-            for (int i = 0; i < mCurrentTasks.size(); i++) {
-                String uuidFirst = mCurrentTasks.get(i).getId().toString();
-                String uuidSecond = task.getId().toString();
-
-                if (uuidFirst.equals(uuidSecond)) {
-                    mCurrentTasks.remove(i);
-                    mAdapter.addItem(i, task);
-                    break;
-                }
-            }
+            mRealm.beginTransaction();
+            mRealm.insert(task);
+            mRealm.commitTransaction();
         }
 
-        mAllTasks = mDbHelper.getAllTasks();
-        finishAction();
-    }*/
+        // Завершаем выбранную задачу
+        mRealm.beginTransaction();
+        mTask.setCompletionDate(System.currentTimeMillis());
+        mTask.setDone(true);
+        mRealm.commitTransaction();
+
+        // Сопутствующие операции
+        mAdapter.notifyItemRemoved(mPosition);
+        mAdapter.resetSelection();
+        hideActionButton();
+    }
 
     public void fabEditTask(View view) {
         // Открываем активити редактирования задачи и передаем id задачи

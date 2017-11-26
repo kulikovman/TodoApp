@@ -67,7 +67,7 @@
         android:layout_gravity="bottom|end"
         android:layout_marginBottom="220dp"
         android:layout_marginEnd="@dimen/fab_margin_end"
-
+        android:onClick="fabDoneTask"
         android:visibility="invisible"
         app:backgroundTint="@color/gray_1"
         app:fabSize="mini"

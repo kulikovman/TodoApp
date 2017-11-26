@@ -13,7 +13,7 @@ public class Task extends RealmObject {
     public static final String CREATE_DATE = "mCreateDate";
     public static final String TARGET_DATE = "mTargetDate";
     public static final String COMPLETION_DATE = "mCompletionDate";
-    public static final String REPEAT_DATE = "mRepeatDate";
+    public static final String REPEAT = "mRepeat";
     public static final String REMINDER = "mReminder";
     public static final String GROUP = "mGroup";
 
@@ -24,11 +24,11 @@ public class Task extends RealmObject {
     private long mCreateDate;
     private long mTargetDate;
     private long mCompletionDate;
-    private String mRepeatDate;
+    private String mRepeat;
     private boolean mReminder;
     private Group mGroup;
 
-    public Task(String id, String title, int priority, boolean done, long createDate, long targetDate, long completionDate, String repeatDate, boolean reminder) {
+    public Task(String id, String title, int priority, boolean done, long createDate, long targetDate, long completionDate, String repeat, boolean reminder) {
         mId = id;
         mTitle = title;
         mPriority = priority;
@@ -36,14 +36,15 @@ public class Task extends RealmObject {
         mCreateDate = createDate;
         mTargetDate = targetDate;
         mCompletionDate = completionDate;
-        mRepeatDate = repeatDate;
+        mRepeat = repeat;
         mReminder = reminder;
     }
 
     public Task(String title) {
         mId = UUID.randomUUID().toString();
-        mTitle = title;
         mCreateDate = new Date().getTime();
+        mTitle = title;
+        mDone = false;
     }
 
     public Task() {
@@ -105,12 +106,12 @@ public class Task extends RealmObject {
         mCompletionDate = completionDate;
     }
 
-    public String getRepeatDate() {
-        return mRepeatDate;
+    public String getRepeat() {
+        return mRepeat;
     }
 
-    public void setRepeatDate(String repeatDate) {
-        mRepeatDate = repeatDate;
+    public void setRepeat(String repeat) {
+        mRepeat = repeat;
     }
 
     public boolean getReminder() {

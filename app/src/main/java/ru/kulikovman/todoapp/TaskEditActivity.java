@@ -17,7 +17,6 @@ import io.realm.Realm;
 import ru.kulikovman.todoapp.dialogs.DateDialog;
 import ru.kulikovman.todoapp.dialogs.GroupDialog;
 import ru.kulikovman.todoapp.dialogs.PriorityDialog;
-import ru.kulikovman.todoapp.dialogs.ReminderDialog;
 import ru.kulikovman.todoapp.dialogs.RepeatDialog;
 import ru.kulikovman.todoapp.messages.FirstSetTaskDate;
 import ru.kulikovman.todoapp.models.Group;
@@ -163,7 +162,7 @@ public class TaskEditActivity extends AppCompatActivity {
         }
 
         // Устанавливаем повтор
-        String repeat = mTask.getRepeatDate();
+        String repeat = mTask.getRepeat();
 
         if (repeat == null) {
             mRepeatState.setText(getString(R.string.repeat_without));
@@ -231,13 +230,13 @@ public class TaskEditActivity extends AppCompatActivity {
 
             if (!repeat.equals(getString(R.string.repeat_without))) {
                 if (repeat.equals(getString(R.string.repeat_day))) {
-                    task.setRepeatDate("day");
+                    task.setRepeat("day");
                 } else if (repeat.equals(getString(R.string.repeat_week))) {
-                    task.setRepeatDate("week");
+                    task.setRepeat("week");
                 } else if (repeat.equals(getString(R.string.repeat_month))) {
-                    task.setRepeatDate("month");
+                    task.setRepeat("month");
                 } else if (repeat.equals(getString(R.string.repeat_year))) {
-                    task.setRepeatDate("year");
+                    task.setRepeat("year");
                 }
             }
 
@@ -260,7 +259,7 @@ public class TaskEditActivity extends AppCompatActivity {
                 mTask.setTargetDate(task.getTargetDate());
                 mTask.setPriority(task.getPriority());
                 mTask.setGroup(task.getGroup());
-                mTask.setRepeatDate(task.getRepeatDate());
+                mTask.setRepeat(task.getRepeat());
                 mTask.setReminder(task.getReminder());
             }
 
