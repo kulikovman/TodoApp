@@ -22,10 +22,12 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
+import io.realm.Sort;
 import ru.kulikovman.todoapp.adapters.TaskAdapter;
 import ru.kulikovman.todoapp.models.Task;
 
@@ -108,7 +110,9 @@ public class TaskListActivity extends AppCompatActivity
     }
 
     private RealmResults<Task> loadUnfinishedTasks() {
-        return mRealm.where(Task.class).equalTo(Task.DONE, false).findAll();
+        return mRealm.where(Task.class).equalTo(Task.DONE, false).findAll()
+                .sort(new String[]{Task.TARGET_DATE, Task.PRIORITY, Task.TITLE},
+                        new Sort[] {Sort.ASCENDING, Sort.ASCENDING, Sort.ASCENDING});
     }
 
     @Override
