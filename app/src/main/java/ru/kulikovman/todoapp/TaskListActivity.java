@@ -21,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
@@ -109,10 +110,22 @@ public class TaskListActivity extends AppCompatActivity
         Log.d("log", "Завершен onCreate в TaskListActivity");
     }
 
-    private RealmResults<Task> loadUnfinishedTasks() {
-        return mRealm.where(Task.class).equalTo(Task.DONE, false).findAll()
+    private List<Task> loadUnfinishedTasks() {
+        RealmResults<Task> resultsPart1 = mRealm.where(Task.class)
+                .equalTo(Task.DONE, false).notEqualTo(Task.TARGET_DATE, 0).findAll()
                 .sort(new String[]{Task.TARGET_DATE, Task.PRIORITY, Task.TITLE},
                         new Sort[] {Sort.ASCENDING, Sort.ASCENDING, Sort.ASCENDING});
+
+        RealmResults<Task> resultsPart2 = mRealm.where(Task.class)
+                .equalTo(Task.DONE, false).equalTo(Task.TARGET_DATE, 0).findAll()
+                .sort(new String[]{Task.PRIORITY, Task.TITLE},
+                        new Sort[] {Sort.ASCENDING, Sort.ASCENDING});
+
+        List<Task> results = new ArrayList<>();
+        results.addAll(resultsPart1);
+        results.addAll(resultsPart2);
+
+        return results;
     }
 
     @Override
