@@ -200,15 +200,15 @@ public class TaskRealmAdapter extends RealmRecyclerViewAdapter<Task, TaskRealmAd
         view.setLayoutParams(params);
     }
 
-    public TaskRealmAdapter(OrderedRealmCollection<Task> data) {
-        super(data, true);
+    public TaskRealmAdapter(OrderedRealmCollection<Task> tasks) {
+        super(tasks, true);
         // Only set this if the model class has a primary key that is also a integer or long.
         // In that case, {@code getItemId(int)} must also be overridden to return the key.
         // See https://developer.android.com/reference/android/support/v7/widget/RecyclerView.Adapter.html#hasStableIds()
         // See https://developer.android.com/reference/android/support/v7/widget/RecyclerView.Adapter.html#getItemId(int)
         setHasStableIds(true);
 
-        //mTasks = tasks;
+        mTasks = tasks;
         //mContext = context;
     }
 
