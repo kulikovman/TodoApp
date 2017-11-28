@@ -221,8 +221,8 @@ public class TaskListActivity extends AppCompatActivity
             hideActionButton();
         }
 
-        // Запоминаем последний выбранный элемент
-        mTask = task;
+        // Получаем выбранный элемент и запоминаем позицию
+        mTask = mRealm.where(Task.class).equalTo(Task.ID, task.getId()).findFirst();
         mPosition = itemPosition;
     }
 
@@ -344,7 +344,7 @@ public class TaskListActivity extends AppCompatActivity
     }*/
 
     public void fabDoneTask(View view) {
-        /*String repeat = mTask.getRepeat();
+        String repeat = mTask.getRepeat();
 
         // Если есть повтор, создаем новую задачу
         if (repeat != null){
@@ -382,7 +382,7 @@ public class TaskListActivity extends AppCompatActivity
         // Сопутствующие операции
         mAdapter.notifyItemRemoved(mPosition);
         mAdapter.resetSelection();
-        hideActionButton();*/
+        hideActionButton();
     }
 
     public void fabEditTask(View view) {
