@@ -112,7 +112,9 @@ public class TaskListActivity extends AppCompatActivity
 
     private List<Task> loadUnfinishedTasks() {
         RealmResults<Task> resultsPart1 = mRealm.where(Task.class)
-                .equalTo(Task.DONE, false).notEqualTo(Task.TARGET_DATE, 0).findAll()
+                .equalTo(Task.DONE, false)
+                .notEqualTo(Task.TARGET_DATE, 0)
+                .findAll()
                 .sort(new String[]{Task.TARGET_DATE, Task.PRIORITY, Task.TITLE},
                         new Sort[] {Sort.ASCENDING, Sort.ASCENDING, Sort.ASCENDING});
 
@@ -342,7 +344,7 @@ public class TaskListActivity extends AppCompatActivity
     }*/
 
     public void fabDoneTask(View view) {
-        String repeat = mTask.getRepeat();
+        /*String repeat = mTask.getRepeat();
 
         // Если есть повтор, создаем новую задачу
         if (repeat != null){
@@ -380,7 +382,7 @@ public class TaskListActivity extends AppCompatActivity
         // Сопутствующие операции
         mAdapter.notifyItemRemoved(mPosition);
         mAdapter.resetSelection();
-        hideActionButton();
+        hideActionButton();*/
     }
 
     public void fabEditTask(View view) {

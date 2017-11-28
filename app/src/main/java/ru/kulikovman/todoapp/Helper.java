@@ -2,8 +2,6 @@ package ru.kulikovman.todoapp;
 
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.support.annotation.DimenRes;
 import android.util.TypedValue;
 
 import java.text.DateFormat;
@@ -22,7 +20,7 @@ public class Helper {
         mShortDateFormat = new SimpleDateFormat("dd MMMM", Locale.getDefault());
     }
 
-    public static Calendar convertTextDateToCalendar(String textDate) {
+    public static Calendar convertLongTextDateToCalendar(String textDate) {
         Calendar calendar = Calendar.getInstance();
         try {
             calendar.setTime(mLongDateFormat.parse(textDate));
@@ -51,8 +49,31 @@ public class Helper {
         return date;
     }
 
+    public static Date convertLongTextDateToDate(String longTextDate) {
+        Date date = new Date();
+        try {
+            date = mLongDateFormat.parse(longTextDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return date;
+    }
+
     public static String convertCalendarToLongTextDate(Calendar calendar) {
         return mLongDateFormat.format(calendar.getTime());
+    }
+
+    public static String convertCalendarToShortTextDate(Calendar calendar) {
+        return mShortDateFormat.format(calendar.getTime());
+    }
+
+    public static String convertDateToLongTextDate(Date date) {
+        return mLongDateFormat.format(date);
+    }
+
+    public static String convertDateToShortTextDate(Date date) {
+        return mShortDateFormat.format(date);
     }
 
     public static String convertLongToLongTextDate(long longDate) {
@@ -65,7 +86,7 @@ public class Helper {
 
     public static Calendar getTodayRoundCalendar() {
         String date = convertLongToLongTextDate(Calendar.getInstance().getTimeInMillis());
-        return convertTextDateToCalendar(date);
+        return convertLongTextDateToCalendar(date);
     }
 
     public static int convertDpToPx(Context context, int valueInDp) {

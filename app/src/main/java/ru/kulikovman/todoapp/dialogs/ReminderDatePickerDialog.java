@@ -22,7 +22,7 @@ public class ReminderDatePickerDialog extends DialogFragment implements DatePick
         TextView dateState = (TextView) getActivity().findViewById(R.id.date_state);
         String taskDate = dateState.getText().toString();
 
-        final Calendar calendar = Helper.convertTextDateToCalendar(taskDate);
+        final Calendar calendar = Helper.convertLongTextDateToCalendar(taskDate);
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);

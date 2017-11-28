@@ -12,7 +12,6 @@ import java.util.Calendar;
 
 import ru.kulikovman.todoapp.Helper;
 import ru.kulikovman.todoapp.R;
-import ru.kulikovman.todoapp.messages.CanNotSetReminder;
 
 public class ReminderDialog extends DialogFragment {
 
@@ -48,7 +47,7 @@ public class ReminderDialog extends DialogFragment {
             }
         } else {
             // Получаем дату задачи и сегодняшнюю дату
-            Calendar taskDate = Helper.convertTextDateToCalendar(dateState.getText().toString());
+            Calendar taskDate = Helper.convertLongTextDateToCalendar(dateState.getText().toString());
             Calendar todayDate = Helper.getTodayRoundCalendar();
 
             // Вычисляем разницу в днях
