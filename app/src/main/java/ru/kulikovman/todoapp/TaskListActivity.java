@@ -24,9 +24,11 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import io.realm.Realm;
+import io.realm.RealmList;
 import io.realm.RealmResults;
 import io.realm.Sort;
 import ru.kulikovman.todoapp.adapters.TaskAdapter;
@@ -45,6 +47,7 @@ public class TaskListActivity extends AppCompatActivity
     private Calendar mNotifyTime;
 
     private Task mTask;
+    private String mTaskId;
     private int mPosition;
     private View mItemView;
 
@@ -111,7 +114,7 @@ public class TaskListActivity extends AppCompatActivity
     }
 
     private List<Task> loadUnfinishedTasks() {
-        List<Task> results = new ArrayList<>();
+        RealmList<Task> results = new RealmList<>();
 
         results.addAll(mRealm.where(Task.class)
                 .equalTo(Task.DONE, false)
@@ -222,7 +225,8 @@ public class TaskListActivity extends AppCompatActivity
         }
 
         // Получаем выбранный элемент и запоминаем позицию
-        mTask = mRealm.where(Task.class).equalTo(Task.ID, task.getId()).findFirst();
+        //mTask = mRealm.where(Task.class).equalTo(Task.ID, task.getId()).findFirst();
+        mTask = task;
         mPosition = itemPosition;
     }
 
