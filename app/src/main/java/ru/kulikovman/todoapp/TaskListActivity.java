@@ -31,16 +31,16 @@ import io.realm.Realm;
 import io.realm.RealmList;
 import io.realm.RealmResults;
 import io.realm.Sort;
-import ru.kulikovman.todoapp.adapters.TaskAdapter;
+import ru.kulikovman.todoapp.adapters.TaskRealmAdapter;
 import ru.kulikovman.todoapp.models.Task;
 
 public class TaskListActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, TaskAdapter.OnItemClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener, TaskRealmAdapter.OnItemClickListener {
 
     private SharedPreferences mSharedPref;
 
     private RecyclerView mRecyclerView;
-    private TaskAdapter mAdapter;
+    private TaskRealmAdapter mAdapter;
     private Realm mRealm;
 
     private AlarmManager mAlarmManager;
@@ -100,7 +100,7 @@ public class TaskListActivity extends AppCompatActivity
 
         // Создаем и устанавливаем список
         //updateTaskList();
-        mAdapter = new TaskAdapter(this, loadUnfinishedTasks());
+        mAdapter = new TaskRealmAdapter(this, loadUnfinishedTasks());
         mRecyclerView.setAdapter(mAdapter);
 
         // Слушатель для адаптера списка
@@ -113,7 +113,14 @@ public class TaskListActivity extends AppCompatActivity
         Log.d("log", "Завершен onCreate в TaskListActivity");
     }
 
-    private List<Task> loadUnfinishedTasks() {
+    private RealmResults<Task> loadUnfinishedTasks() {
+        RealmResults<Task> realmResults = mRealm.where(Task.class)
+                .equalTo(Task.DONE, false)
+                //.notEqualTo(Task.TARGET_DATE, 0)
+                .findAll()
+                .sort(new String[]{Task.TARGET_DATE, Task.PRIORITY, Task.TITLE},
+                        new Sort[] {Sort.ASCENDING, Sort.ASCENDING, Sort.ASCENDING});
+
         RealmList<Task> results = new RealmList<>();
 
         results.addAll(mRealm.where(Task.class)
@@ -130,7 +137,7 @@ public class TaskListActivity extends AppCompatActivity
                 .sort(new String[]{Task.PRIORITY, Task.TITLE},
                         new Sort[] {Sort.ASCENDING, Sort.ASCENDING}));
 
-        return results;
+        return realmResults;
     }
 
     @Override

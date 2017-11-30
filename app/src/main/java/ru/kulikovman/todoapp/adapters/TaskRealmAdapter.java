@@ -200,30 +200,30 @@ public class TaskRealmAdapter extends RealmRecyclerViewAdapter<Task, TaskRealmAd
         view.setLayoutParams(params);
     }
 
-    public TaskRealmAdapter(OrderedRealmCollection<Task> tasks) {
+    public TaskRealmAdapter(Context context, OrderedRealmCollection<Task> tasks) {
         super(tasks, true);
         // Only set this if the model class has a primary key that is also a integer or long.
         // In that case, {@code getItemId(int)} must also be overridden to return the key.
         // See https://developer.android.com/reference/android/support/v7/widget/RecyclerView.Adapter.html#hasStableIds()
         // See https://developer.android.com/reference/android/support/v7/widget/RecyclerView.Adapter.html#getItemId(int)
-        setHasStableIds(true);
+        //setHasStableIds(true);
 
         mTasks = tasks;
-        //mContext = context;
+        mContext = context;
     }
 
     @Override
-    public TaskRealmAdapter.TaskHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_task, parent, false);
-        return new TaskHolder(v);
+    public TaskHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View item = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_task, parent, false);
+        return new TaskHolder(item);
     }
 
     @Override
-    public void onBindViewHolder(final TaskHolder holder, int position) {
+    public void onBindViewHolder(TaskHolder holder, int position) {
         Task task = mTasks.get(position);
         holder.bindTask(task);
 
-        // Если установленная позиция равна текущей, то делаем элемент "нажатым"
+        // Если установленная позиция равна текущей, то выделяем элемент
         holder.itemView.setSelected(mPosition == position);
     }
 
