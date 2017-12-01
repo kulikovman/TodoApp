@@ -297,7 +297,6 @@ public class TaskListActivity extends AppCompatActivity
         // Открываем активити редактирования задачи и передаем id задачи
         Intent intent = new Intent(this, TaskEditActivity.class);
         intent.putExtra("task_id", mTask.getId());
-        Log.d("log", "Передаваемый id: " + mTask.getId());
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
     }
