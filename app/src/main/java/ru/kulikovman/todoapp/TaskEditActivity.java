@@ -200,6 +200,9 @@ public class TaskEditActivity extends AppCompatActivity {
 
             if (!date.equals(getString(R.string.date_without))) {
                 task.setTargetDate(convertLongTextDateToLong(date));
+            } else {
+                task.setTargetDate(0);
+                task.setTargetDateSort("empty");
             }
 
             // Получаем приоритет
@@ -223,6 +226,8 @@ public class TaskEditActivity extends AppCompatActivity {
             if (!groupName.equals(getString(R.string.group_without))) {
                 Group group = mRealm.where(Group.class).equalTo(Group.NAME, groupName).findFirst();
                 task.setGroup(group);
+            } else {
+                task.setGroup(null);
             }
 
             // Получаем повтор
@@ -238,6 +243,8 @@ public class TaskEditActivity extends AppCompatActivity {
                 } else if (repeat.equals(getString(R.string.repeat_year))) {
                     task.setRepeat("year");
                 }
+            } else {
+                task.setRepeat(null);
             }
 
             // Получаем статус напоминания
@@ -257,6 +264,7 @@ public class TaskEditActivity extends AppCompatActivity {
             } else {
                 mTask.setTitle(title);
                 mTask.setTargetDate(task.getTargetDate());
+                mTask.setTargetDateSort(task.getTargetDateSort());
                 mTask.setPriority(task.getPriority());
                 mTask.setGroup(task.getGroup());
                 mTask.setRepeat(task.getRepeat());

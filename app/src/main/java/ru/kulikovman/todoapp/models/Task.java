@@ -9,6 +9,7 @@ public class Task extends RealmObject {
     public static final String PRIORITY = "mPriority";
     public static final String DONE = "mDone";
     public static final String TARGET_DATE = "mTargetDate";
+    public static final String TARGET_DATE_SORT = "mTargetDateSort";
     public static final String COMPLETION_DATE = "mCompletionDate";
     public static final String REPEAT = "mRepeat";
     public static final String REMINDER = "mReminder";
@@ -21,6 +22,7 @@ public class Task extends RealmObject {
     private int mPriority;
     private boolean mDone;
     private long mTargetDate;
+    private String mTargetDateSort = "empty";
     private long mCompletionDate;
     private String mRepeat;
     private boolean mReminder;
@@ -84,6 +86,14 @@ public class Task extends RealmObject {
 
     public void setTargetDate(long targetDate) {
         mTargetDate = targetDate;
+    }
+
+    public String getTargetDateSort() {
+        return mTargetDateSort;
+    }
+
+    public void setTargetDateSort(String targetDateSort) {
+        mTargetDateSort = targetDateSort;
     }
 
     public long getCompletionDate() {
