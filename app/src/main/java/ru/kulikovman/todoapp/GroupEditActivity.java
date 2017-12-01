@@ -40,10 +40,10 @@ public class GroupEditActivity extends AppCompatActivity {
 
         // Подключаем базу данных и читаем id из интента
         mRealm = Realm.getDefaultInstance();
-        int id = (int) getIntent().getSerializableExtra("group_id");
+        String id = (String) getIntent().getSerializableExtra("group_id");
 
-        // Если id != 0, то получаем группу и грузим в макет
-        if (id != 0) {
+        // Если id != null, то получаем группу и грузим в макет
+        if (id != null) {
             mGroup = mRealm.where(Group.class).equalTo(Group.ID, id).findFirst();
             loadGroup();
         }

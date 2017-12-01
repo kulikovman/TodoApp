@@ -52,10 +52,10 @@ public class TaskEditActivity extends AppCompatActivity {
 
         // Подключаем базу данных и читаем id из интента
         mRealm = Realm.getDefaultInstance();
-        int id = (int) getIntent().getSerializableExtra("task_id");
+        String id = (String) getIntent().getSerializableExtra("task_id");
 
-        // Если id != 0, то получаем задачу и грузим в макет
-        if (id != 0) {
+        // Если id != null, то получаем задачу и грузим в макет
+        if (id != null) {
             mTask = mRealm.where(Task.class).equalTo(Task.ID, id).findFirst();
             loadTask();
         }
