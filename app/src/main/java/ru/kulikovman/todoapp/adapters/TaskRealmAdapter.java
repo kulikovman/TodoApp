@@ -18,6 +18,7 @@ import java.util.List;
 
 import io.realm.OrderedRealmCollection;
 import io.realm.RealmRecyclerViewAdapter;
+import io.realm.RealmResults;
 import ru.kulikovman.todoapp.Helper;
 import ru.kulikovman.todoapp.R;
 import ru.kulikovman.todoapp.models.Task;
@@ -28,9 +29,26 @@ import static ru.kulikovman.todoapp.Helper.convertLongToLongTextDate;
 public class TaskRealmAdapter extends RealmRecyclerViewAdapter<Task, TaskRealmAdapter.TaskHolder> {
     private static OnItemClickListener mListener;
     private Context mContext;
-    private List<Task> mTasks;
+    private RealmResults<Task> mTasks;
 
     private int mPosition = RecyclerView.NO_POSITION;
+
+    public TaskRealmAdapter(Context context, OrderedRealmCollection<Task> tasks) {
+        super(tasks, true);
+        // Only set this if the model class has a primary key that is also a integer or long.
+        // In that case, {@code getItemId(int)} must also be overridden to return the key.
+        // See https://developer.android.com/reference/android/support/v7/widget/RecyclerView.Adapter.html#hasStableIds()
+        // See https://developer.android.com/reference/android/support/v7/widget/RecyclerView.Adapter.html#getItemId(int)
+        //setHasStableIds(true);
+
+        mTasks = tasks;
+        mContext = context;
+    }
+
+
+
+
+
 
     public class TaskHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTaskTitle, mTaskDate, mTaskPriority, mTaskRepeat;
@@ -200,17 +218,7 @@ public class TaskRealmAdapter extends RealmRecyclerViewAdapter<Task, TaskRealmAd
         view.setLayoutParams(params);
     }
 
-    public TaskRealmAdapter(Context context, OrderedRealmCollection<Task> tasks) {
-        super(tasks, true);
-        // Only set this if the model class has a primary key that is also a integer or long.
-        // In that case, {@code getItemId(int)} must also be overridden to return the key.
-        // See https://developer.android.com/reference/android/support/v7/widget/RecyclerView.Adapter.html#hasStableIds()
-        // See https://developer.android.com/reference/android/support/v7/widget/RecyclerView.Adapter.html#getItemId(int)
-        //setHasStableIds(true);
 
-        mTasks = tasks;
-        mContext = context;
-    }
 
     @Override
     public TaskHolder onCreateViewHolder(ViewGroup parent, int viewType) {

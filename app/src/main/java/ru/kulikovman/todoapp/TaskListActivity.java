@@ -121,7 +121,7 @@ public class TaskListActivity extends AppCompatActivity
                 .sort(new String[]{Task.TARGET_DATE, Task.PRIORITY, Task.TITLE},
                         new Sort[] {Sort.ASCENDING, Sort.ASCENDING, Sort.ASCENDING});
 
-        RealmList<Task> results = new RealmList<>();
+        List<Task> results = new ArrayList<>();
 
         results.addAll(mRealm.where(Task.class)
                 .equalTo(Task.DONE, false)
@@ -155,6 +155,7 @@ public class TaskListActivity extends AppCompatActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        mRecyclerView.setAdapter(null);
         mRealm.close();
     }
 
