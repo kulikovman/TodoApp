@@ -111,6 +111,7 @@ public class GroupListActivity extends AppCompatActivity implements GroupAdapter
         // Передаем с интентом имя группы
         Intent intent = new Intent(this, GroupEditActivity.class);
         intent.putExtra("group_name", mGroup.getName());
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
     }
 

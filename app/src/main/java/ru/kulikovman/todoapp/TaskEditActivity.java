@@ -277,7 +277,7 @@ public class TaskEditActivity extends AppCompatActivity {
     private void closeActivity() {
         // Удаляем текущий активити из стека и возвращаемся в список групп
         Intent intent = new Intent(this, TaskListActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 }
