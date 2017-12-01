@@ -17,6 +17,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import io.realm.OrderedRealmCollection;
+import io.realm.RealmList;
 import io.realm.RealmRecyclerViewAdapter;
 import io.realm.RealmResults;
 import ru.kulikovman.todoapp.Helper;
@@ -29,7 +30,7 @@ import static ru.kulikovman.todoapp.Helper.convertLongToLongTextDate;
 public class TaskRealmAdapter extends RealmRecyclerViewAdapter<Task, TaskRealmAdapter.TaskHolder> {
     private static OnItemClickListener mListener;
     private Context mContext;
-    private RealmResults<Task> mTasks;
+    private List<Task> mTasks;
 
     private int mPosition = RecyclerView.NO_POSITION;
 
@@ -37,18 +38,17 @@ public class TaskRealmAdapter extends RealmRecyclerViewAdapter<Task, TaskRealmAd
         super(tasks, true);
         // Only set this if the model class has a primary key that is also a integer or long.
         // In that case, {@code getItemId(int)} must also be overridden to return the key.
-        // See https://developer.android.com/reference/android/support/v7/widget/RecyclerView.Adapter.html#hasStableIds()
-        // See https://developer.android.com/reference/android/support/v7/widget/RecyclerView.Adapter.html#getItemId(int)
-        //setHasStableIds(true);
+        setHasStableIds(true);
 
         mTasks = tasks;
         mContext = context;
     }
 
-
-
-
-
+    @Override
+    public long getItemId(int index) {
+        //noinspection ConstantConditions
+        return getItem(index).getId();
+    }
 
     public class TaskHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTaskTitle, mTaskDate, mTaskPriority, mTaskRepeat;
@@ -251,18 +251,6 @@ public class TaskRealmAdapter extends RealmRecyclerViewAdapter<Task, TaskRealmAd
 
     public void setOnItemClickListener(OnItemClickListener listener) {
         mListener = listener;
-    }
-
-    // Добавляем элемент в набор данных
-    public void addItem(int position, Task task) {
-        mTasks.add(position, task);
-        super.notifyItemInserted(position);
-    }
-
-    // Удаляем элемент из набора данных
-    public void deleteItem(int position) {
-        mTasks.remove(position);
-        super.notifyItemRemoved(position);
     }
 
     public void resetSelection() {

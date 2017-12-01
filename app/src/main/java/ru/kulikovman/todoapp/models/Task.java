@@ -14,7 +14,7 @@ public class Task extends RealmObject {
     public static final String REMINDER = "mReminder";
     public static final String GROUP = "mGroup";
 
-    //@PrimaryKey
+    @PrimaryKey
     private long mId;
 
     private String mTitle;

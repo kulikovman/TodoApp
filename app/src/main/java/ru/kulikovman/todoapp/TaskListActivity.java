@@ -21,14 +21,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import io.realm.Realm;
-import io.realm.RealmList;
 import io.realm.RealmResults;
 import io.realm.Sort;
 import ru.kulikovman.todoapp.adapters.TaskRealmAdapter;
@@ -94,50 +90,33 @@ public class TaskListActivity extends AppCompatActivity
         mSharedPref = getSharedPreferences(getString(R.string.pref_key), Context.MODE_PRIVATE);
         mTypeList = mSharedPref.getString(getString(R.string.type_list), getString(R.string.list_unfinished));
 
-        // Устанавливаем параметры для RecyclerView
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        // Создаем и запускаем список
+        setUpRecyclerView();
 
-        // Создаем и устанавливаем список
-        //updateTaskList();
-        mAdapter = new TaskRealmAdapter(this, loadUnfinishedTasks());
-        mRecyclerView.setAdapter(mAdapter);
-
-        // Слушатель для адаптера списка
-        mAdapter.setOnItemClickListener(this);
-
-
-        setNotifyTime();
-        restartNotify();
+        // Запускаем уведомления
+        //setNotifyTime();
+        //restartNotify();
 
         Log.d("log", "Завершен onCreate в TaskListActivity");
     }
 
+    private void setUpRecyclerView() {
+        mAdapter = new TaskRealmAdapter(this, loadUnfinishedTasks());
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setHasFixedSize(true);
+        //mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
+
+        // Слушатель для адаптера списка
+        mAdapter.setOnItemClickListener(this);
+    }
+
     private RealmResults<Task> loadUnfinishedTasks() {
-        RealmResults<Task> realmResults = mRealm.where(Task.class)
+        return mRealm.where(Task.class)
                 .equalTo(Task.DONE, false)
-                //.notEqualTo(Task.TARGET_DATE, 0)
                 .findAll()
                 .sort(new String[]{Task.TARGET_DATE, Task.PRIORITY, Task.TITLE},
                         new Sort[] {Sort.ASCENDING, Sort.ASCENDING, Sort.ASCENDING});
-
-        List<Task> results = new ArrayList<>();
-
-        results.addAll(mRealm.where(Task.class)
-                .equalTo(Task.DONE, false)
-                .notEqualTo(Task.TARGET_DATE, 0)
-                .findAll()
-                .sort(new String[]{Task.TARGET_DATE, Task.PRIORITY, Task.TITLE},
-                        new Sort[] {Sort.ASCENDING, Sort.ASCENDING, Sort.ASCENDING}));
-
-        results.addAll(mRealm.where(Task.class)
-                .equalTo(Task.DONE, false)
-                .equalTo(Task.TARGET_DATE, 0)
-                .findAll()
-                .sort(new String[]{Task.PRIORITY, Task.TITLE},
-                        new Sort[] {Sort.ASCENDING, Sort.ASCENDING}));
-
-        return realmResults;
     }
 
     @Override
@@ -260,87 +239,6 @@ public class TaskListActivity extends AppCompatActivity
         // сейчас выделение элементов работает по другому
         finishAction();
     }*/
-
-    /*// Создаем список задач в зависимости от выбранного типа
-    private List<Task> createList(String typeList) {
-        List<Task> tasks = new ArrayList<>();
-
-        // Получаем сегодняшнюю дату
-        Calendar calendar = Calendar.getInstance();
-        long targetDate = calendar.getTimeInMillis();
-
-        // Дата задачи
-        long taskDate;
-
-        // Если тип списка - на месяц или равен нулю
-        if (typeList.equals(getString(R.string.list_month)) || typeList.equals("")) {
-            calendar.add(Calendar.MONTH, 1);
-            targetDate = calendar.getTimeInMillis();
-
-            for (Task task : mAllTasks) {
-                if (!task.isDone()) {
-                    if (task.getTargetDate().equals("Не установлена")) {
-                        tasks.add(task);
-                    } else {
-                        taskDate = Long.parseLong(task.getTargetDate());
-                        if (taskDate <= targetDate) {
-                            tasks.add(task);
-                        }
-                    }
-                }
-            }
-            return tasks;
-        }
-
-        // Если тип списка - на сегодня
-        if (typeList.equals(getString(R.string.list_today))) {
-            for (Task task : mAllTasks) {
-                if (!task.isDone() && !task.getTargetDate().equals("Не установлена")) {
-                    taskDate = Long.parseLong(task.getTargetDate());
-                    if (taskDate <= targetDate) {
-                        tasks.add(task);
-                    }
-
-                }
-            }
-            return tasks;
-        }
-
-        // Если тип списка - без даты
-        if (typeList.equals(getString(R.string.list_without_date))) {
-            for (Task task : mAllTasks) {
-                if (!task.isDone()) {
-                    if (task.getTargetDate().equals("Не установлена")) {
-                        tasks.add(task);
-                    }
-                }
-            }
-            return tasks;
-        }
-
-        // Если тип списка - все назавершенные
-        if (typeList.equals(getString(R.string.list_unfinished))) {
-            for (Task task : mAllTasks) {
-                if (!task.isDone()) {
-                    tasks.add(task);
-                }
-            }
-            return tasks;
-        }
-
-        // Если тип списка - все завершенные
-        if (typeList.equals(getString(R.string.list_finished))) {
-            for (Task task : mAllTasks) {
-                if (task.isDone()) {
-                    tasks.add(task);
-                }
-            }
-            return tasks;
-        }
-
-        return null;
-    }*/
-
 
     /*private void setNumberOfTasks() {
         // Метод для установки количества задач в заголовке меню
