@@ -10,8 +10,9 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 
+import io.realm.OrderedRealmCollection;
 import io.realm.Realm;
-import io.realm.RealmResults;
+import io.realm.Sort;
 import ru.kulikovman.todoapp.adapters.GroupRealmAdapter;
 import ru.kulikovman.todoapp.models.Group;
 
@@ -34,35 +35,34 @@ public class GroupListActivity extends AppCompatActivity implements GroupRealmAd
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        // Подключаем базу данных
+        mRealm = Realm.getDefaultInstance();
+
         // Инициализируем необходимые вью элементы
         mRecyclerView = (RecyclerView) findViewById(R.id.group_list_recycler_view);
         mEditButton = (FloatingActionButton) findViewById(R.id.fab_edit_group);
         mDeleteButton = (FloatingActionButton) findViewById(R.id.fab_delete_group);
 
-        // Подключаем базу данных
-        mRealm = Realm.getDefaultInstance();
-
-        // Устанавливаем параметры для RecyclerView
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        // Создаем или обновляем адаптер
-        updateGroupList();
-
-        // Слушатель для адаптера списка
-        mAdapter.setOnItemClickListener(this);
+        // Создаем и запускаем список
+        setUpRecyclerView();
 
         Log.d("log", "Завершен onCreate в GroupListActivity");
     }
 
-    private RealmResults<Group> loadAllGroups() {
-        return mRealm.where(Group.class).findAll();
+    private void setUpRecyclerView() {
+        mAdapter = new GroupRealmAdapter(this, loadGroupList());
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setHasFixedSize(true);
+
+        // Слушатель для адаптера списка
+        mAdapter.setOnItemClickListener(this);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        //updateGroupList();
+    private OrderedRealmCollection<Group> loadGroupList() {
+        return mRealm.where(Group.class)
+                .findAll()
+                .sort(Group.NAME, Sort.ASCENDING);
     }
 
     @Override
@@ -71,7 +71,7 @@ public class GroupListActivity extends AppCompatActivity implements GroupRealmAd
         mRealm.close();
     }
 
-    private void updateGroupList() {
+    /*private void updateGroupList() {
         if (mAdapter == null) {
             mAdapter = new GroupRealmAdapter(this, loadAllGroups());
             mRecyclerView.setAdapter(mAdapter);
@@ -80,37 +80,29 @@ public class GroupListActivity extends AppCompatActivity implements GroupRealmAd
             mAdapter.setGroups(loadAllGroups());
             mAdapter.notifyDataSetChanged();
         }
-    }
+    }*/
 
     public void fabAddGroup(View view) {
         Intent intent = new Intent(this, GroupEditActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
     }
 
     public void fabDeleteGroup(View view) {
-        final RealmResults<Group> results = mRealm.where(Group.class).equalTo(Group.NAME, mGroup.getName()).findAll();
+        mRealm.beginTransaction();
+        mGroup.deleteFromRealm();
+        mRealm.commitTransaction();
 
-        mRealm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                results.deleteAllFromRealm();
-            }
-        });
-
+        // Сопутствующие операции
         mAdapter.notifyItemRemoved(mPosition);
         mAdapter.resetSelection();
-        hideFabButtons();
-    }
-
-    private void hideFabButtons() {
-        mEditButton.setVisibility(View.INVISIBLE);
-        mDeleteButton.setVisibility(View.INVISIBLE);
+        hideActionButtons();
     }
 
     public void fabEditGroup(View view) {
         // Передаем с интентом имя группы
         Intent intent = new Intent(this, GroupEditActivity.class);
-        intent.putExtra("group_name", mGroup.getName());
+        intent.putExtra("group_id", mGroup.getId());
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
     }
@@ -122,11 +114,16 @@ public class GroupListActivity extends AppCompatActivity implements GroupRealmAd
             mEditButton.setVisibility(View.VISIBLE);
             mDeleteButton.setVisibility(View.VISIBLE);
         } else {
-            hideFabButtons();
+            hideActionButtons();
         }
 
         // Запоминаем последний выбранный элемент
         mGroup = group;
         mPosition = itemPosition;
+    }
+
+    private void hideActionButtons() {
+        mEditButton.setVisibility(View.INVISIBLE);
+        mDeleteButton.setVisibility(View.INVISIBLE);
     }
 }

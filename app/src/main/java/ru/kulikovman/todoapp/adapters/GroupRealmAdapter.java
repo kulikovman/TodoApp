@@ -15,13 +15,11 @@ import io.realm.OrderedRealmCollection;
 import io.realm.RealmRecyclerViewAdapter;
 import ru.kulikovman.todoapp.R;
 import ru.kulikovman.todoapp.models.Group;
-import ru.kulikovman.todoapp.models.Task;
-
 
 public class GroupRealmAdapter extends RealmRecyclerViewAdapter<Group, GroupRealmAdapter.GroupHolder> {
     private static OnItemClickListener mListener;
     private Context mContext;
-    private List<Group> mGroups;
+    private OrderedRealmCollection<Group> mGroups;
 
     private int mPosition = RecyclerView.NO_POSITION;
 
@@ -119,8 +117,8 @@ public class GroupRealmAdapter extends RealmRecyclerViewAdapter<Group, GroupReal
         return mGroups.size();
     }
 
-    public void setGroups(List<Group> groups) {
-        mGroups = groups;
+    public void setGroups(OrderedRealmCollection<Group> results) {
+        mGroups = results;
     }
 
     // Интерфейс для проброса слушателя наружу

@@ -24,8 +24,8 @@ import android.widget.TextView;
 import java.util.Calendar;
 import java.util.List;
 
+import io.realm.OrderedRealmCollection;
 import io.realm.Realm;
-import io.realm.RealmResults;
 import io.realm.Sort;
 import ru.kulikovman.todoapp.adapters.TaskRealmAdapter;
 import ru.kulikovman.todoapp.models.Task;
@@ -110,7 +110,7 @@ public class TaskListActivity extends AppCompatActivity
         mAdapter.setOnItemClickListener(this);
     }
 
-    private RealmResults<Task> loadUnfinishedTasks() {
+    private OrderedRealmCollection<Task> loadUnfinishedTasks() {
         return mRealm.where(Task.class)
                 .equalTo(Task.DONE, false)
                 .findAll()
@@ -207,11 +207,10 @@ public class TaskListActivity extends AppCompatActivity
         if (selectedPosition != RecyclerView.NO_POSITION) {
             showActionButton();
         } else {
-            hideActionButton();
+            hideActionButtons();
         }
 
-        // Получаем выбранный элемент и запоминаем позицию
-        //mTask = mRealm.where(Task.class).equalTo(Task.ID, task.getId()).findFirst();
+        // Запоминаем последний выбранный элемент
         mTask = task;
         mPosition = itemPosition;
     }
@@ -291,7 +290,7 @@ public class TaskListActivity extends AppCompatActivity
         // Сопутствующие операции
         mAdapter.notifyItemRemoved(mPosition);
         mAdapter.resetSelection();
-        hideActionButton();
+        hideActionButtons();
     }
 
     public void fabEditTask(View view) {
@@ -303,7 +302,6 @@ public class TaskListActivity extends AppCompatActivity
     }
 
     public void fabDeleteTask(View view) {
-        // Удаление задачи
         mRealm.beginTransaction();
         mTask.deleteFromRealm();
         mRealm.commitTransaction();
@@ -311,12 +309,13 @@ public class TaskListActivity extends AppCompatActivity
         // Сопутствующие операции
         mAdapter.notifyItemRemoved(mPosition);
         mAdapter.resetSelection();
-        hideActionButton();
+        hideActionButtons();
     }
 
     public void fabAddTask(View view) {
         // Просто открываем активити
         Intent intent = new Intent(this, TaskEditActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
     }
 
@@ -325,11 +324,11 @@ public class TaskListActivity extends AppCompatActivity
         if (mItemView != null) {
             mItemView.setBackgroundColor(Color.TRANSPARENT);
         }
-        hideActionButton();
+        hideActionButtons();
         setNumberOfTasks();
     }*/
 
-    private void hideActionButton() {
+    private void hideActionButtons() {
         mDeleteButton.setVisibility(View.INVISIBLE);
         mEditButton.setVisibility(View.INVISIBLE);
         mDoneButton.setVisibility(View.INVISIBLE);

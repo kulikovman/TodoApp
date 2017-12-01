@@ -38,15 +38,13 @@ public class GroupEditActivity extends AppCompatActivity {
         mDescriptionState = (TextView) findViewById(R.id.description_state);
         mColorState = (TextView) findViewById(R.id.color_state);
 
-        // Подключаем базу данных
+        // Подключаем базу данных и читаем id из интента
         mRealm = Realm.getDefaultInstance();
+        int id = (int) getIntent().getSerializableExtra("group_id");
 
-        // Читаем имя группы из интента
-        String groupName = (String) getIntent().getSerializableExtra("group_name");
-
-        // Если имя есть, то получаем группу и обновляем поля активности
-        if (groupName != null) {
-            mGroup = mRealm.where(Group.class).equalTo(Group.NAME, groupName).findFirst();
+        // Если id != 0, то получаем группу и грузим в макет
+        if (id != 0) {
+            mGroup = mRealm.where(Group.class).equalTo(Group.ID, id).findFirst();
             loadGroup();
         }
 
@@ -122,6 +120,8 @@ public class GroupEditActivity extends AppCompatActivity {
 
             if (!description.equals(getString(R.string.without_description))) {
                 group.setDescription(description);
+            } else {
+                group.setDescription(null);
             }
 
             // Если указан цвет, то добавляем его в группу
@@ -143,6 +143,8 @@ public class GroupEditActivity extends AppCompatActivity {
                 } else if (color.equals(getString(R.string.color_7_pink))) {
                     group.setColor("pink");
                 }
+            } else {
+                group.setColor(null);
             }
 
             // Добавляем или обновляем группу в базе

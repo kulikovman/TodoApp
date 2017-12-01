@@ -28,7 +28,7 @@ import static ru.kulikovman.todoapp.Helper.convertLongToLongTextDate;
 public class TaskRealmAdapter extends RealmRecyclerViewAdapter<Task, TaskRealmAdapter.TaskHolder> {
     private static OnItemClickListener mListener;
     private Context mContext;
-    private List<Task> mTasks;
+    private OrderedRealmCollection<Task> mTasks;
 
     private int mPosition = RecyclerView.NO_POSITION;
 
@@ -236,8 +236,8 @@ public class TaskRealmAdapter extends RealmRecyclerViewAdapter<Task, TaskRealmAd
         return mTasks.size();
     }
 
-    public void setTasks(List<Task> tasks) {
-        mTasks = tasks;
+    public void setTasks(OrderedRealmCollection<Task> results) {
+        mTasks = results;
     }
 
     // Интерфейс для проброса слушателя наружу
