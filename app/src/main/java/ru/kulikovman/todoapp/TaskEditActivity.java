@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -52,13 +53,15 @@ public class TaskEditActivity extends AppCompatActivity {
 
         // Подключаем базу данных и читаем id из интента
         mRealm = Realm.getDefaultInstance();
-        String id = (String) getIntent().getSerializableExtra("task_id");
 
-        // Если id != null, то получаем задачу и грузим в макет
-        if (id != null) {
-            mTask = mRealm.where(Task.class).equalTo(Task.ID, id).findFirst();
+        // Получаем задачу если она есть
+        if (getIntent().getSerializableExtra("task_id") != null) {
+            long taskId = (long) getIntent().getSerializableExtra("task_id");
+            mTask = mRealm.where(Task.class).equalTo(Task.ID, taskId).findFirst();
             loadTask();
         }
+
+        Log.d("log", "Завершен onCreate в TaskEditActivity");
     }
 
     @Override

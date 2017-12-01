@@ -16,6 +16,7 @@ import ru.kulikovman.todoapp.dialogs.ColorDialog;
 import ru.kulikovman.todoapp.dialogs.DescriptionDialog;
 import ru.kulikovman.todoapp.messages.GroupIsExist;
 import ru.kulikovman.todoapp.models.Group;
+import ru.kulikovman.todoapp.models.Task;
 
 public class GroupEditActivity extends AppCompatActivity {
     private Group mGroup;
@@ -40,15 +41,15 @@ public class GroupEditActivity extends AppCompatActivity {
 
         // Подключаем базу данных и читаем id из интента
         mRealm = Realm.getDefaultInstance();
-        String id = (String) getIntent().getSerializableExtra("group_id");
 
-        // Если id != null, то получаем группу и грузим в макет
-        if (id != null) {
-            mGroup = mRealm.where(Group.class).equalTo(Group.ID, id).findFirst();
+        // Получаем группу если она есть
+        if (getIntent().getSerializableExtra("group_id") != null) {
+            long groupId = (long) getIntent().getSerializableExtra("group_id");
+            mGroup = mRealm.where(Group.class).equalTo(Group.ID, groupId).findFirst();
             loadGroup();
         }
 
-        Log.d("log", "Успешно завершен onCreate в GroupEditActivity");
+        Log.d("log", "Завершен onCreate в GroupEditActivity");
     }
 
     @Override
