@@ -114,7 +114,7 @@ public class TaskListActivity extends AppCompatActivity
         return mRealm.where(Task.class)
                 .equalTo(Task.DONE, false)
                 .findAll()
-                .sort(new String[]{Task.TARGET_DATE_SORT, Task.PRIORITY, Task.TITLE},
+                .sort(new String[]{Task.TARGET_DATE, Task.PRIORITY, Task.TITLE},
                         new Sort[] {Sort.ASCENDING, Sort.ASCENDING, Sort.ASCENDING});
     }
 
