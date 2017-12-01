@@ -5,7 +5,7 @@
     <string name="title_activity_edit_task">Задача</string>
     <string name="title_activity_edit_group">Группа</string>
     <string name="title_activity_main">Список задач</string>
-    <string name="title_activity_group_list">Группы задач</string>
+    <string name="title_activity_group_list">Группы</string>
 
     <!-- Выбор даты задачи -->
     <string name="date_title">Дата выполнения</string>
