@@ -12,11 +12,11 @@ import android.view.View;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
-import ru.kulikovman.todoapp.adapters.GroupAdapter;
+import ru.kulikovman.todoapp.adapters.GroupRealmAdapter;
 import ru.kulikovman.todoapp.models.Group;
 
-public class GroupListActivity extends AppCompatActivity implements GroupAdapter.OnItemClickListener {
-    private GroupAdapter mAdapter;
+public class GroupListActivity extends AppCompatActivity implements GroupRealmAdapter.OnItemClickListener {
+    private GroupRealmAdapter mAdapter;
     private RecyclerView mRecyclerView;
     private Realm mRealm;
 
@@ -73,7 +73,7 @@ public class GroupListActivity extends AppCompatActivity implements GroupAdapter
 
     private void updateGroupList() {
         if (mAdapter == null) {
-            mAdapter = new GroupAdapter(this, loadAllGroups());
+            mAdapter = new GroupRealmAdapter(this, loadAllGroups());
             mRecyclerView.setAdapter(mAdapter);
         } else {
             mAdapter.resetSelection();

@@ -17,9 +17,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import io.realm.OrderedRealmCollection;
-import io.realm.RealmList;
 import io.realm.RealmRecyclerViewAdapter;
-import io.realm.RealmResults;
 import ru.kulikovman.todoapp.Helper;
 import ru.kulikovman.todoapp.R;
 import ru.kulikovman.todoapp.models.Task;
@@ -34,13 +32,13 @@ public class TaskRealmAdapter extends RealmRecyclerViewAdapter<Task, TaskRealmAd
 
     private int mPosition = RecyclerView.NO_POSITION;
 
-    public TaskRealmAdapter(Context context, OrderedRealmCollection<Task> tasks) {
-        super(tasks, true);
+    public TaskRealmAdapter(Context context, OrderedRealmCollection<Task> results) {
+        super(results, true);
         // Only set this if the model class has a primary key that is also a integer or long.
         // In that case, {@code getItemId(int)} must also be overridden to return the key.
         setHasStableIds(true);
 
-        mTasks = tasks;
+        mTasks = results;
         mContext = context;
     }
 
@@ -217,8 +215,6 @@ public class TaskRealmAdapter extends RealmRecyclerViewAdapter<Task, TaskRealmAd
         params.setMarginStart(Helper.convertDpToPx(mContext, value));
         view.setLayoutParams(params);
     }
-
-
 
     @Override
     public TaskHolder onCreateViewHolder(ViewGroup parent, int viewType) {

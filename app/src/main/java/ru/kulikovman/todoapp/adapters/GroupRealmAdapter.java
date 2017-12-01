@@ -11,16 +11,35 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import io.realm.OrderedRealmCollection;
+import io.realm.RealmRecyclerViewAdapter;
 import ru.kulikovman.todoapp.R;
 import ru.kulikovman.todoapp.models.Group;
+import ru.kulikovman.todoapp.models.Task;
 
 
-public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupHolder> {
-    private static GroupAdapter.OnItemClickListener mListener;
+public class GroupRealmAdapter extends RealmRecyclerViewAdapter<Group, GroupRealmAdapter.GroupHolder> {
+    private static OnItemClickListener mListener;
     private Context mContext;
     private List<Group> mGroups;
 
     private int mPosition = RecyclerView.NO_POSITION;
+
+    public GroupRealmAdapter(Context context, OrderedRealmCollection<Group> results) {
+        super(results, true);
+        // Only set this if the model class has a primary key that is also a integer or long.
+        // In that case, {@code getItemId(int)} must also be overridden to return the key.
+        setHasStableIds(true);
+
+        mGroups = results;
+        mContext = context;
+    }
+
+    @Override
+    public long getItemId(int index) {
+        //noinspection ConstantConditions
+        return getItem(index).getId();
+    }
 
     public class GroupHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mGroupName, mGroupDescription;
@@ -57,8 +76,8 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupHolder>
             notifyItemChanged(mPosition);
 
             // Код для проброса слушателя
-            if (GroupAdapter.mListener != null) {
-                GroupAdapter.mListener.onItemClick(v, getLayoutPosition(), mGroup, mPosition);
+            if (GroupRealmAdapter.mListener != null) {
+                GroupRealmAdapter.mListener.onItemClick(v, getLayoutPosition(), mGroup, mPosition);
             }
         }
 
@@ -80,19 +99,14 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupHolder>
         }
     }
 
-    public GroupAdapter(Context context, List<Group> groups) {
-        mGroups = groups;
-        mContext = context;
+    @Override
+    public GroupHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View item = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_group, parent, false);
+        return new GroupHolder(item);
     }
 
     @Override
-    public GroupAdapter.GroupHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_group, parent, false);
-        return new GroupAdapter.GroupHolder(v);
-    }
-
-    @Override
-    public void onBindViewHolder(final GroupAdapter.GroupHolder holder, int position) {
+    public void onBindViewHolder(final GroupRealmAdapter.GroupHolder holder, int position) {
         Group group = mGroups.get(position);
         holder.bindGroup(group);
 
@@ -114,19 +128,8 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupHolder>
         void onItemClick(View itemView, int itemPosition, Group group, int selectedPosition);
     }
 
-    public void setOnItemClickListener(GroupAdapter.OnItemClickListener listener) {
+    public void setOnItemClickListener(GroupRealmAdapter.OnItemClickListener listener) {
         mListener = listener;
-    }
-
-    public void addItem(int position, Group group) {
-        mGroups.add(position, group);
-        super.notifyItemInserted(position);
-    }
-
-    public void deleteItem(int position) {
-        mGroups.remove(position);
-        super.notifyItemRemoved(position);
-        resetSelection();
     }
 
     public void resetSelection() {
