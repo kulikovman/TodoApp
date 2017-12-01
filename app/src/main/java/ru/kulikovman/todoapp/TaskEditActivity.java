@@ -263,7 +263,6 @@ public class TaskEditActivity extends AppCompatActivity {
             } else {
                 mTask.setTitle(title);
                 mTask.setTargetDate(task.getTargetDate());
-                mTask.setTargetDateSort(task.getTargetDateSort());
                 mTask.setPriority(task.getPriority());
                 mTask.setGroup(task.getGroup());
                 mTask.setRepeat(task.getRepeat());
