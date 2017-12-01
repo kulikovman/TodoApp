@@ -131,7 +131,7 @@ public class TaskEditActivity extends AppCompatActivity {
         // Устанавливаем дату
         long targetDate = mTask.getTargetDate();
 
-        if (targetDate == 0) {
+        if (targetDate == Long.MAX_VALUE) {
             mDateState.setText(getString(R.string.date_without));
         } else {
             mDateState.setText(convertLongToLongTextDate(targetDate));
@@ -201,8 +201,7 @@ public class TaskEditActivity extends AppCompatActivity {
             if (!date.equals(getString(R.string.date_without))) {
                 task.setTargetDate(convertLongTextDateToLong(date));
             } else {
-                task.setTargetDate(0);
-                task.setTargetDateSort("empty");
+                task.setTargetDate(Long.MAX_VALUE);
             }
 
             // Получаем приоритет

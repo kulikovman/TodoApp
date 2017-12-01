@@ -112,7 +112,7 @@ public class TaskRealmAdapter extends RealmRecyclerViewAdapter<Task, TaskRealmAd
             // Устанавливаем дату
             long targetDate = task.getTargetDate();
 
-            if (targetDate != 0) {
+            if (targetDate != Long.MAX_VALUE) {
                 // Получаем год даты задачи и текущий год
                 Calendar calendar = new GregorianCalendar();
                 calendar.setTimeInMillis(targetDate);
