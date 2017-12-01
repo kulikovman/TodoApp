@@ -9,7 +9,6 @@ public class Task extends RealmObject {
     public static final String PRIORITY = "mPriority";
     public static final String DONE = "mDone";
     public static final String TARGET_DATE = "mTargetDate";
-    public static final String TARGET_DATE_SORT = "mTargetDateSort";
     public static final String COMPLETION_DATE = "mCompletionDate";
     public static final String REPEAT = "mRepeat";
     public static final String REMINDER = "mReminder";
@@ -22,22 +21,10 @@ public class Task extends RealmObject {
     private int mPriority;
     private boolean mDone;
     private long mTargetDate;
-    private String mTargetDateSort = "empty";
     private long mCompletionDate;
     private String mRepeat;
     private boolean mReminder;
     private Group mGroup;
-
-    public Task(long id, String title, int priority, boolean done, long targetDate, long completionDate, String repeat, boolean reminder) {
-        mId = id;
-        mTitle = title;
-        mPriority = priority;
-        mDone = done;
-        mTargetDate = targetDate;
-        mCompletionDate = completionDate;
-        mRepeat = repeat;
-        mReminder = reminder;
-    }
 
     public Task(String title) {
         mId = System.currentTimeMillis();
@@ -86,14 +73,6 @@ public class Task extends RealmObject {
 
     public void setTargetDate(long targetDate) {
         mTargetDate = targetDate;
-    }
-
-    public String getTargetDateSort() {
-        return mTargetDateSort;
-    }
-
-    public void setTargetDateSort(String targetDateSort) {
-        mTargetDateSort = targetDateSort;
     }
 
     public long getCompletionDate() {
