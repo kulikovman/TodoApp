@@ -184,13 +184,9 @@ public class GroupEditActivity extends AppCompatActivity {
     }
 
     private void closeActivity() {
-        // Закрываем открытую транзакцию
+        // Закрываем открытую транзакцию и возращаемся назад
         mRealm.commitTransaction();
-
-        // Удаляем текущий активити из стека и возвращаемся в список групп
-        Intent intent = new Intent(this, GroupListActivity.class);
-        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
+        onBackPressed();
     }
 
     private void showErrorMessage() {

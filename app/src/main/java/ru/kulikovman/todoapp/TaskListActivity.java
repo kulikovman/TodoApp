@@ -251,6 +251,30 @@ public class TaskListActivity extends AppCompatActivity
         mNumberOfTasks.setText(numberOfTasks);
     }*/
 
+    public void fabAddTask(View view) {
+        // Просто открываем активити
+        Intent intent = new Intent(this, TaskEditActivity.class);
+        startActivity(intent);
+    }
+
+    public void fabEditTask(View view) {
+        // Открываем активити редактирования задачи и передаем id задачи
+        Intent intent = new Intent(this, TaskEditActivity.class);
+        intent.putExtra("task_id", mTask.getId());
+        startActivity(intent);
+    }
+
+    public void fabDeleteTask(View view) {
+        mRealm.beginTransaction();
+        mTask.deleteFromRealm();
+        mRealm.commitTransaction();
+
+        // Сопутствующие операции
+        mAdapter.notifyItemRemoved(mPosition);
+        mAdapter.resetSelection();
+        hideActionButtons();
+    }
+
     public void fabDoneTask(View view) {
         String repeat = mTask.getRepeat();
 
@@ -291,32 +315,6 @@ public class TaskListActivity extends AppCompatActivity
         mAdapter.notifyItemRemoved(mPosition);
         mAdapter.resetSelection();
         hideActionButtons();
-    }
-
-    public void fabEditTask(View view) {
-        // Открываем активити редактирования задачи и передаем id задачи
-        Intent intent = new Intent(this, TaskEditActivity.class);
-        intent.putExtra("task_id", mTask.getId());
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-        startActivity(intent);
-    }
-
-    public void fabDeleteTask(View view) {
-        mRealm.beginTransaction();
-        mTask.deleteFromRealm();
-        mRealm.commitTransaction();
-
-        // Сопутствующие операции
-        mAdapter.notifyItemRemoved(mPosition);
-        mAdapter.resetSelection();
-        hideActionButtons();
-    }
-
-    public void fabAddTask(View view) {
-        // Просто открываем активити
-        Intent intent = new Intent(this, TaskEditActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-        startActivity(intent);
     }
 
     /*private void finishAction() {
