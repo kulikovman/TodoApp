@@ -252,12 +252,20 @@ public class TaskListActivity extends AppCompatActivity
     }*/
 
     public void fabAddTask(View view) {
+        // Сопутствующие операции
+        mAdapter.resetSelection();
+        hideActionButtons();
+
         // Просто открываем активити
         Intent intent = new Intent(this, TaskEditActivity.class);
         startActivity(intent);
     }
 
     public void fabEditTask(View view) {
+        // Сопутствующие операции
+        mAdapter.resetSelection();
+        hideActionButtons();
+
         // Открываем активити редактирования задачи и передаем id задачи
         Intent intent = new Intent(this, TaskEditActivity.class);
         intent.putExtra("task_id", mTask.getId());
@@ -270,7 +278,6 @@ public class TaskListActivity extends AppCompatActivity
         mRealm.commitTransaction();
 
         // Сопутствующие операции
-        mAdapter.notifyItemRemoved(mPosition);
         mAdapter.resetSelection();
         hideActionButtons();
     }

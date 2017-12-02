@@ -83,11 +83,19 @@ public class GroupListActivity extends AppCompatActivity implements GroupRealmAd
     }*/
 
     public void fabAddGroup(View view) {
+        // Сопутствующие операции
+        mAdapter.resetSelection();
+        hideActionButtons();
+
         Intent intent = new Intent(this, GroupEditActivity.class);
         startActivity(intent);
     }
 
     public void fabEditGroup(View view) {
+        // Сопутствующие операции
+        mAdapter.resetSelection();
+        hideActionButtons();
+
         // Передаем с интентом имя группы
         Intent intent = new Intent(this, GroupEditActivity.class);
         intent.putExtra("group_id", mGroup.getId());
@@ -100,7 +108,6 @@ public class GroupListActivity extends AppCompatActivity implements GroupRealmAd
         mRealm.commitTransaction();
 
         // Сопутствующие операции
-        mAdapter.notifyItemRemoved(mPosition);
         mAdapter.resetSelection();
         hideActionButtons();
     }
