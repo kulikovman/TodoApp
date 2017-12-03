@@ -31,6 +31,7 @@
     <color name="redButton">#f55d55</color>
     <color name="gray_ripple_selector">#dfdfdf</color>
     <color name="option_button_pressed">#dcdcdc</color>
+    <color name="add_task_button_pressed">#58b443</color>
     <color name="red_date">#ff8080</color>
 
     <color name="colorOptionsIcons">#5ebcff</color>

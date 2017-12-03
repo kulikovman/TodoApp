@@ -57,7 +57,7 @@ public class TaskListActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.test_layout);
+        setContentView(R.layout.test_layout_two);
         Realm.init(this);
 
         // Судя по всему, это код запуска бокового меню и сопутствующих элементов
@@ -84,7 +84,7 @@ public class TaskListActivity extends AppCompatActivity
         /*mDeleteButton = (FloatingActionButton) findViewById(R.id.fab_delete_task);
         mEditButton = (FloatingActionButton) findViewById(R.id.fab_edit_task);
         mDoneButton = (FloatingActionButton) findViewById(R.id.fab_done_task);*/
-        mRecyclerView = (RecyclerView) findViewById(R.id.test_task_list_recycler_view);
+        mRecyclerView = (RecyclerView) findViewById(R.id.test_rw_two);
 
         // Получаем SharedPreferences и восстанавливаем тип списка задач
         /*mSharedPref = getSharedPreferences(getString(R.string.pref_key), Context.MODE_PRIVATE);
