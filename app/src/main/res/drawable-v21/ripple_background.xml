@@ -11,11 +11,11 @@
     <item>
         <selector>
             <item android:state_selected="true">
-                <color android:color="@color/grey_ripple_selector"/>
+                <color android:color="@color/gray_ripple_selector"/>
             </item>
 
             <item android:state_activated="true">
-                <color android:color="@color/grey_ripple_selector"/>
+                <color android:color="@color/gray_ripple_selector"/>
             </item>
 
             <item>

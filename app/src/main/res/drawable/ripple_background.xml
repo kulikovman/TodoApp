@@ -2,7 +2,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_selected="true">
         <shape>
-            <solid android:color="@color/grey_ripple_selector"/>
+            <solid android:color="@color/gray_ripple_selector"/>
         </shape>
     </item>
 

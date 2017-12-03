@@ -29,7 +29,8 @@
     // Дополнительные цвета
     <color name="lightGrey">#d2d2d2</color>
     <color name="redButton">#f55d55</color>
-    <color name="grey_ripple_selector">#dfdfdf</color>
+    <color name="gray_ripple_selector">#dfdfdf</color>
+    <color name="option_button_pressed">#dcdcdc</color>
     <color name="red_date">#ff8080</color>
 
     <color name="colorOptionsIcons">#5ebcff</color>
