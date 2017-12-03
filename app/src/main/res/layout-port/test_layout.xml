@@ -24,6 +24,7 @@
                 android:layout_height="match_parent"
                 android:id="@+id/test_task_list_recycler_view"
                 android:paddingTop="10dp"
+                android:paddingBottom="10dp"
                 android:clipToPadding="false"/>
 
         </LinearLayout>
@@ -50,9 +51,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/gray_2"
+        android:background="@color/gray_4"
         android:minHeight="60dp"
-        android:elevation="3dp"
         android:orientation="horizontal">
 
         <!-- Поле ввода задачи и кнопка с иконкой плюса -->
@@ -65,13 +65,15 @@
             android:layout_weight="1"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:layout_gravity="center"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="6dp"
             android:hint="@string/task_title_hint"
-            android:textColorHint="@color/gray_3"
+            android:textColorHint="@color/gray_4"
             android:textSize="18sp"
             android:inputType="textMultiLine|textCapSentences"/>
 

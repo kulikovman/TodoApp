@@ -57,11 +57,11 @@ public class TaskListActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_task_list);
+        setContentView(R.layout.test_layout);
         Realm.init(this);
 
         // Судя по всему, это код запуска бокового меню и сопутствующих элементов
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        /*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -71,7 +71,7 @@ public class TaskListActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setNavigationItemSelectedListener(this);*/
 
         // Подключаемся к базе данных
         mRealm = Realm.getDefaultInstance();
@@ -81,14 +81,14 @@ public class TaskListActivity extends AppCompatActivity
         mNumberOfTasks = (TextView) header.findViewById(R.id.number_of_tasks);*/
 
         // Инициализируем необходимые вью элементы
-        mDeleteButton = (FloatingActionButton) findViewById(R.id.fab_delete_task);
+        /*mDeleteButton = (FloatingActionButton) findViewById(R.id.fab_delete_task);
         mEditButton = (FloatingActionButton) findViewById(R.id.fab_edit_task);
-        mDoneButton = (FloatingActionButton) findViewById(R.id.fab_done_task);
-        mRecyclerView = (RecyclerView) findViewById(R.id.task_list_recycler_view);
+        mDoneButton = (FloatingActionButton) findViewById(R.id.fab_done_task);*/
+        mRecyclerView = (RecyclerView) findViewById(R.id.test_task_list_recycler_view);
 
         // Получаем SharedPreferences и восстанавливаем тип списка задач
-        mSharedPref = getSharedPreferences(getString(R.string.pref_key), Context.MODE_PRIVATE);
-        mTypeList = mSharedPref.getString(getString(R.string.type_list), getString(R.string.list_unfinished));
+        /*mSharedPref = getSharedPreferences(getString(R.string.pref_key), Context.MODE_PRIVATE);
+        mTypeList = mSharedPref.getString(getString(R.string.type_list), getString(R.string.list_unfinished));*/
 
         // Создаем и запускаем список
         setUpRecyclerView();

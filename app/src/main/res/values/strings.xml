@@ -85,7 +85,7 @@
     <!-- Другие разные строки -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="task_title_hint">Описание задачи…</string>
+    <string name="task_title_hint">Введите описание задачи…</string>
     <string name="group_name_hint">Название группы…</string>
     <string name="group_description_hint">Описание группы…</string>
 
